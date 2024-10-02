@@ -3,11 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
-use Symfony\Component\Process\Process;
-use ZipArchive;
-use Illuminate\Support\Facades\{File, Mail};
 
 class BackupDatabase extends Command
 {
@@ -19,32 +14,22 @@ class BackupDatabase extends Command
         parent::__construct();
     }
 
-    public function handle() {
-        $databaseName = config('database.connections.mysql.database');
-        $username = config('database.connections.mysql.username');
-        $backupPath = storage_path('app/backups');
-        if (!file_exists($backupPath)) {
-            mkdir($backupPath, 0755, true);
-        }
-        $timestamp = now()->format('Ymd_His');
-        $backupFile = "{$backupPath}/backup_{$databaseName}_{$timestamp}.sql";
-        $zipFilePath = "{$backupPath}/backup_{$databaseName}_{$timestamp}.zip";
-        $envPassword = env('DB_PASSWORD');
-        $mysqldumpCommand = [
-            'mysqldump',
-            '-u' . $username,
-            '--password=' . $envPassword,
-            $databaseName,
-        ];
-        $mysqldumpCommandString = implode(' ', $mysqldumpCommand) . ' > ' . escapeshellarg($backupFile);
-        $mysqldumpProcess = Process::fromShellCommandline($mysqldumpCommandString);
-        $mysqldumpProcess->run();
-        if (!$mysqldumpProcess->isSuccessful()) {
-            $this->error('Failed to export the database. ' . $mysqldumpProcess->getErrorOutput());
-            return;
-        }
-        $this->info('Database exported, compressed, and email sent successfully.');
-        $this->info('Backup folder deleted.');
+    public function handle()
+    {
+        $dbHost = env('DB_HOST');
+        $dbName = env('DB_DATABASE');
+        $dbUser = env('DB_USERNAME');
+        $dbPassword = env('DB_PASSWORD');
+        $backupPath = storage_path('backups/' . $dbName . '_' . date('Y-m-d_H-i-s') . '.sql');
+        $command = "mysqldump --user={$dbUser} --password={$dbPassword} --host={$dbHost} {$dbName} > {$backupPath}";
+        $output = null;
+        $resultCode = null;
+        exec($command, $output, $resultCode);
 
+        if ($resultCode === 0) {
+            $this->info('Backup created successfully at: ' . $backupPath);
+        } else {
+            $this->error('Error occurred while creating backup.');
+        }
     }
 }
