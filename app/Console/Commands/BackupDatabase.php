@@ -23,7 +23,6 @@ class BackupDatabase extends Command
         }
         $timestamp = now()->format('Ymd_His');
         $backupFile = "{$backupPath}/backup_{$databaseName}_{$timestamp}.sql";
-        $zipFilePath = "{$backupPath}/backup_{$databaseName}_{$timestamp}.zip";
         $envPassword = env('DB_PASSWORD');
         $mysqldumpCommand = [
             'mysqldump',
