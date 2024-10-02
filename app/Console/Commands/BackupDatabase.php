@@ -15,8 +15,8 @@ class BackupDatabase extends Command
     }
 
     public function handle() {
-        $databaseName = config('database.connections.mysql.database');
-        $username = config('database.connections.mysql.username');
+        $databaseName =  env('DB_DATABASE');
+        $username = env('DB_USERNAME');
         $backupPath = storage_path('app/backups');
         if (!file_exists($backupPath)) {
             mkdir($backupPath, 0755, true);
