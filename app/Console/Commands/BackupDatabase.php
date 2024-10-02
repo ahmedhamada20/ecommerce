@@ -30,7 +30,7 @@ class BackupDatabase extends Command
             '--password=' . $envPassword,
             $databaseName,
         ];
-        $mysqldumpCommandString = implode(' ', $mysqldumpCommand) . ' > ' . escapeshellarg($backupFile);
+        $mysqldumpCommandString = implode(' ', $mysqldumpCommand) . ' > ' . $backupFile;
         $mysqldumpProcess = Process::fromShellCommandline($mysqldumpCommandString);
         $mysqldumpProcess->run();
         if (!$mysqldumpProcess->isSuccessful()) {

@@ -109,7 +109,7 @@ class CustomerAuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 6000,
+            'expires_in' => auth('api')->factory()->getTTL() * 260000,
             'customer' => new CustomerResources(auth('api')->user())
         ]);
     }
