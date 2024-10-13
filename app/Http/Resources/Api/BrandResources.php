@@ -14,9 +14,10 @@ class BrandResources extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $lang = $request->header('language', 'en');
         return [
-            'name_ar' => $this->name_ar,
-            'name_en' => $this->name_en,
+
+            'name' => $lang == "ar" ? $this->name_ar : $this->name_en,
             'image' => asset('storage/brands/'.$this->image),
             'description' => $this->description,
             'create_dates' => [
