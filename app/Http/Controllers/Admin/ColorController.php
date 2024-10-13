@@ -13,7 +13,7 @@ class ColorController extends Controller
 
     public function index()
     {
-        $data =  QueryModelsAll('Color');;
+        $data =  QueryModelsAll('Color')->get();
         return view('admin.color.index', compact('data'));
     }
 

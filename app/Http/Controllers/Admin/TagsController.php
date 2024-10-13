@@ -13,7 +13,7 @@ class TagsController extends Controller
     public function index()
     {
 
-        $data = QueryModelsAll('Tag');
+        $data = QueryModelsAll('Tag')->get();
         return view('admin.tags.index', compact('data'));
     }
 

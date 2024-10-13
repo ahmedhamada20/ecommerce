@@ -17,7 +17,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $data = QueryModelsAll('Brand');
+        $data = QueryModelsAll('Brand')->get();
         return view('admin.brand.index', compact('data'));
     }
 
@@ -76,7 +76,7 @@ class BrandController extends Controller
     {
         try {
             $Brand = Brand::findOrFail($request->id);
-       
+
             if(isset($request->image)){
                 if (isset($request->old_file)){
                     if (file_exists(storage_path('app/public/brands/' . $request->old_file))) {

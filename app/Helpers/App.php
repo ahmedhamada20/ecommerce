@@ -9,6 +9,6 @@ if (!function_exists('QueryModelsAll')) {
         if(!class_exists($data)){
             throw new ModelNotFoundException("Model \"$models\" not found.");
         }
-        return $data::orderByDESC('id')->get();
+        return $data::orderByDESC('id');
     }
 }

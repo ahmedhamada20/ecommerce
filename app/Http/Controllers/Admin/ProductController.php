@@ -10,8 +10,8 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = QueryModelsAll('Product');
-        return view();
+        $data = QueryModelsAll('Product')->paginate(50);
+        return view('admin.products.index',compact('data'));
     }
 
     /**

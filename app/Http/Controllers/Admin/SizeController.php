@@ -12,7 +12,7 @@ class SizeController extends Controller
 {
     public function index()
     {
-        $data =  QueryModelsAll('Size');
+        $data =  QueryModelsAll('Size')->get();
         return view('admin.sizes.index', compact('data'));
     }
 

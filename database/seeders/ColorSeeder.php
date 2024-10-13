@@ -20,7 +20,7 @@ class ColorSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
         for ($i = 1; $i <= 10; $i++) {
             Color::create([
-                'name'=> fake()->rgbColor(),
+                'name'=> fake()->hexColor(),
                 'user_id'=>auth('web')->check() ? auth('web')->user()->id : null,
             ]);
         }
