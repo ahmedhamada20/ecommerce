@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Customer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class CustomerSeeder extends Seeder
 {
@@ -13,6 +15,9 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
+        DB::table('customers')->truncate();
+        Schema::enableForeignKeyConstraints();
         for ($i = 1; $i <= 10; $i++) {
             Customer::create([
                 'name'=>fake()->unique()->name(),

@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    الالوان
+    الكلمات المفتاحية
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
                             <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">اضافه</button>
 {{--                            <button class="btn btn-info btn-sm"> تنزيل اكسل</button>--}}
 {{--                            <button class="btn btn-indigo btn-sm"> طباعه</button>--}}
-                            @include('admin.color.create')
+                            @include('admin.tags.create')
                         </div>
 
                     </div>
@@ -28,7 +28,7 @@
                     <table id="example" class="table table-hover table-centered table-bordered ">
                         <thead class="table-light">
                         <tr>
-                            <th scope="col">اللون</th>
+                            <th scope="col">الاسم</th>
                             <th scope="col">العمليات</th>
                         </tr>
                         </thead>
@@ -36,15 +36,15 @@
                         @foreach($data as $row)
                             <tr>
                                 <td>
-                                    <input type="color" value="{{$row->name}}" readonly class="form-control">
+                                   {{$row->name}}
                                 </td>
 
                                 <td>
                                     <a class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#EditModal{{$row->id}}">تعديل</a>
                                     <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#DeletedModal{{$row->id}}">حذف</a>
                                 </td>
-                                @include('admin.color.edit')
-                                @include('admin.color.deleted')
+                                @include('admin.tags.edit')
+                                @include('admin.tags.deleted')
                             </tr>
                         @endforeach
                         </tbody>

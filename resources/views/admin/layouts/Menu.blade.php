@@ -49,7 +49,11 @@
                             <a class="sub-nav-link" href="{{route('color.index')}}">الالوان</a>
                         </li>
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="category-add.html">الاحجام</a>
+                            <a class="sub-nav-link" href="{{route('sizes.index')}}">الاحجام</a>
+                        </li>
+
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('tags.index')}}">الكلمات المفتاحية</a>
                         </li>
                     </ul>
                 </div>
@@ -66,10 +70,30 @@
                 <div class="collapse" id="sidebarCategory">
                     <ul class="nav sub-navbar-nav">
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="category-list.html">جميع الفئات</a>
+                            <a class="sub-nav-link" href="{{route('category.index')}}">جميع الفئات</a>
                         </li>
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="category-add.html">اضافه جديده</a>
+                            <a class="sub-nav-link" href="{{route('category.create')}}">اضافه جديده</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarBrand" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBrand">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:clipboard-list-bold-duotone"></iconify-icon>
+                                   </span>
+                    <span class="nav-text"> البراند </span>
+                </a>
+                <div class="collapse" id="sidebarBrand">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('brands.index')}}">جميع البراند</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('brands.create')}}">اضافه جديده</a>
                         </li>
                     </ul>
                 </div>

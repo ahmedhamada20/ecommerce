@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sizes', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('icon');
+            $table->string('icon')->nullable();
             $table->boolean('active')->default(true);
             $table->json('columns')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();

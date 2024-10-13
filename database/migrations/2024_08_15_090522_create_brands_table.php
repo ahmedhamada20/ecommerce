@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('icon')->nullable();
+            $table->string('name_ar');
+            $table->string('name_en');
+            $table->string('image')->nullable();
             $table->tinyInteger('count_view')->nullable();
+            $table->boolean('active')->default(true);
+            $table->text('description')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->json('columns')->nullable();
             $table->softDeletes();

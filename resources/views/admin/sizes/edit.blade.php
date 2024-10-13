@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{route('color.update','test')}}" method="post" autocomplete="off">
+                <form action="{{route('sizes.update','test')}}" method="post" autocomplete="off">
                     @csrf
                     @method('PUT')
 
@@ -15,8 +15,8 @@
 
                     <div class="row">
                         <div class="col">
-                            <label> اللون <strong class="text-danger">*</strong></label>
-                            <input type="color" value="{{$row->name}}" name="name" class="form-control" required>
+                            <label> الحجم <strong class="text-danger">*</strong></label>
+                            <input type="text" value="{{$row->name}}" name="name" class="form-control" required>
                         </div>
                     </div>
 

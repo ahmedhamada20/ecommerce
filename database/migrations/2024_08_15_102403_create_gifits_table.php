@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('gifits', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name_ar');
+            $table->string('name_en');
             $table->boolean('publish')->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->json('columns')->nullable();

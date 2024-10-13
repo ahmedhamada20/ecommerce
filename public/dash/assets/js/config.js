@@ -31,7 +31,7 @@
      config.theme = html.getAttribute('data-bs-theme') || defaultConfig.theme;
      config.topbar.color = html.getAttribute('data-topbar-color') || defaultConfig.topbar.color;
      config.menu.color = html.getAttribute('data-menu-color') || defaultConfig.menu.color;
-     config.menu.size = html.getAttribute('data-menu-size') || defaultConfig.menu.size;
+     config.menu.size = html.getAttribute('data-menu-sizes') || defaultConfig.menu.size;
 
      window.defaultConfig = JSON.parse(JSON.stringify(config));
 
@@ -47,9 +47,9 @@
           html.setAttribute("data-menu-color", config.menu.color);
 
           if (window.innerWidth <= 1140) {
-               html.setAttribute("data-menu-size", "hidden");
+               html.setAttribute("data-menu-sizes", "hidden");
           } else {
-               html.setAttribute("data-menu-size", config.menu.size);
+               html.setAttribute("data-menu-sizes", config.menu.size);
           }
      }
 })();
