@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -60,5 +61,13 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function status_products(Request $request)
+    {
+        $yourModel = Product::find($request->id);
+        $yourModel->publish = $request->input('publish');
+        $yourModel->save();
+        return response()->json(['message' => 'تم تحديث الحالة بنجاح']);
     }
 }

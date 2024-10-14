@@ -17,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = QueryModelsAll('Category')->get();;
+        $data = QueryModelsAll('Category')->get();
         return view('admin.category.index', compact('data'));
     }
 

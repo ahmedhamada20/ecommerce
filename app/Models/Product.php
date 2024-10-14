@@ -26,4 +26,27 @@ class Product extends Model
         'features',
         'columns',
     ];
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'products_categories', 'product_id', 'category_id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class,'products_tags','product_id','tag_id');
+    }
+    public function colors()
+    {
+        return $this->belongsToMany(Color::class,'products_colors','product_id','color_id');
+    }
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class,'products_sizes','product_id','size_id');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class,'brand_id');
+    }
 }

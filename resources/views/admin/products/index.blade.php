@@ -60,11 +60,15 @@
                                                id="flexSwitchCheckChecked{{$row->id}}" {{$row->publish == '1' ? 'checked' : ''}}>
                                     </div>
                                 </td>
-                                <td>{{$row->brand_id}}</td>
-                                <td>{{$row->brand_id}}</td>
+                                <td>{{$row->brand->name_ar}}</td>
+                                <td>
+                                    @foreach($row->categories as $category)
+                                        <li>{{$category->name_ar}}</li>
+                                    @endforeach
+                                </td>
 
                                 <td>
-                                    <a class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-info btn-sm"><i class="ti-eye-edit"></i></a>
                                     <a class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
                                     <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#DeletedModal{{$row->id}}">حذف</a>
                                 </td>
@@ -95,7 +99,7 @@
                     "X-CSRF-TOKEN": "{{ csrf_token() }}"
                 },
                 data: {
-                    active: newStatus,
+                    publish: newStatus,
                     id: id
                 },
                 success: function (response) {

@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class CategorySeeder extends Seeder
 {
@@ -15,6 +16,8 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        Storage::deleteDirectory('public/category');
+        Storage::makeDirectory('public/category');
         Schema::disableForeignKeyConstraints();
         DB::table('categories')->truncate();
         Schema::enableForeignKeyConstraints();

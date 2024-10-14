@@ -17,4 +17,11 @@ class CategoryController extends Controller
         return $this->successResponse(CategoryResources::collection($data), 'Return Data Successfully');
 
     }
+
+    public function show($id)
+    {
+        $data = Category::findorfail($id);
+        return $this->successResponse(new CategoryResources($data), 'Return Data Successfully');
+
+    }
 }

@@ -42,6 +42,7 @@ Route::prefix('tags')->group(function () {
 
 Route::prefix('category')->group(function () {
     Route::get('category', [CategoryController::class, 'index']);
+    Route::get('show/{id}', [CategoryController::class, 'show']);
 });
 
 Route::prefix('brands')->group(function () {

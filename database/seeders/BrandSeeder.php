@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class BrandSeeder extends Seeder
 {
@@ -15,6 +16,8 @@ class BrandSeeder extends Seeder
      */
     public function run(): void
     {
+        Storage::deleteDirectory('public/brands');
+        Storage::makeDirectory('public/brands');
         Schema::disableForeignKeyConstraints();
         DB::table('brands')->truncate();
         Schema::enableForeignKeyConstraints();
