@@ -27,7 +27,10 @@
                         <tr>
                             <th scope="col">الاسم بالعربي</th>
                             <th scope="col">الاسم بالانجليزي</th>
+                            <th scope="col">الكميه</th>
                             <th scope="col">متوافر</th>
+{{--                            <th scope="col">السعر قبل الخصم</th>--}}
+                            <th scope="col">السعر</th>
                             <th scope="col">نشط</th>
                             <th scope="col">البراند</th>
                             <th scope="col">الفئه</th>
@@ -39,7 +42,10 @@
                             <tr>
                                 <td>{{$row->name_ar}}</td>
                                 <td>{{$row->name_en}}</td>
-                                <td>{{$row->stock()}}</td>
+                                <td>{{$row->quantity}}</td>
+                                <td>{!!$row->stock()!!}</td>
+{{--                                <td>{{$row->discount_price}}</td>--}}
+                                <td>{{$row->price}}</td>
                                 <td>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input"
@@ -68,8 +74,7 @@
                                 </td>
 
                                 <td>
-                                    <a class="btn btn-info btn-sm"><i class="ti-eye-edit"></i></a>
-                                    <a class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-info btn-sm">تعديل وعرض</a>
                                     <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#DeletedModal{{$row->id}}">حذف</a>
                                 </td>
                             </tr>

@@ -57,11 +57,34 @@ class Product extends Model
     {
         switch ($this->stock) {
             case "1":
-                return "متوافر";
+                return '<span class="badge bg-success">متوافر</span>';
             case "0":
-                return "غير متوافر";
+                return '<span class="badge bg-danger">غير متوافر</span>';
             default:
-                return "غير معروف";
+                return '<span class="badge bg-secondary">غير معروف</span>';
+        }
+    }
+    public function publish()
+    {
+        switch ($this->publish) {
+            case "1":
+                return '<span class="badge bg-success">مفعل</span>';
+            case "0":
+                return '<span class="badge bg-danger">غير مفعل</span>';
+            default:
+                return '<span class="badge bg-secondary">غير معروف</span>';
+        }
+    }
+
+    public function features()
+    {
+        switch ($this->features) {
+            case "1":
+                return '<span class="badge bg-success">مميز</span>';
+            case "0":
+                return '<span class="badge bg-danger">غير مميز</span>';
+            default:
+                return '<span class="badge bg-secondary">غير معروف</span>';
         }
     }
 

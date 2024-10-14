@@ -2,11 +2,12 @@
 
 namespace App\Http\Resources\Api;
 
+use App\Models\Color;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\App;
 
-class CategoryResources extends JsonResource
+class ProductResources extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,9 +20,22 @@ class CategoryResources extends JsonResource
         return [
             'id' => $this->id,
             'name' => $lang == "ar" ? $this->name_ar : $this->name_en,
-            'image' => asset('storage/category/'.$this->image),
+            'slug' => $this->slug,
+            'SKU' => $this->SKU,
+            'discount_price' => $this->discount_price,
+            'price' => $this->price,
+            'quantity' => $this->quantity,
+            'short_description' => $this->short_description,
             'description' => $this->description,
-            'subcategory' => SubCategoryResources::collection($this->parents),
+            'notes' => $this->notes,
+            'stock' => $this->stock(),
+            'publish' => $this->publish(),
+            'brand_id' => new BrandResources($this->brand),
+            'features' => $this->features(),
+            'category'=> CategoryResources::collection($this->categories),
+            'tags'=> TagsResources::collection($this->tags),
+            'colors'=> ColorResources::collection($this->colors),
+            'sizes'=> SizesResources::collection($this->sizes),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
                 'created_at' => $this->created_at->format('y-m-d h:i:s')

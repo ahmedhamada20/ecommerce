@@ -4,9 +4,8 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\App;
 
-class CategoryResources extends JsonResource
+class CategoryProductsResources extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,9 +18,10 @@ class CategoryResources extends JsonResource
         return [
             'id' => $this->id,
             'name' => $lang == "ar" ? $this->name_ar : $this->name_en,
-            'image' => asset('storage/category/'.$this->image),
+            'image' => asset('storage/category/' . $this->image),
             'description' => $this->description,
-            'subcategory' => SubCategoryResources::collection($this->parents),
+            'subcategory' => $this->parent_id ? new SubCategoryResources($this->parents) : null,
+            'products' => ProductResources::collection($this->products),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
                 'created_at' => $this->created_at->format('y-m-d h:i:s')

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Auth\CustomerAuthController;
 use App\Http\Controllers\Api\BrandsController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,8 +44,15 @@ Route::prefix('tags')->group(function () {
 Route::prefix('category')->group(function () {
     Route::get('category', [CategoryController::class, 'index']);
     Route::get('show/{id}', [CategoryController::class, 'show']);
+    Route::get('product/{id}', [CategoryController::class, 'product']);
 });
 
 Route::prefix('brands')->group(function () {
     Route::get('brands', [BrandsController::class, 'index']);
+});
+
+
+Route::prefix('products')->group(function () {
+    Route::get('products', [ProductController::class, 'index']);
+    Route::get('show/{id}', [ProductController::class, 'show']);
 });
