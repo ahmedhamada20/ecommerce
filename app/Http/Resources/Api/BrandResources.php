@@ -16,7 +16,7 @@ class BrandResources extends JsonResource
     {
         $lang = $request->header('language', 'en');
         return [
-
+            'id' => $this->id,
             'name' => $lang == "ar" ? $this->name_ar : $this->name_en,
             'image' => asset('storage/brands/'.$this->image),
             'description' => $this->description,

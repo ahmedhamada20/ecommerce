@@ -39,7 +39,7 @@
                             <tr>
                                 <td>{{$row->name_ar}}</td>
                                 <td>{{$row->name_en}}</td>
-                                <td>{{$row->stock}}</td>
+                                <td>{{$row->stock()}}</td>
                                 <td>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input"

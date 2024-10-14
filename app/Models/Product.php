@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name_ar',
         'name_en',
@@ -34,19 +35,34 @@ class Product extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class,'products_tags','product_id','tag_id');
+        return $this->belongsToMany(Tag::class, 'products_tags', 'product_id', 'tag_id');
     }
+
     public function colors()
     {
-        return $this->belongsToMany(Color::class,'products_colors','product_id','color_id');
+        return $this->belongsToMany(Color::class, 'products_colors', 'product_id', 'color_id');
     }
+
     public function sizes()
     {
-        return $this->belongsToMany(Size::class,'products_sizes','product_id','size_id');
+        return $this->belongsToMany(Size::class, 'products_sizes', 'product_id', 'size_id');
     }
 
     public function brand()
     {
-        return $this->belongsTo(Brand::class,'brand_id');
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
+
+    public function stock()
+    {
+        switch ($this->stock) {
+            case "1":
+                return "متوافر";
+            case "0":
+                return "غير متوافر";
+            default:
+                return "غير معروف";
+        }
+    }
+
 }
