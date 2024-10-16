@@ -20,7 +20,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'categories' => QueryModelsAll('Category')->whereActive(1)->get(),
+            'brand' => QueryModelsAll('Brand')->get(),
+            'colors' => QueryModelsAll('Color')->get(),
+            'sizes' => QueryModelsAll('Size')->get(),
+            'tags' => QueryModelsAll('Tag')->get(),
+        ];
+        return view('admin.products.create',$data);
     }
 
     /**

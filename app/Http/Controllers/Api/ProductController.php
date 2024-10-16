@@ -14,7 +14,7 @@ class ProductController extends Controller
     use ApiResponseTrait;
     public function index()
     {
-        $data = Product::wherePublish(1)->paginate(1);
+        $data = Product::wherePublish(1)->paginate(10);
         $response = [
             'data' => ProductResources::collection($data),
             'pagination' => [
