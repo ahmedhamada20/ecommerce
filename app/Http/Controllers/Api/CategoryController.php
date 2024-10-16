@@ -26,9 +26,14 @@ class CategoryController extends Controller
 
     }
 
-    public function product($id_category)
+    public function product()
     {
-        $data = Category::findorfail($id_category);
+
+        $data = Category::findorfail(request()->id);
+        if (!$data){
+            return $this->errorResponse( 'data Error not found !!',404);
+
+        }
         return $this->successResponse(new CategoryProductsResources($data), 'Return Data Successfully');
 
     }

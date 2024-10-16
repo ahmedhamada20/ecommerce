@@ -35,7 +35,7 @@ class ProductController extends Controller
     }
 
 
-    public function show($id)
+    public function show()
     {
         $data = Product::findorfail(\request()->id);
         if (!$data){
