@@ -42,7 +42,7 @@
                             <tr>
                                 <td>{{$row->name_ar}}</td>
                                 <td>{{$row->name_en}}</td>
-                                <td>{{$row->quantity}}</td>
+                                <td>{!! alert_quantity($row->quantity)!!}</td>
                                 <td>{!!$row->stock()!!}</td>
 {{--                                <td>{{$row->discount_price}}</td>--}}
                                 <td>{{$row->price}}</td>
