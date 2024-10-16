@@ -37,7 +37,11 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $data = Product::findorfail($id);
+        $data = Product::findorfail(\request()->id);
+        if (!$data){
+            return $this->errorResponse( 'data Error not found !!',404);
+
+        }
         return $this->successResponse(new ProductResources($data), 'Return Data Successfully');
     }
 
