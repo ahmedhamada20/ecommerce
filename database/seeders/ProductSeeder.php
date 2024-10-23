@@ -28,7 +28,7 @@ class ProductSeeder extends Seeder
         $sizes = QueryModelsAll('Size')->get();
 
         $products = [];
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $products[] = Product::create([
                 'name_ar'=> fake()->name(),
                 'name_en'=> fake()->name(),

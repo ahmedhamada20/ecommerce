@@ -18,7 +18,7 @@ class CustomerSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         DB::table('customers')->truncate();
         Schema::enableForeignKeyConstraints();
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
             Customer::create([
                 'name'=>fake()->unique()->name(),
                 'phone'=>fake()->phoneNumber(),

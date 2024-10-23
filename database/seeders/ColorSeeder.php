@@ -18,7 +18,7 @@ class ColorSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         DB::table('colors')->truncate();
         Schema::enableForeignKeyConstraints();
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
             Color::create([
                 'name'=> fake()->hexColor(),
                 'user_id'=>auth('web')->check() ? auth('web')->user()->id : null,
