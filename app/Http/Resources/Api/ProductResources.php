@@ -2,8 +2,6 @@
 
 namespace App\Http\Resources\Api;
 
-use App\Models\Color;
-use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -36,6 +34,7 @@ class ProductResources extends JsonResource
             'tags' => TagsResources::collection($this->tags) ?? null,
             'colors' => ColorResources::collection($this->colors) ?? null,
             'sizes' => SizesResources::collection($this->sizes) ?? null,
+            'photos' => PhotoResources::collection($this->photos) ?? null,
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
                 'created_at' => $this->created_at->format('y-m-d h:i:s')

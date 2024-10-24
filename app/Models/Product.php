@@ -53,6 +53,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, 'photoable');
+    }
+
     public function stock()
     {
         switch ($this->stock) {

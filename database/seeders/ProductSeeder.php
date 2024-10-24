@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Photo;
 use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -30,8 +31,8 @@ class ProductSeeder extends Seeder
         $products = [];
         for ($i = 0; $i < 10; $i++) {
             $products[] = Product::create([
-                'name_ar'=> fake()->name(),
-                'name_en'=> fake()->name(),
+                'name_ar' => fake()->name(),
+                'name_en' => fake()->name(),
                 'slug' => fake()->slug(),
                 'SKU' => fake()->unique()->bothify('???-#####'),
                 'discount_price' => fake()->randomFloat(2, 10, 100),
@@ -64,7 +65,14 @@ class ProductSeeder extends Seeder
             $product->sizes()->attach(
                 $sizes->random(rand(1, 3))->pluck('id')->toArray()
             );
+
+            for ($j = 0; $j < rand(1, 5); $j++) {
+                Photo::create([
+                    'Filename' => fake()->image('public/storage/products', 640, 480, null, false),
+                    'photoable_id' => $product->id,
+                    'photoable_type' => Product::class,
+                ]);
+            }
         }
     }
-
 }
