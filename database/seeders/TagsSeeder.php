@@ -18,7 +18,7 @@ class TagsSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         DB::table('tags')->truncate();
         Schema::enableForeignKeyConstraints();
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             Tag::create([
                 'name' => fake()->word(),
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
