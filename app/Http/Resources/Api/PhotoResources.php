@@ -16,7 +16,7 @@ class PhotoResources extends JsonResource
     {
         return [
             'id' => $this->id,
-            'Filename' => asset('storage/products'.$this->Filename),
+            'Filename' => asset('storage/products/'.$this->Filename),
             'photoable_type' => $this->photoable_type,
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
