@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Photo;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
@@ -12,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         $data = QueryModelsAll('Product')->paginate(50);
-        return view('admin.products.index',compact('data'));
+        return view('admin.products.index', compact('data'));
     }
 
     /**
@@ -27,7 +30,7 @@ class ProductController extends Controller
             'sizes' => QueryModelsAll('Size')->get(),
             'tags' => QueryModelsAll('Tag')->get(),
         ];
-        return view('admin.products.create',$data);
+        return view('admin.products.create', $data);
     }
 
     /**
@@ -35,7 +38,51 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+//        dd($request->all());
+        try {
+            DB::beginTransaction();
+            $data = Product::create([
+                'name_ar' => $request->name_ar,
+                'name_en' => $request->name_en,
+                'brand_id' => $request->brand_id,
+                'short_description' => $request->short_description,
+                'description' => $request->description,
+                'notes' => $request->notes,
+                'SKU' => $request->SKU,
+                'slug' => str_replace(' ', '_', $request->name_ar) . str_replace(' ', '_', $request->name_en),
+                'quantity' => $request->quantity,
+                'price' => $request->price,
+                'discount_price' => $request->discount,
+                'features' => true,
+                'publish' => true,
+                'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
+            ]);
+            if ($data){
+                $data->categories()->attach($request->category_id);
+                $data->tags()->attach($request->tags);
+                $data->sizes()->attach($request->size);
+                $data->colors()->attach($request->color);
+
+                foreach ($request->FilenameMany as $photo){
+                    $path = $photo->store('products','public');
+                    $image = new Photo();
+                    $image->Filename = $path;
+                    $image->photoable_id = $data->id;
+                    $image->photoable_type = Product::class;
+                    $image->save();
+                }
+            }
+
+
+
+            Session::flash('message', config('app.messages'));
+            Session::flash('alert-class', 'alert-success');
+            DB::commit();
+            return redirect()->back();
+        } catch (\Exception $exception) {
+            DB::commit();
+        }
     }
 
     /**
