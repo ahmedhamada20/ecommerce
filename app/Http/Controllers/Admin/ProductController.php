@@ -39,7 +39,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-//        dd($request->all());
+//        dd(json_encode($request->columns));
         try {
             DB::beginTransaction();
             $data = Product::create([
@@ -57,6 +57,7 @@ class ProductController extends Controller
                 'features' => true,
                 'publish' => true,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
+                'columns' => json_encode($request->columns)
             ]);
             if ($data){
                 $data->categories()->attach($request->category_id);
