@@ -61,9 +61,6 @@
                                         </label>
                                         <span id="statusText{{$row->id}}"
                                               style="font-size: 13px">{{$row->publish == '1' ? 'نشط' : 'غير نشط'}} </span>
-                                        <input class="form-check-input"
-                                               onchange="toggleStatus({{$row->id}}, '{{$row->publish}}')" type="checkbox"
-                                               id="flexSwitchCheckChecked{{$row->id}}" {{$row->publish == '1' ? 'checked' : ''}}>
                                     </div>
                                 </td>
                                 <td>{{$row->brand->name_ar}}</td>
@@ -101,9 +98,7 @@
 
     <script>
         function toggleStatus(id, currentStatus) {
-
             var newStatus = currentStatus === '1' ? '1' : '0';
-
 
             $.ajax({
                 url: "{{ route('status_products') }}",
@@ -118,7 +113,7 @@
                 success: function (response) {
                     var statusIcon = document.getElementById('statusIcon' + id);
                     var statusText = document.getElementById('statusText' + id);
-                    var checkbox = document.getElementById('flexSwitchCheckChecked' + id);
+                    var checkbox = document.getElementById('flexSwitchCheckDefault' + id);
 
                     if (newStatus === '1') {
                         statusIcon.classList.remove('fa-toggle-off');
@@ -149,8 +144,6 @@
                 }
             });
         }
-
-
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
