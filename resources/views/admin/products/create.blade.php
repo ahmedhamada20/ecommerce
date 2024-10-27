@@ -160,7 +160,7 @@
                                         <div class="mb-3">
                                             <label for="notes" class="form-label">معلومات اضافيه</label>
                                             <textarea required class="form-control bg-light-subtle" id="notes" rows="7"
-                                                      name="additional" placeholder="معلومات اضافيه"></textarea>
+                                                      name="columns[additional]" placeholder="معلومات اضافيه"></textarea>
                                         </div>
                                     </div>
                                 </div>
