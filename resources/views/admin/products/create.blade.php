@@ -155,6 +155,16 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="notes" class="form-label">معلومات اضافيه</label>
+                                            <textarea required class="form-control bg-light-subtle" id="notes" rows="7"
+                                                      name="additional" placeholder="معلومات اضافيه"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- SKU, Quantity, and Tags -->
                                 <div class="row">
                                     <div class="col-lg-4">

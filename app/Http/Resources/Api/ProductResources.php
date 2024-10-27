@@ -27,6 +27,7 @@ class ProductResources extends JsonResource
             'description' => $this->description,
             'notes' => $this->notes,
             'video' => isset($this->columns) ? json_decode($this->columns)->video : '' ,
+            'additional' => isset($this->columns) ? json_decode($this->columns)->additional : '' ,
             'stock' => $this->stock(),
             'publish' => $this->publish(),
             'brand_id' => new BrandResources($this->brand) ?? null,
