@@ -34,4 +34,5 @@ Route::resource('brands',BrandController::class);
 Route::post('status_Brand', [BrandController::class, 'status_Brand'])->name('status_Brand');
 Route::resource('products',ProductController::class);
 Route::post('status_products', [ProductController::class, 'status_products'])->name('status_products');
+Route::post('add_quantity', [ProductController::class, 'addQuantity'])->name('add_quantity');
 

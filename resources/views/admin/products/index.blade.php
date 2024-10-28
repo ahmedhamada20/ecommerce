@@ -76,13 +76,16 @@
                                            العمليات
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="#">تعديل</a></li>
-                                            <li><a class="dropdown-item" href="#">اضافه كميه</a></li>
-                                            <li><a class="dropdown-item" href="#">حذف</a></li>
+                                            <li><a class="dropdown-item" href="{{route('products.edit',$row->id)}}">تعديل</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addQuantity{{$row->id}}">اضافه كميه</a></li>
+                                            <li><a class="dropdown-item" href="#" >اضافه صوره لكل لون</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#DeletedModal{{$row->id}}">حذف</a></li>
                                         </ul>
                                     </div>
                                 </td>
                             </tr>
+                            @include('admin.products.deleted')
+                            @include('admin.products.addQuantity')
                         @endforeach
                         </tbody>
                     </table>
