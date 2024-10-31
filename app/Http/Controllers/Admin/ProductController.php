@@ -252,8 +252,8 @@ class ProductController extends Controller
             $productId = $validated['id'];
 
             foreach ($validated['colors'] as $index => $colorId) {
-                if (isset($validated['images'][$colorId]) && isset($validated['quantities'][$index])) {
-                    $quantity = $validated['quantities'][$index];
+                if (isset($validated['images'][$colorId])) {
+//                    $quantity = $validated['quantities'][$index];
                     foreach ($validated['images'][$colorId] as $image) {
                         $imagePath = $image->store('product_images');
                         ProductColorImage::create([
