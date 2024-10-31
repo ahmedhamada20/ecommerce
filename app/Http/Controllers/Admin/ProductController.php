@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Photo;
 use App\Models\Product;
+use App\Models\ProductColorImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -96,7 +97,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = Product::findorfail($id);
+        return view('admin.products.image_color',compact('data'));
     }
 
     /**
@@ -231,6 +233,46 @@ class ProductController extends Controller
         Session::flash('message', config('app.addQuantity'));
         Session::flash('alert-class', 'alert-success');
         return redirect()->back();
+    }
+
+    public function add_image_color_products(Request $request)
+    {
+
+        try {
+            $validated = $request->validate([
+                'id' => 'required|exists:products,id',
+                'images' => 'required|array',
+                'images.*.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+                'colors' => 'required|array',
+                'colors.*' => 'exists:colors,id',
+                'quantities' => 'nullable|array',
+                'quantities.*' => 'integer|min:1'
+            ]);
+
+            $productId = $validated['id'];
+
+            foreach ($validated['colors'] as $index => $colorId) {
+                if (isset($validated['images'][$colorId]) && isset($validated['quantities'][$index])) {
+                    $quantity = $validated['quantities'][$index];
+                    foreach ($validated['images'][$colorId] as $image) {
+                        $imagePath = $image->store('product_images');
+                        ProductColorImage::create([
+                            'product_id' => $productId,
+                            'color_id' => $colorId,
+                            'image_path' => $imagePath,
+                            'quantity' => 1
+                        ]);
+                    }
+                }
+            }
+
+            Session::flash('message', config('app.addImages'));
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->back();
+
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
+        }
     }
 
 }

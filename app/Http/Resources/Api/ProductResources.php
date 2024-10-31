@@ -35,6 +35,19 @@ class ProductResources extends JsonResource
             'category' => CategoryResources::collection($this->categories) ?? null,
             'tags' => TagsResources::collection($this->tags) ?? null,
             'colors' => ColorResources::collection($this->colors) ?? null,
+            'productColorImages' => $this->productColorImage
+                ->where('product_id', $this->id)
+                ->groupBy('color_id')
+                ->map(function($images) {
+                    return [
+                        'color' => new ColorResources($images->first()->color),
+                        'images' => $images->map(function ($image) {
+                            return [
+                                'image_path' => asset('storage/' . $image->image_path),
+                            ];
+                        })
+                    ];
+                })->toArray(),
             'sizes' => SizesResources::collection($this->sizes) ?? null,
             'photos' => PhotoResources::collection($this->photos) ?? null,
             'create_dates' => [

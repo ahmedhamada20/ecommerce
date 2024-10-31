@@ -58,6 +58,10 @@ class Product extends Model
     {
         return $this->morphMany(Photo::class, 'photoable');
     }
+    public function productColorImage()
+    {
+        return $this->hasMany(ProductColorImage::class, 'product_id');
+    }
 
     public function stock()
     {

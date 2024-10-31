@@ -22,4 +22,8 @@ class Color extends Model
     {
         return $this->belongsTo(User::class,'user_id');
     }
+    public function productColorImage()
+    {
+        return $this->hasMany(ProductColorImage::class,'color_id');
+    }
 }
