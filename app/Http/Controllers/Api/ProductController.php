@@ -56,7 +56,10 @@ class ProductController extends Controller
             ->select('order_details.product_id', \DB::raw('COUNT(order_details.product_id) as sales_count'))
             ->orderByDesc('sales_count')
             ->take(10)
-            ->get();
+            ->pluck('product_id');
+
+        $data = Product::whereIn('id',$topProducts)->wherePublish(1)->get();
+        return $this->successResponse(ProductResources::collection($data), 'Return Data Successfully');
     }
 
 }
