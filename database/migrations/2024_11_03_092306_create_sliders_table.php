@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('description_ar');
             $table->string('description_en');
             $table->string('photo',350);
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->json('columns')->nullable();
             $table->string('date')->nullable();
             $table->softDeletes();
