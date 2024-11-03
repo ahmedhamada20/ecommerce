@@ -61,4 +61,19 @@ class ProductController extends Controller
         return $this->successResponse(ProductResources::collection($data), 'Return Data Successfully');
     }
 
+    public function product_month()
+    {
+        $topProducts = \DB::table('order_details')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->where('orders.status', 'completed')
+            ->where('orders.created_at', '>=', Carbon::now()->startOfMonth())
+            ->groupBy('order_details.product_id')
+            ->select('order_details.product_id', \DB::raw('COUNT(order_details.product_id) as sales_count'))
+            ->orderByDesc('sales_count')
+            ->take(15)
+            ->pluck('product_id');
+        $data = Product::whereIn('id',$topProducts)->wherePublish(1)->get();
+        return $this->successResponse(ProductResources::collection($data), 'Return Data Successfully');
+    }
+
 }

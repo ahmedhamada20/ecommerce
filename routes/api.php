@@ -58,6 +58,7 @@ Route::prefix('products')->group(function () {
     Route::get('products', [ProductController::class, 'index']);
     Route::get('show/{id}', [ProductController::class, 'show']);
     Route::get('product_week', [ProductController::class, 'product_week']);
+    Route::get('product_month', [ProductController::class, 'product_month']);
 });
 
 
