@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BrandsController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\SlidersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -55,4 +56,10 @@ Route::prefix('brands')->group(function () {
 Route::prefix('products')->group(function () {
     Route::get('products', [ProductController::class, 'index']);
     Route::get('show/{id}', [ProductController::class, 'show']);
+});
+
+
+Route::prefix('sliders')->group(function () {
+    Route::get('sliders', [SlidersController::class, 'index']);
+    Route::get('show/{id}', [SlidersController::class, 'show']);
 });
