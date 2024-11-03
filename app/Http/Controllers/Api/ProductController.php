@@ -57,7 +57,6 @@ class ProductController extends Controller
             ->orderByDesc('sales_count')
             ->take(10)
             ->pluck('product_id');
-
         $data = Product::whereIn('id',$topProducts)->wherePublish(1)->get();
         return $this->successResponse(ProductResources::collection($data), 'Return Data Successfully');
     }
