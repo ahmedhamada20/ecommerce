@@ -14,12 +14,11 @@ class SilderResources extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $lang = $request->header('language', 'en');
         return [
             'id' => $this->id,
-            'title_ar' => $this->title_ar,
-            'title_en' => $this->title_en,
-            'description_ar' => $this->description_ar,
-            'description_en' => $this->description_en,
+            'title' => $lang == "ar" ? $this->title_ar : $this->title_en,
+            'description' => $lang == "ar" ? $this->description_ar : $this->description_en,
             'photo' => asset('storage/sliders/'.$this->photo),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),

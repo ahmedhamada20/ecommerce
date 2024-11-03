@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\ProductResources;
 use App\Models\Product;
 use App\Traits\ApiResponseTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -43,6 +44,19 @@ class ProductController extends Controller
 
         }
         return $this->successResponse(new ProductResources($data), 'Return Data Successfully');
+    }
+
+    public function product_week()
+    {
+        $topProducts = \DB::table('order_details')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->where('orders.status', 'completed')
+            ->where('orders.created_at', '>=', Carbon::now()->startOfWeek())
+            ->groupBy('order_details.product_id')
+            ->select('order_details.product_id', \DB::raw('COUNT(order_details.product_id) as sales_count'))
+            ->orderByDesc('sales_count')
+            ->take(10)
+            ->get();
     }
 
 }
