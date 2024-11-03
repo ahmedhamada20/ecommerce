@@ -78,5 +78,25 @@ class ProductController extends Controller
 
 
     }
+    public function product_last_month()
+    {
+        $topProductLastTwoMonths = \DB::table('order_details')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->where('orders.status', 'completed')
+            ->where('orders.created_at', '>=', Carbon::now()->subMonths(2)->startOfMonth()) // بداية الشهر قبل شهرين
+            ->groupBy('order_details.product_id')
+            ->select('order_details.product_id', \DB::raw('COUNT(order_details.product_id) as sales_count'))
+            ->orderByDesc('sales_count')
+            ->first();
+
+        if ($topProductLastTwoMonths) {
+            $product = Product::find($topProductLastTwoMonths->product_id);
+            return $this->successResponse(new ProductResources($product), 'Date return success');
+        } else {
+            return $this->errorResponse('no product', 404);
+        }
+
+
+    }
 
 }
