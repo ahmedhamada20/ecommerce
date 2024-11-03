@@ -70,10 +70,13 @@ class ProductController extends Controller
             ->groupBy('order_details.product_id')
             ->select('order_details.product_id', \DB::raw('COUNT(order_details.product_id) as sales_count'))
             ->orderByDesc('sales_count')
-            ->take(15)
+            ->take(10)
             ->pluck('product_id');
-        $data = Product::whereIn('id',$topProducts)->wherePublish(1)->get();
+
+        $data = Product::whereIn('id', $topProducts)->wherePublish(1)->get();
         return $this->successResponse(ProductResources::collection($data), 'Return Data Successfully');
+
+
     }
 
 }
