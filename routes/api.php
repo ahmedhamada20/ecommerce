@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\CustomerAuthController;
+use App\Http\Controllers\Api\BlogsController;
 use App\Http\Controllers\Api\BrandsController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
@@ -63,4 +64,10 @@ Route::prefix('products')->group(function () {
 Route::prefix('sliders')->group(function () {
     Route::get('sliders', [SlidersController::class, 'index']);
     Route::get('show/{id}', [SlidersController::class, 'show']);
+});
+
+
+Route::prefix('blogs')->group(function () {
+    Route::get('blogs', [BlogsController::class, 'index']);
+    Route::get('show/{id}', [BlogsController::class, 'show']);
 });

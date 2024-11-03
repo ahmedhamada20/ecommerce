@@ -22,7 +22,7 @@ class SlidersController extends Controller
     public function show($id)
     {
         $data = Slider::find($id);
-        return $this->successResponse(SilderResources::collection($data), 'Return Data Successfully');
+        return $this->successResponse(new SilderResources($data), 'Return Data Successfully');
 
     }
 
