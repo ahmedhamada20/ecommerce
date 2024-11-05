@@ -101,7 +101,7 @@ class ProductController extends Controller
     public function filter_product(Request $request)
     {
 
-        $query = Product::with(['categories', 'tags', 'colors', 'sizes'])
+        $query = Product::with(relations: ['categories', 'tags', 'colors', 'sizes'])
         ->where('publish', 1);
         if ($request->has('categories') && is_array($request->categories)) {
             $query->whereHas('categories', function ($q) use ($request) {
@@ -132,6 +132,56 @@ class ProductController extends Controller
         if ($request->has('brand_id')) {
             $query->where('brand_id', $request->brand_id);
         }
+        $products = $query->paginate(10);
+        $response = [
+            'data' => ProductResources::collection($products),
+            'pagination' => [
+                'total' => $products->total(),
+                'per_page' => $products->perPage(),
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+                'first_page_url' => $products->url(1),
+                'last_page_url' => $products->url($products->lastPage()),
+                'next_page_url' => $products->nextPageUrl(),
+                'path' => $products->path(),
+                'from' => $products->firstItem(),
+                'to' => $products->lastItem()
+            ]
+        ];
+        return $this->successResponse(data: $response, message: 'Return Data Successfully');
+
+    }
+
+
+    public function sort_product(Request $request) {
+        $query = Product::with(relations: ['categories', 'tags', 'colors', 'sizes']);
+
+        if ($request->has('sort_by')) {
+            switch ($request->sort_by) {
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'latest':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                case 'oldest':
+                    $query->orderBy('created_at', 'asc');
+                    break;
+                case 'featured':
+                    $query->orderBy('is_featured', 'desc');
+                    break;
+                case 'name_asc':
+                    $query->orderBy('name', 'asc');
+                    break;
+                case 'name_desc':
+                    $query->orderBy('name', 'desc');
+                    break;
+            }
+        }
+
         $products = $query->paginate(10);
         $response = [
             'data' => ProductResources::collection($products),
