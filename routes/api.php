@@ -31,6 +31,12 @@ Route::prefix('auth')->group(function () {
     Route::post('editProfile', [CustomerAuthController::class, 'editProfile']);
 });
 
+Route::prefix('galleries')->group(function () {
+    Route::get('galleries', [SettingController::class, 'galleries']);
+});
+Route::prefix('partners')->group(function () {
+    Route::get('partners', [SettingController::class, 'partners']);
+});
 Route::prefix('info')->group(function () {
     Route::get('info', [SettingController::class, 'info']);
 });
