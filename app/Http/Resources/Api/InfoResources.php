@@ -17,7 +17,7 @@ class InfoResources extends JsonResource
         return [
             "id"=> $this->id,
             'name' => $this->name,
-            'logo' => $this->logo,
+            'logo' =>asset('storage/info/'.$this->logo),
             'phone' => $this->phone,
             'phone_1' => $this->phone_1,
             'phone_2' => $this->phone_2,
@@ -26,14 +26,14 @@ class InfoResources extends JsonResource
             'fb_link' => $this->fb_link,
             'tw_link' => $this->tw_link,
             'in_link' => $this->in_link,
-            'payment_logo' => $this->payment_logo,
+            'payment_logo' => asset('storage/info/'.$this->payment_logo),
             'home_open_logo_new' => $this->home_open_logo_new,
             'home_tilte_logo_new' => $this->home_tilte_logo_new,
             'home_title_products_1' => $this->home_title_products_1,
             'notes_title_products_1' => $this->notes_title_products_1,
             'home_title_products_2' => $this->home_title_products_2,
             'notes_title_products_2' => $this->notes_title_products_2,
-            'partners_logo' => $this->partners_logo,
+            'partners_logo' => asset('storage/info/'.$this->partners_logo),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
                 'created_at' => $this->created_at->format('y-m-d h:i:s')
