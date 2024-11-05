@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'tw_link' => fake()->url(),
             'in_link' => fake()->url(),
             'payment_logo' => fake()->image('public/storage/info', 640, 480, null, false),
-            'home_open_logo_new' => fake()->title(),
+            'home_open_logo_new' => fake()->image('public/storage/info', 640, 480, null, false),,
             'home_tilte_logo_new' => fake()->title(),
             'home_title_products_1' => fake()->title(),
             'notes_title_products_1' => fake()->title(),

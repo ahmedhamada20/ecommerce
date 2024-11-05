@@ -27,7 +27,7 @@ class InfoResources extends JsonResource
             'tw_link' => $this->tw_link,
             'in_link' => $this->in_link,
             'payment_logo' => asset('storage/info/'.$this->payment_logo),
-            'home_open_logo_new' => $this->home_open_logo_new,
+            'home_open_logo_new' =>  asset('storage/info/'.$this->home_open_logo_new),
             'home_tilte_logo_new' => $this->home_tilte_logo_new,
             'home_title_products_1' => $this->home_title_products_1,
             'notes_title_products_1' => $this->notes_title_products_1,
