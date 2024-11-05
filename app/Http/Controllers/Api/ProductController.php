@@ -31,7 +31,7 @@ class ProductController extends Controller
                 'to' => $data->lastItem()
             ]
         ];
-        return $this->successResponse($response, 'Return Data Successfully');
+        return $this->successResponse(data: $response, message: 'Return Data Successfully');
 
     }
 
@@ -39,9 +39,8 @@ class ProductController extends Controller
     public function show()
     {
         $data = Product::findorfail(\request()->id);
-        if (!$data){
-            return $this->errorResponse( 'data Error not found !!',404);
-
+        if (!$data) {
+            return $this->errorResponse('data Error not found !!', 404);
         }
         return $this->successResponse(new ProductResources($data), 'Return Data Successfully');
     }
@@ -57,8 +56,10 @@ class ProductController extends Controller
             ->orderByDesc('sales_count')
             ->take(15)
             ->pluck('product_id');
-        $data = Product::whereIn('id',$topProducts)->wherePublish(1)->get();
-        return $this->successResponse(ProductResources::collection($data), 'Return Data Successfully');
+        $data = Product::whereIn('id', $topProducts)->wherePublish(1)->get();
+        // return $this->successResponse(data: ProductResources::collection($data), 'Return Data Successfully');
+        return $this->successResponse(data: ProductResources::collection($data), message: 'Return Data Successfully');
+
     }
 
     public function product_month()
@@ -74,9 +75,7 @@ class ProductController extends Controller
             ->pluck('product_id');
 
         $data = Product::whereIn('id', $topProducts)->wherePublish(1)->get();
-        return $this->successResponse(ProductResources::collection($data), 'Return Data Successfully');
-
-
+        return $this->successResponse(data: ProductResources::collection($data), message: 'Return Data Successfully');
     }
     public function product_last_month()
     {
@@ -91,12 +90,65 @@ class ProductController extends Controller
 
         if ($topProductLastTwoMonths) {
             $product = Product::find($topProductLastTwoMonths->product_id);
-            return $this->successResponse(new ProductResources($product), 'Date return success');
+            return $this->successResponse(data: new ProductResources($product), message: 'Return Data Successfully');
+
         } else {
             return $this->errorResponse('no product', 404);
         }
-
-
     }
 
+
+    public function filter_product(Request $request)
+    {
+
+        $query = Product::with(['categories', 'tags', 'colors', 'sizes'])
+        ->where('publish', 1);
+        if ($request->has('categories') && is_array($request->categories)) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->whereIn('category_id', $request->categories);
+            });
+        }
+        if ($request->has('tags') && is_array($request->tags)) {
+            $query->whereHas('tags', function ($q) use ($request) {
+                $q->whereIn('tag_id', $request->tags);
+            });
+        }
+        if ($request->has('colors') && is_array($request->colors)) {
+            $query->whereHas('colors', function ($q) use ($request) {
+                $q->whereIn('color_id', $request->colors);
+            });
+        }
+        if ($request->has('sizes') && is_array($request->sizes)) {
+            $query->whereHas('sizes', function ($q) use ($request) {
+                $q->whereIn('size_id', $request->sizes);
+            });
+        }
+        if ($request->has('min_price') && $request->has('max_price')) {
+            $query->whereBetween('price', [$request->min_price, $request->max_price]);
+        }
+        if ($request->has('in_stock')) {
+            $query->where('in_stock', $request->in_stock);
+        }
+        if ($request->has('brand_id')) {
+            $query->where('brand_id', $request->brand_id);
+        }
+        $products = $query->paginate(10);
+        $response = [
+            'data' => ProductResources::collection($products),
+            'pagination' => [
+                'total' => $products->total(),
+                'per_page' => $products->perPage(),
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+                'first_page_url' => $products->url(1),
+                'last_page_url' => $products->url($products->lastPage()),
+                'next_page_url' => $products->nextPageUrl(),
+                'path' => $products->path(),
+                'from' => $products->firstItem(),
+                'to' => $products->lastItem()
+            ]
+        ];
+        return $this->successResponse(data: $response, message: 'Return Data Successfully');
+
+    }
 }

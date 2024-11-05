@@ -64,6 +64,7 @@ Route::prefix('products')->group(function () {
     Route::get('product_week', [ProductController::class, 'product_week']);
     Route::get('product_month', [ProductController::class, 'product_month']);
     Route::get('product_last_month', [ProductController::class, 'product_last_month']);
+    Route::get('filter_product', [ProductController::class, 'filter_product']);
 });
 
 
