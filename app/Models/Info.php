@@ -9,10 +9,24 @@ class Info extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'name',
+        'logo',
         'phone',
+        'phone_1',
+        'phone_2',
+        'phone_3',
+        'phone_4',
         'fb_link',
         'tw_link',
         'in_link',
+        'payment_logo',
+        'home_open_logo_new',
+        'home_tilte_logo_new',
+        'home_title_products_1',
+        'notes_title_products_1',
+        'home_title_products_2',
+        'notes_title_products_2',
+        'partners_logo',
         'columns',
     ];
 }

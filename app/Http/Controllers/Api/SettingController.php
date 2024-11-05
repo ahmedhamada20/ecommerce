@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\ColorResources;
 use App\Http\Resources\Api\SizesResources;
 use App\Http\Resources\Api\TagsResources;
+use App\Http\Resources\Api\InfoResources;
 use App\Models\Color;
+use App\Models\Info;
 use App\Models\Size;
 use App\Models\Tag;
 use App\Traits\ApiResponseTrait;
@@ -33,5 +35,12 @@ class SettingController extends Controller
         $data = Tag::get();
         return $this->successResponse(TagsResources::collection($data), 'Return Data Successfully');
 
+    }
+
+
+    public function info()
+    {
+        $data = Info::first();
+        return $this->successResponse(new InfoResources($data),'date reutrn success');
     }
 }

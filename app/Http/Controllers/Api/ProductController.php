@@ -83,7 +83,7 @@ class ProductController extends Controller
         $topProductLastTwoMonths = \DB::table('order_details')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->where('orders.status', 'completed')
-            ->where('orders.created_at', '>=', Carbon::now()->subMonths(2)->startOfMonth()) // بداية الشهر قبل شهرين
+            ->where('orders.created_at', '>=', Carbon::now()->subMonths(2)->startOfMonth())
             ->groupBy('order_details.product_id')
             ->select('order_details.product_id', \DB::raw('COUNT(order_details.product_id) as sales_count'))
             ->orderByDesc('sales_count')

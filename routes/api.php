@@ -31,6 +31,10 @@ Route::prefix('auth')->group(function () {
     Route::post('editProfile', [CustomerAuthController::class, 'editProfile']);
 });
 
+Route::prefix('info')->group(function () {
+    Route::get('info', [SettingController::class, 'info']);
+});
+
 Route::prefix('color')->group(function () {
     Route::get('colors', [SettingController::class, 'colors']);
 });
