@@ -45,30 +45,36 @@ class SettingController extends Controller
     public function info()
     {
         $data = Info::first();
-        return $this->successResponse(new InfoResources($data), 'date reutrn success');
-   
+        if ($data) {
+            return $this->successResponse(new InfoResources($data), 'date reutrn success');
+        }
+        return $this->errorResponse('no Data', 404);
     }
 
 
-    public function galleries() {
+    public function galleries()
+    {
         $data = Gallery::get();
-        return $this->successResponse( data: GalleryResources::collection($data), message:'date reutrn success');
-   
+        return $this->successResponse(data: GalleryResources::collection($data), message: 'date reutrn success');
     }
 
 
 
 
-    public function partners() {
+    public function partners()
+    {
         $data = Partner::get();
-        return $this->successResponse( data: PartnerResources::collection($data), message:'date reutrn success');
-
+        return $this->successResponse(data: PartnerResources::collection($data), message: 'date reutrn success');
     }
 
 
 
-    public function about_us() {
+    public function about_us()
+    {
         $data = AboutUs::first();
-        return $this->successResponse(new AboutUsResources($data), 'date reutrn success');
+        if ($data) {
+            return $this->successResponse(new AboutUsResources($data), 'date reutrn success');
+        }
+        return $this->errorResponse('no Data', 404);
     }
 }
