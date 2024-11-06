@@ -75,6 +75,7 @@ Route::prefix('products')->group(function () {
     Route::get('product_last_month', [ProductController::class, 'product_last_month']);
     Route::post('filter_product', [ProductController::class, 'filter_product']);
     Route::get('sort_product', [ProductController::class, 'sort_product']);
+    Route::get('related', [ProductController::class, 'related']);
 });
 
 

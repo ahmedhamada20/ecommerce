@@ -32,7 +32,6 @@ class ProductController extends Controller
             ]
         ];
         return $this->successResponse(data: $response, message: 'Return Data Successfully');
-
     }
 
 
@@ -59,7 +58,6 @@ class ProductController extends Controller
         $data = Product::whereIn('id', $topProducts)->wherePublish(1)->get();
         // return $this->successResponse(data: ProductResources::collection($data), 'Return Data Successfully');
         return $this->successResponse(data: ProductResources::collection($data), message: 'Return Data Successfully');
-
     }
 
     public function product_month()
@@ -91,7 +89,6 @@ class ProductController extends Controller
         if ($topProductLastTwoMonths) {
             $product = Product::find($topProductLastTwoMonths->product_id);
             return $this->successResponse(data: new ProductResources($product), message: 'Return Data Successfully');
-
         } else {
             return $this->errorResponse('no product', 404);
         }
@@ -102,7 +99,7 @@ class ProductController extends Controller
     {
 
         $query = Product::with(relations: ['categories', 'tags', 'colors', 'sizes'])
-        ->where('publish', 1);
+            ->where('publish', 1);
         if ($request->has('categories') && is_array($request->categories)) {
             $query->whereHas('categories', function ($q) use ($request) {
                 $q->whereIn('category_id', $request->categories);
@@ -149,11 +146,11 @@ class ProductController extends Controller
             ]
         ];
         return $this->successResponse(data: $response, message: 'Return Data Successfully');
-
     }
 
 
-    public function sort_product(Request $request) {
+    public function sort_product(Request $request)
+    {
         $query = Product::with(relations: ['categories', 'tags', 'colors', 'sizes']);
 
         if ($request->has('sort_by')) {
@@ -199,6 +196,21 @@ class ProductController extends Controller
             ]
         ];
         return $this->successResponse(data: $response, message: 'Return Data Successfully');
+    }
 
+
+    public  function related($id)
+    {
+        $product = Product::findOrFail($id);
+        $categoryIds = $product->categories->pluck('id');
+        $relatedProducts = Product::whereHas('categories', function ($query) use ($categoryIds) {
+            $query->whereIn('id', $categoryIds);
+        })
+            ->where('id', '!=', $id)
+            ->inRandomOrder()
+            ->limit(15)
+            ->get();
+
+        return $this->successResponse(data: ProductResources::collection($relatedProducts), message: 'Return Data Successfully');
     }
 }
