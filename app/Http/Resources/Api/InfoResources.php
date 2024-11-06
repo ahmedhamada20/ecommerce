@@ -14,9 +14,13 @@ class InfoResources extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
+        $lang = $request->header('language', 'en');
+
+
         return [
             "id"=> $this->id,
-            'name' => $this->name,
+            'name' => $lang == "ar" ? $this->name_ar : $this->name_en,
             'logo' =>asset('storage/info/'.$this->logo),
             'phone' => $this->phone,
             'phone_1' => $this->phone_1,
@@ -29,10 +33,16 @@ class InfoResources extends JsonResource
             'payment_logo' => asset('storage/info/'.$this->payment_logo),
             'home_open_logo_new' =>  asset('storage/info/'.$this->home_open_logo_new),
             'home_tilte_logo_new' => $this->home_tilte_logo_new,
-            'home_title_products_1' => $this->home_title_products_1,
-            'notes_title_products_1' => $this->notes_title_products_1,
-            'home_title_products_2' => $this->home_title_products_2,
-            'notes_title_products_2' => $this->notes_title_products_2,
+           
+           
+           
+            'home_title_products_1' => $lang == "ar" ? $this->home_title_products_1_ar : $this->home_title_products_1_en,
+            'notes_title_products_1' => $lang == "ar" ? $this->notes_title_products_1_ar : $this->notes_title_products_1_en,
+            'home_title_products_2' => $lang == "ar" ? $this->home_title_products_2_ar : $this->home_title_products_2_en,
+            'notes_title_products_2' => $lang == "ar" ? $this->notes_title_products_2_ar : $this->notes_title_products_2_en,
+
+
+
             'partners_logo' => asset('storage/info/'.$this->partners_logo),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),

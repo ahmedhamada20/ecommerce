@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('infos', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('name_ar')->nullable();
+            $table->string('name_en')->nullable();
             $table->string('logo')->nullable();
             $table->string('phone')->nullable();
             $table->string('phone_1')->nullable();
@@ -25,11 +26,16 @@ return new class extends Migration
             $table->text('in_link')->nullable();
             $table->text('payment_logo')->nullable();
             $table->text('home_open_logo_new')->nullable();
-            $table->text('home_tilte_logo_new')->nullable();
-            $table->text('home_title_products_1')->nullable();
-            $table->text('notes_title_products_1')->nullable();
-            $table->text('home_title_products_2')->nullable();
-            $table->text('notes_title_products_2')->nullable();
+            $table->text('home_tilte_logo_new_ar')->nullable();
+            $table->text('home_tilte_logo_new_en')->nullable();
+            $table->text('home_title_products_1_ar')->nullable();
+            $table->text('home_title_products_1_en')->nullable();
+            $table->text('notes_title_products_1_ar')->nullable();
+            $table->text('notes_title_products_1_en')->nullable();
+            $table->text('home_title_products_2_ar')->nullable();
+            $table->text('home_title_products_2_en')->nullable();
+            $table->text('notes_title_products_2_ar')->nullable();
+            $table->text('notes_title_products_2_en')->nullable();
             $table->string('partners_logo')->nullable();
             $table->json('columns')->nullable();
             $table->softDeletes();
