@@ -54,7 +54,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(ProductSeeder::class);
         // $this->call(SilderSeeder::class);
         // $this->call(BlogSeeder::class);
-        $this->call(GallerySeeder::class);
-        $this->call(PartnerSeeder::class);
+        // $this->call(GallerySeeder::class);
+        // $this->call(PartnerSeeder::class);
+        $this->call(AboutSeeder::class);
     }
 }

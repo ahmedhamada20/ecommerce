@@ -34,6 +34,9 @@ Route::prefix('auth')->group(function () {
 Route::prefix('galleries')->group(function () {
     Route::get('galleries', [SettingController::class, 'galleries']);
 });
+Route::prefix('about_us')->group(function () {
+    Route::get('about_us', [SettingController::class, 'about_us']);
+});
 Route::prefix('partners')->group(function () {
     Route::get('partners', [SettingController::class, 'partners']);
 });

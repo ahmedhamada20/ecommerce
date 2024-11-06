@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\AboutUsResources;
 use App\Http\Resources\Api\ColorResources;
 use App\Http\Resources\Api\SizesResources;
 use App\Http\Resources\Api\TagsResources;
 use App\Http\Resources\Api\InfoResources;
 use App\Http\Resources\Api\GalleryResources;
 use App\Http\Resources\Api\PartnerResources;
+use App\Models\AboutUs;
 use App\Models\Color;
 use App\Models\Gallery;
 use App\Models\Info;
@@ -16,6 +18,7 @@ use App\Models\Partner;
 use App\Models\Size;
 use App\Models\Tag;
 use App\Traits\ApiResponseTrait;
+
 
 class SettingController extends Controller
 {
@@ -60,5 +63,12 @@ class SettingController extends Controller
         $data = Partner::get();
         return $this->successResponse( data: PartnerResources::collection($data), message:'date reutrn success');
 
+    }
+
+
+
+    public function about_us() {
+        $data = AboutUs::first();
+        return $this->successResponse(new AboutUsResources($data), 'date reutrn success');
     }
 }
