@@ -17,10 +17,10 @@ class AboutUsResources extends JsonResource
         $lang = $request->header('language', 'en'); 
         return [
             "id"=> $this->id,
-            'photo' => asset('storage/blogs/'.$this->photo),
-            'photo_1' => asset('storage/blogs/'.$this->photo_1),
-            'logo_1' => asset('storage/blogs/'.$this->logo_1),
-            'logo_3' => asset('storage/blogs/'.$this->logo_3),
+            'photo' => asset('storage/about_us/'.$this->photo),
+            'photo_1' => asset('storage/about_us/'.$this->photo_1),
+            'logo_1' => asset('storage/about_us/'.$this->logo_1),
+            'logo_3' => asset('storage/about_us/'.$this->logo_3),
             'description' => $lang == "ar" ? $this->description_ar : $this->description_en,
             'description_1' => $lang == "ar" ? $this->description_ar_1 : $this->description_en_1,
             'description_logo_1' => $lang == "ar" ? $this->description_logo_1_ar : $this->description_logo_1_en,
