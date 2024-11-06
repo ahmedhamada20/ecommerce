@@ -19,4 +19,8 @@ class Brand extends Model
         'description',
         'columns',
     ];
+
+   public function count() {
+        return $this->hasMany(Product::class,'brand_id')->count();
+    }
 }
