@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Blog;
+use App\Models\Photo;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +22,9 @@ class BlogSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         DB::table('blogs')->truncate();
         Schema::enableForeignKeyConstraints();
+        $Blogs = [];
         for ($i = 1; $i <= 5; $i++) {
-            Blog::create([
+            $Blogs[]= Blog::create([
                 'name_ar' => fake()->title(),
                 'name_en' => fake()->title(),
                 'short_description_ar' => fake()->paragraph(),
@@ -33,6 +35,18 @@ class BlogSeeder extends Seeder
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);
         }
+
+        foreach($Blogs as $Blog){
+            for ($j = 0; $j < rand(1, 2); $j++) {
+                Photo::create([
+                    'Filename' => fake()->image('public/storage/blogs', 640, 480, null, false),
+                    'photoable_id' => $Blog->id,
+                    'photoable_type' => Blog::class,
+                ]);
+            }
+        }
+       
+        
 
     }
 }
