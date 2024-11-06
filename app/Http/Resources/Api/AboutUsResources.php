@@ -24,9 +24,19 @@ class AboutUsResources extends JsonResource
             'logo_3' => asset('storage/about_us/'.$this->logo_3),
             'description' => $lang == "ar" ? $this->description_ar : $this->description_en,
             'description_1' => $lang == "ar" ? $this->description_ar_1 : $this->description_en_1,
+         
+            'title_logo_1' => $lang == "ar" ? $this->title_logo_1_ar : $this->title_logo_1_en,
             'description_logo_1' => $lang == "ar" ? $this->description_logo_1_ar : $this->description_logo_1_en,
+           
+            'title_logo_2' => $lang == "ar" ? $this->title_logo_2_ar : $this->title_logo_2_en,
             'description_logo_2' => $lang == "ar" ? $this->description_logo_2_ar : $this->description_logo_2_en,
+           
+           
             'description_logo_3' => $lang == "ar" ? $this->description_logo_3_ar : $this->description_logo_3_en,
+            'title_logo_3' => $lang == "ar" ? $this->title_logo_3_ar : $this->title_logo_3_en,
+           
+      
+      
         ];
     }
 }

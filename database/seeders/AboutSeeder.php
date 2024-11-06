@@ -38,7 +38,12 @@ class AboutSeeder extends Seeder
             'description_logo_2_en'=>fake()->paragraph(),
             'description_logo_3_ar'=>fake()->paragraph(),
             'description_logo_3_en'=>fake()->paragraph(),
-
+            'title_logo_1_ar'=>fake()->title(),
+            'title_logo_1_en'=>fake()->title(),
+            'title_logo_2_ar'=>fake()->title(),
+            'title_logo_2_en'=>fake()->title(),
+            'title_logo_3_ar'=>fake()->title(),
+            'title_logo_3_en'=>fake()->title(),
         ]);
     }
 }

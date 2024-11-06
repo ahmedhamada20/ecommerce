@@ -21,14 +21,20 @@ return new class extends Migration
             $table->text('description_en_1')->nullable();
 
             $table->string('logo_1')->nullable();
+            $table->string('title_logo_1_ar')->nullable();
+            $table->string('title_logo_1_en')->nullable();
             $table->string('description_logo_1_ar')->nullable();
             $table->string('description_logo_1_en')->nullable();
      
             $table->string('logo_2')->nullable();
+            $table->string('title_logo_2_ar')->nullable();
+            $table->string('title_logo_2_en')->nullable();
             $table->string('description_logo_2_ar')->nullable();
             $table->string('description_logo_2_en')->nullable();
 
             $table->string('logo_3')->nullable();
+            $table->string('title_logo_3_ar')->nullable();
+            $table->string('title_logo_3_en')->nullable();
             $table->string('description_logo_3_ar')->nullable();
             $table->string('description_logo_3_en')->nullable();
 

@@ -24,5 +24,12 @@ class AboutUs extends Model
         'logo_3',
         'description_logo_3_ar',
         'description_logo_3_en',
+        'title_logo_1_ar',
+        'title_logo_1_en',
+        'title_logo_2_ar',
+        'title_logo_2_en',
+        'title_logo_3_ar',
+        'title_logo_3_en',
+
     ];
 }
