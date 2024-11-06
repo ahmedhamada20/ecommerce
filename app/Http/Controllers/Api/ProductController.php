@@ -171,7 +171,7 @@ class ProductController extends Controller
                     $query->orderBy('created_at', 'asc');
                     break;
                 case 'featured':
-                    $query->orderBy('is_featured', 'desc');
+                    $query->orderBy('features', 'desc');
                     break;
                 case 'name_asc':
                     $query->orderBy('name', 'asc');
