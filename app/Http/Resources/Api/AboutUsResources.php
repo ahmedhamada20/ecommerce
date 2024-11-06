@@ -20,6 +20,7 @@ class AboutUsResources extends JsonResource
             'photo' => asset('storage/about_us/'.$this->photo),
             'photo_1' => asset('storage/about_us/'.$this->photo_1),
             'logo_1' => asset('storage/about_us/'.$this->logo_1),
+            'logo_2' => asset('storage/about_us/'.$this->logo_2),
             'logo_3' => asset('storage/about_us/'.$this->logo_3),
             'description' => $lang == "ar" ? $this->description_ar : $this->description_en,
             'description_1' => $lang == "ar" ? $this->description_ar_1 : $this->description_en_1,
