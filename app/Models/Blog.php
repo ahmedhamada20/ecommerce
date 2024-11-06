@@ -26,4 +26,9 @@ class Blog extends Model
         'user_id',
         'columns',
     ];
+
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, 'photoable');
+    }
 }
