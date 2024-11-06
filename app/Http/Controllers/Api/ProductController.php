@@ -199,8 +199,9 @@ class ProductController extends Controller
     }
 
 
-    public  function related($id)
+    public  function related()
     {
+        $id = request()->id;
         $product = Product::findOrFail($id);
         $categoryIds = $product->categories->pluck('id');
         $relatedProducts = Product::whereHas('categories', function ($query) use ($categoryIds) {
