@@ -26,7 +26,7 @@ class ProductResources extends JsonResource
             'discount_price' => $this->discount_price,
             'price' => $this->price,
             'quantity' => $this->quantity,
-            'short_description_ar'=> $lang == "ar" ? $this->short_description_ar : $this->short_description_en,
+            'short_description'=> $lang == "ar" ? $this->short_description_ar : $this->short_description_en,
             'description'=>  $lang == "ar" ? $this->description_ar : $this->description_en,
             'notes'=>  $lang == "ar" ? $this->notes_ar : $this->notes_en,
             'video' => isset($this->columns) ? json_decode($this->columns)->video : '' ,
