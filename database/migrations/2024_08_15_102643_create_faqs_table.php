@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name_ar');
             $table->string('name_en');
             $table->boolean('publish')->nullable();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->json('columns')->nullable();
             $table->softDeletes();
             $table->timestamps();
