@@ -44,6 +44,11 @@ class InfoResources extends JsonResource
 
 
             'partners_logo' => asset('storage/info/'.$this->partners_logo),
+            'category_logo' => asset('storage/info/'.$this->category_logo),
+            'banar_logo' => asset('storage/info/'.$this->banar_logo),
+            'blog_logo' => asset('storage/info/'.$this->blog_logo),
+            
+            "category_logo_title" => $lang == "ar" ? $this->category_logo_title_ar : $this->category_logo_title_en,
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
                 'created_at' => $this->created_at->format('y-m-d h:i:s')

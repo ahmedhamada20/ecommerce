@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Auth\CustomerAuthController;
 use App\Http\Controllers\Api\BlogsController;
 use App\Http\Controllers\Api\BrandsController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CommentRateController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\SlidersController;
@@ -29,6 +30,10 @@ Route::prefix('auth')->group(function () {
     Route::get('logout', [CustomerAuthController::class, 'logout']);
     Route::get('refresh', [CustomerAuthController::class, 'refresh']);
     Route::post('editProfile', [CustomerAuthController::class, 'editProfile']);
+});
+
+Route::prefix('contactUs')->group(function () {
+    Route::post('contactUs', [SettingController::class, 'contactUs']);
 });
 
 Route::prefix('galleries')->group(function () {
@@ -88,4 +93,9 @@ Route::prefix('sliders')->group(function () {
 Route::prefix('blogs')->group(function () {
     Route::get('blogs', [BlogsController::class, 'index']);
     Route::get('show/{id}', [BlogsController::class, 'show']);
+});
+
+Route::middleware('auth:api')->prefix(prefix: 'comment_rate')->group(function () {
+    Route::post('rate', [CommentRateController::class, 'rate']);
+    Route::post('comment', [CommentRateController::class, 'comment']);
 });

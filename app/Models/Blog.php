@@ -19,6 +19,7 @@ class Blog extends Model
         'description_en',
         'notes',
         'publish',
+        'rate',
         'image',
         'date',
         'count_view',

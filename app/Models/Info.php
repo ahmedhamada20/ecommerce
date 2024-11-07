@@ -27,6 +27,11 @@ class Info extends Model
         'home_title_products_2',
         'notes_title_products_2',
         'partners_logo',
+        'category_logo',
+        'banar_logo',
+        'blog_logo',
+        'category_logo_title_ar',
+        'category_logo_title_en',
         'columns',
     ];
 }

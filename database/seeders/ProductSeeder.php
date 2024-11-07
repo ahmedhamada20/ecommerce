@@ -11,6 +11,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+
 class ProductSeeder extends Seeder
 {
     /**
@@ -38,14 +39,18 @@ class ProductSeeder extends Seeder
                 'discount_price' => fake()->randomFloat(2, 10, 100),
                 'price' => fake()->randomFloat(2, 100, 1000),
                 'quantity' => fake()->numberBetween(1, 100),
-                'short_description' => fake()->sentence(),
-                'description' => fake()->paragraph(),
-                'notes' => fake()->optional()->sentence(),
+                'short_description_ar' => fake()->paragraph(),
+                'short_description_en' => fake()->paragraph(),
+                'description_ar' => fake()->paragraph(),
+                'description_en' => fake()->paragraph(),
+                'notes_ar' => fake()->paragraph(),
+                'notes_en' => fake()->paragraph(),
                 'stock' => fake()->boolean(),
                 'publish' => fake()->boolean(),
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
                 'brand_id' => Brand::inRandomOrder()->first()->id,
                 'features' => fake()->boolean(),
+                'news' => fake()->boolean(),
             ]);
         }
 

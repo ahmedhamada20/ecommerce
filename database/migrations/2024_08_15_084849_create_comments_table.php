@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->boolean('status')->default(false);
             $table->string('photo')->nullable();
             $table->text('note');
             $table->morphs('commentable');

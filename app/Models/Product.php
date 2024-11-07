@@ -26,6 +26,8 @@ class Product extends Model
         'user_id',
         'brand_id',
         'features',
+        'rate',
+        'news',
         'columns',
     ];
 
@@ -57,6 +59,14 @@ class Product extends Model
     public function photos()
     {
         return $this->morphMany(Photo::class, 'photoable');
+    }
+    public function rateable()
+    {
+        return $this->morphMany(Rate::class, 'rateable');
+    }
+    public function commentable()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
     public function productColorImage()
     {

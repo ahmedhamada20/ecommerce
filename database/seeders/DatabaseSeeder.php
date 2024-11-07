@@ -48,21 +48,26 @@ class DatabaseSeeder extends Seeder
             "home_title_products_2_en"=>fake()->title(),
             "notes_title_products_2_ar"=>fake()->title(),
             "notes_title_products_2_en"=>fake()->title(),
-            'partners_logo' => fake()->image('public/storage/info', 640, 480, null, false)
+            'partners_logo' => fake()->image('public/storage/info', 640, 480, null, false),
+            'category_logo'=>fake()->image('public/storage/info', 640, 480, null, false),
+            'banar_logo'=>fake()->image('public/storage/info', 640, 480, null, false),
+            'blog_logo'=>fake()->image('public/storage/info', 640, 480, null, false),
+            "category_logo_title_ar"=>fake()->title(),
+            "category_logo_title_en"=>fake()->title(),       
         ]);
 
 
-        // $this->call(CustomerSeeder::class);
-        // $this->call(ColorSeeder::class);
-        // $this->call(SizeSeeder::class);
-        // $this->call(TagsSeeder::class);
-        // $this->call(CategorySeeder::class);
-        // $this->call(BrandSeeder::class);
-        // $this->call(ProductSeeder::class);
-        // $this->call(SilderSeeder::class);
-        // $this->call(BlogSeeder::class);
-        // $this->call(GallerySeeder::class);
-        // $this->call(PartnerSeeder::class);
-        // $this->call(AboutSeeder::class);
+        $this->call(CustomerSeeder::class);
+        $this->call(ColorSeeder::class);
+        $this->call(SizeSeeder::class);
+        $this->call(TagsSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(BrandSeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(SilderSeeder::class);
+        $this->call(BlogSeeder::class);
+        $this->call(GallerySeeder::class);
+        $this->call(PartnerSeeder::class);
+        $this->call(AboutSeeder::class);
     }
 }

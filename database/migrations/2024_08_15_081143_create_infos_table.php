@@ -37,6 +37,13 @@ return new class extends Migration
             $table->text('notes_title_products_2_ar')->nullable();
             $table->text('notes_title_products_2_en')->nullable();
             $table->string('partners_logo')->nullable();
+            $table->string('category_logo')->nullable();
+            $table->string('banar_logo')->nullable();
+            $table->string('blog_logo')->nullable();
+
+
+            $table->string('category_logo_title_ar')->nullable();
+            $table->string('category_logo_title_en')->nullable();
             $table->json('columns')->nullable();
             $table->softDeletes();
             $table->timestamps();

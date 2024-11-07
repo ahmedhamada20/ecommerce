@@ -12,12 +12,14 @@ use App\Http\Resources\Api\GalleryResources;
 use App\Http\Resources\Api\PartnerResources;
 use App\Models\AboutUs;
 use App\Models\Color;
+use App\Models\ContactUs;
 use App\Models\Gallery;
 use App\Models\Info;
 use App\Models\Partner;
 use App\Models\Size;
 use App\Models\Tag;
 use App\Traits\ApiResponseTrait;
+use Illuminate\Http\Request;
 
 
 class SettingController extends Controller
@@ -73,8 +75,30 @@ class SettingController extends Controller
     {
         $data = AboutUs::first();
         if ($data) {
-            return $this->successResponse(new AboutUsResources($data), 'date reutrn success');
+            return $this->successResponse(data: new AboutUsResources($data), 'date reutrn success');
         }
         return $this->errorResponse('no Data', 404);
+    }
+
+
+    public function contactUs(Request $request) {
+        $request->validate([
+            'type'=>'required|in:email,contactUs',
+            'name'=>'required_if:type,contactUs',
+            'email'=>'required',
+            'phone'=>'required_if:type,contactUs',
+            'messages'=>'required_if:type,contactUs',
+    
+        ]);
+
+        ContactUs::create([
+            'name'=>$request->name ?? null,
+            'email'=>$request->email,
+            'phone'=>$request->phone ?? null,
+            'messages'=>$request->messages ?? null,
+            'type'=>$request->messages ?? null,
+        ]);
+        return $this->successResponse('', 'Data Created Successfully');
+
     }
 }
