@@ -10,12 +10,14 @@ use App\Http\Resources\Api\TagsResources;
 use App\Http\Resources\Api\InfoResources;
 use App\Http\Resources\Api\GalleryResources;
 use App\Http\Resources\Api\PartnerResources;
+use App\Http\Resources\Api\PoliticalPrivateResources;
 use App\Models\AboutUs;
 use App\Models\Color;
 use App\Models\ContactUs;
 use App\Models\Gallery;
 use App\Models\Info;
 use App\Models\Partner;
+use App\Models\PoliticalPrivate;
 use App\Models\Size;
 use App\Models\Tag;
 use App\Traits\ApiResponseTrait;
@@ -100,5 +102,15 @@ class SettingController extends Controller
         ]);
         return $this->successResponse('', 'Data Created Successfully');
 
+    }
+
+
+    public function political_private()
+    {
+        $data = PoliticalPrivate::first();
+        if ($data) {
+            return $this->successResponse(data: new PoliticalPrivateResources($data), 'date reutrn success');
+        }
+        return $this->errorResponse('no Data', 404);
     }
 }

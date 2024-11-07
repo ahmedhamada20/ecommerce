@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title_ar')->nullable();
             $table->string('title_en')->nullable();
+            $table->string('notes_ar')->nullable();
+            $table->string('notes_en')->nullable();
             $table->timestamps();
         });
     }

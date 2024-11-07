@@ -36,6 +36,11 @@ Route::prefix('contactUs')->group(function () {
     Route::post('contactUs', [SettingController::class, 'contactUs']);
 });
 
+Route::prefix('political_private')->group(function () {
+    Route::get('political_private', [SettingController::class, 'political_private']);
+});
+
+
 Route::prefix('galleries')->group(function () {
     Route::get('galleries', [SettingController::class, 'galleries']);
 });
