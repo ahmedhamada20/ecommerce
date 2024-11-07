@@ -20,7 +20,7 @@ class CategoryResources extends JsonResource
             'id' => $this->id,
             'name' => $lang == "ar" ? $this->name_ar : $this->name_en,
             'image' => asset('storage/category/'.$this->image),
-            'description' => $this->description,
+            'description' =>$lang == "ar" ? $this->description_ar : $this->description_en,
             'subcategory' => SubCategoryResources::collection($this->parents),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),

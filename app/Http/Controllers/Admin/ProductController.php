@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
+use App\Models\Comment;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Photo;
@@ -28,7 +30,7 @@ class ProductController extends Controller
     public function create()
     {
         $data = [
-            'categories' => QueryModelsAll('Category')->whereActive(1)->get(),
+            'categories' => QueryModelsAll('Category')->whereActive(1)->where('parent_id',null)->get(),
             'brand' => QueryModelsAll('Brand')->get(),
             'colors' => QueryModelsAll('Color')->get(),
             'sizes' => QueryModelsAll('Size')->get(),
@@ -40,7 +42,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
 
 //        dd(json_encode($request->columns));
@@ -50,19 +52,26 @@ class ProductController extends Controller
                 'name_ar' => $request->name_ar,
                 'name_en' => $request->name_en,
                 'brand_id' => $request->brand_id,
-                'short_description' => $request->short_description,
-                'description' => $request->description,
-                'notes' => $request->notes,
+                'short_description_ar' => $request->short_description_ar,
+                'short_description_en' => $request->short_description_en,
+                'description_ar' => $request->description_ar,
+                'description_en' => $request->description_en,
+                'additional_en' => $request->additional_en,
+                'additional_ar' => $request->additional_ar,
+                'notes_ar' => $request->notes_ar,
+                'notes_en' => $request->notes_en,
                 'SKU' => $request->SKU,
                 'slug' => str_replace(' ', '_', $request->name_ar) .'_'. str_replace(' ', '_', $request->name_en),
                 'quantity' => $request->quantity,
                 'price' => $request->price,
                 'discount_price' => $request->discount,
+                'type_discount' => $request->type_discount,
                 'features' => 1,
                 'stock' => 1,
+                'news' => 1,
                 'publish' => true,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
-                'columns' => json_encode($request->columns)
+                'columns' => null
             ]);
             if ($data){
                 $data->categories()->attach($request->category_id);
@@ -100,6 +109,11 @@ class ProductController extends Controller
         $data = Product::findorfail($id);
         return view('admin.products.image_color',compact('data'));
     }
+    public function get_cemment(string $id)
+    {
+        $data = Product::findorfail($id);
+        return view('admin.products.comments',compact('data'));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -113,8 +127,10 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, string $id)
     {
+
+     
         try {
             DB::beginTransaction();
             $data = Product::findOrFail($request->id);
@@ -122,9 +138,14 @@ class ProductController extends Controller
                 'name_ar' => $request->name_ar,
                 'name_en' => $request->name_en,
                 'brand_id' => $request->brand_id,
-                'short_description' => $request->short_description,
-                'description' => $request->description,
-                'notes' => $request->notes,
+                'short_description_ar' => $request->short_description_ar,
+                'short_description_en' => $request->short_description_en,
+                'description_ar' => $request->description_ar,
+                'description_en' => $request->description_en,
+                'additional_en' => $request->additional_en,
+                'additional_ar' => $request->additional_ar,
+                'notes_ar' => $request->notes_ar,
+                'notes_en' => $request->notes_en,
                 'SKU' => $request->SKU,
                 'slug' => str_replace(' ', '_', $request->name_ar) .'_'. str_replace(' ', '_', $request->name_en),
                 'quantity' => $request->quantity,
@@ -134,7 +155,8 @@ class ProductController extends Controller
                 'stock' => 1,
                 'publish' => true,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
-                'columns' => json_encode($request->columns)
+                'type_discount' => $request->type_discount,
+                'news' => 1,
             ]);
 
             if ($updated) {
@@ -219,6 +241,21 @@ class ProductController extends Controller
         $yourModel->publish = $request->input('publish');
         $yourModel->save();
         return response()->json(['message' => 'تم تحديث الحالة بنجاح']);
+    }
+    public function status_cemment(Request $request)
+    {
+        $yourModel = Comment::find($request->id);
+        $yourModel->status = $request->input('publish');
+        $yourModel->save();
+        return response()->json(['message' => 'تم تحديث الحالة بنجاح']);
+    }
+    public function products_deleted_comment(Request $request)
+    {
+        $yourModel = Comment::find($request->id);
+        $yourModel->delete();
+        Session::flash('message', 'تم حذف التعليق بنجاح');
+        Session::flash('alert-class', 'alert-success');
+        return redirect()->back();
     }
 
 

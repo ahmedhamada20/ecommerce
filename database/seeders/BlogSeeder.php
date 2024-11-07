@@ -31,6 +31,7 @@ class BlogSeeder extends Seeder
                 'short_description_en' => fake()->paragraph(),
                 'description_ar' => fake()->paragraph(),
                 'description_en' => fake()->paragraph(),
+                'publish' => fake()->boolean(),
                 'image' => fake()->image(storage_path('app/public/blogs'), 640, 480, null, false),
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);

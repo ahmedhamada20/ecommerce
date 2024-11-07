@@ -16,9 +16,15 @@
 
             <div class="row">
                 <div class="col">
-                    <label>الاسم</label>
-                    <input type="text" class="form-control" name="columns[name]"
-                           value="{{ isset($data->columns) ? json_decode($data->columns)->name : '' }}" required>
+                    <label>الاسم بالعربي</label>
+                    <input type="text" class="form-control" name="name_ar"
+                           value="{{$data->name_ar ?? null}}" required>
+                </div>
+
+                <div class="col">
+                    <label>الاسم بالانجليزي</label>
+                    <input type="text" class="form-control" name="name_en"
+                           value="{{$data->name_en ?? null}}" required>
                 </div>
 
                 <div class="col">

@@ -28,6 +28,9 @@ class Product extends Model
         'features',
         'rate',
         'news',
+        'type_discount',
+        'additional_ar',
+        'additional_en',
         'columns',
     ];
 

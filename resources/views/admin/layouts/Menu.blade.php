@@ -119,6 +119,26 @@
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarBlogs" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBlogs">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
+                                   </span>
+                    <span class="nav-text"> المقالات </span>
+                </a>
+                <div class="collapse" id="sidebarBlogs">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('blogs.index')}}">جمبع المقالات</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('blogs.create')}}">اضافه مقال جديد</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
 
 
             <li class="nav-item">

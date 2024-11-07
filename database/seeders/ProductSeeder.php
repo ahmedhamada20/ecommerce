@@ -43,6 +43,8 @@ class ProductSeeder extends Seeder
                 'short_description_en' => fake()->paragraph(),
                 'description_ar' => fake()->paragraph(),
                 'description_en' => fake()->paragraph(),
+                'additional_ar' => fake()->paragraph(),
+                'additional_en' => fake()->paragraph(),
                 'notes_ar' => fake()->paragraph(),
                 'notes_en' => fake()->paragraph(),
                 'stock' => fake()->boolean(),
@@ -51,6 +53,7 @@ class ProductSeeder extends Seeder
                 'brand_id' => Brand::inRandomOrder()->first()->id,
                 'features' => fake()->boolean(),
                 'news' => fake()->boolean(),
+                'type_discount' => fake()->randomElement(['percentage','cash']),
             ]);
         }
 

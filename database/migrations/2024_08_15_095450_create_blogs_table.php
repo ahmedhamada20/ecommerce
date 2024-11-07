@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('short_description_en')->nullable();
             $table->text('description_ar')->nullable();
             $table->text('description_en')->nullable();
-            $table->text('notes')->nullable();
+                $table->text('notes')->nullable();
             $table->boolean('publish')->nullable();
             $table->string('date')->nullable();
             $table->string('image')->nullable();

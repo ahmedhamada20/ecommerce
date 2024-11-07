@@ -34,6 +34,8 @@ return new class extends Migration
             $table->foreignId('brand_id')->constrained('brands')->cascadeOnDelete()->cascadeOnUpdate();
             $table->boolean('features')->nullable()->comment('مميز او لاء');
             $table->boolean('news')->nullable()->comment('جديد او لاء');
+            $table->text('additional_ar')->nullable();
+            $table->text('additional_en')->nullable();
             $table->json('columns')->nullable();
             $table->softDeletes();
             $table->timestamps();

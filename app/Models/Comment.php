@@ -11,8 +11,8 @@ class Comment extends Model
     protected $fillable = [
         'note',
         'customer_id',
-        'rateable_id',
-        'rateable_type',
+        'commentable_id',
+        'commentable_type',
     ];
 
     public function customer(){

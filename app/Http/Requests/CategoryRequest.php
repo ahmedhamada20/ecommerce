@@ -25,7 +25,8 @@ class CategoryRequest extends FormRequest
             'name_ar' => 'required|string|max:100',
             'name_en' => 'required|string|max:100',
             'parent_id' => 'nullable|exists:categories,id',
-            'description' => 'required|string',
+            'description_ar' => 'required|string',
+            'description_en' => 'required|string',
         ];
 
         if ($this->isMethod('post')) {

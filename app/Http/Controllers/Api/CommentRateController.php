@@ -78,7 +78,7 @@ class CommentRateController extends Controller
         }
 
 
-        $commentsUsers = Comment::where('user_id', auth()->id())->where('commentable_type', "App\Models\\" .
+        $commentsUsers = Comment::where('customer_id', auth()->id())->where('commentable_type', "App\Models\\" .
             ucfirst($request->type))->where('commentable_id', $request->id_type)->first();
 
 
@@ -86,9 +86,10 @@ class CommentRateController extends Controller
             'note' => $request->note,
             'commentable_type' => "App\Models\\" . ucfirst($request->type),
             'commentable_id' => $request->id_type,
-            'user_id' => auth()->id(),
+            'customer_id' => auth()->id(),
             'status' => false,
         ];
+        
 
         if ($commentsUsers) {
             $commentsUsers->update($input);

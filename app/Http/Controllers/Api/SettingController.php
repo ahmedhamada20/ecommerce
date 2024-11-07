@@ -111,6 +111,6 @@ class SettingController extends Controller
         if ($data) {
             return $this->successResponse(data: new PoliticalPrivateResources($data), message: 'date reutrn success');
         }
-        return $this->errorResponse('no Data', 404);
+        return $this->errorResponse('no Data', statusCode: 400);
     }
 }

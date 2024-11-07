@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->tinyInteger('count_view')->nullable();
             $table->boolean('active')->default(true);
-            $table->text('description')->nullable();
+            $table->text('description_ar')->nullable();
+            $table->text('description_en')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->json('columns')->nullable();
             $table->softDeletes();

@@ -41,7 +41,8 @@ class BrandController extends Controller
                 'name_ar' => $request->name_ar,
                 'name_en' => $request->name_en,
                 'image' => $imageName,
-                'description' => $request->description,
+                'description_en' => $request->description_en,
+                'description_ar' => $request->description_ar,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);
             Session::flash('message', config('app.messages'));
@@ -93,7 +94,8 @@ class BrandController extends Controller
                 'name_ar' => $request->name_ar,
                 'name_en' => $request->name_en,
                 'image' => $imageName ?? $Brand->image,
-                'description' => $request->description,
+                'description_ar' => $request->description_ar,
+                'description_en' => $request->description_en,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);
             Session::flash('message', config('app.edit'));

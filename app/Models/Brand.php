@@ -16,7 +16,8 @@ class Brand extends Model
         'count_view',
         'active',
         'user_id',
-        'description',
+        'description_ar',
+        'description_en',
         'columns',
     ];
 

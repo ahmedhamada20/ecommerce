@@ -52,8 +52,15 @@
 
                         <div class="row">
                             <div class="col">
-                                <label>الوصف</label>
-                                <textarea type="text" class="form-control" style="height: 300px;" name="description" required></textarea>
+                                <label>الوصف بالعربي</label>
+                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="description_ar" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>الوصف بالانجليزي</label>
+                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="description_en" required></textarea>
                             </div>
                         </div>
 

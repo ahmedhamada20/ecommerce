@@ -36,6 +36,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+
         try {
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(storage_path('app/public/category'), $imageName);
@@ -43,7 +44,8 @@ class CategoryController extends Controller
                 'name_ar' => $request->name_ar,
                 'name_en' => $request->name_en,
                 'image' => $imageName,
-                'description' => $request->description,
+                'description_en' => $request->description_en,
+                'description_ar' => $request->description_ar,
                 'parent_id' => $request->parent_id ?? null,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);
@@ -96,7 +98,8 @@ class CategoryController extends Controller
                 'name_ar' => $request->name_ar,
                 'name_en' => $request->name_en,
                 'image' => $imageName ?? $category->image,
-                'description' => $request->description,
+                'description_en' => $request->description_en,
+                'description_ar' => $request->description_ar,
                 'parent_id' => $request->parent_id ?? null,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);

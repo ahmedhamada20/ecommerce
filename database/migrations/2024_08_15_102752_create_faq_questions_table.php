@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('faq_questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('faq_id')->constrained('faqs')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('question');
-            $table->string('answer');
+
+            $table->string('answer_ar');
+            $table->string('answer_en');
             $table->json('columns')->nullable();
             $table->softDeletes();
             $table->timestamps();

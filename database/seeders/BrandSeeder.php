@@ -27,7 +27,8 @@ class BrandSeeder extends Seeder
                 'name_en' => fake()->name(),
                 'image' => fake()->image(storage_path('app/public/brands'), 640, 480, null, false),
                 'active' => fake()->boolean(),
-                'description' => fake()->text(),
+                'description_ar' => fake()->text(),
+                'description_en' => fake()->text(),
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);
         }

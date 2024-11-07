@@ -11,8 +11,7 @@ class FaqQuestions extends Model
     use HasFactory,SoftDeletes;
     protected $fillable = [
         'faq_id',
-        'question',
-        'answer',
-        'columns',
+        'answer_ar',
+        'answer_en',
     ];
 }

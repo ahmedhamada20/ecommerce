@@ -100,7 +100,8 @@ Route::prefix('blogs')->group(function () {
     Route::get('show/{id}', [BlogsController::class, 'show']);
 });
 
-Route::middleware('auth:api')->prefix(prefix: 'comment_rate')->group(function () {
+Route::middleware('auth:api')->prefix('comment_rate')->group(function () {
     Route::post('rate', [CommentRateController::class, 'rate']);
     Route::post('comment', [CommentRateController::class, 'comment']);
 });
+

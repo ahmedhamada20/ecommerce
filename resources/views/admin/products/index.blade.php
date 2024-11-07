@@ -79,6 +79,7 @@
                                             <li><a class="dropdown-item" href="{{route('products.edit',$row->id)}}">تعديل</a></li>
                                             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addQuantity{{$row->id}}">اضافه كميه</a></li>
                                             <li><a class="dropdown-item" href="{{route('products.show',$row->id)}}" >اضافه صوره لكل لون</a></li>
+                                            <li><a class="dropdown-item" href="{{route('get_cemment',$row->id)}}" >التعليقات</a></li>
                                             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#DeletedModal{{$row->id}}">حذف</a></li>
                                         </ul>
                                     </div>

@@ -143,58 +143,107 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <label for="short_description" class="form-label">وصف قصير للمنتج</label>
-                                            <textarea required class="form-control bg-light-subtle"
-                                                      id="short_description" rows="7" name="short_description"
-                                                      placeholder="وصف قصير للمنتج">
-                                                {{$data->short_description}}
-                                            </textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="description" class="form-label">وصف المنتج</label>
-                                            <textarea required class="form-control bg-light-subtle" id="description"
-                                                      rows="7" name="description" placeholder="وصف المنتج">
-                                                {{$data->description}}
-                                            </textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="notes" class="form-label">ملاحظات المنتج</label>
-                                            <textarea required class="form-control bg-light-subtle" id="notes" rows="7"
-                                                      name="notes" placeholder="ملاحظات المنتج">
-                                                {{$data->notes}}
-                                            </textarea>
+                                            <label for="short_description" class="form-label">وصف قصير للمنتج
+                                                بالعربي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="short_description_ar" rows="7"
+                                                name="short_description_ar" placeholder="وصف قصير للمنتج بالعربي">{{$data->short_description_ar}}</textarea>
                                         </div>
                                     </div>
                                 </div>
 
+                                <br>
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <label for="notes" class="form-label">معلومات اضافيه</label>
-                                            <textarea required class="form-control bg-light-subtle" id="notes" rows="7"
-                                                      name="columns[additional]"
-
-                                                      placeholder="معلومات اضافيه">
-                                                {{isset($data->columns) ? json_decode($data->columns)->additional : '' }}
-                                            </textarea>
+                                            <label for="short_description" class="form-label">وصف قصير للمنتج
+                                                بالانجليزي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="short_description_en" rows="7"
+                                                name="short_description_en" placeholder="وصف قصير للمنتج بالانجليزي">{{$data->short_description_en}}</textarea>
                                         </div>
                                     </div>
                                 </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">وصف المنتج بالعربي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="description_ar" rows="7"
+                                                name="description_ar" placeholder="وصف المنتج بالعربي">{{$data->description_ar}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">وصف المنتج بالانجليزي </label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="description_en" rows="7"
+                                                name="description_en" placeholder="وصف المنتج بالانجليزي">{{$data->description_en}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="notes" class="form-label">ملاحظات المنتج بالعربي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="notes_ar" rows="7" name="notes"
+                                                placeholder="ملاحظات المنتج بالعربي" >{{$data->notes_ar}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="notes" class="form-label">ملاحظات المنتج بالانجليزي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="notes_ar" rows="7" name="notes_en"
+                                                placeholder="ملاحظات المنتج بالانجليزي">{{$data->notes_ar}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="notes" class="form-label">معلومات اضافيه بالعربي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="additional_ar" rows="7" name="additional_ar"
+                                                placeholder="معلومات اضافيه بالعربي" >{{$data->additional_ar}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="notes" class="form-label">معلومات اضافيه بالانجليزي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="additional_en" rows="7" name="additional_en"
+                                                placeholder="معلومات اضافيه بالانجليزي">{{$data->additional_en}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <!-- SKU, Quantity, and Tags -->
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="product-id" class="form-label">رمز التعريفي للمنتج</label>
-                                            <input type="number" required name="SKU" value="{{$data->SKU}}" id="product-id"
+                                            <input type="text" required name="SKU" value="{{$data->SKU}}" id="product-id"
                                                    class="form-control" placeholder="#******">
                                         </div>
                                     </div>
@@ -230,19 +279,27 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <label for="product-price" class="form-label">السعر</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
-                                            <input type="number" required name="price" value="{{$data->price}}" id="product-price"
+                                            <input type="text" required name="price" value="{{$data->price}}" id="product-price"
                                                    class="form-control" placeholder="000">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label for="product-discount" class="form-label">نوع الخصم</label>
+                                        <select class="form-control" name="type_discount" required>
+                                            <option value="" disabled selected>-- أختر من القائمه --</option>
+                                            <option value="percentage" {{$data->type_discount == "percentage" ? 'selected' : null}}>نسبه مؤئيه</option>
+                                            <option value="cash" {{$data->type_discount == "cash" ? 'selected' : null}}>كاش</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4">
                                         <label for="product-discount" class="form-label">قيمه الخصم</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span>
-                                            <input type="number" required name="discount" value="{{$data->discount_price}}" id="product-discount"
+                                            <input type="text" required name="discount" value="{{$data->discount_price}}" id=""
                                                    class="form-control" placeholder="000">
                                         </div>
                                     </div>

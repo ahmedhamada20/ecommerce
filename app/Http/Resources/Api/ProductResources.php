@@ -30,7 +30,7 @@ class ProductResources extends JsonResource
             'description'=>  $lang == "ar" ? $this->description_ar : $this->description_en,
             'notes'=>  $lang == "ar" ? $this->notes_ar : $this->notes_en,
             'video' => isset($this->columns) ? json_decode($this->columns)->video : '' ,
-            'additional' => isset($this->columns) ? json_decode($this->columns)->additional : '' ,
+            'additional' =>$lang == "ar" ? $this->additional_ar : $this->additional_en,
             'stock' => $this->stock(),
             'publish' => $this->publish(),
             'brand_id' => new BrandResources($this->brand) ?? null,
@@ -38,7 +38,7 @@ class ProductResources extends JsonResource
             'category' => CategoryResources::collection($this->categories) ?? null,
             'tags' => TagsResources::collection($this->tags) ?? null,
             'colors' => ColorResources::collection($this->colors) ?? null,
-            "comment" => CommentResource::collection($this->commentable),
+            "comment" => CommentResource::collection($this->commentable)->where('status',1),
             "rateable" => RateResource::collection($this->rateable),
             'productColorImages' => $this->productColorImage
                 ->where('product_id', $this->id)

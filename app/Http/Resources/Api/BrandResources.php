@@ -19,7 +19,7 @@ class BrandResources extends JsonResource
             'id' => $this->id,
             'name' => $lang == "ar" ? $this->name_ar : $this->name_en,
             'image' => asset('storage/brands/'.$this->image),
-            'description' => $this->description,
+            'description' =>$lang == "ar" ? $this->description_ar : $this->description_en,
             'count' => $this->count(),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),

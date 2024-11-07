@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('css')
-    <link href="{{asset('dash/vendor/boorstarp-fileUpdload/css/fileinput.css')}}" rel="stylesheet">
+    <link href="{{ asset('dash/vendor/boorstarp-fileUpdload/css/fileinput.css') }}" rel="stylesheet">
 @endsection
 
 @section('title')
@@ -8,7 +8,6 @@
 @endsection
 
 @section('content')
-
     <div class="row">
         <div class="col-xl-12 col-lg-8 ">
             <div class="card">
@@ -16,7 +15,7 @@
                     <h4 class="card-title">اضافه منتج جديد</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <!-- File Upload Section -->
 
@@ -24,7 +23,7 @@
                             <div class="col">
                                 <label>الصوره</label>
                                 <input type="file" name="FilenameMany[]" id="image_updload" multiple accept="image/*"
-                                       class="file-input-overview">
+                                    class="file-input-overview">
                             </div>
                         </div>
                         <!-- Product Information -->
@@ -39,7 +38,7 @@
                                             <label for="product-name-ar" class="form-label">اسم المنتج بالغه
                                                 العربيه</label>
                                             <input type="text" id="product-name-ar" required name="name_ar"
-                                                   class="form-control" placeholder="اسم المنتج بالغه العربيه">
+                                                class="form-control" placeholder="اسم المنتج بالغه العربيه">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -47,7 +46,7 @@
                                             <label for="product-name-en" class="form-label">اسم المنتج بالغه
                                                 الإنجليزية</label>
                                             <input type="text" id="product-name-en" required name="name_en"
-                                                   class="form-control" placeholder="اسم المنتج بالغه الإنجليزية">
+                                                class="form-control" placeholder="اسم المنتج بالغه الإنجليزية">
                                         </div>
                                     </div>
                                 </div>
@@ -68,11 +67,10 @@
                                     <div class="col-lg-6">
                                         <label for="product-categories" class="form-label">الفئات</label>
                                         <select class="form-control" required id="product-categories" data-choices
-                                                data-choices-groups data-placeholder="Select Categories"
-                                                name="category_id">
+                                            data-choices-groups data-placeholder="Select Categories" name="category_id">
                                             <option value="" disabled selected>-- أختر من القائمه --</option>
-                                            @foreach(QueryModelsAll('Category')->get() as $row)
-                                                <option value="{{$row->id}}">{{$row->name_ar}}</option>
+                                            @foreach (QueryModelsAll('Category')->get() as $row)
+                                                <option value="{{ $row->id }}">{{ $row->name_ar }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -80,10 +78,10 @@
                                         <div class="mb-3">
                                             <label for="product-brand" class="form-label">ماركة</label>
                                             <select class="form-control" required id="product-brand" data-choices
-                                                    data-choices-groups data-placeholder="Select Brand" name="brand_id">
+                                                data-choices-groups data-placeholder="Select Brand" name="brand_id">
                                                 <option value="" disabled selected>-- أختر من القائمه --</option>
-                                                @foreach(QueryModelsAll('Brand')->get() as $row)
-                                                    <option value="{{$row->id}}">{{$row->name_ar}}</option>
+                                                @foreach (QueryModelsAll('Brand')->get() as $row)
+                                                    <option value="{{ $row->id }}">{{ $row->name_ar }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -96,12 +94,12 @@
                                         <div class="mt-3">
                                             <h5 class="text-dark fw-medium">مقاس :</h5>
                                             <div class="d-flex flex-wrap gap-2">
-                                                @foreach(QueryModelsAll('Size')->get() as $row)
-                                                    <input type="checkbox" class="btn-check" value="{{$row->id}}"
-                                                           name="size[]" id="size-{{$row->id}}">
+                                                @foreach (QueryModelsAll('Size')->get() as $row)
+                                                    <input type="checkbox" class="btn-check" value="{{ $row->id }}"
+                                                        name="size[]" id="size-{{ $row->id }}">
                                                     <label
                                                         class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                        for="size-{{$row->id}}">{{$row->name}}</label>
+                                                        for="size-{{ $row->id }}">{{ $row->name }}</label>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -110,14 +108,14 @@
                                         <div class="mt-3">
                                             <h5 class="text-dark fw-medium">الألوان :</h5>
                                             <div class="d-flex flex-wrap gap-2">
-                                                @foreach(QueryModelsAll('Color')->get() as $row)
-                                                    <input type="checkbox" class="btn-check" value="{{$row->id}}"
-                                                           name="color[]" id="color-{{$row->id}}">
+                                                @foreach (QueryModelsAll('Color')->get() as $row)
+                                                    <input type="checkbox" class="btn-check" value="{{ $row->id }}"
+                                                        name="color[]" id="color-{{ $row->id }}">
                                                     <label
                                                         class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                        for="color-{{$row->id}}">
+                                                        for="color-{{ $row->id }}">
                                                         <i class="bx bxs-circle fs-18"
-                                                           style="color: {{ $row->name }};"></i>
+                                                            style="color: {{ $row->name }};"></i>
                                                     </label>
                                                 @endforeach
                                             </div>
@@ -129,41 +127,102 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <label for="short_description" class="form-label">وصف قصير للمنتج</label>
-                                            <textarea required class="form-control bg-light-subtle"
-                                                      id="short_description" rows="7" name="short_description"
-                                                      placeholder="وصف قصير للمنتج"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="description" class="form-label">وصف المنتج</label>
-                                            <textarea required class="form-control bg-light-subtle" id="description"
-                                                      rows="7" name="description" placeholder="وصف المنتج"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="notes" class="form-label">ملاحظات المنتج</label>
-                                            <textarea required class="form-control bg-light-subtle" id="notes" rows="7"
-                                                      name="notes" placeholder="ملاحظات المنتج"></textarea>
+                                            <label for="short_description" class="form-label">وصف قصير للمنتج
+                                                بالعربي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="short_description_ar" rows="7"
+                                                name="short_description_ar" placeholder="وصف قصير للمنتج بالعربي"></textarea>
                                         </div>
                                     </div>
                                 </div>
 
+                                <br>
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <label for="notes" class="form-label">معلومات اضافيه</label>
-                                            <textarea required class="form-control bg-light-subtle" id="notes" rows="7"
-                                                      name="columns[additional]" placeholder="معلومات اضافيه"></textarea>
+                                            <label for="short_description" class="form-label">وصف قصير للمنتج
+                                                بالانجليزي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="short_description_en" rows="7"
+                                                name="short_description_en" placeholder="وصف قصير للمنتج بالانجليزي"></textarea>
                                         </div>
                                     </div>
                                 </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">وصف المنتج بالعربي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="description_ar" rows="7"
+                                                name="description_ar" placeholder="وصف المنتج بالعربي"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">وصف المنتج بالانجليزي </label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="description_en" rows="7"
+                                                name="description_en" placeholder="وصف المنتج بالانجليزي"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="notes" class="form-label">ملاحظات المنتج بالعربي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="notes_ar" rows="7" name="notes"
+                                                placeholder="ملاحظات المنتج بالعربي" ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="notes" class="form-label">ملاحظات المنتج بالانجليزي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="notes_ar" rows="7" name="notes_en"
+                                                placeholder="ملاحظات المنتج بالانجليزي"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="notes" class="form-label">معلومات اضافيه بالعربي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="additional_ar" rows="7" name="additional_ar"
+                                                placeholder="معلومات اضافيه بالعربي" ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="notes" class="form-label">معلومات اضافيه بالانجليزي</label>
+                                            <textarea required class="form-control bg-light-subtle ckeditor" id="additional_en" rows="7" name="additional_en"
+                                                placeholder="معلومات اضافيه بالانجليزي"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <br>
 
                                 <!-- SKU, Quantity, and Tags -->
                                 <div class="row">
@@ -171,23 +230,23 @@
                                         <div class="mb-3">
                                             <label for="product-id" class="form-label">رمز التعريفي للمنتج</label>
                                             <input type="number" required name="SKU" id="product-id"
-                                                   class="form-control" placeholder="#******">
+                                                class="form-control" placeholder="#******">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="product-stock" class="form-label">كمية</label>
                                             <input type="number" required name="quantity" id="product-stock"
-                                                   class="form-control" placeholder="Quantity">
+                                                class="form-control" placeholder="Quantity">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="choices-multiple-remove-button" class="form-label">الكلمات
                                             المفتاحية</label>
                                         <select class="form-control" required id="choices-multiple-remove-button"
-                                                data-choices data-choices-removeItem name="tags[]" multiple>
-                                            @foreach(QueryModelsAll('Tag')->get() as $row)
-                                                <option value="{{$row->id}}">{{$row->name}}</option>
+                                            data-choices data-choices-removeItem name="tags[]" multiple>
+                                            @foreach (QueryModelsAll('Tag')->get() as $row)
+                                                <option value="{{ $row->id }}">{{ $row->name }}</option>
                                             @endforeach
                                         </select>
 
@@ -203,20 +262,28 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <label for="product-price" class="form-label">السعر</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
                                             <input type="number" required name="price" id="product-price"
-                                                   class="form-control" placeholder="000">
+                                                class="form-control" placeholder="000">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label for="product-discount" class="form-label">نوع الخصم</label>
+                                        <select class="form-control" name="type_discount" required>
+                                            <option value="" disabled selected>-- أختر من القائمه --</option>
+                                            <option value="percentage">نسبه مؤئيه</option>
+                                            <option value="cash">كاش</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4">
                                         <label for="product-discount" class="form-label">قيمه الخصم</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span>
                                             <input type="number" required name="discount" id="product-discount"
-                                                   class="form-control" placeholder="000">
+                                                class="form-control" placeholder="000">
                                         </div>
                                     </div>
                                 </div>
@@ -239,16 +306,15 @@
 
         </div>
     </div>
-
 @endsection
 
 @section('js')
-    <script src="{{asset('dash/vendor/boorstarp-fileUpdload/js/plugins/piexif.min.js')}}"></script>
-    <script src="{{asset('dash/vendor/boorstarp-fileUpdload/js/plugins/sortable.min.js')}}"></script>
-    <script src="{{asset('dash/vendor/boorstarp-fileUpdload/js/fileinput.min.js')}}"></script>
-    <script src="{{asset('dash/vendor/boorstarp-fileUpdload/themes/fa5/theme.min.js')}}"></script>
+    <script src="{{ asset('dash/vendor/boorstarp-fileUpdload/js/plugins/piexif.min.js') }}"></script>
+    <script src="{{ asset('dash/vendor/boorstarp-fileUpdload/js/plugins/sortable.min.js') }}"></script>
+    <script src="{{ asset('dash/vendor/boorstarp-fileUpdload/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('dash/vendor/boorstarp-fileUpdload/themes/fa5/theme.min.js') }}"></script>
     <script>
-        $(function () {
+        $(function() {
             $("#image_updload").fileinput({
                 theme: "fa5",
                 maxFileCount: 20,
@@ -261,7 +327,3 @@
         });
     </script>
 @endsection
-
-
-
-
