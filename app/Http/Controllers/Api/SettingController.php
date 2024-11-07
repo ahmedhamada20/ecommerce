@@ -30,19 +30,19 @@ class SettingController extends Controller
     public function colors()
     {
         $data = Color::whereActive(true)->get();
-        return $this->successResponse(ColorResources::collection($data), 'Return Data Successfully');
+        return $this->successResponse(ColorResources::collection($data), message: 'Return Data Successfully');
     }
 
     public function sizes()
     {
         $data = Size::whereActive(true)->get();
-        return $this->successResponse(SizesResources::collection($data), 'Return Data Successfully');
+        return $this->successResponse(SizesResources::collection($data), message: 'Return Data Successfully');
     }
 
     public function tags()
     {
         $data = Tag::get();
-        return $this->successResponse(TagsResources::collection($data), 'Return Data Successfully');
+        return $this->successResponse(TagsResources::collection($data), message: 'Return Data Successfully');
     }
 
 
@@ -50,7 +50,7 @@ class SettingController extends Controller
     {
         $data = Info::first();
         if ($data) {
-            return $this->successResponse(new InfoResources($data), 'date reutrn success');
+            return $this->successResponse(new InfoResources($data), message: 'date reutrn success');
         }
         return $this->errorResponse('no Data', 404);
     }
@@ -77,7 +77,7 @@ class SettingController extends Controller
     {
         $data = AboutUs::first();
         if ($data) {
-            return $this->successResponse(data: new AboutUsResources($data), 'date reutrn success');
+            return $this->successResponse(data: new AboutUsResources($data), message: 'date reutrn success');
         }
         return $this->errorResponse('no Data', 404);
     }
@@ -109,7 +109,7 @@ class SettingController extends Controller
     {
         $data = PoliticalPrivate::first();
         if ($data) {
-            return $this->successResponse(data: new PoliticalPrivateResources($data), 'date reutrn success');
+            return $this->successResponse(data: new PoliticalPrivateResources($data), message: 'date reutrn success');
         }
         return $this->errorResponse('no Data', 404);
     }
