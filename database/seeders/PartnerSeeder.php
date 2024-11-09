@@ -16,7 +16,10 @@ class PartnerSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('public/partners');
+        if (Storage::exists('public/partners')) {
+            Storage::deleteDirectory('public/partners');
+        }
+
         Storage::makeDirectory('public/partners');
         Schema::disableForeignKeyConstraints();
         DB::table('partners')->truncate();

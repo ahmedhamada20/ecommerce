@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    اضافه جديده
+    تعديل البيانات
 @endsection
 
 @section('content')
@@ -13,56 +13,48 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    اضافه جديده
+                    تعديل البيانات
                 </div>
                 <div class="card-body">
-                    <form action="{{route('blogs.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('sliders.update','test')}}" method="post" enctype="multipart/form-data">
+                        @method('PUT')
                         @csrf
+
+                        <input type="hidden" name="id" value="{{$row->id}}">
 
 
 
                         <div class="row">
                             <div class="col">
                                 <label class="mb-1">الاسم بالعربي</label>
-                                <input type="text" name="name_ar" required class="form-control">
+                                <input type="text" name="title_ar" value="{{$row->title_ar}}" required class="form-control">
                             </div>
 
                             <div class="col">
                                 <label class="mb-1">الاسم بالانجليزي</label>
-                                <input type="text" name="name_en" required class="form-control">
+                                <input type="text" name="title_en" value="{{$row->title_en}}" required class="form-control">
                             </div>
                         </div>
-
-                        <br>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>وصف قصير بالعربي</label>
-                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="short_description_ar" required></textarea>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>وصف قصير بالانجليزي</label>
-                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="short_description_en" required></textarea>
-                            </div>
-                        </div>
-
 
                         <br>
 
                         <div class="row">
                             <div class="col">
                                 <label>الوصف بالعربي</label>
-                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="description_ar" required></textarea>
+                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="description_ar" required>
+                                    {{$row->description_ar}}
+                                </textarea>
                             </div>
                         </div>
+
+                        <br>
 
                         <div class="row">
                             <div class="col">
                                 <label>الوصف بالانجليزي</label>
-                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="description_en" required></textarea>
+                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="description_en" required>
+                                    {{$row->description_en}}
+                                </textarea>
                             </div>
                         </div>
 
@@ -72,7 +64,12 @@
                         <div class="row">
                             <div class="col">
                                 <label>الصوره</label>
-                                <input type="file" name="image" id="imageInput" required accept="image/*">
+                                @if($row->image)
+                                    <input type="hidden" value="{{$row->photo}}" name="old_file">
+                                    <img src="{{asset('storage/sliders/'.$row->photo)}}" width="100px" height="100px" alt="">
+                                @endif
+                                <input type="file" name="image" id="imageInput"  accept="image/*">
+
                                 <div class="image-preview-container">
                                     <div class="loading-spinner" id="loadingSpinner"></div>
                                     <img id="imagePreview" width="100px" height="100px" class="image-preview" src="#" alt="معاينة الصورة">

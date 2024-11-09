@@ -16,7 +16,10 @@ class AboutSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('public/about_us');
+        if (Storage::exists('public/about_us')) {
+            Storage::deleteDirectory('public/about_us');
+        }
+
         Storage::makeDirectory('public/about_us');
         Schema::disableForeignKeyConstraints();
         DB::table('about_us')->truncate();

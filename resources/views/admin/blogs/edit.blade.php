@@ -22,7 +22,7 @@
 
                         <input type="hidden" name="id" value="{{$row->id}}">
 
-             
+
 
                         <div class="row">
                             <div class="col">
@@ -33,6 +33,26 @@
                             <div class="col">
                                 <label class="mb-1">الاسم بالانجليزي</label>
                                 <input type="text" name="name_en" value="{{$row->name_en}}" required class="form-control">
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>وصف قصير بالعربي</label>
+                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="short_description_ar" required>
+                                    {{$row->short_description_ar}}
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>وصف قصير بالانجليزي</label>
+                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="short_description_en" required>
+                                    {{$row->short_description_en}}
+                                </textarea>
                             </div>
                         </div>
 

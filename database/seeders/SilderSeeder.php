@@ -16,7 +16,10 @@ class SilderSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('public/sliders');
+        if (Storage::exists('public/sliders')) {
+            Storage::deleteDirectory('public/sliders');
+        }
+
         Storage::makeDirectory('public/sliders');
         Schema::disableForeignKeyConstraints();
         DB::table('sliders')->truncate();

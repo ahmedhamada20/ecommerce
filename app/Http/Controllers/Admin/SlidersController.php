@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
+use App\Models\Slider;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
-class BlogsController extends Controller
+class SlidersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = QueryModelsAll('Blog')->get();
-        return view('admin.blogs.index', compact('data'));
+        $data = QueryModelsAll('Slider')->get();
+        return view('admin.sliders.index', compact('data'));
     }
 
     /**
@@ -24,7 +24,7 @@ class BlogsController extends Controller
      */
     public function create()
     {
-        return view('admin.blogs.create');
+        return view('admin.sliders.create');
     }
 
     /**
@@ -34,15 +34,13 @@ class BlogsController extends Controller
     {
         try {
             $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(storage_path('app/public/blogs'), $imageName);
-            Blog::create([
-                'name_ar' => $request->name_ar,
-                'name_en' => $request->name_en,
-                'image' => $imageName,
+            $request->image->move(storage_path('app/public/sliders'), $imageName);
+            Slider::create([
+                'title_ar' => $request->title_ar,
+                'title_en' => $request->title_en,
+                'photo' => $imageName,
                 'description_en' => $request->description_en,
                 'description_ar' => $request->description_ar,
-                'short_description_ar' => $request->short_description_ar,
-                'short_description_en' => $request->short_description_en,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);
             Session::flash('message', config('app.messages'));
@@ -66,8 +64,8 @@ class BlogsController extends Controller
      */
     public function edit(string $id)
     {
-        $row = Blog::findorfail($id);
-        return view('admin.blogs.edit', compact('row'));
+        $row = Slider::findorfail($id);
+        return view('admin.sliders.edit', compact('row'));
     }
 
     /**
@@ -76,28 +74,26 @@ class BlogsController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $Brand = Blog::findOrFail($request->id);
+            $Brand = Slider::findOrFail($request->id);
 
             if(isset($request->image)){
                 if (isset($request->old_file)){
-                    if (file_exists(storage_path('app/public/blogs/' . $request->old_file))) {
-                        File::delete(storage_path('app/public/blogs/' . $request->old_file));
+                    if (file_exists(storage_path('app/public/sliders/' . $request->old_file))) {
+                        File::delete(storage_path('app/public/sliders/' . $request->old_file));
                     }
 
                     $imageName = time() . '.' . $request->image->extension();
-                    $request->image->move(storage_path('app/public/blogs'), $imageName);
+                    $request->image->move(storage_path('app/public/sliders'), $imageName);
                 }
             }
 
 
-            Blog::findorfail($request->id)->update([
-                'name_ar' => $request->name_ar,
-                'name_en' => $request->name_en,
-                'image' => $imageName ?? $Brand->image,
+            Slider::findorfail($request->id)->update([
+                'title_ar' => $request->title_ar,
+                'title_en' => $request->title_en,
+                'photo' => $imageName ?? $Brand->image,
                 'description_en' => $request->description_en,
                 'description_ar' => $request->description_ar,
-                'short_description_ar' => $request->short_description_ar,
-                'short_description_en' => $request->short_description_en,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);
             Session::flash('message', config('app.edit'));
@@ -114,22 +110,13 @@ class BlogsController extends Controller
     public function destroy(Request $request)
     {
         if (isset($request->old_file)){
-            if (file_exists(storage_path('app/public/blogs/' . $request->old_file))) {
-                File::delete(storage_path('app/public/blogs/' . $request->old_file));
+            if (file_exists(storage_path('app/public/sliders/' . $request->old_file))) {
+                File::delete(storage_path('app/public/sliders/' . $request->old_file));
             }
         }
-        Blog::destroy($request->id);
+        Slider::destroy($request->id);
         Session::flash('message', config('app.deleted'));
         Session::flash('alert-class', 'alert-success');
         return redirect()->back();
-    }
-
-
-    public function status_blogs(Request $request)
-    {
-        $yourModel = Blog::find($request->id);
-        $yourModel->publish = $request->input('active');
-        $yourModel->save();
-        return response()->json(['message' => 'تم تحديث الحالة بنجاح']);
     }
 }

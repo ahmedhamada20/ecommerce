@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\SlidersController;
 use App\Http\Controllers\Admin\TagsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -44,5 +45,6 @@ Route::get('get_cemment/{id}',[ProductController::class,'get_cemment'])->name('g
 Route::resource('sliders',SliderController::class);
 Route::resource('blogs',BlogsController::class);
 Route::post('status_blogs', [BlogsController::class, 'status_blogs'])->name('status_blogs');
+Route::resource('sliders',SlidersController::class);
 
 

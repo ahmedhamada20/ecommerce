@@ -16,7 +16,10 @@ class BrandSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('public/brands');
+        if (Storage::exists('public/brands')) {
+            Storage::deleteDirectory('public/brands');
+        }
+
         Storage::makeDirectory('public/brands');
         Schema::disableForeignKeyConstraints();
         DB::table('brands')->truncate();

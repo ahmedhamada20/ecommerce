@@ -16,7 +16,10 @@ class GallerySeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('public/galleries');
+        if (Storage::exists('public/galleries')) {
+            Storage::deleteDirectory('public/galleries');
+        }
+
         Storage::makeDirectory('public/galleries');
         Schema::disableForeignKeyConstraints();
         DB::table('galleries')->truncate();

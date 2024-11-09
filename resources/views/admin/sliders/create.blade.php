@@ -16,7 +16,7 @@
                     اضافه جديده
                 </div>
                 <div class="card-body">
-                    <form action="{{route('blogs.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('sliders.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
 
 
@@ -24,31 +24,14 @@
                         <div class="row">
                             <div class="col">
                                 <label class="mb-1">الاسم بالعربي</label>
-                                <input type="text" name="name_ar" required class="form-control">
+                                <input type="text" name="title_ar" required class="form-control">
                             </div>
 
                             <div class="col">
                                 <label class="mb-1">الاسم بالانجليزي</label>
-                                <input type="text" name="name_en" required class="form-control">
+                                <input type="text" name="title_en" required class="form-control">
                             </div>
                         </div>
-
-                        <br>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>وصف قصير بالعربي</label>
-                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="short_description_ar" required></textarea>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>وصف قصير بالانجليزي</label>
-                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="short_description_en" required></textarea>
-                            </div>
-                        </div>
-
 
                         <br>
 
@@ -72,7 +55,7 @@
                         <div class="row">
                             <div class="col">
                                 <label>الصوره</label>
-                                <input type="file" name="image" id="imageInput" required accept="image/*">
+                                <input type="file" name="photo" id="imageInput" required accept="image/*">
                                 <div class="image-preview-container">
                                     <div class="loading-spinner" id="loadingSpinner"></div>
                                     <img id="imagePreview" width="100px" height="100px" class="image-preview" src="#" alt="معاينة الصورة">

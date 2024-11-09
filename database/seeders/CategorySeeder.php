@@ -16,7 +16,10 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('public/category');
+        if (Storage::exists('public/category')) {
+            Storage::deleteDirectory('public/category');
+        }
+
         Storage::makeDirectory('public/category');
         Schema::disableForeignKeyConstraints();
         DB::table('categories')->truncate();

@@ -19,7 +19,10 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('public/products');
+        if (Storage::exists('public/products')) {
+            Storage::deleteDirectory('public/products');
+        }
+
         Storage::makeDirectory('public/products');
         Schema::disableForeignKeyConstraints();
         DB::table('products')->truncate();

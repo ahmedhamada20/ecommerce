@@ -31,7 +31,7 @@ class CustomerAuthController extends Controller
         }
 
         $credentials = request(['email', 'password']);
-
+        $this->checkActiveUser($credentials['email']);
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -52,6 +52,7 @@ class CustomerAuthController extends Controller
         }
 
         $credentials = request(['phone', 'password']);
+        $this->checkActiveUser($credentials['email']);
 
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -130,6 +131,16 @@ class CustomerAuthController extends Controller
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage(), 422);
 
+        }
+    }
+
+    public function checkActiveUser($email)
+    {
+        $checkData = Customer::where('email',$email)->first();
+        if ($checkData){
+            if ($checkData->status == "noActive"){
+                return $this->errorResponse('the user not active Please contact the administrator ', 422);
+            }
         }
     }
 }

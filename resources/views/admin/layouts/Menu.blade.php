@@ -139,6 +139,26 @@
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarSliders" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSliders">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
+                                   </span>
+                    <span class="nav-text"> السليدر </span>
+                </a>
+                <div class="collapse" id="sidebarSliders">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('sliders.index')}}">جمبع السليدر</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('sliders.create')}}">اضافه جديده</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
 
 
             <li class="nav-item">

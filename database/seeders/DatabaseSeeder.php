@@ -17,7 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('public/info');
+        if (Storage::exists('public/info')) {
+
+            Storage::deleteDirectory('public/info');
+        }
+
         Storage::makeDirectory('public/info');
         Schema::disableForeignKeyConstraints();
         DB::table('infos')->truncate();
@@ -53,7 +57,7 @@ class DatabaseSeeder extends Seeder
             'banar_logo'=>fake()->image('public/storage/info', 640, 480, null, false),
             'blog_logo'=>fake()->image('public/storage/info', 640, 480, null, false),
             "category_logo_title_ar"=>fake()->title(),
-            "category_logo_title_en"=>fake()->title(),       
+            "category_logo_title_en"=>fake()->title(),
         ]);
 
 

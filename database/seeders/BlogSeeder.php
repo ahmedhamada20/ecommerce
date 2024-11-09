@@ -17,7 +17,10 @@ class BlogSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('public/blogs');
+        if (Storage::exists('public/blogs')) {
+            Storage::deleteDirectory('public/blogs');
+        }
+
         Storage::makeDirectory('public/blogs');
         Schema::disableForeignKeyConstraints();
         DB::table('blogs')->truncate();
@@ -46,8 +49,8 @@ class BlogSeeder extends Seeder
                 ]);
             }
         }
-       
-        
+
+
 
     }
 }
