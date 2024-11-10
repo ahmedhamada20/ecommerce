@@ -34,7 +34,7 @@ class SlidersController extends Controller
     {
         try {
             $imageName = time() . '.' . $request->photo->extension();
-            $request->image->move(storage_path('app/public/sliders'), $imageName);
+            $request->photo->move(storage_path('app/public/sliders'), $imageName);
             Slider::create([
                 'title_ar' => $request->title_ar,
                 'title_en' => $request->title_en,
