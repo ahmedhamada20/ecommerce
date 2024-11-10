@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function create()
     {
         $data = [
-            'categories' => QueryModelsAll('Category')->whereActive(1)->where('parent_id',null)->get(),
+            'categories' => QueryModelsAll('Category')->whereActive(1)->where('parent_id', null)->get(),
             'brand' => QueryModelsAll('Brand')->get(),
             'colors' => QueryModelsAll('Color')->get(),
             'sizes' => QueryModelsAll('Size')->get(),
@@ -61,7 +61,7 @@ class ProductController extends Controller
                 'notes_ar' => $request->notes_ar,
                 'notes_en' => $request->notes_en,
                 'SKU' => $request->SKU,
-                'slug' => str_replace(' ', '_', $request->name_ar) .'_'. str_replace(' ', '_', $request->name_en),
+                'slug' => str_replace(' ', '_', $request->name_ar) . '_' . str_replace(' ', '_', $request->name_en),
                 'quantity' => $request->quantity,
                 'price' => $request->price,
                 'discount_price' => $request->discount,
@@ -73,14 +73,14 @@ class ProductController extends Controller
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
                 'columns' => null
             ]);
-            if ($data){
+            if ($data) {
                 $data->categories()->attach($request->category_id);
                 $data->tags()->attach($request->tags);
                 $data->sizes()->attach($request->size);
                 $data->colors()->attach($request->color);
 
-                foreach ($request->FilenameMany as $photo){
-                    $path = $photo->store('products','public');
+                foreach ($request->FilenameMany as $photo) {
+                    $path = $photo->store('products', 'public');
                     $image = new Photo();
                     $image->Filename = $path;
                     $image->photoable_id = $data->id;
@@ -88,7 +88,6 @@ class ProductController extends Controller
                     $image->save();
                 }
             }
-
 
 
             Session::flash('message', config('app.messages'));
@@ -107,12 +106,13 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $data = Product::findorfail($id);
-        return view('admin.products.image_color',compact('data'));
+        return view('admin.products.image_color', compact('data'));
     }
+
     public function get_cemment(string $id)
     {
         $data = Product::findorfail($id);
-        return view('admin.products.comments',compact('data'));
+        return view('admin.products.comments', compact('data'));
     }
 
     /**
@@ -121,7 +121,7 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $data = Product::findorfail($id);
-        return view('admin.products.edit',compact('data'));
+        return view('admin.products.edit', compact('data'));
     }
 
     /**
@@ -130,7 +130,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, string $id)
     {
 
-     
+
         try {
             DB::beginTransaction();
             $data = Product::findOrFail($request->id);
@@ -147,7 +147,7 @@ class ProductController extends Controller
                 'notes_ar' => $request->notes_ar,
                 'notes_en' => $request->notes_en,
                 'SKU' => $request->SKU,
-                'slug' => str_replace(' ', '_', $request->name_ar) .'_'. str_replace(' ', '_', $request->name_en),
+                'slug' => str_replace(' ', '_', $request->name_ar) . '_' . str_replace(' ', '_', $request->name_en),
                 'quantity' => $request->quantity,
                 'price' => $request->price,
                 'discount_price' => $request->discount,
@@ -186,8 +186,6 @@ class ProductController extends Controller
             }
 
 
-
-
             Session::flash('message', config('app.messages'));
             Session::flash('alert-class', 'alert-success');
             DB::commit();
@@ -206,21 +204,21 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
 
-            $checkOrders = OrderDetails::where('product_id',$request->id)->first();
+            $checkOrders = OrderDetails::where('product_id', $request->id)->first();
 
-            if ($checkOrders){
+            if ($checkOrders) {
                 Session::flash('message', config('app.product_orders'));
                 Session::flash('alert-class', 'alert-success');
                 return redirect()->back();
             }
-            $get_image =  Photo::where('photoable_id',$request->id)->where('photoable_type',Product::class)->get();
+            $get_image = Photo::where('photoable_id', $request->id)->where('photoable_type', Product::class)->get();
 
-            foreach ($get_image as $item){
+            foreach ($get_image as $item) {
                 if (file_exists(storage_path('app/public/' . $item->Filename))) {
                     File::delete(storage_path('app/public/' . $item->Filename));
                 }
             }
-            Photo::where('photoable_id',$request->id)->where('photoable_type',Product::class)->delete();
+            Photo::where('photoable_id', $request->id)->where('photoable_type', Product::class)->delete();
             Product::destroy($request->id);
 
             Session::flash('message', config('app.deleted'));
@@ -228,7 +226,7 @@ class ProductController extends Controller
             DB::commit();
             return redirect()->back();
 
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
         }
@@ -242,6 +240,7 @@ class ProductController extends Controller
         $yourModel->save();
         return response()->json(['message' => 'تم تحديث الحالة بنجاح']);
     }
+
     public function status_cemment(Request $request)
     {
         $yourModel = Comment::find($request->id);
@@ -249,6 +248,7 @@ class ProductController extends Controller
         $yourModel->save();
         return response()->json(['message' => 'تم تحديث الحالة بنجاح']);
     }
+
     public function products_deleted_comment(Request $request)
     {
         $yourModel = Comment::find($request->id);
@@ -310,6 +310,12 @@ class ProductController extends Controller
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
         }
+    }
+
+
+    public function product_remove_image(Request $request)
+    {
+        dd($request->all());
     }
 
 }

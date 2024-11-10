@@ -351,7 +351,19 @@
                 ],
                 initialPreviewAsData: true,
                 initialPreviewFileType: 'image',
-
+                initialPreviewConfig: [
+                        @if($data->photos)
+                        @foreach($data->photos as $row)
+                    {
+                        caption: "{{$row->Filename}}",
+                        size: '111',
+                        width: "120px",
+                        url: "{{route('product_remove_image',['data_id' => $data->id,'photo_id' => $row->id ,'photo_name' => $row->Filename, '_token' => csrf_token()])}}",
+                        key: {{$row->id}}
+                    },
+                    @endforeach
+                    @endif
+                ]
 
             });
         });

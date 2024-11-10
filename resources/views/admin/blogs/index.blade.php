@@ -37,6 +37,9 @@
                             <tr>
                                 <td>{{$row->name_ar}} </td>
                                 <td>{{$row->name_en}} </td>
+
+
+
                                 <td>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input"
@@ -52,11 +55,11 @@
                                         </label>
                                         <span id="statusText{{$row->id}}"
                                               style="font-size: 13px">{{$row->publish == '1' ? 'نشط' : 'غير نشط'}} </span>
-                                        <input class="form-check-input"
-                                               onchange="toggleStatus({{$row->id}}, '{{$row->publish}}')" type="checkbox"
-                                               id="flexSwitchCheckChecked{{$row->id}}" {{$row->publish == '1' ? 'checked' : ''}}>
                                     </div>
                                 </td>
+
+
+
 
 
                                 <td>
@@ -106,7 +109,7 @@
                 success: function (response) {
                     var statusIcon = document.getElementById('statusIcon' + id);
                     var statusText = document.getElementById('statusText' + id);
-                    var checkbox = document.getElementById('flexSwitchCheckChecked' + id);
+                    var checkbox = document.getElementById('flexSwitchCheckDefault' + id);
 
                     if (newStatus === '1') {
                         statusIcon.classList.remove('fa-toggle-off');

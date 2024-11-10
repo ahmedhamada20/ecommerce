@@ -162,20 +162,20 @@
 
 
             <li class="nav-item">
-                <a class="nav-link menu-arrow" href="#sidebarInventory" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInventory">
+                <a class="nav-link menu-arrow" href="#sidebarcoupons" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarcoupons">
                                    <span class="nav-icon">
                                         <iconify-icon icon="solar:box-bold-duotone"></iconify-icon>
                                    </span>
-                    <span class="nav-text"> Inventory </span>
+                    <span class="nav-text"> الكوبنات </span>
                 </a>
-                <div class="collapse" id="sidebarInventory">
+                <div class="collapse" id="sidebarcoupons">
                     <ul class="nav sub-navbar-nav">
 
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="inventory-warehouse.html">Warehouse</a>
+                            <a class="sub-nav-link" href="inventory-warehouse.html">الكوبنات</a>
                         </li>
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="inventory-received-orders.html">Received Orders</a>
+                            <a class="sub-nav-link" href="inventory-received-orders.html">اضافه كوبون</a>
                         </li>
                     </ul>
                 </div>

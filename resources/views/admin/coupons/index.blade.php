@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    برندات
+    الكوبنات
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <a href="{{route('brands.create')}}" class="btn btn-success btn-sm">اضافه</a>
+                            <a href="{{route('coupons.create')}}" class="btn btn-success btn-sm">اضافه</a>
                         </div>
 
                     </div>
@@ -25,53 +25,56 @@
                     <table id="example" class="table table-hover table-centered table-bordered ">
                         <thead class="table-light">
                         <tr>
-                            <th scope="col">الاسم بالعربي</th>
-                            <th scope="col">الاسم بالانجليزي</th>
+                            <th scope="col">الكود</th>
+                            <th scope="col">نوع الخصم</th>
+                            <th scope="col"> الخصم</th>
+                            <th scope="col"> الحد الاقصي للاستخدام</th>
+                            <th scope="col"> عدد المستخدمين</th>
                             <th scope="col">الحاله</th>
-                            <th scope="col">صوره</th>
+                            <th scope="col">تاريخ بدايه</th>
+                            <th scope="col">تاريخ نهايه</th>
                             <th scope="col">العمليات</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($data as $row)
                             <tr>
-                                <td>{{$row->name_ar}} </td>
-                                <td>{{$row->name_en}} </td>
-
+                                <td>{{$row->code}} </td>
+                                <td>{{$row->discount_type}} </td>
+                                <td>{{$row->discount_value}} </td>
+                                <td>{{$row->max_used}} </td>
+                                <td>{{$row->times_used}} </td>
                                 <td>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input"
                                                onchange="toggleStatus({{$row->id}}, this.checked ? '1' : '0')"
                                                type="checkbox"
-                                               id="flexSwitchCheckDefault{{$row->id}}" {{$row->active == '1' ? 'checked' : ''}}>
+                                               id="flexSwitchCheckDefault{{$row->id}}" {{$row->status == '1' ? 'checked' : ''}}>
 
                                         <label class="form-check-label" for="flexSwitchCheckDefault{{$row->id}}">
                                             <i id="statusIcon{{$row->id}}"
-                                               class="fa {{$row->active == '1' ? 'fa-toggle-on' : 'fa-toggle-off'}}"
+                                               class="fa {{$row->status == '1' ? 'fa-toggle-on' : 'fa-toggle-off'}}"
                                                style="cursor: pointer;"
-                                               onclick="toggleStatus({{$row->id}}, '{{$row->active}}')"></i>
+                                               onclick="toggleStatus({{$row->id}}, '{{$row->status}}')"></i>
                                         </label>
                                         <span id="statusText{{$row->id}}"
-                                              style="font-size: 13px">{{$row->active == '1' ? 'نشط' : 'غير نشط'}} </span>
+                                              style="font-size: 13px">{{$row->status == '1' ? 'نشط' : 'غير نشط'}} </span>
                                     </div>
                                 </td>
 
 
 
-                                <td>
-                                    <a href="{{asset('storage/brands/'.$row->image)}}" target="_blank">
-                                        <img src="{{asset('storage/brands/'.$row->image)}}" width="100px"
-                                             height="100px" alt="">
-                                    </a>
 
-                                </td>
 
+
+                                <td>{{$row->start_date}}</td>
+                                <td>{{$row->end_date}}</td>
                                 <td>
-                                    <a href="{{route('brands.edit',$row->id)}}" class="btn btn-info btn-sm">تعديل</a>
+                                    <a href="{{route('coupons.edit',$row->id)}}" class="btn btn-info btn-sm">تعديل</a>
                                     <a class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                        data-bs-target="#DeletedModal{{$row->id}}">حذف</a>
                                 </td>
-                                @include('admin.brand.deleted')
+                                @include('admin.coupons.deleted')
 
                             </tr>
                         @endforeach
@@ -93,7 +96,7 @@
 
 
             $.ajax({
-                url: "{{ route('status_Brand') }}",
+                url: "{{ route('status_coupons') }}",
                 method: "POST",
                 headers: {
                     "X-CSRF-TOKEN": "{{ csrf_token() }}"
