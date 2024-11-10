@@ -19,7 +19,7 @@
                     <form action="{{route('brands.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
 
-               
+
 
                         <div class="row">
                             <div class="col">
@@ -58,7 +58,7 @@
                                 <input type="file" name="image" id="imageInput" required accept="image/*">
                                 <div class="image-preview-container">
                                     <div class="loading-spinner" id="loadingSpinner"></div>
-                                    <img id="imagePreview" width="100px" height="100px" class="image-preview" src="#" alt="معاينة الصورة">
+                                    <img id="imagePreview" width="100px" height="100px" class="image-preview" src="{{asset('16d54edd-3318-4af5-8d26-9b03488b1606.jpg')}}" alt="">
                                 </div>
                             </div>
                         </div>

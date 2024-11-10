@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\Photo;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
@@ -35,7 +37,7 @@ class BlogsController extends Controller
         try {
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(storage_path('app/public/blogs'), $imageName);
-            Blog::create([
+            $data =  Blog::create([
                 'name_ar' => $request->name_ar,
                 'name_en' => $request->name_en,
                 'image' => $imageName,
@@ -45,6 +47,19 @@ class BlogsController extends Controller
                 'short_description_en' => $request->short_description_en,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);
+
+            if ($data) {
+
+
+                foreach ($request->FilenameMany as $photo) {
+                    $path = $photo->store('blogs', 'public');
+                    $image = new Photo();
+                    $image->Filename = $path;
+                    $image->photoable_id = $data->id;
+                    $image->photoable_type = Blog::class;
+                    $image->save();
+                }
+            }
             Session::flash('message', config('app.messages'));
             Session::flash('alert-class', 'alert-success');
             return redirect()->back();
@@ -78,8 +93,8 @@ class BlogsController extends Controller
         try {
             $Brand = Blog::findOrFail($request->id);
 
-            if(isset($request->image)){
-                if (isset($request->old_file)){
+            if (isset($request->image)) {
+                if (isset($request->old_file)) {
                     if (file_exists(storage_path('app/public/blogs/' . $request->old_file))) {
                         File::delete(storage_path('app/public/blogs/' . $request->old_file));
                     }
@@ -90,7 +105,7 @@ class BlogsController extends Controller
             }
 
 
-            Blog::findorfail($request->id)->update([
+            $data = Blog::findorfail($request->id)->update([
                 'name_ar' => $request->name_ar,
                 'name_en' => $request->name_en,
                 'image' => $imageName ?? $Brand->image,
@@ -100,6 +115,19 @@ class BlogsController extends Controller
                 'short_description_en' => $request->short_description_en,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
             ]);
+
+
+            if ($request->has('FilenameMany')) {
+                foreach ($request->FilenameMany as $photo) {
+                    $path = $photo->store('blogs', 'public');
+                    $image = new Photo();
+                    $image->Filename = $path;
+                    $image->photoable_id = $data->id;
+                    $image->photoable_type = Blog::class;
+                    $image->save();
+                }
+            }
+
             Session::flash('message', config('app.edit'));
             Session::flash('alert-class', 'alert-success');
             return redirect()->back();
@@ -113,7 +141,7 @@ class BlogsController extends Controller
      */
     public function destroy(Request $request)
     {
-        if (isset($request->old_file)){
+        if (isset($request->old_file)) {
             if (file_exists(storage_path('app/public/blogs/' . $request->old_file))) {
                 File::delete(storage_path('app/public/blogs/' . $request->old_file));
             }
@@ -131,5 +159,19 @@ class BlogsController extends Controller
         $yourModel->publish = $request->input('active');
         $yourModel->save();
         return response()->json(['message' => 'تم تحديث الحالة بنجاح']);
+    }
+
+
+    public function blogs_remove_image(Request $request)
+    {
+        $get_data = Photo::where('photoable_id', $request->data_id)->where('photoable_type', Blog::class)->first();
+        if ($get_data) {
+            if (file_exists(storage_path('app/public/blogs/' . $get_data->Filename))) {
+                File::delete(storage_path('app/public/blogs/' . $get_data->Filename));
+            }
+        }
+        $get_data->delete();
+        return response()->json(['message' => 'تم حذف الصوره بنجاح']);
+
     }
 }

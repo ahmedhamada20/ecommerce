@@ -48,6 +48,7 @@ Route::get('get_cemment/{id}',[ProductController::class,'get_cemment'])->name('g
 Route::resource('sliders',SliderController::class);
 Route::resource('blogs',BlogsController::class);
 Route::post('status_blogs', [BlogsController::class, 'status_blogs'])->name('status_blogs');
+Route::post('blogs_remove_image', [BlogsController::class, 'blogs_remove_image'])->name('blogs_remove_image');
 Route::resource('sliders',SlidersController::class);
 Route::resource('coupons',CouponsController::class);
 Route::post('status_coupons', [CouponsController::class, 'status_coupons'])->name('status_coupons');
