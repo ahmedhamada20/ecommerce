@@ -99,6 +99,16 @@
                         </div>
 
                         <br>
+                        <div class="row">
+                            <div class="col">
+                                <label>الصوره</label>
+                                <input type="file" name="FilenameMany[]" id="image_updload" multiple accept="image/*"
+                                       class="file-input-overview">
+                            </div>
+                        </div>
+
+                        <br>
+
 
                         <div class="row">
                             <div class="col">
