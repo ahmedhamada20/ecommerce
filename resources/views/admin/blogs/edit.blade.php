@@ -131,8 +131,8 @@
                 showUpload: false,
                 overwriteInitial: false,
                 initialPreview: [
-                    @if($data->photos)
-                        @foreach($data->photos as $row)
+                    @if($row->photos)
+                        @foreach($row->photos as $row)
                         "{{asset('storage/' . $row->Filename)}}",
                     @endforeach
 
@@ -141,14 +141,14 @@
                 initialPreviewAsData: true,
                 initialPreviewFileType: 'image',
                 initialPreviewConfig: [
-                        @if($data->photos)
-                        @foreach($data->photos as $row)
+                        @if($row->photos)
+                        @foreach($row->photos as $row3)
                     {
-                        caption: "{{$row->Filename}}",
+                        caption: "{{$row3->Filename}}",
                         size: '111',
                         width: "120px",
-                        url: "{{route('blogs_remove_image',['data_id' => $data->id,'photo_id' => $row->id ,'photo_name' => $row->Filename, '_token' => csrf_token()])}}",
-                        key: {{$row->id}}
+                        url: "{{route('blogs_remove_image',['data_id' => $row3->id,'photo_id' => $row3->id ,'photo_name' => $row3->Filename, '_token' => csrf_token()])}}",
+                        key: {{$row3->id}}
                     },
                     @endforeach
                     @endif
