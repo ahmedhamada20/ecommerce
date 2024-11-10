@@ -315,7 +315,15 @@ class ProductController extends Controller
 
     public function product_remove_image(Request $request)
     {
-        dd($request->all());
+        $get_data = Photo::where('photoable_id',$request->data_id)->where('photoable_type',Product::class)->first();
+        if ($get_data){
+            if (file_exists(storage_path('app/public/products/' . $get_data->Filename))) {
+                File::delete(storage_path('app/public/products/' . $get_data->Filename));
+            }
+        }
+        $get_data->delete();
+        return response()->json(['message' => 'تم حذف الصوره بنجاح']);
+
     }
 
 }
