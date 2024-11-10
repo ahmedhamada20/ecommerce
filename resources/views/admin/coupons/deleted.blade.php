@@ -12,6 +12,7 @@
                     @method('Delete')
 
 
+                    <input type="hidden" value="{{$row->id}}" name="id">
 
                     <div class="row">
                         <div class="col">

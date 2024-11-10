@@ -172,10 +172,10 @@
                     <ul class="nav sub-navbar-nav">
 
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="inventory-warehouse.html">الكوبنات</a>
+                            <a class="sub-nav-link" href="{{route('coupons.index')}}">الكوبنات</a>
                         </li>
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="inventory-received-orders.html">اضافه كوبون</a>
+                            <a class="sub-nav-link" href="{{route('coupons.create')}}">اضافه كوبون</a>
                         </li>
                     </ul>
                 </div>

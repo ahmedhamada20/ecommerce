@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\CouponsController;
+use App\Http\Controllers\Admin\PartnersController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\SliderController;
@@ -50,5 +51,5 @@ Route::post('status_blogs', [BlogsController::class, 'status_blogs'])->name('sta
 Route::resource('sliders',SlidersController::class);
 Route::resource('coupons',CouponsController::class);
 Route::post('status_coupons', [CouponsController::class, 'status_coupons'])->name('status_coupons');
-
+Route::resource('partners',PartnersController::class);
 

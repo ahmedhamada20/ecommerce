@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('discount_value')->nullable();
             $table->enum('discount_type',['cash','relative'])->nullable();
-            $table->tinyInteger('max_used')->nullable();
+            $table->integer('max_used')->nullable();
             $table->tinyInteger('times_used')->nullable()->comment('عدد العملاء الي بفعل استخدمو الكود');
             $table->boolean('status')->default(true);
             $table->string('start_date');

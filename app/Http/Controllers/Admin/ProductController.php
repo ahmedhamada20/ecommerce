@@ -71,7 +71,7 @@ class ProductController extends Controller
                 'news' => 1,
                 'publish' => true,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
-                'columns' => null
+                'columns' => $request->columns
             ]);
             if ($data) {
                 $data->categories()->attach($request->category_id);
@@ -157,6 +157,7 @@ class ProductController extends Controller
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
                 'type_discount' => $request->type_discount,
                 'news' => 1,
+                'columns' => $request->columns
             ]);
 
             if ($updated) {
@@ -292,7 +293,7 @@ class ProductController extends Controller
                 if (isset($validated['images'][$colorId])) {
 //                    $quantity = $validated['quantities'][$index];
                     foreach ($validated['images'][$colorId] as $image) {
-                        $imagePath = $image->store('product_images');
+                        $imagePath = $image->store('public/product_images');
                         ProductColorImage::create([
                             'product_id' => $productId,
                             'color_id' => $colorId,
