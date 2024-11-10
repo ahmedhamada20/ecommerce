@@ -130,7 +130,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, string $id)
     {
 
-
+dd($request->all());
         try {
             DB::beginTransaction();
             $data = Product::findOrFail($request->id);
