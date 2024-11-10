@@ -33,7 +33,7 @@ class SlidersController extends Controller
     public function store(Request $request)
     {
         try {
-            $imageName = time() . '.' . $request->image->extension();
+            $imageName = time() . '.' . $request->photo->extension();
             $request->image->move(storage_path('app/public/sliders'), $imageName);
             Slider::create([
                 'title_ar' => $request->title_ar,
@@ -76,14 +76,14 @@ class SlidersController extends Controller
         try {
             $Brand = Slider::findOrFail($request->id);
 
-            if(isset($request->image)){
+            if(isset($request->photo)){
                 if (isset($request->old_file)){
                     if (file_exists(storage_path('app/public/sliders/' . $request->old_file))) {
                         File::delete(storage_path('app/public/sliders/' . $request->old_file));
                     }
 
                     $imageName = time() . '.' . $request->image->extension();
-                    $request->image->move(storage_path('app/public/sliders'), $imageName);
+                    $request->photo->move(storage_path('app/public/sliders'), $imageName);
                 }
             }
 
@@ -91,7 +91,7 @@ class SlidersController extends Controller
             Slider::findorfail($request->id)->update([
                 'title_ar' => $request->title_ar,
                 'title_en' => $request->title_en,
-                'photo' => $imageName ?? $Brand->image,
+                'photo' => $imageName ?? $Brand->photo,
                 'description_en' => $request->description_en,
                 'description_ar' => $request->description_ar,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,

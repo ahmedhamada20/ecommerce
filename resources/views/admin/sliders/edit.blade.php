@@ -64,7 +64,7 @@
                         <div class="row">
                             <div class="col">
                                 <label>الصوره</label>
-                                @if($row->image)
+                                @if($row->photo)
                                     <input type="hidden" value="{{$row->photo}}" name="old_file">
                                     <img src="{{asset('storage/sliders/'.$row->photo)}}" width="100px" height="100px" alt="">
                                 @endif
