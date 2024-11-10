@@ -82,7 +82,7 @@ class SlidersController extends Controller
                         File::delete(storage_path('app/public/sliders/' . $request->old_file));
                     }
 
-                    $imageName = time() . '.' . $request->image->extension();
+                    $imageName = time() . '.' . $request->photo->extension();
                     $request->photo->move(storage_path('app/public/sliders'), $imageName);
                 }
             }
