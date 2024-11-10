@@ -68,7 +68,7 @@
                                     <input type="hidden"  value="{{$row->photo}}" name="old_file">
                                     <img src="{{asset('storage/sliders/'.$row->photo)}}" width="100px" height="100px" alt="">
                                 @endif
-                                <input type="file" name="image" id="imageInput"  accept="image/*">
+                                <input type="file" name="photo" id="imageInput"  accept="image/*">
 
                                 <div class="image-preview-container">
                                     <div class="loading-spinner" id="loadingSpinner"></div>
