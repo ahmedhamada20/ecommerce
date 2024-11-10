@@ -71,7 +71,7 @@ class ProductController extends Controller
                 'news' => 1,
                 'publish' => true,
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
-                'columns' => $request->columns
+                'columns' => json_encode($request->columns)
             ]);
             if ($data) {
                 $data->categories()->attach($request->category_id);
@@ -130,7 +130,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, string $id)
     {
 
-dd($request->all());
+
         try {
             DB::beginTransaction();
             $data = Product::findOrFail($request->id);
@@ -157,7 +157,7 @@ dd($request->all());
                 'user_id' => auth('web')->check() ? auth('web')->user()->id : null,
                 'type_discount' => $request->type_discount,
                 'news' => 1,
-                'columns' => $request->columns
+                'columns' => json_encode($request->columns)
             ]);
 
             if ($updated) {
