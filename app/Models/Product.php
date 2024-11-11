@@ -121,6 +121,7 @@ class Product extends Model
             return $price;
         }
         $finalPrice = $price - $discountAmount;
+
         return $finalPrice;
     }
 
