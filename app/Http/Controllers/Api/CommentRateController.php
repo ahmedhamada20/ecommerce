@@ -21,6 +21,7 @@ class CommentRateController extends Controller
             'value' => 'required|integer|min:1|max:5',
             'id_type' => 'required',
             'type' => 'required|in:product,blog',
+            'message' => 'required|string',
         ]);
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 400);
@@ -33,6 +34,7 @@ class CommentRateController extends Controller
             'value' => $request->value,
             'customer_id' => auth('api')->id(),
             'rateable_id' => $request->id_type,
+            'message' => $request->message,
             'rateable_type' => "App\Models\\" . ucfirst($request->type),
         ];
 
@@ -67,7 +69,7 @@ class CommentRateController extends Controller
 
     public function comment(Request $request)
     {
-
+        return $this->errorResponse("Not fond", 400);
         $validator = Validator::make($request->all(), [
             'note' => 'required|string',
             'id_type' => 'required',
@@ -89,7 +91,7 @@ class CommentRateController extends Controller
             'customer_id' => auth()->id(),
             'status' => false,
         ];
-        
+
 
         if ($commentsUsers) {
             $commentsUsers->update($input);

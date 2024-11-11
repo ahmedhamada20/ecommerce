@@ -17,7 +17,8 @@ class RateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'note' => "$this->value",
+            'note' => $this->value,
+            'message' => $this->message,
             'customer_id' =>  new CustomerResources($this->customer()->first()),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
