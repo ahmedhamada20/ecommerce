@@ -24,7 +24,8 @@ class BrandRequest extends FormRequest
         $rules = [
             'name_ar' => 'required|string|max:100',
             'name_en' => 'required|string|max:100',
-            'description' => 'required|string',
+            'description_ar' => 'required|string',
+            'description_en' => 'required|string',
         ];
 
         if ($this->isMethod('post')) {
