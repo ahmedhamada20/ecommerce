@@ -120,7 +120,7 @@ class SettingController extends Controller
     {
         $data = Faq::get();
         if ($data) {
-            return $this->successResponse(data: new FaqResources($data), message: 'date return success');
+            return $this->successResponse(data: FaqResources::collection($data), message: 'date return success');
         }
         return $this->errorResponse('no Data', statusCode: 400);
     }
