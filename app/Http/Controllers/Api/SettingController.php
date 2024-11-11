@@ -118,7 +118,7 @@ class SettingController extends Controller
 
     public function faq()
     {
-        $data = Faq::first();
+        $data = Faq::get();
         if ($data) {
             return $this->successResponse(data: new FaqResources($data), message: 'date return success');
         }
