@@ -41,7 +41,12 @@ class ProductResources extends JsonResource
             'colors' => ColorResources::collection($this->colors) ?? null,
             "comments_and_ratings" => CommentResource::collection($this->commentable)
                 ->where('status', 1)
-                ->merge(RateResource::collection($this->rateable)),
+                ->when(
+                    CommentResource::collection($this->commentable)->where('status', 1)->isNotEmpty(),
+                    function ($comments) {
+                        return $comments->merge(RateResource::collection($this->rateable));
+                    }
+                ),
 
             'productColorImages' => $this->productColorImage
                 ->where('product_id', $this->id)
