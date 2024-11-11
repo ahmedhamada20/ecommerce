@@ -110,4 +110,19 @@ class Product extends Model
         }
     }
 
+
+    public function price_discount($type, $price, $discount)
+    {
+        if ($type == "percentage") {
+            $discountAmount = ($price * $discount) / 100;
+        } elseif ($type == "cash") {
+            $discountAmount = $discount;
+        } else {
+            return $price;
+        }
+        $finalPrice = $price - $discountAmount;
+        return $finalPrice;
+    }
+
+
 }
