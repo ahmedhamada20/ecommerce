@@ -31,7 +31,7 @@ class ProductResources extends JsonResource
             'notes'=>  $lang == "ar" ? $this->notes_ar : $this->notes_en,
             'video' => isset($this->columns) ? json_decode($this->columns)->video : '' ,
             'additional' =>$lang == "ar" ? $this->additional_ar : $this->additional_en,
-            'stock' => $this->stock(),
+            'stock' => $this->stock,
             'publish' => $this->publish(),
             'brand_id' => new BrandResources($this->brand) ?? null,
             'features' => $this->features(),
