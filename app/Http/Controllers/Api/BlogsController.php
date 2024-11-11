@@ -14,7 +14,7 @@ class BlogsController extends Controller
     use ApiResponseTrait;
     public function index()
     {
-        $data = Blog::wherePublish(true)->get();
+        $data = Blog::where('publish','1')->get();
         return $this->successResponse(BlogResources::collection($data), 'Return Data Successfully');
 
     }
