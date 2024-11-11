@@ -19,6 +19,6 @@ class Faq extends Model
 
     public function faq_questions()
     {
-        return $this->belongsTo(FaqQuestions::class,'faq_id');
+        return $this->hasOne(FaqQuestions::class,'faq_id');
     }
 }
