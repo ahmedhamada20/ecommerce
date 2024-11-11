@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\AboutUsResources;
 use App\Http\Resources\Api\ColorResources;
-use App\Http\Resources\Api\SizesResources;
-use App\Http\Resources\Api\TagsResources;
-use App\Http\Resources\Api\InfoResources;
+use App\Http\Resources\Api\FaqResources;
 use App\Http\Resources\Api\GalleryResources;
+use App\Http\Resources\Api\InfoResources;
 use App\Http\Resources\Api\PartnerResources;
 use App\Http\Resources\Api\PoliticalPrivateResources;
+use App\Http\Resources\Api\SizesResources;
+use App\Http\Resources\Api\TagsResources;
 use App\Models\AboutUs;
 use App\Models\Color;
 use App\Models\ContactUs;
+use App\Models\Faq;
 use App\Models\Gallery;
 use App\Models\Info;
 use App\Models\Partner;
@@ -90,7 +92,7 @@ class SettingController extends Controller
             'email'=>'required',
             'phone'=>'required_if:type,contactUs',
             'messages'=>'required_if:type,contactUs',
-    
+
         ]);
 
         ContactUs::create([
@@ -110,6 +112,15 @@ class SettingController extends Controller
         $data = PoliticalPrivate::first();
         if ($data) {
             return $this->successResponse(data: new PoliticalPrivateResources($data), message: 'date reutrn success');
+        }
+        return $this->errorResponse('no Data', statusCode: 400);
+    }
+
+    public function faq()
+    {
+        $data = Faq::first();
+        if ($data) {
+            return $this->successResponse(data: new FaqResources($data), message: 'date return success');
         }
         return $this->errorResponse('no Data', statusCode: 400);
     }

@@ -16,4 +16,9 @@ class Faq extends Model
         'user_id',
         'columns',
     ];
+
+    public function faq_questions()
+    {
+        return $this->hasMany(FaqQuestions::class,'faq_id');
+    }
 }
