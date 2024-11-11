@@ -18,7 +18,7 @@ class FaqResources extends JsonResource
         return [
             'id'=> $this->id,
             'name' => $lang == "ar" ? $this->name_ar : $this->name_en,
-            'answer' =>  FaqQuestionsResources::collection($this->faq_questions) ?? null,
+            'answer' => new FaqQuestionsResources($this->faq_questions) ?? null,
         ];
     }
 }
