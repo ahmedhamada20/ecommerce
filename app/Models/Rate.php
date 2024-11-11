@@ -10,6 +10,7 @@ class Rate extends Model
     use HasFactory;
     protected $fillable = [
         'value',
+        'message',
         'customer_id',
         'rateable_id',
         'rateable_type',
