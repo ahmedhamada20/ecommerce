@@ -25,7 +25,6 @@ class ProductResources extends JsonResource
             'type_discount' => $this->type_discount,
             'discount_price' => $this->discount_price,
             'price' => $this->price,
-            'price_discount' => $this->price_discount($this->type_discount,$this->price, $this->discount_price),
             'quantity' => $this->quantity,
             'short_description'=> $lang == "ar" ? $this->short_description_ar : $this->short_description_en,
             'description'=>  $lang == "ar" ? $this->description_ar : $this->description_en,
@@ -39,17 +38,8 @@ class ProductResources extends JsonResource
             'category' => CategoryResources::collection($this->categories) ?? null,
             'tags' => TagsResources::collection($this->tags) ?? null,
             'colors' => ColorResources::collection($this->colors) ?? null,
-            "comments_and_ratings" => CommentResource::collection($this->commentable)
-                ->where('status', 1)
-                ->map(function ($comment) {
-                    return [
-                        "comment" => [
-                            "details" => $comment,
-                            "rate" => RateResource::collection($this->rateable)
-                        ]
-                    ];
-                }),
-
+            "comment" => CommentResource::collection($this->commentable)->where('status',1),
+            "rateable" => RateResource::collection($this->rateable),
             'productColorImages' => $this->productColorImage
                 ->where('product_id', $this->id)
                 ->groupBy('color_id')
