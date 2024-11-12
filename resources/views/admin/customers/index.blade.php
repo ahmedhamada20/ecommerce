@@ -34,18 +34,18 @@
                                 <td>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input"
-                                               onchange="toggleStatus({{$row->id}}, this.checked ? '1' : '0')"
+                                               onchange="toggleStatus({{$row->id}}, this.checked ? 'active' : 'noActive')"
                                                type="checkbox"
-                                               id="flexSwitchCheckDefault{{$row->id}}" {{$row->status == '1' ? 'checked' : ''}}>
+                                               id="flexSwitchCheckDefault{{$row->id}}" {{$row->status == 'active' ? 'checked' : ''}}>
 
                                         <label class="form-check-label" for="flexSwitchCheckDefault{{$row->id}}">
                                             <i id="statusIcon{{$row->id}}"
-                                               class="fa {{$row->status == '1' ? 'fa-toggle-on' : 'fa-toggle-off'}}"
+                                               class="fa {{$row->status == 'active' ? 'fa-toggle-on' : 'fa-toggle-off'}}"
                                                style="cursor: pointer;"
                                                onclick="toggleStatus({{$row->id}}, '{{$row->status}}')"></i>
                                         </label>
                                         <span id="statusText{{$row->id}}"
-                                              style="font-size: 13px">{{$row->status == '1' ? 'نشط' : 'غير نشط'}} </span>
+                                              style="font-size: 13px">{{$row->status == 'active' ? 'نشط' : 'غير نشط'}} </span>
                                     </div>
                                 </td>
                                 <td>{{$row->orders_count}}</td>
@@ -68,7 +68,7 @@
     <script>
         function toggleStatus(id, currentStatus) {
 
-            var newStatus = currentStatus === '1' ? '1' : '0';
+            var newStatus = currentStatus === 'active' ? 'active' : 'noActive';
 
 
             $.ajax({
