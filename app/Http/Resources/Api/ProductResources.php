@@ -38,8 +38,7 @@ class ProductResources extends JsonResource
             'category' => CategoryResources::collection($this->categories) ?? null,
             'tags' => TagsResources::collection($this->tags) ?? null,
             'colors' => ColorResources::collection($this->colors) ?? null,
-            "comment" => CommentResource::collection($this->commentable)->where('status',1),
-            "rateable_comment" => RateResource::collection($this->rateable),
+            "rate_comment" => CommentResource::collection($this->commentable)->where('status',1),
             'productColorImages' => $this->productColorImage
                 ->where('product_id', $this->id)
                 ->groupBy('color_id')
