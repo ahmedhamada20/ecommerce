@@ -205,7 +205,7 @@
                                    </span>
                     <span class="nav-text"> معرض الصور </span>
                 </a>
-                <div class="collapse" id="sidebarRoles">
+                <div class="collapse" id="sidebargalleries">
                     <ul class="nav sub-navbar-nav">
                         <ul class="nav sub-navbar-nav">
                             <li class="sub-nav-item">
