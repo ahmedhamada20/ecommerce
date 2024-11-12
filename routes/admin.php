@@ -44,6 +44,8 @@ Route::post('status_products', [ProductController::class, 'status_products'])->n
 Route::post('product_remove_image', [ProductController::class, 'product_remove_image'])->name('product_remove_image');
 Route::post('status_cemment', [ProductController::class, 'status_cemment'])->name('status_cemment');
 Route::post('products_deleted_comment', [ProductController::class, 'products_deleted_comment'])->name('products_deleted_comment');
+
+
 Route::post('add_quantity', [ProductController::class, 'addQuantity'])->name('add_quantity');
 Route::post('add_image_color_products',[ProductController::class,'add_image_color_products'])->name('add_image_color_products');
 Route::get('get_cemment/{id}',[ProductController::class,'get_cemment'])->name('get_cemment');
@@ -51,6 +53,11 @@ Route::resource('sliders',SliderController::class);
 Route::resource('blogs',BlogsController::class);
 Route::post('status_blogs', [BlogsController::class, 'status_blogs'])->name('status_blogs');
 Route::post('blogs_remove_image', [BlogsController::class, 'blogs_remove_image'])->name('blogs_remove_image');
+Route::post('status_cemment_blogs', [BlogsController::class, 'status_cemment_blogs'])->name('status_cemment_blogs');
+Route::post('blogs_deleted_comment', [BlogsController::class, 'blogs_deleted_comment'])->name('blogs_deleted_comment');
+
+
+
 Route::resource('sliders',SlidersController::class);
 Route::resource('coupons',CouponsController::class);
 Route::post('status_coupons', [CouponsController::class, 'status_coupons'])->name('status_coupons');

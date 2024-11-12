@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\Comment;
 use App\Models\Photo;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -73,7 +74,8 @@ class BlogsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $row = Blog::findorfail($id);
+        return view('admin.blogs.comments', compact('row'));
     }
 
     /**
@@ -173,5 +175,23 @@ class BlogsController extends Controller
         $get_data->delete();
         return response()->json(['message' => 'تم حذف الصوره بنجاح']);
 
+    }
+
+
+    public function status_cemment(Request $request)
+    {
+        $yourModel = Comment::find($request->id);
+        $yourModel->status = $request->input('publish');
+        $yourModel->save();
+        return response()->json(['message' => 'تم تحديث الحالة بنجاح']);
+    }
+
+    public function blogs_deleted_comment(Request $request)
+    {
+        $yourModel = Comment::find($request->id);
+        $yourModel->delete();
+        Session::flash('message', 'تم حذف التعليق بنجاح');
+        Session::flash('alert-class', 'alert-success');
+        return redirect()->back();
     }
 }

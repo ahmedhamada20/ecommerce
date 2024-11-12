@@ -32,4 +32,9 @@ class Blog extends Model
     {
         return $this->morphMany(Photo::class, 'photoable');
     }
+
+    public function commentable()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }
