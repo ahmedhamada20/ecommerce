@@ -181,6 +181,23 @@
                 </div>
             </li>
 
+
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarpartners" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarpartners">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:confetti-minimalistic-bold-duotone"></iconify-icon>
+                                   </span>
+                    <span class="nav-text"> شركاء النجاح </span>
+                </a>
+                <div class="collapse" id="sidebarpartners">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('partners.index')}}">جميع الشركاء </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link menu-arrow" href="#sidebarOrders" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarOrders">
                                    <span class="nav-icon">
