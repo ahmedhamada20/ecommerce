@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
                 <div class="card-body">
 
@@ -29,6 +29,7 @@
                             <tr>
                                 <th scope="col">التعليق</th>
                                 <th scope="col">اسم المستخدم</th>
+                                <th scope="col">عدد النجوم</th>
                                 <th scope="col">نشط</th>
                                 <th scope="col">العمليات</th>
                             </tr>
@@ -50,6 +51,7 @@
                                     </td>
 
                                     <td>{{ $row->customer->name }}</td>
+                                    <td>{{ $row->value }}</td>
 
                                     <td>
                                         <div class="form-check form-switch">
@@ -86,25 +88,25 @@
                                             <div class="modal-body">
                                                 <form action="{{route('products_deleted_comment')}}" method="post" autocomplete="off">
                                                     @csrf
-                                           
-                                
+
+
                                                     <input type="hidden" value="{{$row->id}}" name="id">
-                                
-                                
+
+
                                                     <div class="row">
                                                         <div class="col">
                                                             <label class="text-red">هل أنت متأكد من عمليه الحذف ؟؟</label>
                                                         </div>
                                                     </div>
-                                
-                                
+
+
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
                                                         <button type="submit" class="btn btn-primary">حفظ</button>
                                                     </div>
                                                 </form>
                                             </div>
-                                
+
                                         </div>
                                     </div>
                                 </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\CouponsController;
+use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\GalleriesController;
 use App\Http\Controllers\Admin\PartnersController;
 use App\Http\Controllers\Admin\ProductController;
@@ -55,4 +56,7 @@ Route::resource('coupons',CouponsController::class);
 Route::post('status_coupons', [CouponsController::class, 'status_coupons'])->name('status_coupons');
 Route::resource('partners',PartnersController::class);
 Route::resource('galleries',GalleriesController::class);
+Route::resource('customers',CustomersController::class);
+Route::post('status_customers', [CustomersController::class, 'status_customers'])->name('status_customers');
+
 

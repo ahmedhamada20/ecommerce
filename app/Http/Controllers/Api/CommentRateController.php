@@ -89,7 +89,7 @@ class CommentRateController extends Controller
             'commentable_type' => "App\Models\\" . ucfirst($request->type),
             'commentable_id' => $request->id_type,
             'customer_id' => auth()->id(),
-            'status' => false,
+            'status' => 0,
             'value' => $request->value,
         ];
 

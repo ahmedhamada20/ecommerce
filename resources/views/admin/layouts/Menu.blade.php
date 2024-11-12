@@ -360,30 +360,21 @@
 {{--                </div>--}}
 {{--            </li>--}}
 
-{{--            <li class="nav-item">--}}
-{{--                <a class="nav-link menu-arrow" href="#sidebarSellers" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSellers">--}}
-{{--                                   <span class="nav-icon">--}}
-{{--                                        <iconify-icon icon="solar:shop-bold-duotone"></iconify-icon>--}}
-{{--                                   </span>--}}
-{{--                    <span class="nav-text"> Sellers </span>--}}
-{{--                </a>--}}
-{{--                <div class="collapse" id="sidebarSellers">--}}
-{{--                    <ul class="nav sub-navbar-nav">--}}
-{{--                        <li class="sub-nav-item">--}}
-{{--                            <a class="sub-nav-link" href="seller-list.html">List</a>--}}
-{{--                        </li>--}}
-{{--                        <li class="sub-nav-item">--}}
-{{--                            <a class="sub-nav-link" href="seller-details.html">Details</a>--}}
-{{--                        </li>--}}
-{{--                        <li class="sub-nav-item">--}}
-{{--                            <a class="sub-nav-link" href="seller-edit.html">Edit</a>--}}
-{{--                        </li>--}}
-{{--                        <li class="sub-nav-item">--}}
-{{--                            <a class="sub-nav-link" href="seller-add.html">Create</a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </li>--}}
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarusers" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarusers">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:shop-bold-duotone"></iconify-icon>
+                                   </span>
+                    <span class="nav-text"> المستخدمين </span>
+                </a>
+                <div class="collapse" id="sidebarusers">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('customers.index')}}">جميع المستخدمين</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
 {{--            <li class="menu-title mt-2">Other</li>--}}
 

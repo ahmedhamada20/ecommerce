@@ -21,4 +21,9 @@ class Order extends Model
         'total',
         'columns',
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class,'customer_id');
+    }
 }

@@ -90,7 +90,9 @@
                         @endforeach
                         </tbody>
                     </table>
-
+                    <div class="pagination-links">
+                        {{ $data->links() }}
+                    </div>
                 </div>
             </div>
         </div>
