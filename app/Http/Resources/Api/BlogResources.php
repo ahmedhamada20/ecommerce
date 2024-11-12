@@ -23,6 +23,7 @@ class BlogResources extends JsonResource
             'image' => asset('storage/blogs/'.$this->image),
             'user_id' => $this->user_id ?? 'admin',
             'photos' => PhotoResources::collection($this->photos) ?? null,
+            "rate_comment" => CommentResource::collection($this->commentable)->where('status',1),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
                 'created_at' => $this->created_at->format('y-m-d h:i:s')
