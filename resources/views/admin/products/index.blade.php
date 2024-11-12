@@ -90,9 +90,10 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <div class="pagination-links">
-                        {{ $data->links() }}
+                    <div class="d-flex justify-content-center">
+                        {{ $data->links('pagination::bootstrap-4') }}
                     </div>
+
                 </div>
             </div>
         </div>
