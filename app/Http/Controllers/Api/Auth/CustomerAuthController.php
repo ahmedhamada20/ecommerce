@@ -31,7 +31,12 @@ class CustomerAuthController extends Controller
         }
 
         $credentials = request(['email', 'password']);
-        $this->checkActiveUser($credentials['email']);
+        $checkData = Customer::where('email',$request->email)->first();
+        if ($checkData){
+            if ($checkData->status == "noActive"){
+                return $this->errorResponse('the user not active Please contact the administrator ', 422);
+            }
+        }
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -52,7 +57,13 @@ class CustomerAuthController extends Controller
         }
 
         $credentials = request(['phone', 'password']);
-        $this->checkActiveUserPhone($request->phone);
+
+        $checkData = Customer::where('email',$request->phone)->first();
+        if ($checkData){
+            if ($checkData->status == "noActive"){
+                return $this->errorResponse('the user not active Please contact the administrator ', 422);
+            }
+        }
 
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -81,6 +92,7 @@ class CustomerAuthController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'phone' => $request->phone,
+                'status' =>"active",
             ]);
             return $this->successResponse(new CustomerResources($new), 'data created Successfully');
         } catch (\Exception $e) {
