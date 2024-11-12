@@ -40,10 +40,10 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#EditModal{{$row->id}}">تعديل</a>
+                                    <a class="btn btn-info btn-sm" href="{{route('partners.edit',$row->id)}}">تعديل</a>
                                     <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#DeletedModal{{$row->id}}">حذف</a>
                                 </td>
-                                @include('admin.partners.edit')
+
                                 @include('admin.partners.deleted')
                             </tr>
                         @endforeach

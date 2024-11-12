@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
 @section('css')
 
-    <link href="{{ asset('dash/vendor/boorstarp-fileUpdload/css/fileinput.css') }}" rel="stylesheet">
 
 @endsection
 
@@ -17,67 +16,13 @@
                     تعديل البيانات
                 </div>
                 <div class="card-body">
-                    <form action="{{route('blogs.update','test')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('partners.update','test')}}" method="post" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
 
                         <input type="hidden" name="id" value="{{$row->id}}">
 
 
-
-                        <div class="row">
-                            <div class="col">
-                                <label class="mb-1">الاسم بالعربي</label>
-                                <input type="text" name="name_ar" value="{{$row->name_ar}}" required class="form-control">
-                            </div>
-
-                            <div class="col">
-                                <label class="mb-1">الاسم بالانجليزي</label>
-                                <input type="text" name="name_en" value="{{$row->name_en}}" required class="form-control">
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>وصف قصير بالعربي</label>
-                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="short_description_ar" required>
-                                    {{$row->short_description_ar}}
-                                </textarea>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>وصف قصير بالانجليزي</label>
-                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="short_description_en" required>
-                                    {{$row->short_description_en}}
-                                </textarea>
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>الوصف بالعربي</label>
-                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="description_ar" required>
-                                    {{$row->description_ar}}
-                                </textarea>
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>الوصف بالانجليزي</label>
-                                <textarea type="text" class="form-control ckeditor" style="height: 300px;" name="description_en" required>
-                                    {{$row->description_en}}
-                                </textarea>
-                            </div>
-                        </div>
 
                         <br>
 
@@ -98,14 +43,7 @@
                             </div>
                         </div>
 
-                        <br>
-                        <div class="row">
-                            <div class="col">
-                                <label>الصوره</label>
-                                <input type="file" name="FilenameMany[]" id="image_updload" multiple accept="image/*"
-                                       class="file-input-overview">
-                            </div>
-                        </div>
+
 
                         <br>
 
