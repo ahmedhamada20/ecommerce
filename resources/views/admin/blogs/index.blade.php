@@ -72,7 +72,7 @@
 
                                 <td>
 
-                                    <a href="{{route('blogs.show',$row->id)}}" class="btn btn-info btn-sm">التعليقات</a>
+                                    <a href="{{route('blogs.show',$row->id)}}" class="btn btn-primary btn-sm">التعليقات</a>
                                     <a href="{{route('blogs.edit',$row->id)}}" class="btn btn-info btn-sm">تعديل</a>
                                     <a class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                        data-bs-target="#DeletedModal{{$row->id}}">حذف</a>
