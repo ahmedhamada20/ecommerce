@@ -74,8 +74,8 @@ class BlogsController extends Controller
      */
     public function show(string $id)
     {
-        $row = Blog::findorfail($id);
-        return view('admin.blogs.comments', compact('row'));
+        $data = Blog::findorfail($id);
+        return view('admin.blogs.comments', compact('data'));
     }
 
     /**
