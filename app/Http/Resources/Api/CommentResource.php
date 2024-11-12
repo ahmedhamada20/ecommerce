@@ -18,6 +18,7 @@ class CommentResource extends JsonResource
         return [
             'id' => $this->id,
             'note' => $this->note,
+            'value' => $this->value,
             'customer_id' =>  new CustomerResources($this->customer()->first()),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),

@@ -13,6 +13,7 @@ class Comment extends Model
         'customer_id',
         'commentable_id',
         'commentable_type',
+        'value',
     ];
 
     public function customer(){
