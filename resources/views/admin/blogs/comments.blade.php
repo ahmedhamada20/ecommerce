@@ -13,7 +13,8 @@
                 <div class="card-header">
                     <div class="row d-flex justify-content-between text-start">
                         <div class="col-lg-3">
-                            <h2>تعليقات المنتج {{ $data->name_ar }}</h2>
+                            <h2> :: تعليقات المنتج   {{ $data->name_ar }}</h2>
+
                         </div>
                         <div class="col-lg-5 text-start">
                             <a href="{{route('blogs.index')}}" class="btn btn-info">صفحه المقالات</a>
