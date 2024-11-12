@@ -13,7 +13,7 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        $data = QueryModelsAll('Customer')->withCount('orders')->paginate(50);
+        $data = QueryModelsAll('Customer')->withCount('orders')->paginate(150);
         return view('admin.customers.index', compact('data'));
     }
 
