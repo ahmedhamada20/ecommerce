@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    الالوان
+    شركاء النجاح
 @endsection
 
 @section('content')

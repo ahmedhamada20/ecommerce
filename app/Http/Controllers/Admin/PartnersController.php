@@ -15,7 +15,7 @@ class PartnersController extends Controller
      */
     public function index()
     {
-        dd('adasd');
+
         $data = QueryModelsAll('Partner')->get();
         return view('admin.partners.index', compact('data'));
     }
