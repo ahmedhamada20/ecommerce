@@ -53,7 +53,7 @@ class OrdersController extends Controller
             }
 
             $discountAmount = 0.00;
-            $total = $orderData['subtotal'];
+            $total = $subtotal;
 
             $couponId = $request->input('coupon_id');
             if ($couponId) {
