@@ -13,6 +13,7 @@ class Gifit extends Model
         'name_ar',
         'name_en',
         'publish',
+        'price',
         'user_id',
         'columns',
     ];

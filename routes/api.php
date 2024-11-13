@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BlogsController;
 use App\Http\Controllers\Api\BrandsController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CommentRateController;
+use App\Http\Controllers\Api\OrdersController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\SlidersController;
@@ -98,6 +99,23 @@ Route::middleware('throttle:100,1')->group(function () {
     Route::middleware('auth:api')->prefix('comment_rate')->group(function () {
         Route::post('rate', [CommentRateController::class, 'rate']);
         Route::post('comment', [CommentRateController::class, 'comment']);
+    });
+
+
+    Route::middleware('auth:api')->group(function () {
+        Route::prefix('comment_rate')->group(function () {
+            Route::post('rate', [CommentRateController::class, 'rate']);
+            Route::post('comment', [CommentRateController::class, 'comment']);
+        });
+
+
+        Route::prefix('orders')->group(function () {
+            Route::get('get_orders', [OrdersController::class, 'get_orders']);
+            Route::post('store', [OrdersController::class, 'store']);
+            Route::get('details', [OrdersController::class, 'details']);
+            Route::post('status_order', [OrdersController::class, 'status_order']);
+        });
+
     });
 });
 

@@ -24,7 +24,7 @@ class CustomerResources extends JsonResource
             'fb_link' => $this->fb_link,
             'tw_link' => $this->tw_link,
             'in_link' => $this->in_link,
-
+            'wallets' => $this->wallets->sum('amount'),
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
                 'created_at' => $this->created_at->format('y-m-d h:i:s')
