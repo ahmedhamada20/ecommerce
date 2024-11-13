@@ -34,6 +34,6 @@ class OrderRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $errors = (new ValidationException($validator))->errors();
-        throw new HttpResponseException(responseFail('Validation Error',401,$errors));
+        throw new HttpResponseException(response('Validation Error',401,$errors));
     }
 }
