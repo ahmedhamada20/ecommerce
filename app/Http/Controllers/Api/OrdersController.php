@@ -129,6 +129,11 @@ class OrdersController extends Controller
 
     public function status_order(Request $request)
     {
+        $validStatuses = ['pending', 'received', 'prepared', 'delivery', 'completed', 'canceled'];
+        $validated = $request->validate([
+            'status' => ['required', 'string', 'in:' . implode(',', $validStatuses)],
+            'order_id' => ['required', 'exists:orders,id']
+        ]);
         $order = Order::find($request->order_id);
         if (!$order) {
             return response()->json(['error' => 'Order not found'], 404);
