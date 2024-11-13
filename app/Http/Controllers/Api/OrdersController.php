@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\OrderRequest;
 use App\Http\Resources\Api\OrderResources;
 use App\Models\Order;
 use App\Traits\ApiResponseTrait;
@@ -33,7 +34,7 @@ class OrdersController extends Controller
         return $this->successResponse(data: $response, message: 'Return Data Successfully');
     }
 
-    public function store()
+    public function store(OrderRequest $request)
     {
 
     }

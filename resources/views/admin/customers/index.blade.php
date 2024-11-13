@@ -86,7 +86,7 @@
                     var statusText = document.getElementById('statusText' + id);
                     var checkbox = document.getElementById('flexSwitchCheckDefault' + id);
 
-                    if (newStatus === '1') {
+                    if (newStatus === 'active') {
                         statusIcon.classList.remove('fa-toggle-off');
                         statusIcon.classList.add('fa-toggle-on');
                         statusText.textContent = 'نشط';
