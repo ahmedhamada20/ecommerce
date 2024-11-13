@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         'ref_id',
         'order_type',
@@ -24,15 +28,16 @@ class Order extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class,'customer_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
     public function detailsOrders()
     {
-        return $this->hasMany(OrderDetails::class,'order_id');
+        return $this->hasMany(OrderDetails::class, 'order_id');
     }
+
     public function statusOrders()
     {
-        return $this->hasMany(OrderStatus::class,'order_id');
+        return $this->hasMany(OrderStatus::class, 'order_id');
     }
 }

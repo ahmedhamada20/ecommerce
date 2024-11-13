@@ -74,6 +74,7 @@ class OrdersController extends Controller
             $orderData['total'] = $total;
             $orderData['coupon_id'] = $couponId;
 
+
             $order = Order::create($orderData);
 
             $products = $request->input('products');
