@@ -149,14 +149,8 @@ class OrdersController extends Controller
         if (!$order) {
             return response()->json(['error' => 'Order not found'], 404);
         }
-        $currentStatus = $order->status;
+
         $newStatus = $request->status;
-        $validTransitions = [
-            'pending' => ['canceled'],
-        ];
-        if (!isset($validTransitions[$currentStatus]) || !in_array($newStatus, $validTransitions[$currentStatus])) {
-            return response()->json(['error' => 'Invalid status transition'], 400);
-        }
         $order->status = $newStatus;
         $order->save();
         OrderStatus::create([

@@ -24,9 +24,9 @@ class StatusOrderRequest extends FormRequest
      */
     public function rules(): array
     {
-        $validStatuses = ['pending', 'received', 'prepared', 'delivery', 'completed', 'canceled'];
+        $validStatuses = ['canceled'];
         return [
-            'status' => ['required', 'string', 'in:' . implode(',', $validStatuses)],
+            'status' => ['required', 'string', 'in:canceled'],
             'order_id' => ['required', 'exists:orders,id']
         ];
     }
