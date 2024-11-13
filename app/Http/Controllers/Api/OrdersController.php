@@ -13,6 +13,7 @@ class OrdersController extends Controller
     use ApiResponseTrait;
     public function get_orders()
     {
+        dd('sadasd');
         $data = Order::where('customer_id',auth('api')->id())->paginate(20);
         $response = [
             'data' => OrderResources::collection($data),
