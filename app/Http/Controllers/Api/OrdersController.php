@@ -114,9 +114,16 @@ class OrdersController extends Controller
     }
 
 
-    public function details()
+    public function details(Request $request)
     {
-
+        $checkIDOrder = Order::findorfail($request->order_id);
+        if ($checkIDOrder){
+            return new OrderResources($checkIDOrder);
+        }else{
+            return response([
+                'error' => 'Order not found',
+            ], 404);
+        }
     }
 
 
