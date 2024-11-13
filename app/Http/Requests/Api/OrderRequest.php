@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Api;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\ValidationException;
 
 class OrderRequest extends FormRequest
 {
@@ -26,5 +29,11 @@ class OrderRequest extends FormRequest
             'payment_type' => 'required|in:cash,online,installment',
             'coupon_id' => 'nullable|exists:coupons,id',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = (new ValidationException($validator))->errors();
+        throw new HttpResponseException(responseFail('Validation Error',401,$errors));
     }
 }
