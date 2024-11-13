@@ -101,7 +101,7 @@ class OrdersController extends Controller
 
             return response([
                 'message' => 'Order created successfully',
-                'order' => $order
+                'order' => new OrderResources($order)
             ], 201);
 
         } catch (\Exception $e) {
