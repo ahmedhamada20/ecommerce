@@ -73,6 +73,7 @@ class OrdersController extends Controller
             $orderData['discount'] = $discountAmount;
             $orderData['total'] = $total;
             $orderData['coupon_id'] = $couponId;
+            $orderData['customer_id'] = auth('api')->id();
 
 
             $order = Order::create($orderData);
