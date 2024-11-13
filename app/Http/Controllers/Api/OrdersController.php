@@ -75,9 +75,8 @@ class OrdersController extends Controller
             $orderData['coupon_id'] = $couponId;
 
 
+            $order = Order::create($orderData);
 
-            $order =  DB::table('orders')->insert($orderData);
-            dd($order);
             $products = $request->input('products');
             foreach ($products as $product) {
                 OrderDetails::create([

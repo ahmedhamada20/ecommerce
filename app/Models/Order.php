@@ -2,17 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes,HasUlids;
 
-    protected $primaryKey = 'id';  // Primary key
-    protected $keyType = 'string';  // The key type should be string, since ULID is a string
-    public $incrementing = false;
     protected $fillable = [
         'ref_id',
         'order_type',
