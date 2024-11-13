@@ -26,7 +26,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'order_type' => 'required|in:orders,gifit',
-            'payment_type' => 'required|in:cash,online,installment',
+            'payment_type' => 'required|in:cash,online,installment,wallet',
             'coupon_id' => 'nullable|exists:coupons,id',
         ];
     }
