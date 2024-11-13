@@ -25,9 +25,6 @@ class OrderRequest extends FormRequest
             'order_type' => 'required|in:orders,gifit',
             'payment_type' => 'required|in:cash,online,installment',
             'coupon_id' => 'nullable|exists:coupons,id',
-            'subtotal' => 'required|numeric',
-            'discount' => 'required|numeric',
-            'total' => 'required|numeric',
         ];
     }
 }
