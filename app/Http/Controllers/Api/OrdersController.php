@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\OrderRequest;
+use App\Http\Requests\Api\StatusOrderRequest;
 use App\Http\Resources\Api\OrderResources;
 use App\Models\Order;
 use App\Models\OrderDetails;
@@ -129,11 +130,7 @@ class OrdersController extends Controller
 
     public function status_order(StatusOrderRequest $request)
     {
-        $validStatuses = ['pending', 'received', 'prepared', 'delivery', 'completed', 'canceled'];
-        $validated = $request->validate([
-            'status' => ['required', 'string', 'in:' . implode(',', $validStatuses)],
-            'order_id' => ['required', 'exists:orders,id']
-        ]);
+
         $order = Order::find($request->order_id);
         if (!$order) {
             return response()->json(['error' => 'Order not found'], 404);
