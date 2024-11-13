@@ -74,7 +74,7 @@ class OrdersController extends Controller
             $orderData['total'] = $total;
             $orderData['coupon_id'] = $couponId;
 
-
+dd('dasdasd');
 
             $order =  DB::table('orders')->insert($orderData);
             $products = $request->input('products');
