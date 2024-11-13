@@ -123,8 +123,6 @@ Route::middleware('throttle:100,1')->group(function () {
         });
 
 
-
-
     });
 });
 

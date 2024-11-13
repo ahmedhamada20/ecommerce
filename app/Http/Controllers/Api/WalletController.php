@@ -11,7 +11,6 @@ class WalletController extends Controller
     public function credit(Request $request)
     {
         $request->validate([
-
             'amount' => 'required|numeric|min:0'
         ]);
 
@@ -23,7 +22,6 @@ class WalletController extends Controller
     public function debit(Request $request)
     {
         $request->validate([
-
             'amount' => 'required|numeric|min:0'
         ]);
 
@@ -38,7 +36,6 @@ class WalletController extends Controller
             ['customer_id' => $customerId],
             ['amount' => 0, 'status_amount' => 'credit']
         );
-
         $newAmount = (float) $wallet->amount + (float) $amount;
         $wallet->amount = (string) $newAmount;
         $wallet->status_amount = 'credit';
@@ -50,15 +47,12 @@ class WalletController extends Controller
     public function debitAmount($customerId, $amount)
     {
         $wallet = Wallet::where('customer_id', $customerId)->first();
-
         if (!$wallet) {
             return response()->json(['error' => 'Wallet not found'], 404);
         }
-
         if ((float) $wallet->amount < (float) $amount) {
             return response()->json(['error' => 'Insufficient balance'], 400);
         }
-
         $newAmount = (float) $wallet->amount - (float) $amount;
         $wallet->amount = (string) $newAmount;
         $wallet->status_amount = 'debit';
