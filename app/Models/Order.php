@@ -10,9 +10,9 @@ class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id';  // Primary key
+    protected $keyType = 'string';  // The key type should be string, since ULID is a string
     public $incrementing = false;
-    protected $keyType = 'string';
     protected $fillable = [
         'ref_id',
         'order_type',
