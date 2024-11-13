@@ -127,7 +127,7 @@ class OrdersController extends Controller
     }
 
 
-    public function status_order(Request $request)
+    public function status_order(StatusOrderRequest $request)
     {
         $validStatuses = ['pending', 'received', 'prepared', 'delivery', 'completed', 'canceled'];
         $validated = $request->validate([
