@@ -9,6 +9,7 @@ use App\Http\Resources\Api\OrderResources;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\OrderStatus;
+use App\Models\Wallet;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -65,7 +66,7 @@ class OrdersController extends Controller
                     $discountAmount = $couponResponse->original['discount_amount'];
                     $total = $couponResponse->original['final_total'];
                 } else {
-                    return $couponResponse; // Return error if coupon is invalid
+                    return $couponResponse;
                 }
             }
 
@@ -78,6 +79,19 @@ class OrdersController extends Controller
 
 
             $order = Order::create($orderData);
+
+            if ($request->payment_type == 'wallet') {
+                $customerId = auth('api')->id();
+                $wallet = Wallet::where('customer_id', $customerId)->first();
+                if (!$wallet || (float)$wallet->amount < $total) {
+                    return response([
+                        'error' => 'Insufficient balance in wallet.'
+                    ], 400);
+                }
+                $wallet->amount = (float)$wallet->amount - (float)$total;
+                $wallet->status_amount = 'debit';
+                $wallet->save();
+            }
 
             $products = $request->input('products');
             foreach ($products as $product) {
@@ -154,8 +168,6 @@ class OrdersController extends Controller
             'status' => $newStatus,
             'customer_id' => auth('api')->id(),
         ]);
-
-
         return response()->json(['message' => 'Order status updated successfully']);
     }
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\OrdersController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\SlidersController;
+use App\Http\Controllers\Api\WalletController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -115,6 +116,14 @@ Route::middleware('throttle:100,1')->group(function () {
             Route::get('details', [OrdersController::class, 'details']);
             Route::post('status_order', [OrdersController::class, 'status_order']);
         });
+
+        Route::prefix('wallet')->group(function () {
+            Route::post('wallet/credit', [WalletController::class, 'credit']);
+            Route::post('wallet/debit', [WalletController::class, 'debit']);
+        });
+
+
+
 
     });
 });

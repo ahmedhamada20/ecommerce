@@ -15,7 +15,7 @@ return new class extends Migration
             $table->ulid('id')->primary();
             $table->string('ref_id')->nullable();
             $table->enum('order_type', array('orders', 'gifit'));
-            $table->enum('payment_type', array('cash', 'online', 'installment'));
+            $table->enum('payment_type', array('cash', 'online', 'installment','wallet'));
             $table->foreignId('customer_id')->nullable()->constrained('customers')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('coupon_id')->nullable()->constrained('coupons')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status', array('pending', 'received', 'prepared', 'delivery', 'completed', 'rejected', 'canceled'));
