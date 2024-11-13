@@ -130,14 +130,11 @@ class OrdersController extends Controller
     public function status_order(Request $request)
     {
         $order = Order::find($request->order_id);
-
         if (!$order) {
             return response()->json(['error' => 'Order not found'], 404);
         }
-
         $currentStatus = $order->status;
         $newStatus = $request->status;
-
         $validTransitions = [
             'pending' => ['received'],
             'received' => ['prepared'],
@@ -145,16 +142,14 @@ class OrdersController extends Controller
             'delivery' => ['completed'],
             'completed' => ['canceled'],
         ];
-
         if (!isset($validTransitions[$currentStatus]) || !in_array($newStatus, $validTransitions[$currentStatus])) {
             return response()->json(['error' => 'Invalid status transition'], 400);
         }
-
         $order->status = $newStatus;
         $order->save();
         OrderStatus::create([
             'order_id' => $order->id,
-            'status' => "pending",
+            'status' => $newStatus,
             'customer_id' => auth('api')->id(),
         ]);
 
