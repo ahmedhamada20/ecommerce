@@ -152,11 +152,7 @@ class OrdersController extends Controller
         $currentStatus = $order->status;
         $newStatus = $request->status;
         $validTransitions = [
-            'pending' => ['received'],
-            'received' => ['prepared'],
-            'prepared' => ['delivery'],
-            'delivery' => ['completed'],
-            'completed' => ['canceled'],
+            'pending' => ['canceled'],
         ];
         if (!isset($validTransitions[$currentStatus]) || !in_array($newStatus, $validTransitions[$currentStatus])) {
             return response()->json(['error' => 'Invalid status transition'], 400);
