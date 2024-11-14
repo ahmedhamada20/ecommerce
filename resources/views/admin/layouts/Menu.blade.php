@@ -217,31 +217,40 @@
                 </div>
             </li>
 
-{{--            <li class="nav-item">--}}
-{{--                <a class="nav-link menu-arrow" href="#sidebarOrders" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarOrders">--}}
-{{--                                   <span class="nav-icon">--}}
-{{--                                        <iconify-icon icon="solar:bag-smile-bold-duotone"></iconify-icon>--}}
-{{--                                   </span>--}}
-{{--                    <span class="nav-text"> Orders </span>--}}
-{{--                </a>--}}
-{{--                <div class="collapse" id="sidebarOrders">--}}
-{{--                    <ul class="nav sub-navbar-nav">--}}
 
-{{--                        <li class="sub-nav-item">--}}
-{{--                            <a class="sub-nav-link" href="orders-list.html">List</a>--}}
-{{--                        </li>--}}
-{{--                        <li class="sub-nav-item">--}}
-{{--                            <a class="sub-nav-link" href="order-detail.html">Details</a>--}}
-{{--                        </li>--}}
-{{--                        <li class="sub-nav-item">--}}
-{{--                            <a class="sub-nav-link" href="order-cart.html">Cart</a>--}}
-{{--                        </li>--}}
-{{--                        <li class="sub-nav-item">--}}
-{{--                            <a class="sub-nav-link" href="order-checkout.html">Check Out</a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </li>--}}
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarusers" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarusers">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:shop-bold-duotone"></iconify-icon>
+                                   </span>
+                    <span class="nav-text"> المستخدمين </span>
+                </a>
+                <div class="collapse" id="sidebarusers">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('customers.index')}}">جميع المستخدمين</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarOrders" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarOrders">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:bag-smile-bold-duotone"></iconify-icon>
+                                   </span>
+                    <span class="nav-text"> الطلبات </span>
+                </a>
+                <div class="collapse" id="sidebarOrders">
+                    <ul class="nav sub-navbar-nav">
+
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{route('orders.index')}}">الطلبات</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
 
 {{--            <li class="nav-item">--}}
 {{--                <a class="nav-link menu-arrow" href="#sidebarPurchases" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPurchases">--}}
@@ -360,21 +369,7 @@
 {{--                </div>--}}
 {{--            </li>--}}
 
-            <li class="nav-item">
-                <a class="nav-link menu-arrow" href="#sidebarusers" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarusers">
-                                   <span class="nav-icon">
-                                        <iconify-icon icon="solar:shop-bold-duotone"></iconify-icon>
-                                   </span>
-                    <span class="nav-text"> المستخدمين </span>
-                </a>
-                <div class="collapse" id="sidebarusers">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{route('customers.index')}}">جميع المستخدمين</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+
 
 {{--            <li class="menu-title mt-2">Other</li>--}}
 

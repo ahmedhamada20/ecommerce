@@ -35,7 +35,7 @@
                                         </label>
                                     </div>
 
-{{--                                    <!-- حقل الكمية الخاص بكل لون -->--}}
+                                    <!-- حقل الكمية الخاص بكل لون -->
 {{--                                    <div class="col-lg-2">--}}
 {{--                                        <input type="number" class="form-control quantity-input" name="quantities[]"--}}
 {{--                                               id="quantity-{{ $color->id }}" placeholder="أدخل الكمية" min="1" disabled>--}}
