@@ -26,7 +26,7 @@ class StatusOrderRequest extends FormRequest
     {
         $validStatuses = ['canceled'];
         return [
-            'status' => ['required', 'string', 'in:canceled'],
+            'status' => ['required', 'string', 'in:refund'],
             'order_id' => ['required', 'exists:orders,id']
         ];
     }

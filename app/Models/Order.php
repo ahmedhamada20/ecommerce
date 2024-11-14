@@ -15,6 +15,7 @@ class Order extends Model
         'ref_id',
         'order_type',
         'payment_type',
+        'payment_status',
         'customer_id',
         'coupon_id',
         'status',

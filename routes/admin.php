@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\CouponsController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\GalleriesController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PartnersController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
@@ -66,4 +67,4 @@ Route::resource('galleries',GalleriesController::class);
 Route::resource('customers',CustomersController::class);
 Route::post('status_customers', [CustomersController::class, 'status_customers'])->name('status_customers');
 
-
+Route::resource('orders',OrdersController::class);

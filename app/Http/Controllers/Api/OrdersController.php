@@ -70,6 +70,7 @@ class OrdersController extends Controller
                 }
             }
 
+            $orderData['payment_status'] = "Unpaid";
             $orderData['status'] = "pending";
             $orderData['subtotal'] = $subtotal;
             $orderData['discount'] = $discountAmount;

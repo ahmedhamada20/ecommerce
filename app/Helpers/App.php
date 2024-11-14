@@ -65,4 +65,18 @@ if (!function_exists('check_coupons')){
     }
 }
 
+if (!function_exists('count_orders')) {
+    function count_orders($type = null)
+    {
+        $query = \App\Models\Order::select('status', \DB::raw('count(*) as count'))
+            ->groupBy('status');
+
+        if ($type) {
+            $query->where('status', $type);
+        }
+
+        return $query->pluck('count', 'status')->first() ?? 0;
+    }
+}
+
 

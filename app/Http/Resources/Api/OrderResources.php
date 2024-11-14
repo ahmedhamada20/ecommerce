@@ -20,6 +20,7 @@ class OrderResources extends JsonResource
             'ref_id' => $this->ref_id,
             'order_type' => $this->order_type,
             'payment_type' => $this->payment_type,
+            'payment_status' => $this->payment_status,
             'coupon_id' => $this->coupon_id,
             'status' => $this->status,
             'subtotal' => $this->subtotal,
