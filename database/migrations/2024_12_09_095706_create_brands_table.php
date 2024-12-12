@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('count_view')->nullable();
             $table->boolean('active')->default(true);
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+
             $table->json('columns')->nullable();
             $table->softDeletes();
             $table->timestamps();

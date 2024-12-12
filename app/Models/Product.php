@@ -57,4 +57,16 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class,'brand_id');
     }
+
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'products_tags');
+    }
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'products_coupons');
+    }
+
 }

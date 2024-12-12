@@ -39,6 +39,7 @@ return new class extends Migration
             $table->timestamp('reset_password_expires')->nullable();
             $table->string('reset_password_token')->nullable();
             $table->string('password');
+            $table->string('role')->nullable();
             $table->json('columns')->nullable();
             $table->softDeletes();
             $table->rememberToken();
