@@ -4,14 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable , SoftDeletes,HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +21,33 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
+        'phone',
+        'code_country',
+        'whatsapp_phone',
+        'profile_picture',
+        'date_of_birth',
+        'fb_link',
+        'tw_link',
+        'in_link',
+        'google_id',
+        'facebook_id',
+        'reset_code',
+        'wallets',
+        'address',
+        'is_verified',
+        'type',
+        'gender',
+        'wallet_balance',
+        'is_active',
+        'email_verified_at',
+        'last_login',
+        'reset_password_expires',
+        'reset_password_token',
         'password',
+        'columns',
     ];
 
     /**

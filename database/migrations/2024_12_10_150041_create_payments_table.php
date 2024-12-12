@@ -17,6 +17,8 @@ return new class extends Migration
             $table->enum('payment_method',['credit_card','paypal','cash_on_delivery']);
             $table->enum('payment_status',['pending','completed','failed'])->default('pending');
             $table->decimal('amount',10,2);
+            $table->json('columns')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

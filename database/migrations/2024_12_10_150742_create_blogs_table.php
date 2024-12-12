@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,9 +12,20 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->foreignId('author_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('name_ar')->nullable();
+            $table->string('name_en')->nullable();
+            $table->decimal('rate', 10, 2)->nullable();
+            $table->longText('short_description_ar')->nullable();
+            $table->longText('short_description_en')->nullable();
+            $table->longText('description_ar')->nullable();
+            $table->longText('description_en')->nullable();
+            $table->longText('notes_ar')->nullable();
+            $table->longText('notes_en')->nullable();
+            $table->tinyInteger('count_view')->nullable();
+            $table->tinyInteger('count_comments')->nullable();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->json('columns')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

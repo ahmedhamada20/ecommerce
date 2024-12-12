@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('s_e_o_metadata', function (Blueprint $table) {
             $table->id();
-            $table->enum('entity_type',['product','category','blog','static_page']);
-            $table->unsignedBigInteger('entity_id');
+            $table->morphs('entitytypeable');
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->json('meta_keywords')->nullable();
