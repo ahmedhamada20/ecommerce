@@ -21,8 +21,8 @@ class SlidersSeeder extends Seeder
 
         for ($i = 1; $i <= 5; $i++) {
             Slider::create([
-                'title_ar' => "العنوان بالعربية - Slider $i",
-                'title_en' => "English Title - Slider $i",
+                'name_ar' => "العنوان بالعربية - Slider $i",
+                'name_en' => "English Title - Slider $i",
                 'description_ar' => "وصف طويل بالعربية لـ Slider $i.",
                 'description_en' => "Long description in English for Slider $i.",
                 'user_id' => $users->random()->id,

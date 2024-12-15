@@ -10,8 +10,9 @@ class Slider extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'title_ar',
-        'title_en',
+        'name_ar',
+        'name_en',
+        'is_active',
         'description_ar',
         'description_en',
         'user_id',

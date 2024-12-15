@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\HyperlinksEnum;
 use App\Models\Hyperlink;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,7 +20,7 @@ class HyperlinksSeeder extends Seeder
         DB::table('hyperlinks')->truncate();
         Schema::enableForeignKeyConstraints();
 
-        $types = ['Slider', 'Blog'];
+        $types = [HyperlinksEnum::SLIDER, HyperlinksEnum::BLOG];
 
         for ($i = 1; $i <= 10; $i++) {
             Hyperlink::create([
