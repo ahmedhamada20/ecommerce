@@ -17,10 +17,17 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         try {
-            return $next($request);
+            $response = $next($request);
+            if (!in_array($response->getStatusCode(), [200, 201, 204])) {
+                toastr()->error('An error has occurred please try again later.');
+                return redirect()->back();
+            }
+            return $response;
         } catch (\Exception $e) {
-            Log::error('Admin Error: ' . $e->getMessage());
+            Log::error('Error: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => 'An unexpected error occurred. Please try again later.']);
         }
     }
+
+
 }
