@@ -3,16 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $data = queryModels('User', [
+            'type' => 'customer'
+        ], [
+            'perPage' => 20,
+            'page' => 1
+        ]);
+
+        return view('admin.users.index', compact('data'));
     }
 
     /**
@@ -20,15 +27,25 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        User::create([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'gender' => $request->input('gender'),
+            'type'=>'customer',
+            'password' => bcrypt($request->input('password')),
+        ]);
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     /**
@@ -36,7 +53,8 @@ class UsersController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -44,15 +62,26 @@ class UsersController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->update([
+            'type'=>'customer',
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'gender' => $request->input('gender'),
+            'password' => $request->input('password') ? bcrypt($request->input('password')) : $user->password,
+        ]);
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
     /**
@@ -60,6 +89,9 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+
     }
 }
