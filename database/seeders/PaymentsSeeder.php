@@ -13,22 +13,27 @@ class PaymentsSeeder extends Seeder
 {
     public function run(): void
     {
-
         Schema::disableForeignKeyConstraints();
         DB::table('payments')->truncate();
         Schema::enableForeignKeyConstraints();
 
         $paymentMethods = ['credit_card', 'paypal', 'cash_on_delivery'];
         $paymentStatuses = ['pending', 'completed', 'failed'];
-        $orders = Order::all();
-        foreach ($orders as $order) {
-            Payment::create([
-                'order_id' => $order->id,
-                'payment_method' => $paymentMethods[array_rand($paymentMethods)],
-                'payment_status' => $paymentStatuses[array_rand($paymentStatuses)],
-                'amount' => $order->total,
-                'columns' => json_encode(['extra_info' => Str::random(10)]),
-            ]);
-        }
+
+        Order::chunk(100, function ($orders) use ($paymentMethods, $paymentStatuses) {
+            $payments = [];
+            foreach ($orders as $order) {
+                $payments[] = [
+                    'order_id' => $order->id,
+                    'payment_method' => $paymentMethods[array_rand($paymentMethods)],
+                    'payment_status' => $paymentStatuses[array_rand($paymentStatuses)],
+                    'amount' => $order->total,
+                    'columns' => json_encode(['extra_info' => Str::random(10)]),
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+            }
+            Payment::insert($payments);
+        });
     }
 }
