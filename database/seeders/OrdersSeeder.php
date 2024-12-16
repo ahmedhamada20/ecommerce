@@ -28,10 +28,10 @@ class OrdersSeeder extends Seeder
         $orders = [];
         $now = now();
 
-        for ($i = 0; $i < 180; $i++) {
+        for ($i = 0; $i < 1800; $i++) {
             $orders[] = [
                 'order_number' => Str::uuid(),
-                'ref_id' => Str::random(10),
+                'ref_id' => Str::random(50),
                 'payment_type' => $paymentTypes[array_rand($paymentTypes)],
                 'order_type' => $orderTypes[array_rand($orderTypes)],
                 'customer_id' => $customers[array_rand($customers)],
