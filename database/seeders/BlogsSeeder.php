@@ -18,7 +18,7 @@ class BlogsSeeder extends Seeder
         DB::table('blogs')->truncate();
         Schema::enableForeignKeyConstraints();
 
-        $users = User::all();
+        $users = User::whereType('admin')->get();
 
         for ($i = 0; $i < 5; $i++) {
             Blog::create([
