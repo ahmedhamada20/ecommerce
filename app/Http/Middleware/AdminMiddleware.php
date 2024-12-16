@@ -19,7 +19,12 @@ class AdminMiddleware
         try {
             $response = $next($request);
             if (!in_array($response->getStatusCode(), [200, 201, 204])) {
-                toastr()->error('An error has occurred please try again later.');
+                toastr()->error('An error has occurred, please try again later.', 'Handle Error', [
+                    'closeButton' => true,
+                    'showEasing' => 'swing',
+                    'showMethod' => 'fadeIn',
+//                    'onclick' => 'function() { window.location.href = document.referrer; }'
+                ]);
                 return redirect()->back();
             }
             return $response;
