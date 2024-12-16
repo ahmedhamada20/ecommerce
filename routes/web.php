@@ -36,13 +36,13 @@ Route::middleware(['auth','admin_try'])->group(function (){
     Route::resource('addresses', AddressController::class);
     Route::resource('brands', BrandController::class);
     Route::resource('currencies', CurrencyController::class);
-    Route::resource('coupons', CouponController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('blogs', BlogController::class);
     Route::resource('rewards', RewardController::class);
     Route::resource('sliders', SliderController::class);
 });
+Route::resource('coupons', CouponController::class);
 
 
 

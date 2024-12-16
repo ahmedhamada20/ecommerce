@@ -20,12 +20,27 @@ class CouponsSeeder extends Seeder
         DB::table('coupons')->truncate();
         Schema::enableForeignKeyConstraints();
         $data = [
+
             [
                 'user_id' => 1,
                 'customer_id' => null,
                 'type_code' => 1,
                 'code' => strtoupper(Str::random(10)),
                 'description' => 'كود مجاني بدون خصم محدد',
+                'discount_value' => null,
+                'discount_type' => null,
+                'max_used' => 100,
+                'times_used' => 20,
+                'status' => true,
+                'start_date' => '2024-01-01',
+                'end_date' => '2024-12-31',
+            ],
+            [
+                'user_id' => 1,
+                'customer_id' => null,
+                'type_code' => 1,
+                'code' => strtoupper(Str::random(10)),
+                'description' => 'كود مجاني',
                 'discount_value' => null,
                 'discount_type' => null,
                 'max_used' => 100,

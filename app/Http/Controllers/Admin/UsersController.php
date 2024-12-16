@@ -36,15 +36,9 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
-        User::create([
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'gender' => $request->input('gender'),
-            'type'=>'customer',
-            'password' => bcrypt($request->input('password')),
-        ]);
+        User::create(array_merge($request->validated(), [
+            'user_id' => auth()->id(),
+        ]));
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
