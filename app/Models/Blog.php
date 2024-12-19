@@ -34,6 +34,6 @@ class Blog extends Model
 
     public function commentable()
     {
-        return $this->morphMany(RateComment::class, 'commentable')->where('status','active');
+        return $this->morphMany(RateComment::class, 'commentable');
     }
 }

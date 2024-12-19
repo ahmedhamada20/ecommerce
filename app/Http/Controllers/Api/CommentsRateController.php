@@ -45,6 +45,15 @@ class CommentsRateController extends Controller
         if ($commentsUsers) {
             $commentsUsers->update($input);
             $data = $commentsUsers;
+            $product = $input['commentable_type']::findorFail($input['commentable_id']);
+            if ($product) {
+                $all_product_rates = 0;
+                foreach ($product->commentable as $rate) {
+                    $all_product_rates += $rate->value;
+                }
+                $product->rate = $all_product_rates / count($product->commentable);
+                $product->save();
+            }
         } else {
             $data = RateComment::create($input);
             $product = $input['commentable_type']::findorFail($data->commentable_id);
