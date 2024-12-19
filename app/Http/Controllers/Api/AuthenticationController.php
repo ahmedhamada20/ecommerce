@@ -9,6 +9,7 @@ use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AuthenticationController extends Controller
@@ -24,15 +25,20 @@ class AuthenticationController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:users,email|max:255',
+            'type' => 'required|in:email,phone',
+            'email' => 'required_if:type,email|email|exists:users,email|max:255',
+            'phone' => 'required_if:type,phone|numeric|exists:users,phone',
             'password' => 'required|string|min:6|max:255',
         ]);
         if ($validator->fails()) {
 
             return $this->errorResponse($validator->errors(), 422);
         }
-
-        $credentials = request(['email', 'password']);
+        if ($request->type == "email") {
+            $credentials = request(['email', 'password']);
+        } else {
+            $credentials = request(['phone', 'password']);
+        }
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -45,9 +51,13 @@ class AuthenticationController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
             'email' => 'required|email|unique:users,email',
+            'phone' => 'required|numeric|unique:users,phone',
             'password' => 'required|string|min:6|max:255',
+            'gender' => 'required|in:man,female',
+
         ]);
         if ($validator->fails()) {
 
@@ -56,9 +66,14 @@ class AuthenticationController extends Controller
 
         try {
             $new = User::create([
-                'name' => $request->name,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
                 'email' => $request->email,
+                'phone' => $request->phone,
+                'gender' => $request->gender,
                 'password' => bcrypt($request->password),
+                'type' => 'customer',
+                'role' => 'customer',
             ]);
             return $this->successResponse(new UserResources($new), 'data created Successfully');
         } catch (\Exception $e) {
@@ -92,5 +107,41 @@ class AuthenticationController extends Controller
             'users' => new UserResources(auth('api')->user())
         ]);
     }
+
+
+    public function edit_profile(Request $request)
+    {
+        $user = auth('api')->user();
+        $request->validate([
+            'first_name' => 'sometimes|string|max:255',
+            'last_name' => 'sometimes|string|max:255',
+            'gender' => 'sometimes|in:man,female',
+            'address' => 'sometimes|string|max:500',
+            'profile_picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('profile_picture')) {
+            if ($user->profile_picture) {
+                Storage::disk('public')->delete($user->profile_picture);
+            }
+            $filePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $filePath;
+        }
+        $user->update([
+            'first_name' => $request->first_name ?? $user->first_name,
+            'last_name' => $request->last_name ?? $user->last_name,
+            'gender' => $request->gender ?? $user->gender,
+            'address' => $request->address ?? $user->address,
+            'type' => 'customer',
+            'role' => 'customer',
+        ]);
+        if (isset($filePath)) {
+            $user->profile_picture = $filePath;
+            $user->save();
+        }
+
+        return $this->successResponse(new UserResources($user), 'Data Updated Successfully');
+    }
+
 
 }

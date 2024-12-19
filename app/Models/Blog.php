@@ -12,6 +12,7 @@ class Blog extends Model
     protected $fillable = [
         'name_ar',
         'name_en',
+        'slug',
         'rate',
         'short_description_ar',
         'short_description_en',
@@ -29,5 +30,10 @@ class Blog extends Model
     public function user()
     {
         return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function commentable()
+    {
+        return $this->morphMany(RateComment::class, 'commentable')->where('status','active');
     }
 }

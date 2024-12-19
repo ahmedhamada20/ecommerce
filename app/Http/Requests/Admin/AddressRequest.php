@@ -22,7 +22,7 @@ class AddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'nullable|exists:users,id',
             'address' => 'nullable|string|max:255',
             'region' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',

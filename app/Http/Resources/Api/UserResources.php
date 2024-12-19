@@ -16,8 +16,22 @@ class UserResources extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'phone' => $this->phone,
+            'type' => $this->type,
             'email' => $this->email,
+            'wallet_balance' => $this->wallet_balance,
+            'gender' => $this->gender,
+            'code_country' => $this->code_country,
+            'whatsapp_phone' => $this->whatsapp_phone,
+            'profile_picture' =>$this->profile_picture != null ? asset('storage/'.$this->profile_picture) : null,
+            'date_of_birth' => $this->date_of_birth,
+            'fb_link' => $this->fb_link,
+            'tw_link' => $this->tw_link,
+            'in_link' => $this->in_link,
+            'google_id' => $this->google_id,
+            'facebook_id' => $this->facebook_id,
             'create_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
                 'created_at' => $this->created_at->format('y-m-d h:i:s')

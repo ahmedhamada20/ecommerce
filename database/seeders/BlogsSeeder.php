@@ -24,6 +24,7 @@ class BlogsSeeder extends Seeder
             Blog::create([
                 'name_ar' => 'مدونة رقم ' . $i . ' بالعربية',
                 'name_en' => 'Blog ' . $i . ' in English',
+                'slug' => fake()->slug(),
                 'rate' => rand(1, 5),
                 'short_description_ar' => 'وصف قصير باللغة العربية ' . $i,
                 'short_description_en' => 'Short description in English ' . $i,

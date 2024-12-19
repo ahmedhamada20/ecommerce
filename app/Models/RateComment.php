@@ -12,8 +12,19 @@ class RateComment extends Model
         'customer_id',
         'status',
         'photo',
+        'comments',
         'value',
         'commentable_id',
         'commentable_type',
     ];
+
+    public function commentable()
+    {
+        return $this->morphTo();
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(User::class,'customer_id');
+    }
 }

@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name_ar')->nullable();
             $table->string('name_en')->nullable();
+            $table->string('slug')->nullable();
             $table->decimal('rate', 10, 2)->nullable();
             $table->longText('short_description_ar')->nullable();
             $table->longText('short_description_en')->nullable();

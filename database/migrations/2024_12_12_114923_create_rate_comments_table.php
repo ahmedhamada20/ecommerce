@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('status',['active','noActive']);
             $table->string('photo')->nullable();
             $table->string('value')->nullable();
+            $table->text('comments')->nullable();
             $table->morphs('commentable');
             $table->timestamps();
         });
