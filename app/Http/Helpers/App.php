@@ -43,3 +43,14 @@ if (!function_exists('queryModels')) {
     }
 }
 
+if (!function_exists('get_models')){
+    function get_models($models)
+    {
+        $modelClass = "App\\Models\\" . $models;
+        if (!$modelClass){
+            throw new Exception("Error: Model class '{$models}' not found.");
+        }
+
+    }
+}
+

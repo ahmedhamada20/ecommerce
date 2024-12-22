@@ -3,7 +3,10 @@
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\AuthenticationController;
 use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CommentsRateController;
+use App\Http\Controllers\Api\CurrenciesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,16 +41,31 @@ Route::group(['middleware' => ['api', 'HandleApiExceptions']], function () {
             Route::post('create', [AddressController::class, 'create']);
         });
 
-        Route::prefix('comments')->group(function (){
-           Route::post('comments_rate',[CommentsRateController::class,'store']);
+        Route::prefix('comments')->group(function () {
+            Route::post('comments_rate', [CommentsRateController::class, 'store']);
         });
 
     });
 
     // Blogs
-    Route::prefix('blogs')->group(function (){
-       Route::get('index',[BlogController::class,'index']);
-       Route::get('show/{slug}',[BlogController::class,'show']);
+    Route::prefix('blogs')->group(function () {
+        Route::get('index', [BlogController::class, 'index']);
+        Route::get('show/{slug}', [BlogController::class, 'show']);
+    });
+    // currencies
+    Route::prefix('currencies')->group(function () {
+        Route::get('index', [CurrenciesController::class, 'index']);
+    });
+    // categories
+    Route::prefix('categories')->group(function () {
+        Route::get('index', [CategoryController::class, 'index']);
+        Route::get('show/{slug}', [CategoryController::class, 'show']);
+    });
+
+    // brands
+    Route::prefix('brands')->group(function () {
+        Route::get('index', [BrandController::class, 'index']);
+        Route::get('show/{slug}', [BrandController::class, 'show']);
     });
 
 });

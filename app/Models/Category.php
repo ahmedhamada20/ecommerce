@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+
     protected $fillable = [
         'name_ar',
         'name_en',
@@ -22,9 +23,13 @@ class Category extends Model
         'columns',
     ];
 
+    public function parent()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
