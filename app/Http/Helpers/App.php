@@ -50,7 +50,6 @@ if (!function_exists('get_models')){
         if (!$modelClass){
             throw new Exception("Error: Model class '{$models}' not found.");
         }
-
     }
 }
 

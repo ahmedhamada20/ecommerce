@@ -30,7 +30,7 @@ return new class extends Migration
             $table->decimal('wallets',10,2)->nullable();
             $table->text('address')->nullable();
             $table->boolean('is_verified')->default(false);
-            $table->enum('type',['admin','customer'])->nullable();
+            $table->enum('type',['admin','customer'])->default('customer');
             $table->enum('gender',['man','female'])->nullable();
             $table->decimal('wallet_balance',10,2)->default(0);
             $table->boolean('is_active')->default(true);
