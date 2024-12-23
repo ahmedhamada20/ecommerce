@@ -28,7 +28,7 @@ class CommentsRateController extends Controller
         }
 
 
-        $commentsUsers = RateComment::where('customer_id', auth()->id())->where('commentable_type', "App\Models\\" .
+        $commentsUsers = RateComment::where('customer_id', auth('api')->id())->where('commentable_type', "App\Models\\" .
             ucfirst($request->type))->where('commentable_id', $request->id_type)->first();
 
 

@@ -22,12 +22,12 @@ class AddressController extends Controller
     {
         $user = auth('api')->user();
         $validator = Validator::make($request->all(), [
-            'address' => 'sometimes|max:255',
-            'region' => 'sometimes|max:255',
-            'city' => 'sometimes|max:255',
-            'floor' => 'sometimes|max:255',
-            'street' => 'sometimes|max:255',
-            'landmark' => 'sometimes|max:255',
+            'address' => 'sometimes|string|max:255',
+            'region' => 'sometimes|string|max:255',
+            'city' => 'sometimes|string|max:255',
+            'floor' => 'sometimes|string|max:255',
+            'street' => 'sometimes|string|max:255',
+            'landmark' => 'sometimes|string|max:255',
             'type' => 'required|in:essential,sub',
 
         ]);
