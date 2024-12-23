@@ -31,7 +31,7 @@ class BlogController extends Controller
     {
         $data = Blog::where('slug', $slug)->first();
         if (!$data) {
-            return $this->errorResponse('Blog not found !!');
+            return $this->errorResponse('Blog not found !!',404);
         }
         return $this->successResponse(new BlogResources($data), 'data return successfully');
     }

@@ -10,7 +10,15 @@ trait ApiResponseTrait
     protected function apiResponse(bool $success, $data = null, ?string $message = null, int $statusCode = 200): JsonResponse
     {
         $response = ['status' => $success,];
+        if (!$success) {
+            if ($message !== null)
+                $response['ErrorCode'] = $message;
 
+            if ($data !== null)
+                $response['data'] = $data;
+
+            return response()->json($response, $statusCode);
+        }
         if ($message !== null)
             $response['message'] = $message;
 
@@ -26,11 +34,18 @@ trait ApiResponseTrait
     }
 
 
-    protected function errorResponse(?string $message = null, int $statusCode = 500): JsonResponse
+    protected function errorResponse($message = null, int $statusCode = 500): JsonResponse
     {
-        return $this->apiResponse(false, null, $message, $statusCode);
-    }
+        if (is_array($message)) {
+            $formattedErrors = [];
+            foreach ($message as $field => $errors) {
+                $formattedErrors[$field] = implode(", ", $errors);
+            }
+            return $this->apiResponse(false, $formattedErrors, $statusCode);
+        }
 
+        return $this->apiResponse(false, $message, $statusCode);
+    }
     protected function notFoundResponse(?string $message = null): JsonResponse
     {
         return $this->errorResponse($message, 404);

@@ -32,7 +32,7 @@ class AuthenticationController extends Controller
         ]);
         if ($validator->fails()) {
 
-            return $this->errorResponse($validator->errors(), 422);
+            return $this->errorResponse($validator->errors()->toArray(), 422);
         }
         if ($request->type == "email") {
             $credentials = request(['email', 'password']);
@@ -61,7 +61,7 @@ class AuthenticationController extends Controller
         ]);
         if ($validator->fails()) {
 
-            return $this->errorResponse($validator->errors(), 422);
+            return $this->errorResponse($validator->errors()->toArray(), 422);
         }
 
         try {
@@ -112,13 +112,20 @@ class AuthenticationController extends Controller
     public function edit_profile(Request $request)
     {
         $user = auth('api')->user();
-        $request->validate([
+
+
+        $validator = Validator::make($request->all(), [
             'first_name' => 'sometimes|string|max:255',
             'last_name' => 'sometimes|string|max:255',
             'gender' => 'sometimes|in:man,female',
             'address' => 'sometimes|string|max:500',
             'profile_picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+
         ]);
+        if ($validator->fails()) {
+
+            return $this->errorResponse($validator->errors()->toArray(), 422);
+        }
 
         if ($request->hasFile('profile_picture')) {
             if ($user->profile_picture) {
