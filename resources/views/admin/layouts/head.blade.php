@@ -32,4 +32,6 @@
 <link rel="stylesheet" href="{{asset('dash/assets/css/lib/audioplayer.css')}}">
 <!-- main css -->
 <link rel="stylesheet" href="{{asset('dash/assets/css/style.css')}}">
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css">
+
 @yield('css')

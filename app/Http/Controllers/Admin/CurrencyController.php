@@ -34,7 +34,7 @@ class CurrencyController extends Controller
     public function store(CurrencyRequest $request)
     {
         Currency::create($request->validated());
-        return redirect()->route('currencies.index')->with('success', 'Currency created successfully.');
+        return redirect()->route('admin_currencies.index')->with('success', 'Currency created successfully.');
     }
 
     /**
@@ -60,9 +60,9 @@ class CurrencyController extends Controller
      */
     public function update(CurrencyRequest $request, $id)
     {
-        $currency = Currency::findOrFail($id);
+        $currency = Currency::findOrFail($request->id);
         $currency->update($request->validated());
-        return redirect()->route('currencies.index')->with('success', 'Currency updated successfully.');
+        return redirect()->route('admin_currencies.index')->with('success', 'Currency updated successfully.');
     }
 
     /**
@@ -70,8 +70,21 @@ class CurrencyController extends Controller
      */
     public function destroy($id)
     {
-        $currency = Currency::findOrFail($id);
+        $currency = Currency::findOrFail(\request()->id);
         $currency->delete();
-        return redirect()->route('currencies.index')->with('success', 'Currency deleted successfully.');
+        return redirect()->route('admin_currencies.index')->with('success', 'Currency deleted successfully.');
+    }
+
+    public function updateCountryStatus(Request $request)
+    {
+
+        $brand = Currency::find($request->id);
+        if (!$brand) {
+            return response()->json(['success' => false, 'message' => 'العلامة التجارية غير موجودة']);
+        }
+        $brand->is_active = $request->active;
+        $brand->save();
+
+        return response()->json(['success' => true, 'message' => 'تم تحديث الحالة بنجاح']);
     }
 }

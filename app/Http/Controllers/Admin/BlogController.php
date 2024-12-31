@@ -7,7 +7,9 @@ use App\Http\Requests\Admin\BlogRequest;
 use App\Http\Requests\Admin\BrandRequest;
 use App\Models\Blog;
 use App\Models\Brand;
+use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -34,9 +36,21 @@ class BlogController extends Controller
     public function store(BlogRequest $request)
     {
         $blog =Blog::create(array_merge($request->validated(), [
-            'user_id' => auth()->id(),
+            'user_id' => auth()->check() ?  auth()->id() : 1    ,
         ]));
-        return redirect()->route('blogs.index')
+
+        if($blog){
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imagePath = $image->store('blogs', 'public');
+                Photo::create([
+                    'filename' => $imagePath,
+                    'photoable_type' => Blog::class,
+                    'photoable_id' => $blog->id,
+                ]);
+            }
+        }
+        return redirect()->route('admin_blogs.index')
             ->with('success', "Blog '{$blog->name_en}' created successfully.");
     }
 
@@ -53,8 +67,8 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $blog = Blog::findOrFail($id);
-        return view('admin.blogs.edit', compact('blog'));
+        $row = Blog::findOrFail($id);
+        return view('admin.blogs.edit', compact('row'));
     }
 
     /**
@@ -62,9 +76,25 @@ class BlogController extends Controller
      */
     public function update(BlogRequest  $request, string $id)
     {
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::findOrFail($request->id);
         $blog->update($request->validated());
-        return redirect()->route('blogs.index')
+        if ($request->hasFile('image')) {
+            $oldPhoto = $blog->photo()->first();
+            if ($oldPhoto) {
+                if (Storage::exists('public/' . $oldPhoto->filename)) {
+                    Storage::delete('public/' . $oldPhoto->filename);
+                }
+                $oldPhoto->delete();
+            }
+            $image = $request->file('image');
+            $imagePath = $image->store('blogs', 'public');
+            Photo::create([
+                'filename' => $imagePath,
+                'photoable_type' => Blog::class,
+                'photoable_id' => $blog->id,
+            ]);
+        }
+        return redirect()->route('admin_blogs.index')
             ->with('success', "Blog '{$blog->name_en}' updated successfully.");
     }
 
@@ -73,8 +103,21 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::findOrFail(\request()->id);
         $blog->delete();
-        return redirect()->route('blogs.index')->with('error', "Blog  deleted successfully.");
+        return redirect()->route('admin_blogs.index')->with('success', "Blog  deleted successfully.");
+    }
+
+    public function updateBlogsStatus(Request $request)
+    {
+
+        $brand = Blog::find($request->id);
+        if (!$brand) {
+            return response()->json(['success' => false, 'message' => 'العلامة التجارية غير موجودة']);
+        }
+        $brand->active = $request->active;
+        $brand->save();
+
+        return response()->json(['success' => true, 'message' => 'تم تحديث الحالة بنجاح']);
     }
 }

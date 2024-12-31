@@ -21,15 +21,14 @@ class BrandRequest extends FormRequest
      */
     public function rules(): array
     {
-        $brandId = $this->route('brand') ? $this->route('brand')->id : null;
+        $brandId = $this->id;
         return [
             'name_ar' => 'required|string|max:255',
             'name_en' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:brands,slug,' . $brandId,
+            'slug' => 'required|string|max:255|unique:brands,slug,' .$brandId,
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description_ar' => 'nullable|string',
             'description_en' => 'nullable|string',
-            'active' => 'required|boolean',
         ];
     }
 

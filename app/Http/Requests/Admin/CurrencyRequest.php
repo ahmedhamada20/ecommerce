@@ -27,7 +27,6 @@ class CurrencyRequest extends FormRequest
             'type' => 'nullable|string|max:255',
             'country' => 'nullable|string|max:255',
             'rate' => 'nullable|numeric',
-            'is_active' => 'required|boolean',
         ];
     }
 

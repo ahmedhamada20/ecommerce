@@ -23,28 +23,39 @@ class AuthenticationController extends Controller
 
     public function login(Request $request)
     {
-
+        // التحقق من صحة البيانات المدخلة
         $validator = Validator::make($request->all(), [
             'type' => 'required|in:email,phone',
             'email' => 'required_if:type,email|email|exists:users,email|max:255',
             'phone' => 'required_if:type,phone|numeric|exists:users,phone',
             'password' => 'required|string|min:6|max:255',
         ]);
-        if ($validator->fails()) {
 
+        if ($validator->fails()) {
             return $this->errorResponse($validator->errors()->toArray(), 422);
         }
         if ($request->type == "email") {
+            $user = User::where('email', $request->email)->first();
+            if (!$user || $user->is_active != 1) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+
             $credentials = request(['email', 'password']);
         } else {
+            $user = User::where('phone', $request->phone)->first();
+            if (!$user || $user->is_active != 1) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+
             $credentials = request(['phone', 'password']);
         }
+
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         return $this->respondWithToken($token);
     }
+
 
 
     public function register(Request $request)

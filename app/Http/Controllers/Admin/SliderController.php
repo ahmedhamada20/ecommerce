@@ -32,7 +32,7 @@ class SliderController extends Controller
     public function store(SlidersRequest $request)
     {
         Slider::create($request->validated());
-        return redirect()->route('admin.sliders.index')->with('success', 'Reward created successfully.');
+        return redirect()->route('admin_sliders.index')->with('success', 'Reward created successfully.');
 
     }
 
@@ -60,9 +60,9 @@ class SliderController extends Controller
      */
     public function update(SlidersRequest $request, string $id)
     {
-        $row =  Slider::findorfail($id);
+        $row =  Slider::findorfail($request->id);
         $row->update($request->validated());
-        return redirect()->route('admin.sliders.index')->with('success', 'sliders updated successfully.');
+        return redirect()->route('admin_sliders.index')->with('success', 'sliders updated successfully.');
     }
 
     /**
@@ -70,9 +70,22 @@ class SliderController extends Controller
      */
     public function destroy(string $id)
     {
-        $row =  Slider::findorfail($id);
+        $row =  Slider::findorfail(\request()->id);
         $row->delete();
-        return redirect()->route('admin.sliders.index')->with('success', 'sliders deleted successfully.');
+        return redirect()->route('admin_sliders.index')->with('success', 'sliders deleted successfully.');
 
+    }
+
+    public function updateSlidersStatus(Request $request)
+    {
+
+        $brand = Slider::find($request->id);
+        if (!$brand) {
+            return response()->json(['success' => false, 'message' => 'العلامة التجارية غير موجودة']);
+        }
+        $brand->is_active = $request->active;
+        $brand->save();
+
+        return response()->json(['success' => true, 'message' => 'تم تحديث الحالة بنجاح']);
     }
 }

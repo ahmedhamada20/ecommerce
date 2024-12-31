@@ -88,4 +88,17 @@ class UsersController extends Controller
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
 
     }
+
+    public function updateUsersStatus(Request $request)
+    {
+
+        $brand = User::find($request->id);
+        if (!$brand) {
+            return response()->json(['success' => false, 'message' => 'العلامة التجارية غير موجودة']);
+        }
+        $brand->is_active = $request->active;
+        $brand->save();
+
+        return response()->json(['success' => true, 'message' => 'تم تحديث الحالة بنجاح']);
+    }
 }

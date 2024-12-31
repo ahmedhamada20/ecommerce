@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 
 class Blog extends Model
 {
@@ -31,9 +32,17 @@ class Blog extends Model
     {
         return $this->belongsTo(User::class,'user_id');
     }
-
+    public function name()
+    {
+        return App::getLocale() == "ar" ? $this->name_ar : $this->name_en;
+    }
     public function commentable()
     {
         return $this->morphMany(RateComment::class, 'commentable');
+    }
+
+    public function photo()
+    {
+        return $this->morphOne(Photo::class, 'photoable');
     }
 }

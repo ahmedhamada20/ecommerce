@@ -21,10 +21,10 @@ class BlogRequest extends FormRequest
      */
     public function rules(): array
     {
-        $blogId = $this->route('blog') ? $this->route('blog')->id : null;
         return [
             'name_ar' => 'required|string|max:255',
             'name_en' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:blogs,slug,' .$this->id,
             'rate' => 'nullable|numeric|min:0|max:5',
             'short_description_ar' => 'required|string|max:500',
             'short_description_en' => 'required|string|max:500',
