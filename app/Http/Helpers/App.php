@@ -38,18 +38,43 @@ if (!function_exists('queryModels')) {
             $page = $pagination['page'] ?? 1;
             return $queryBuilder->paginate($perPage, ['*'], 'page', $page);
         }
-
-        return $queryBuilder->get();
+        return $queryBuilder->orderBy('id','DESC')->get();
     }
 }
 
 if (!function_exists('get_models')){
-    function get_models($models)
+    function get_models($models,$conditions = [])
     {
         $modelClass = "App\\Models\\" . $models;
         if (!$modelClass){
             throw new Exception("Error: Model class '{$models}' not found.");
         }
+        $model = new $modelClass;
+        $queryBuilder = $model->newQuery();
+        if(!is_null($conditions)){
+            foreach ($conditions as $field => $value) {
+                if (is_array($value)) {
+                    $queryBuilder->where($field, $value[0], $value[1]);
+                } else {
+                    $queryBuilder->where($field, $value);
+                }
+            }
+        }
+
+        return $queryBuilder->get();
+    }
+}
+
+if (!function_exists('generateRandomString')){
+    function generateRandomString($length = 10)
+    {
+        $characters = 'ABCDEFHIJKLMNOPQRSTUVWXYZ0123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }
 

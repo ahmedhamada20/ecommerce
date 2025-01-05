@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\CouponsController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RewardController;
@@ -52,4 +53,7 @@ Route::get('/deleted-comments/{id}', [BlogController::class, 'deletedComments'])
 Route::post('hyperLink',[AdminController::class,'hyperLink'])->name('hyperLink');
 Route::post('hyperLink_edit',[AdminController::class,'hyperLink_edit'])->name('hyperLink_edit');
 Route::post('hyperLink_deleted',[AdminController::class,'hyperLink_deleted'])->name('hyperLink_deleted');
+Route::post('/update-coupons-status', [CouponController::class, 'updateCouponStatus'])->name('updateCouponStatus');
+Route::post('/update-categories-status', [CategoryController::class, 'updateCategoryStatus'])->name('updateCategoryStatus');
+
 //});

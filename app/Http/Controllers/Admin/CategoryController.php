@@ -14,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = queryModels('Category', [], ['perPage' => 10, 'page' => 1], ['user', 'parent']);
-        return view('admin.categories.index', compact('categories'));
+        $data = queryModels('Category', [], ['perPage' => 10, 'page' => 1], ['user', 'parent']);
+        return view('admin.categories.index', compact('data'));
 
     }
 
@@ -72,5 +72,18 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+    }
+
+    public function updateCategoryStatus(Request $request)
+    {
+
+        $brand = Category::find($request->id);
+        if (!$brand) {
+            return response()->json(['success' => false, 'message' => 'العلامة التجارية غير موجودة']);
+        }
+        $brand->active = $request->active;
+        $brand->save();
+
+        return response()->json(['success' => true, 'message' => 'تم تحديث الحالة بنجاح']);
     }
 }

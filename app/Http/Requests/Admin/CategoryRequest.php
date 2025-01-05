@@ -24,9 +24,8 @@ class CategoryRequest extends FormRequest
         return [
             'name_ar' => 'required|string|max:255',
             'name_en' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories,slug,'.$this->id,
             'image' => 'nullable|string|max:255',
-            'active' => 'required|boolean',
             'parent_id' => 'nullable|exists:categories,id',
             'description_ar' => 'nullable|string',
             'description_en' => 'nullable|string',

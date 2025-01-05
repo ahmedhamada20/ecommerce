@@ -33,10 +33,11 @@ class CouponController extends Controller
     public function store(CouponRequest $request)
     {
         Coupon::create(array_merge($request->validated(), [
-            'user_id' => auth()->id(),
+            'user_id' => auth()->check()  ? auth()->id() : null,
+            'customer_id' =>  $request->customer_id  ?  $request->customer_id : null,
         ]));
 
-        return redirect()->route('coupons.index')->with('success', 'Coupon created successfully.');
+        return redirect()->route('admin_coupons.index')->with('success', 'Coupon created successfully.');
     }
 
     /**
@@ -62,10 +63,13 @@ class CouponController extends Controller
      */
     public function update(CouponRequest $request, $id)
     {
-        $coupon = Coupon::findOrFail($id);
-        $coupon->update($request->validated());
+        $coupon = Coupon::findOrFail($request->id);
+        $coupon->update(array_merge($request->validated(), [
+            'user_id' => auth()->check()  ? auth()->id() : null,
+            'customer_id' =>  $request->customer_id  ?  $request->customer_id : null,
+        ]));
 
-        return redirect()->route('coupons.index')->with('success', 'Coupon updated successfully.');
+        return redirect()->route('admin_coupons.index')->with('success', 'Coupon updated successfully.');
     }
 
     /**
@@ -73,9 +77,21 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        $coupon = Coupon::findOrFail($id);
+        $coupon = Coupon::findOrFail(\request()->id);
         $coupon->delete();
+        return redirect()->route('admin_coupons.index')->with('success', 'Coupon deleted successfully.');
+    }
 
-        return redirect()->route('coupons.index')->with('success', 'Coupon deleted successfully.');
+    public function updateCouponStatus(Request $request)
+    {
+
+        $brand = Coupon::find($request->id);
+        if (!$brand) {
+            return response()->json(['success' => false, 'message' => 'العلامة التجارية غير موجودة']);
+        }
+        $brand->status = $request->active;
+        $brand->save();
+
+        return response()->json(['success' => true, 'message' => 'تم تحديث الحالة بنجاح']);
     }
 }

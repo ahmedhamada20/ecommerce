@@ -106,67 +106,39 @@
                     </li>
                 </ul>
             </li>
-{{--            <li class="dropdown">--}}
-{{--                <a href="javascript:void(0)">--}}
-{{--                    <iconify-icon icon="hugeicons:invoice-03" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Invoice</span>--}}
-{{--                </a>--}}
-{{--                <ul class="sidebar-submenu">--}}
-{{--                    <li>--}}
-{{--                        <a href="./invoice-list.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
-{{--                            List</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./invoice-preview.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-{{--                            Preview</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./invoice-add.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-info-main w-auto"></i>--}}
-{{--                            Add new</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./invoice-edit.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
-{{--                            Edit</a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
-{{--            <li class="dropdown">--}}
-{{--                <a href="javascript:void(0)">--}}
-{{--                    <i class="ri-robot-2-line"></i>--}}
-{{--                    <span>Ai Application</span>--}}
-{{--                </a>--}}
-{{--                <ul class="sidebar-submenu">--}}
-{{--                    <li>--}}
-{{--                        <a href="./textgenerator.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
-{{--                            Text Generator</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./codegenerator.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-{{--                            Code Generator</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./imagegenerator.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-info-main w-auto"></i>--}}
-{{--                            Image Generator</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./voicegenerator.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
-{{--                            Voice Generator</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./videogenerator.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-success-main w-auto"></i>--}}
-{{--                            Video Generator</a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="hugeicons:invoice-03" class="menu-icon"></iconify-icon>
+                    <span>coupons</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{route('admin_coupons.index')}}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            coupons</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <i class="ri-robot-2-line"></i>
+                    <span>categories</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{route('admin_categories.index')}}"><i
+                                class="ri-circle-fill circle-icon text-warning-main w-auto"></i>
+                           All categories</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin_categories.create')}}"><i
+                                class="ri-circle-fill circle-icon text-info-main w-auto"></i>
+                            Add new category</a>
+                    </li>
+
+                </ul>
+            </li>
 
 {{--            <li class="sidebar-menu-group-title">UI Elements</li>--}}
 

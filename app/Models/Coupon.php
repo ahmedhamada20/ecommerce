@@ -27,12 +27,12 @@ class Coupon extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function customer()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function products()
@@ -40,4 +40,15 @@ class Coupon extends Model
         return $this->belongsToMany(Product::class, 'products_coupons');
     }
 
+    public function type_code()
+    {
+        switch ($this->type_code) {
+            case '1':
+                return "free";
+            case '2':
+                return "paid in customer";
+            default:
+                return "not type";
+        }
+    }
 }

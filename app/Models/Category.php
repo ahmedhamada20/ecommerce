@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 
 class Category extends Model
 {
@@ -25,11 +26,16 @@ class Category extends Model
 
     public function parent()
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->hasOne(Category::class, 'parent_id');
     }
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function name()
+    {
+        return App::getLocale() == "ar" ? $this->name_ar : $this->name_en;
     }
 }

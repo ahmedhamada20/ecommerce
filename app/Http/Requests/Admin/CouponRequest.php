@@ -22,14 +22,14 @@ class CouponRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|max:255|unique:coupons,code',
+            'code' => 'required|string|max:255|unique:coupons,code,' . $this->id,
             'type_code' => 'required|in:1,2',
             'discount_value' => 'nullable|numeric|min:0',
             'discount_type' => 'nullable|in:cash,relative',
             'max_used' => 'nullable|integer|min:0',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'status' => 'required|boolean',
+//            'status' => 'required|boolean',
         ];
     }
 
