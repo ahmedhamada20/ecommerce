@@ -63,10 +63,10 @@
 
 
                             <td>
-                                {{--                                <a href="javascript:void(0)"--}}
-                                {{--                                   class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">--}}
-                                {{--                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>--}}
-                                {{--                                </a>--}}
+                                                                <a href="{{route('admin_blogs.show',$row->id)}}"
+                                                                   class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
+                                                                </a>
                                 <a href="{{route('admin_blogs.edit',$row->id)}}"
 
                                    class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">

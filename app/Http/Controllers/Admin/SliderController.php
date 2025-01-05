@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\HyperlinksEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SlidersRequest;
+use App\Models\Hyperlink;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -41,8 +43,10 @@ class SliderController extends Controller
      */
     public function show(string $id)
     {
-        $row =  Slider::findorfail($id);
-        return view('admin.sliders.show', compact('row'));
+        $data =  Slider::findorfail($id);
+//       $hypers = Hyperlink::where('hypertoable_id',$id)->where('hypertoable_type',Slider::class)->where('type',HyperlinksEnum::SLIDER)->get();
+//       dd($hypers);
+        return view('admin.sliders.show', compact('data'));
 
     }
 

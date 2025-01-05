@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AddressController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -46,5 +47,9 @@ Route::post('/update-users-status', [UsersController::class, 'updateUsersStatus'
 Route::post('/update-sliders-status', [SliderController::class, 'updateSlidersStatus'])->name('updateSlidersStatus');
 Route::post('/update-currencies-status', [CurrencyController::class, 'updateCountryStatus'])->name('updateCountryStatus');
 Route::post('/update-blogs-status', [BlogController::class, 'updateBlogsStatus'])->name('updateBlogsStatus');
-
+Route::post('/update-comments-status', [BlogController::class, 'updateCommentsStatus'])->name('updateCommentsStatus');
+Route::get('/deleted-comments/{id}', [BlogController::class, 'deletedComments'])->name('deletedComments');
+Route::post('hyperLink',[AdminController::class,'hyperLink'])->name('hyperLink');
+Route::post('hyperLink_edit',[AdminController::class,'hyperLink_edit'])->name('hyperLink_edit');
+Route::post('hyperLink_deleted',[AdminController::class,'hyperLink_deleted'])->name('hyperLink_deleted');
 //});

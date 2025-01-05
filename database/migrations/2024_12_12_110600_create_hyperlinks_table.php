@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('hyperlinks', function (Blueprint $table) {
             $table->id();
             $table->string('type')->comment('Slider , Blog');
+            $table->morphs('hypertoable');
             $table->string('name_ar');
             $table->string('name_en');
             $table->string('link');

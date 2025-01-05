@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\BrandRequest;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Photo;
+use App\Models\RateComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -59,7 +60,8 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $row = Blog::findOrFail($id);
+        return view('admin.blogs.show', compact('row'));
     }
 
     /**
@@ -110,14 +112,34 @@ class BlogController extends Controller
 
     public function updateBlogsStatus(Request $request)
     {
-
         $brand = Blog::find($request->id);
         if (!$brand) {
             return response()->json(['success' => false, 'message' => 'العلامة التجارية غير موجودة']);
         }
         $brand->active = $request->active;
         $brand->save();
-
         return response()->json(['success' => true, 'message' => 'تم تحديث الحالة بنجاح']);
+    }
+
+    public function updateCommentsStatus(Request $request)
+    {
+
+        $brand = RateComment::find($request->id);
+        if (!$brand) {
+            return response()->json(['success' => false, 'message' => 'العلامة التجارية غير موجودة']);
+        }
+        $brand->status = $request->active;
+        $brand->save();
+        return response()->json(['success' => true, 'message' => 'تم تحديث الحالة بنجاح']);
+    }
+
+    public function deletedComments($id)
+    {
+        $data = RateComment::find($id);
+        if ($data){
+            Blog::where('id', $data->commentable_id)->decrement('count_comments');
+            $brand = RateComment::destroy($id);
+        }
+        return redirect()->back()->with('success', "comments  deleted successfully.");
     }
 }

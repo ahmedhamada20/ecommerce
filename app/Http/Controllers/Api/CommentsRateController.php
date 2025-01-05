@@ -18,7 +18,7 @@ class CommentsRateController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'comments' => 'required|string|max:350',
+            'comments' => 'required|string|max:2026',
             'id_type' => 'required|integer',
             'type' => 'required|in:product,blog',
             'value' => 'required|integer|min:1|max:5',
@@ -51,6 +51,7 @@ class CommentsRateController extends Controller
                 foreach ($product->commentable as $rate) {
                     $all_product_rates += $rate->value;
                 }
+
                 $product->rate = $all_product_rates / count($product->commentable);
                 $product->save();
             }
@@ -62,6 +63,7 @@ class CommentsRateController extends Controller
                 foreach ($product->commentable as $rate) {
                     $all_product_rates += $rate->value;
                 }
+                $product->increment('count_comments');
                 $product->rate = $all_product_rates / count($product->commentable);
                 $product->save();
             }
