@@ -58,6 +58,25 @@
             </li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:blog" class="menu-icon"></iconify-icon>
+                    <span>Product</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{route('admin_products.index')}}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            products </a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('admin_products.create')}}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Add product</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
                     <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
                     <span>sliders</span>
                 </a>

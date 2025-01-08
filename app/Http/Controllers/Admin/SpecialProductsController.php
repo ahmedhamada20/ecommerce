@@ -29,7 +29,7 @@ class SpecialProductsController extends Controller
     public function store(SpecialProductsRequest $request)
     {
         SpecialProducts::create($request->validated());
-        return redirect()->route('admin_special_products.index')->with('success', "AdvertisementBanners  created successfully.");
+        return redirect()->route('admin_special_products.index')->with('success', "special products  created successfully.");
 
     }
 
@@ -56,7 +56,7 @@ class SpecialProductsController extends Controller
     {
         $specialProducts = SpecialProducts::findOrFail($request->id);
         $specialProducts->update($request->validated());
-        return redirect()->route('admin_special_products.index')->with('success', "AdvertisementBanners  updated successfully.");
+        return redirect()->route('admin_special_products.index')->with('success', "special products  updated successfully.");
 
     }
 
@@ -66,7 +66,7 @@ class SpecialProductsController extends Controller
     public function destroy(string $id)
     {
         SpecialProducts::destroy(\request()->id);
-        return redirect()->route('admin_special_products.index')->with('success', "AdvertisementBanners  deleted successfully.");
+        return redirect()->route('admin_special_products.index')->with('success', "special products  deleted successfully.");
 
     }
 }

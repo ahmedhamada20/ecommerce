@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 
 class Product extends Model
 {
@@ -75,4 +76,9 @@ class Product extends Model
         return $this->belongsToMany(Category::class, 'products_categories');
     }
 
+
+    public function name()
+    {
+        return App::getLocale() == "ar" ? $this->name_ar : $this->name_en;
+    }
 }
