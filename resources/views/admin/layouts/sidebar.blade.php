@@ -70,8 +70,8 @@
 
                 </ul>
             </li>
-{{--            --}}
-{{--            --}}
+            {{--            --}}
+            {{--            --}}
             <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
@@ -96,13 +96,13 @@
                     <li>
                         <a href="{{route('admin_blogs.index')}}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
-                           blogs</a>
+                            blogs</a>
                     </li>
 
                     <li>
                         <a href="{{route('admin_blogs.create')}}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
-                           Add blogs</a>
+                            Add blogs</a>
                     </li>
                 </ul>
             </li>
@@ -129,7 +129,7 @@
                     <li>
                         <a href="{{route('admin_categories.index')}}"><i
                                 class="ri-circle-fill circle-icon text-warning-main w-auto"></i>
-                           All categories</a>
+                            All categories</a>
                     </li>
                     <li>
                         <a href="{{route('admin_categories.create')}}"><i
@@ -139,7 +139,6 @@
 
                 </ul>
             </li>
-
 
 
             <li class="dropdown">
@@ -162,7 +161,8 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{route('admin_tags.index')}}"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                        <a href="{{route('admin_tags.index')}}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             tags</a>
                     </li>
 
@@ -182,126 +182,122 @@
 
                 </ul>
             </li>
-{{--            <li class="dropdown">--}}
-{{--                <a href="javascript:void(0)">--}}
-{{--                    <iconify-icon icon="solar:pie-chart-outline" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Chart</span>--}}
-{{--                </a>--}}
-{{--                <ul class="sidebar-submenu">--}}
-{{--                    <li>--}}
-{{--                        <a href="./linechart.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
-{{--                            Line Chart</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./columnchart.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-{{--                            Column Chart</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./piechart.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-success-main w-auto"></i>--}}
-{{--                            Pie Chart</a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="./widgets.html">--}}
-{{--                    <iconify-icon icon="fe:vector" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Widgets</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="solar:pie-chart-outline" class="menu-icon"></iconify-icon>
+                    <span>advertisement banners</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{route('admin_advertisement_banners.index')}}"><i
+                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
+                            Advertisement banners</a>
+                    </li>
 
-{{--            <li class="sidebar-menu-group-title">Application</li>--}}
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
+                    <span>special products</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{route('admin_special_products.index')}}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            special products</a>
+                    </li>
+                </ul>
+            </li>
 
-{{--            <li class="dropdown">--}}
-{{--                <a href="javascript:void(0)">--}}
-{{--                    <iconify-icon icon="simple-line-icons:vector" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Authentication</span>--}}
-{{--                </a>--}}
-{{--                <ul class="sidebar-submenu">--}}
-{{--                    <li>--}}
-{{--                        <a href="./signin.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
-{{--                            Sign In</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./signup.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-{{--                            Sign Up</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./forgotpassword.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-info-main w-auto"></i>--}}
-{{--                            Forgot Password</a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="./gallery.html">--}}
-{{--                    <iconify-icon icon="solar:gallery-wide-linear" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Gallery</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="./pricing.html">--}}
-{{--                    <iconify-icon icon="hugeicons:money-send-square" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Pricing</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="./faq.html">--}}
-{{--                    <iconify-icon icon="mage:message-question-mark-round" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>FAQs.</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="./error.html">--}}
-{{--                    <iconify-icon icon="streamline:straight-face" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>404</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="./termscondition.html">--}}
-{{--                    <iconify-icon icon="octicon:info-24" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Terms & Conditions</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--            <li class="dropdown">--}}
-{{--                <a href="javascript:void(0)">--}}
-{{--                    <iconify-icon icon="icon-park-outline:setting-two" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Settings</span>--}}
-{{--                </a>--}}
-{{--                <ul class="sidebar-submenu">--}}
-{{--                    <li>--}}
-{{--                        <a href="./company.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
-{{--                            Company</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./company.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-{{--                            Notification</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./notification-alert.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-info-main w-auto"></i>--}}
-{{--                            Notification Alert</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./theme.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
-{{--                            Theme</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./currencies.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
-{{--                            Currencies</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./language.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
-{{--                            Languages</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./payment-gateway.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
-{{--                            Payment Gateway</a>--}}
-{{--                    </li>--}}
+            {{--            <li class="dropdown">--}}
+            {{--                <a href="javascript:void(0)">--}}
+            {{--                    <iconify-icon icon="simple-line-icons:vector" class="menu-icon"></iconify-icon>--}}
+            {{--                    <span>Authentication</span>--}}
+            {{--                </a>--}}
+            {{--                <ul class="sidebar-submenu">--}}
+            {{--                    <li>--}}
+            {{--                        <a href="./signin.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
+            {{--                            Sign In</a>--}}
+            {{--                    </li>--}}
+            {{--                    <li>--}}
+            {{--                        <a href="./signup.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
+            {{--                            Sign Up</a>--}}
+            {{--                    </li>--}}
+            {{--                    <li>--}}
+            {{--                        <a href="./forgotpassword.html"><i--}}
+            {{--                                class="ri-circle-fill circle-icon text-info-main w-auto"></i>--}}
+            {{--                            Forgot Password</a>--}}
+            {{--                    </li>--}}
+            {{--                </ul>--}}
+            {{--            </li>--}}
+            {{--            <li>--}}
+            {{--                <a href="./gallery.html">--}}
+            {{--                    <iconify-icon icon="solar:gallery-wide-linear" class="menu-icon"></iconify-icon>--}}
+            {{--                    <span>Gallery</span>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
+            {{--            <li>--}}
+            {{--                <a href="./pricing.html">--}}
+            {{--                    <iconify-icon icon="hugeicons:money-send-square" class="menu-icon"></iconify-icon>--}}
+            {{--                    <span>Pricing</span>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
+            {{--            <li>--}}
+            {{--                <a href="./faq.html">--}}
+            {{--                    <iconify-icon icon="mage:message-question-mark-round" class="menu-icon"></iconify-icon>--}}
+            {{--                    <span>FAQs.</span>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
+            {{--            <li>--}}
+            {{--                <a href="./error.html">--}}
+            {{--                    <iconify-icon icon="streamline:straight-face" class="menu-icon"></iconify-icon>--}}
+            {{--                    <span>404</span>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
+            {{--            <li>--}}
+            {{--                <a href="./termscondition.html">--}}
+            {{--                    <iconify-icon icon="octicon:info-24" class="menu-icon"></iconify-icon>--}}
+            {{--                    <span>Terms & Conditions</span>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
+            {{--            <li class="dropdown">--}}
+            {{--                <a href="javascript:void(0)">--}}
+            {{--                    <iconify-icon icon="icon-park-outline:setting-two" class="menu-icon"></iconify-icon>--}}
+            {{--                    <span>Settings</span>--}}
+            {{--                </a>--}}
+            {{--                <ul class="sidebar-submenu">--}}
+            {{--                    <li>--}}
+            {{--                        <a href="./company.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
+            {{--                            Company</a>--}}
+            {{--                    </li>--}}
+            {{--                    <li>--}}
+            {{--                        <a href="./company.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
+            {{--                            Notification</a>--}}
+            {{--                    </li>--}}
+            {{--                    <li>--}}
+            {{--                        <a href="./notification-alert.html"><i--}}
+            {{--                                class="ri-circle-fill circle-icon text-info-main w-auto"></i>--}}
+            {{--                            Notification Alert</a>--}}
+            {{--                    </li>--}}
+            {{--                    <li>--}}
+            {{--                        <a href="./theme.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
+            {{--                            Theme</a>--}}
+            {{--                    </li>--}}
+            {{--                    <li>--}}
+            {{--                        <a href="./currencies.html"><i--}}
+            {{--                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
+            {{--                            Currencies</a>--}}
+            {{--                    </li>--}}
+            {{--                    <li>--}}
+            {{--                        <a href="./language.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
+            {{--                            Languages</a>--}}
+            {{--                    </li>--}}
+            {{--                    <li>--}}
+            {{--                        <a href="./payment-gateway.html"><i--}}
+            {{--                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
+            {{--                            Payment Gateway</a>--}}
+            {{--                    </li>--}}
         </ul>
         </li>
         </ul>
