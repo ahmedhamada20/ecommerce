@@ -38,4 +38,14 @@ class Category extends Model
     {
         return App::getLocale() == "ar" ? $this->name_ar : $this->name_en;
     }
+
+    public function photo()
+    {
+        return $this->morphOne(Photo::class, 'photoable');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'products_categories');
+    }
 }

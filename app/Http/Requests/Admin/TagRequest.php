@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RewardRequest extends FormRequest
+class TagRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,14 @@ class RewardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_ar' => 'required|string|max:255',
-            'name_en' => 'required|string|max:255',
-            'description_ar' => 'nullable|string',
-            'description_en' => 'nullable|string',
-            'points_required' => 'required|numeric',
-            'columns' => 'nullable|json',
+            'name' => 'required|string|max:255',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => ' name is required.',
         ];
     }
 }

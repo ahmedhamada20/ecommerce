@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
+use App\Models\Photo;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -24,7 +28,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        $categories = get_models('Category');
+        return view('admin.categories.create',compact('categories'));
     }
 
     /**
@@ -32,8 +37,23 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->validated());
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
+
+        $category =Category::create(array_merge($request->validated(), [
+            'user_id' => auth()->check() ?  auth()->id() : 1    ,
+        ]));
+
+        if($category){
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imagePath = $image->store('categories', 'public');
+                Photo::create([
+                    'filename' => $imagePath,
+                    'photoable_type' => Category::class,
+                    'photoable_id' => $category->id,
+                ]);
+            }
+        }
+        return redirect()->route('admin_categories.index')->with('success', 'Category created successfully.');
     }
 
     /**
@@ -49,19 +69,37 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $category = Category::findOrFail($id);
-        return view('admin.categories.edit', compact('category'));
+        $categories = get_models('Category');
+        $data = Category::findOrFail($id);
+        return view('admin.categories.edit', compact('data','categories'));
 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request)
     {
-        $category = Category::findOrFail($id);
+        $category = Category::findOrFail($request->id);
         $category->update($request->validated());
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
+
+        if ($request->hasFile('image')) {
+            $oldPhoto = $category->photo()->first();
+            if ($oldPhoto) {
+                if (Storage::exists('public/' . $oldPhoto->filename)) {
+                    Storage::delete('public/' . $oldPhoto->filename);
+                }
+                $oldPhoto->delete();
+            }
+            $image = $request->file('image');
+            $imagePath = $image->store('categories', 'public');
+            Photo::create([
+                'filename' => $imagePath,
+                'photoable_type' => Category::class,
+                'photoable_id' => $category->id,
+            ]);
+        }
+        return redirect()->route('admin_categories.index')->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -69,9 +107,14 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
+        $checkProducts = DB::table('products_categories')->where('category_id', \request()->id)->first();
+        if ($checkProducts){
+            return redirect()->route('admin_categories.index')->with('error', 'This category is related to products. Please delete the products first.');
+
+        }
+        $category = Category::findOrFail(\request()->id);
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('admin_categories.index')->with('success', 'Category deleted successfully.');
     }
 
     public function updateCategoryStatus(Request $request)

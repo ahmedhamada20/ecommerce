@@ -10,9 +10,9 @@
 
     <div class="card basic-data-table">
         <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#disputeModal">
+            <a href="{{route('admin_categories.create')}}" class="btn btn-primary">
                 Add new
-            </button>
+            </a>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -72,8 +72,7 @@
                                 {{ optional($row->parent)->name_ar }}
                             </td>
                             <td>
-                                <a href="javascript:void(0)"
-                                   data-bs-toggle="modal" data-bs-target="#disputeModalEdit{{$row->id}}"
+                                <a href="{{route('admin_categories.edit',$row->id)}}"
                                    class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
                                     <iconify-icon icon="lucide:edit"></iconify-icon>
                                 </a>
@@ -84,8 +83,8 @@
                                 </a>
                             </td>
                         </tr>
-{{--                        @include('admin.categories.edit')--}}
-{{--                        @include('admin.categories.deleted')--}}
+
+                        @include('admin.categories.deleted')
                     @endforeach
                     </tbody>
                 </table>

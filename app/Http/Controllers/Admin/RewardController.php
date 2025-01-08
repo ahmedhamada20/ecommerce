@@ -14,7 +14,7 @@ class RewardController extends Controller
      */
     public function index()
     {
-        $data = queryModels('Reward', [], ['perPage' => 10, 'page' => request('page', 1)], ['user']);
+        $data = queryModels('Reward', [], ['perPage' => 10, 'page' => request('page', 1)], []);
         return view('admin.rewards.index', compact('data'));
     }
 
@@ -32,7 +32,7 @@ class RewardController extends Controller
     public function store(RewardRequest $request)
     {
         Reward::create($request->validated());
-        return redirect()->route('admin.rewards.index')->with('success', 'Reward created successfully.');
+        return redirect()->route('admin_rewards.index')->with('success', 'Reward created successfully.');
 
     }
 
@@ -60,19 +60,39 @@ class RewardController extends Controller
      */
     public function update(RewardRequest $request, string $id)
     {
-        $row =  Reward::findorfail($id);
+        $row =  Reward::findorfail($request->id);
         $row->update($request->validated());
-        return redirect()->route('admin.rewards.index')->with('success', 'Reward updated successfully.');
+        return redirect()->route('admin_rewards.index')->with('success', 'Reward updated successfully.');
+
+
+
     }
+
+
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $row =  Reward::findorfail($id);
+        $row =  Reward::findorfail(\request()->id);
         $row->delete();
-        return redirect()->route('admin.rewards.index')->with('success', 'Reward deleted successfully.');
+        return redirect()->route('admin_rewards.index')->with('success', 'Reward deleted successfully.');
 
+    }
+
+    public function updateRewardsStatus(Request $request)
+    {
+
+        $brand = Reward::find($request->id);
+        if (!$brand) {
+            return response()->json(['success' => false, 'message' => 'العلامة التجارية غير موجودة']);
+        }
+        $brand->is_active = $request->active;
+        $brand->save();
+
+        return response()->json(['success' => true, 'message' => 'تم تحديث الحالة بنجاح']);
     }
 }

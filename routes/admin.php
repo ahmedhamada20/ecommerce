@@ -8,9 +8,11 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CouponsController;
 use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\InstallmentsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RewardController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TagsController;
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +45,8 @@ Route::resource('products', ProductController::class);
 Route::resource('blogs', BlogController::class);
 Route::resource('rewards', RewardController::class);
 Route::resource('sliders', SliderController::class);
+Route::resource('tags', TagsController::class);
+Route::resource('installments', InstallmentsController::class);
 Route::post('/update-brand-status', [BrandController::class, 'updateBrandStatus'])->name('updateBrandStatus');
 Route::post('/update-users-status', [UsersController::class, 'updateUsersStatus'])->name('updateUsersStatus');
 Route::post('/update-sliders-status', [SliderController::class, 'updateSlidersStatus'])->name('updateSlidersStatus');
@@ -55,5 +59,7 @@ Route::post('hyperLink_edit',[AdminController::class,'hyperLink_edit'])->name('h
 Route::post('hyperLink_deleted',[AdminController::class,'hyperLink_deleted'])->name('hyperLink_deleted');
 Route::post('/update-coupons-status', [CouponController::class, 'updateCouponStatus'])->name('updateCouponStatus');
 Route::post('/update-categories-status', [CategoryController::class, 'updateCategoryStatus'])->name('updateCategoryStatus');
+Route::post('/update-rewards-status', [RewardController::class, 'updateRewardsStatus'])->name('updateRewardsStatus');
+Route::post('/update-installments-status', [InstallmentsController::class, 'updateInstallmentStatus'])->name('updateInstallmentStatus');
 
 //});

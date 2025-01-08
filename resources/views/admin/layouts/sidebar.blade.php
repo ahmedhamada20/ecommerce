@@ -140,147 +140,48 @@
                 </ul>
             </li>
 
-{{--            <li class="sidebar-menu-group-title">UI Elements</li>--}}
 
-{{--            <li class="dropdown">--}}
-{{--                <a href="javascript:void(0)">--}}
-{{--                    <iconify-icon icon="solar:document-text-outline" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Components</span>--}}
-{{--                </a>--}}
-{{--                <ul class="sidebar-submenu">--}}
-{{--                    <li>--}}
-{{--                        <a href="./typography.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
-{{--                            Typography</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./colors.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-{{--                            Colors</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./button.html"><i class="ri-circle-fill circle-icon text-success-main w-auto"></i>--}}
-{{--                            Button</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./dropdown.html"><i class="ri-circle-fill circle-icon text-lilac-600 w-auto"></i>--}}
-{{--                            Dropdown</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./alert.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-{{--                            Alerts</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./card.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
-{{--                            Card</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./carousel.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i>--}}
-{{--                            Carousel</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./avatar.html"><i class="ri-circle-fill circle-icon text-success-main w-auto"></i>--}}
-{{--                            Avatars</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./progress.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
-{{--                            Progress bar</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./tabs.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-{{--                            Tab & Accordion</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./pagination.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
-{{--                            Pagination</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./badges.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i>--}}
-{{--                            Badges</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./tooltip.html"><i class="ri-circle-fill circle-icon text-lilac-600 w-auto"></i>--}}
-{{--                            Tooltip & Popover</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./videos.html"><i class="ri-circle-fill circle-icon text-cyan w-auto"></i>--}}
-{{--                            Videos</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./starrating.html"><i class="ri-circle-fill circle-icon text-indigo w-auto"></i>--}}
-{{--                            Star Ratings</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./tags.html"><i class="ri-circle-fill circle-icon text-purple w-auto"></i>--}}
-{{--                            Tags</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./list.html"><i class="ri-circle-fill circle-icon text-red w-auto"></i>--}}
-{{--                            List</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./calendar.html"><i class="ri-circle-fill circle-icon text-yellow w-auto"></i>--}}
-{{--                            Calendar</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./radio.html"><i class="ri-circle-fill circle-icon text-orange w-auto"></i>--}}
-{{--                            Radio</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./switch.html"><i class="ri-circle-fill circle-icon text-pink w-auto"></i>--}}
-{{--                            Switch</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./imageupload.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
-{{--                            Upload</a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
-{{--            <li class="dropdown">--}}
-{{--                <a href="javascript:void(0)">--}}
-{{--                    <iconify-icon icon="heroicons:document" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Forms</span>--}}
-{{--                </a>--}}
-{{--                <ul class="sidebar-submenu">--}}
-{{--                    <li>--}}
-{{--                        <a href="./form.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
-{{--                            Input Forms</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./form-layout.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-{{--                            Input Layout</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./form-validation.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-success-main w-auto"></i>--}}
-{{--                            Form Validation</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./wizard.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>--}}
-{{--                            Form Wizard</a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
-{{--            <li class="dropdown">--}}
-{{--                <a href="javascript:void(0)">--}}
-{{--                    <iconify-icon icon="mingcute:storage-line" class="menu-icon"></iconify-icon>--}}
-{{--                    <span>Table</span>--}}
-{{--                </a>--}}
-{{--                <ul class="sidebar-submenu">--}}
-{{--                    <li>--}}
-{{--                        <a href="./tablebasic.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
-{{--                            Basic Table</a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="./tabledata.html"><i--}}
-{{--                                class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-{{--                            Data Table</a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
+
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="solar:document-text-outline" class="menu-icon"></iconify-icon>
+                    <span>Reward</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{route('admin_rewards.index')}}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Reward</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="heroicons:document" class="menu-icon"></iconify-icon>
+                    <span>tags</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{route('admin_tags.index')}}"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            tags</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mingcute:storage-line" class="menu-icon"></iconify-icon>
+                    <span>installments</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{route('admin_installments.index')}}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            installments</a>
+                    </li>
+
+                </ul>
+            </li>
 {{--            <li class="dropdown">--}}
 {{--                <a href="javascript:void(0)">--}}
 {{--                    <iconify-icon icon="solar:pie-chart-outline" class="menu-icon"></iconify-icon>--}}

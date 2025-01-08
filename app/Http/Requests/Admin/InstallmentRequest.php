@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RewardRequest extends FormRequest
+class InstallmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,12 @@ class RewardRequest extends FormRequest
         return [
             'name_ar' => 'required|string|max:255',
             'name_en' => 'required|string|max:255',
-            'description_ar' => 'nullable|string',
-            'description_en' => 'nullable|string',
-            'points_required' => 'required|numeric',
-            'columns' => 'nullable|json',
+            'description_ar' => 'nullable|string|max:2000',
+            'description_en' => 'nullable|string||max:2000',
+            'deposit'=>'required|numeric',
+            'down_payment'=>'required|numeric',
+            'profit'=>'required|numeric',
+            'min_price'=>'required|numeric',
         ];
     }
 }

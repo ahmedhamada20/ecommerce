@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    rewards
+    installments
 @endsection
 @section('css')
 @endsection
@@ -11,7 +11,7 @@
     <div class="card basic-data-table">
         <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#disputeModal">
-                Add new
+               Add new
             </button>
         </div>
         <div class="card-body">
@@ -35,10 +35,13 @@
             <div class="table-responsive">
                 <table class="table bordered-table mb-0" id="dataTable" data-page-length="10">
                     <thead>
+
                     <tr>
                         <th scope="col">name</th>
-
-                        <th scope="col">points required</th>
+                        <th scope="col">deposit</th>
+                        <th scope="col">down payment</th>
+                        <th scope="col">profit</th>
+                        <th scope="col">min price</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -49,9 +52,19 @@
                             <td>
                                 {{ $row->name() }}
                             </td>
+                            <td>
+                                {{ $row->deposit }}
+                            </td>
+                            <td>
+                                {{ $row->down_payment }}
+                            </td>
 
                             <td>
-                                {{ $row->points_required }}
+                                {{ $row->profit }}
+                            </td>
+
+                            <td>
+                                {{ $row->min_price }}
                             </td>
                             <td>
                                 <div class="form-switch switch-success d-flex align-items-center gap-3">
@@ -59,22 +72,19 @@
                                            type="checkbox"
                                            role="switch"
                                            id="flexSwitchCheckDefault{{$row->id}}"
-                                           {{$row->is_active == '1' ? 'checked' : ''}}
+                                           {{$row->active == '1' ? 'checked' : ''}}
                                            onchange="toggleStatus({{$row->id}}, this.checked ? '1' : '0')">
 
                                     <label class="form-check-label line-height-1 fw-medium text-secondary-light"
                                            for="flexSwitchCheckDefault{{$row->id}}">
                                         <span
-                                            id="statusText{{$row->id}}">{{$row->is_active == '1' ? 'active' : 'inActive'}}</span>
+                                            id="statusText{{$row->id}}">{{$row->active == '1' ? 'active' : 'inActive'}}</span>
                                     </label>
                                 </div>
                             </td>
 
                             <td>
-                                {{--                                <a href="javascript:void(0)"--}}
-                                {{--                                   class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">--}}
-                                {{--                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>--}}
-                                {{--                                </a>--}}
+
                                 <a href="javascript:void(0)"
                                    data-bs-toggle="modal" data-bs-target="#disputeModalEdit{{$row->id}}"
                                    class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
@@ -87,8 +97,8 @@
                                 </a>
                             </td>
                         </tr>
-                        @include('admin.rewards.edit')
-                        @include('admin.rewards.deleted')
+                        @include('admin.installments.edit')
+                        @include('admin.installments.deleted')
                     @endforeach
                     </tbody>
                 </table>
@@ -96,7 +106,7 @@
             </div>
         </div>
     </div>
-    @include('admin.rewards.create')
+    @include('admin.installments.create')
 
 @endsection
 
@@ -106,7 +116,7 @@
         function toggleStatus(id, currentStatus) {
             var newStatus = currentStatus === '1' ? '1' : '0';
             $.ajax({
-                url: "{{ route('admin_updateRewardsStatus') }}",
+                url: "{{ route('admin_updateInstallmentStatus') }}",
                 method: "POST",
                 headers: {
                     "X-CSRF-TOKEN": "{{ csrf_token() }}"

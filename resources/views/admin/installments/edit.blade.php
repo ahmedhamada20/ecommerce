@@ -2,16 +2,14 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="disputeModalLabel">Edit rewards</h5>
+                <h5 class="modal-title" id="disputeModalLabel">Edit Installment</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{route('admin_rewards.update','test')}}" method="post" autocomplete="off" enctype="multipart/form-data">
-                    @method('PUT')
+                <form action="{{route('admin_installments.update','test')}}" method="post" autocomplete="off" enctype="multipart/form-data">
+                  @method('PUT')
                     @csrf
-
-                    <input type="hidden" name="id" value="{{$row->id}}">
-
+                    <input type="hidden" value="{{$row->id}}" name="id">
                     <div class="mb-3">
                         <label for="orderNumber" class="form-label">name Ar</label>
                         <input type="text" class="form-control" id="name_ar" name="name_ar" value="{{$row->name_ar}}" required>
@@ -23,8 +21,23 @@
 
 
                     <div class="mb-3">
-                        <label for="orderNumber" class="form-label">points required</label>
-                        <input type="number" class="form-control" id="slug" name="points_required" value="{{$row->points_required}}" required>
+                        <label for="orderNumber" class="form-label">deposit</label>
+                        <input type="number" class="form-control" id="deposit" name="deposit" value="{{$row->deposit}}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="orderNumber" class="form-label">down payment</label>
+                        <input type="number" class="form-control" id="down_payment" name="down_payment" value="{{$row->down_payment}}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="orderNumber" class="form-label">profit</label>
+                        <input type="number" class="form-control" id="profit" name="profit" value="{{$row->profit}}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="orderNumber" class="form-label">min price</label>
+                        <input type="number" class="form-control" id="min_price" name="min_price" value="{{$row->min_price}}" required>
                     </div>
 
 
