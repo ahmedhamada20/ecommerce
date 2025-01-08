@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    brands
+    products
 @endsection
 @section('css')
 @endsection
