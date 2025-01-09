@@ -10,7 +10,7 @@
 
     <div class="card basic-data-table">
         <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
-            <a href="{{route('admin_blogs.create')}}" type="button" class="btn btn-primary">
+            <a href="{{route('admin_products.create')}}" type="button" class="btn btn-primary">
                 Add new
             </a>
         </div>
@@ -79,7 +79,7 @@
                                 </a>
                             </td>
                         </tr>
-                        @include('admin.blogs.deleted')
+
                     @endforeach
                     </tbody>
                 </table>
@@ -87,7 +87,7 @@
             </div>
         </div>
     </div>
-    @include('admin.brands.create')
+
 
 @endsection
 
