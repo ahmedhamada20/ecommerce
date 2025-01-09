@@ -36,7 +36,7 @@ Route::get('/', function () {
 });
 
 
-//Route::middleware(['auth','admin_try'])->group(function (){
+Route::middleware(['auth','admin_try'])->group(function (){
 Route::resource('users', UsersController::class);
 Route::resource('addresses', AddressController::class);
 Route::resource('brands', BrandController::class);
@@ -67,4 +67,4 @@ Route::post('/update-rewards-status', [RewardController::class, 'updateRewardsSt
 Route::post('/update-installments-status', [InstallmentsController::class, 'updateInstallmentStatus'])->name('updateInstallmentStatus');
 Route::post('/update-advertisement_banners-status', [AdvertisementBannersController::class, 'updateAdvertisementBannersStatus'])->name('updateAdvertisementBannersStatus');
 
-//});
+});

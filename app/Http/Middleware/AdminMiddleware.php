@@ -18,7 +18,7 @@ class AdminMiddleware
     {
         try {
             $response = $next($request);
-            if (!in_array($response->getStatusCode(), [200, 201, 204])) {
+            if (!in_array($response->getStatusCode(), [200, 201, 204,302])) {
                 toastr()->error('An error has occurred, please try again later.', 'Handle Error', [
                     'closeButton' => true,
                     'showEasing' => 'swing',
