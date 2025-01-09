@@ -14,7 +14,7 @@ class AdvertisementBannersController extends Controller
      */
     public function index()
     {
-        $data = queryModels('SpecialProducts', [], ['perPage' => 20]);
+        $data = queryModels('AdvertisementBanners', [], ['perPage' => 20]);
         return view('admin.advertisement_banners.index', compact('data'));
     }
 
