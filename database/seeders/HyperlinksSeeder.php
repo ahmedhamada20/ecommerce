@@ -26,6 +26,8 @@ class HyperlinksSeeder extends Seeder
             Hyperlink::create([
                 'type' => $types[array_rand($types)],
                 'name_ar' => "اسم الرابط بالعربية - $i",
+                'hypertoable_type' =>Blog::class,
+                'hypertoable_id' => 1,
                 'name_en' => "Link Name in English - $i",
                 'link' => "https://example.com/link-$i",
             ]);
