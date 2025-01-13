@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = queryModels('Product', [], ['perPage' => 10, 'page' => 1], ['user', 'brand', 'currency', 'coupons','categories']);
+        $data = queryModels('Product', [], ['perPage' => 50, 'page' => 1], ['user', 'brand', 'currency', 'coupons','categories']);
         return view('admin.products.index', compact('data'));
     }
 

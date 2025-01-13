@@ -28,7 +28,7 @@ class OrdersSeeder extends Seeder
         $orders = [];
         $now = now();
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 500; $i++) {
             $orders[] = [
                 'order_number' => Str::uuid(),
                 'ref_id' => Str::random(50),

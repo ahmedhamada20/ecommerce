@@ -1,4 +1,4 @@
-@extends('admin.layouts.master') 
+@extends('admin.layouts.master')
 @section('title')
     Create New Product
 @endsection
@@ -99,6 +99,18 @@
         margin-bottom: 15px;
     }
     .specification-item input {
+        flex: 1;
+    }
+
+    .Description {
+        margin-top: 20px;
+    }
+    .Description-item {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    .Description-item input {
         flex: 1;
     }
     .btn-secondary {
@@ -329,7 +341,7 @@
                 <!-- Product Basic Info -->
                 <div class="form-section">
                     <h5>Basic Information</h5>
-                    
+
                     <div class="row">
                            <!-- Product Images -->
                 <div class="form-section">
@@ -338,6 +350,16 @@
                         <label for="images" class="form-label">Upload Images</label>
                         <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
                         <div class="image-preview" id="image-preview"></div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="name_ar" class="form-label">Alt image (AR)</label>
+                        <input type="text" class="form-control" id="name_ar" name="name_ar" placeholder="Arabic name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                    <label for="name_en" class="form-label">Alt image (EN)</label>
+                    <input type="text" class="form-control" id="english_ar" name="name_ar" placeholder="English name" required>
+                    </div>
                     </div>
                 </div>
                         <div class="col-md-6 mb-3">
@@ -364,24 +386,45 @@
                         </div>
                     </div>
                 </div>
-
-             
-
                 <!-- Product Descriptions -->
                 <div class="form-section">
                     <h5>Descriptions</h5>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="short_description_ar" class="form-label">Short Description (AR)</label>
-                            <textarea class="form-control" id="short_description_ar" name="short_description_ar" rows="3"></textarea>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="short_description_en" class="form-label">Short Description (EN)</label>
-                            <textarea class="form-control" id="short_description_en" name="short_description_en" rows="3"></textarea>
+                    <div id="Description" class="Description">
+                        <div class="row align-items-center mb-3 description-item">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="Description_name[]" placeholder="Description Name">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="description-values">
+                                    <div class="row align-items-center mb-2">
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="Description_value[]" placeholder="Description Value">
+                                        </div>
+                                        <div class="col-md-3 text-end">
+                                            <button type="button" class="btn btn-danger remove-value">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-secondary btn-sm mt-2 add-value">+ Add Description Value</button>
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <button type="button" class="btn btn-danger remove-description">Delete Description</button>
+                            </div>
                         </div>
                     </div>
+                    <button type="button" class="btn btn-secondary btn-sm mt-2" id="add-Description">+ Add Description</button>
                 </div>
-<!-- Stock Status, Quantity, and Shipping -->
+                <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="short_description_ar" class="form-label">Short Description (AR)</label>
+                    <textarea class="form-control" id="short_description_ar" name="short_description_ar" rows="3"></textarea>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="short_description_en" class="form-label">Short Description (EN)</label>
+                    <textarea class="form-control" id="short_description_en" name="short_description_en" rows="3"></textarea>
+                </div>
+        </div>
+                <!-- Stock Status, Quantity, and Shipping -->
 <div class="form-section">
     <h5>Stock & Shipping Information</h5>
     <div class="row">
@@ -421,6 +464,14 @@
             <label for="height" class="form-label">Height (cm)</label>
             <input type="number" class="form-control" id="height" name="height" placeholder="Height in cm" step="0.01">
         </div>
+        <div class="col-md-4 mb-3">
+            <label for="height" class="form-label">price</label>
+            <input type="number" class="form-control" id="height" name="height" placeholder="price" step="0.01">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="height" class="form-label">Discount (%)</label>
+            <input type="number" class="form-control" id="height" name="height" placeholder="Discount (%)" step="0.01">
+        </div>
     </div>
 </div>
 
@@ -435,7 +486,7 @@
             <div class="col-md-6">
                 <input type="text" class="form-control" placeholder="Color Name (e.g., White)" name="color_names[]">
             </div>
-            
+
         </div>
     </div>
     <button type="button" class="btn btn-secondary btn-sm" id="add-color">+ Add Color</button>
@@ -608,8 +659,26 @@
     <button type="button" class="btn btn-secondary btn-sm" id="add-tax">+ Add Tax</button>
 </div>
 
+                <div class="form-section">
+                    <h5>Coupon</h5>
+                    <div id="coupon-container">
+                        <!-- Existing coupon -->
+                        <div class="row align-items-center mb-3">
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" name="coupon_names[]" placeholder="coupon">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="number" class="form-control" name="coupon_number[]" placeholder="coupon" min="0">
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <button type="button" class="btn btn-danger remove-coupon">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-sm" id="add-coupon">+ Add Coupon</button>
+                </div>
 
-<!-- Minimum Order Quantity -->
+                <!-- Minimum Order Quantity -->
 <div class="form-section">
     <h5>Minimum Order Quantity</h5>
     <div class="mb-3">
@@ -687,7 +756,77 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         specifications.appendChild(newSpecRow);
     });
+    // Add new description row
+    document.getElementById('add-Description').addEventListener('click', function () {
+        const Description = document.getElementById('Description');
+        const newDescription = document.createElement('div');
+        newDescription.classList.add('row', 'align-items-center', 'mb-3', 'description-item');
+        newDescription.innerHTML = `
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="Description_name[]" placeholder="Description Name">
+        </div>
+        <div class="col-md-6">
+            <div class="description-values">
+                <div class="row align-items-center mb-2">
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="Description_value[]" placeholder="Description Value">
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <button type="button" class="btn btn-danger remove-value">Remove</button>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm mt-2 add-value">+ Add Description Value</button>
+        </div>
+        <div class="col-md-2 text-end">
+            <button type="button" class="btn btn-danger remove-description">Delete Description</button>
+        </div>
+    `;
+        Description.appendChild(newDescription);
+    });
 
+// Event delegation for adding/removing values and descriptions
+    document.getElementById('Description').addEventListener('click', function (event) {
+        if (event.target && event.target.classList.contains('add-value')) {
+            const descriptionValues = event.target.previousElementSibling; // Get the container for values
+            const newValue = document.createElement('div');
+            newValue.classList.add('row', 'align-items-center', 'mb-2');
+            newValue.innerHTML = `
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="Description_value[]" placeholder="Description Value">
+            </div>
+            <div class="col-md-3 text-end">
+                <button type="button" class="btn btn-danger remove-value">Remove</button>
+            </div>
+        `;
+            descriptionValues.appendChild(newValue);
+        }
+
+        if (event.target && event.target.classList.contains('remove-value')) {
+            event.target.closest('.row').remove(); // Remove the specific value row
+        }
+
+        if (event.target && event.target.classList.contains('remove-description')) {
+            event.target.closest('.description-item').remove(); // Remove the entire description row
+        }
+    });
+
+
+    document.getElementById('add-Description-value').addEventListener('click', function () {
+        const Description = document.getElementById('Description');
+        const newSpecRow = document.createElement('div');
+        newSpecRow.classList.add('row', 'align-items-center', 'mb-3');
+        newSpecRow.innerHTML = `
+
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="Description_value[]" placeholder="Description Value">
+            </div>
+            <div class="col-md-2 text-end">
+                <button type="button" class="btn btn-danger remove-row">Delete</button>
+            </div>
+        `;
+        Description.appendChild(newSpecRow);
+    });
     // Attach delete functionality to dynamically created rows
     document.body.addEventListener('click', function (event) {
         if (event.target.classList.contains('remove-row')) {
@@ -883,6 +1022,43 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.remove-tax').forEach(attachRemoveTaxEvent);
 });
 
+ document.addEventListener('DOMContentLoaded', function () {
+     const couponContainer = document.getElementById('coupon-container');
+     const addcouponButton = document.getElementById('add-coupon');
+
+     // Add new coupon row
+     addcouponButton.addEventListener('click', function () {
+         const newcouponRow = document.createElement('div');
+         newcouponRow.classList.add('row', 'align-items-center', 'mb-3');
+
+         newcouponRow.innerHTML = `
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="coupon_names[]" placeholder="coupon">
+            </div>
+            <div class="col-md-5">
+                <input type="number" class="form-control" name="coupon_number[]" placeholder="coupon" min="0">
+            </div>
+            <div class="col-md-2 text-end">
+                <button type="button" class="btn btn-danger remove-coupon">Remove</button>
+            </div>
+        `;
+
+         couponContainer.appendChild(newcouponRow);
+
+         // Attach remove functionality to the new button
+         attachRemovecouponEvent(newcouponRow.querySelector('.remove-coupon'));
+     });
+
+     // Remove coupon row
+     function attachRemovecouponEvent(button) {
+         button.addEventListener('click', function () {
+             button.parentElement.parentElement.remove();
+         });
+     }
+
+     // Attach remove functionality to existing remove buttons
+     document.querySelectorAll('.remove-coupon').forEach(attachRemovecouponEvent);
+ });
 
 
 </script>
