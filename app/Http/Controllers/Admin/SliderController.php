@@ -6,8 +6,10 @@ use App\Enums\HyperlinksEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SlidersRequest;
 use App\Models\Hyperlink;
+use App\Models\Photo;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
@@ -33,7 +35,17 @@ class SliderController extends Controller
      */
     public function store(SlidersRequest $request)
     {
-        Slider::create($request->validated());
+        $sliders = Slider::create($request->validated());
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imagePath = $image->store('sliders', 'public');
+            Photo::create([
+                'filename' => $imagePath,
+                'photoable_type' => Slider::class,
+                'photoable_id' => $sliders->id,
+            ]);
+        }
         return redirect()->route('admin_sliders.index')->with('success', 'Reward created successfully.');
 
     }
@@ -66,6 +78,22 @@ class SliderController extends Controller
     {
         $row =  Slider::findorfail($request->id);
         $row->update($request->validated());
+        if ($request->hasFile('image')) {
+            $oldPhoto = $row->photo()->first();
+            if ($oldPhoto) {
+                if (Storage::exists('public/' . $oldPhoto->filename)) {
+                    Storage::delete('public/' . $oldPhoto->filename);
+                }
+                $oldPhoto->delete();
+            }
+            $image = $request->file('image');
+            $imagePath = $image->store('sliders', 'public');
+            Photo::create([
+                'filename' => $imagePath,
+                'photoable_type' => Slider::class,
+                'photoable_id' => $row->id,
+            ]);
+        }
         return redirect()->route('admin_sliders.index')->with('success', 'sliders updated successfully.');
     }
 

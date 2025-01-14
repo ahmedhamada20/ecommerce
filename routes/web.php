@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 require __DIR__.'/auth.php';
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
 
-Route::get('/', function () {
-    return view('welcome');
+    Route::get('/', function () {
+        return view('front.index');
+    });
+
+
 });
 
 
