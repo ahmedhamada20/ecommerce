@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CouponsController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\InstallmentsController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RewardController;
 use App\Http\Controllers\Admin\SliderController;
@@ -47,6 +48,7 @@ Route::middleware(['auth', 'admin_try'])->group(function () {
     Route::resource('installments', InstallmentsController::class);
     Route::resource('advertisement_banners', AdvertisementBannersController::class);
     Route::resource('special_products', SpecialProductsController::class);
+    Route::resource('orders', OrdersController::class);
     Route::post('/update-brand-status', [BrandController::class, 'updateBrandStatus'])->name('updateBrandStatus');
     Route::post('/update-users-status', [UsersController::class, 'updateUsersStatus'])->name('updateUsersStatus');
     Route::post('/update-sliders-status', [SliderController::class, 'updateSlidersStatus'])->name('updateSlidersStatus');

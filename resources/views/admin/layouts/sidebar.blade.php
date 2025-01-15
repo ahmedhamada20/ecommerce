@@ -229,28 +229,20 @@
                 </ul>
             </li>
 
-            {{--            <li class="dropdown">--}}
-            {{--                <a href="javascript:void(0)">--}}
-            {{--                    <iconify-icon icon="simple-line-icons:vector" class="menu-icon"></iconify-icon>--}}
-            {{--                    <span>Authentication</span>--}}
-            {{--                </a>--}}
-            {{--                <ul class="sidebar-submenu">--}}
-            {{--                    <li>--}}
-            {{--                        <a href="./signin.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>--}}
-            {{--                            Sign In</a>--}}
-            {{--                    </li>--}}
-            {{--                    <li>--}}
-            {{--                        <a href="./signup.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i>--}}
-            {{--                            Sign Up</a>--}}
-            {{--                    </li>--}}
-            {{--                    <li>--}}
-            {{--                        <a href="./forgotpassword.html"><i--}}
-            {{--                                class="ri-circle-fill circle-icon text-info-main w-auto"></i>--}}
-            {{--                            Forgot Password</a>--}}
-            {{--                    </li>--}}
-            {{--                </ul>--}}
-            {{--            </li>--}}
-            {{--            <li>--}}
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="simple-line-icons:vector" class="menu-icon"></iconify-icon>
+                    <span>orders</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{route('admin_orders.index')}}"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Orders</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
             {{--                <a href="./gallery.html">--}}
             {{--                    <iconify-icon icon="solar:gallery-wide-linear" class="menu-icon"></iconify-icon>--}}
             {{--                    <span>Gallery</span>--}}

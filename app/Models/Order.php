@@ -41,4 +41,30 @@ class Order extends Model
     {
         return $this->belongsTo(Coupon::class,'coupon_id');
     }
+
+    public function getStatusColor()
+    {
+        switch ($this->status) {
+            case 'pending':
+                $color = 'warning';
+                break;
+            case 'processing':
+                $color = 'info';
+                break;
+            case 'completed':
+                $color = 'success';
+                break;
+            case 'cancelled':
+                $color = 'danger';
+                break;
+            case 'refunded':
+                $color = 'secondary';
+                break;
+            default:
+                $color = 'dark';
+        }
+
+        return "<span class='badge rounded-pill bg-$color'>" . ucfirst($this->status) . "</span>";
+    }
+
 }

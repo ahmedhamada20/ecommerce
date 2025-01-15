@@ -33,36 +33,64 @@
                                             class="fa fa-angle-down"></span>
                                     </a>
                                     <ul class="dropdown-menu btn-xs">
-                                        <li> <a href="#">(€)&nbsp;Euro</a></li>
-                                        <li> <a href="#">(£)&nbsp;Pounds </a></li>
-                                        <li> <a href="#">($)&nbsp;US Dollar </a></li>
+                                        <li><a href="#">(€)&nbsp;Euro</a></li>
+                                        <li><a href="#">(£)&nbsp;Pounds </a></li>
+                                        <li><a href="#">($)&nbsp;US Dollar </a></li>
                                     </ul>
                                 </form>
                             </div>
                         </li>
                         <li class="language">
                             <div class="btn-group languages-block ">
-                                <form action="index.html" method="post" enctype="multipart/form-data"
-                                      id="bt-language">
-                                    <a class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                        <img src="{{asset('front/image/catalog/flags/gb.png')}}" alt="English" title="English">
-                                        <span class="">English</span>
-                                        <span class="fa fa-angle-down"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="index.html"><img class="image_flag"
-                                                                      src="{{asset('front/image/catalog/flags/gb.png')}}" alt="English"
-                                                                      title="English" /> English </a></li>
-                                        <li> <a href="html_with_RTL/index.html"> <img class="image_flag"
-                                                                                      src="{{asset('front/image/catalog/flags/ar.png')}}" alt="Arabic"
-                                                                                      title="Arabic" /> Arabic </a> </li>
-                                    </ul>
-                                </form>
+
+                                <a class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+{{--                                    {{asset('front/image/catalog/flags/gb.png')}}--}}
+                                    @if(app()->getLocale() === 'ar')
+
+                                        <img src="{{asset('front/image/catalog/flags/ar.png')}} " alt="{{ app()->getLocale() }}"
+                                             title="{{ app()->getLocale() }}">
+
+
+                                    @else
+                                        <img src="{{asset('front/image/catalog/flags/gb.png')}} " alt="{{ app()->getLocale() }}"
+                                             title="{{ app()->getLocale() }}">
+                                    @endif
+
+                                    <span class="">{{ LaravelLocalization::getCurrentLocaleNative() }}</span>
+                                    <span class="fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+
+                                        <li>
+                                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                @if($localeCode == "ar")
+                                                    <img class="image_flag"
+
+                                                         src="{{asset('front/image/catalog/flags/ar.png')}}"
+                                                         alt="{{ $properties['native'] }}"
+                                                         title="{{ $properties['native'] }}" />
+
+                                                @else
+                                                    <img class="image_flag"
+
+                                                         src="{{asset('front/image/catalog/flags/gb.png')}}"
+                                                         alt="{{ $properties['native'] }}"
+                                                         title="{{ $properties['native'] }}" />
+                                                @endif
+
+
+                                                {{ $properties['native'] }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+
                             </div>
 
                         </li>
                     </ul>
-
 
 
                 </div>
@@ -77,8 +105,9 @@
             <div class="row">
                 <!-- Logo -->
                 <div class="navbar-logo col-lg-2 col-md-3 col-sm-4 col-xs-12">
-                    <div class="logo"><a href="index.html"><img src="{{asset('front/image/catalog/logo.png')}}" title="Your Store"
-                                                                alt="Your Store" /></a></div>
+                    <div class="logo"><a href="index.html"><img src="{{asset('front/image/catalog/logo.png')}}"
+                                                                title="Your Store"
+                                                                alt="Your Store"/></a></div>
                 </div>
                 <!-- //end Logo -->
 
@@ -98,7 +127,7 @@
 
                                             @foreach(get_models('Category',['active'=>'1']) as $row)
                                                 <option value="{{$row->slug}}">{{$row->name()}}</option>
-                                                @endforeach
+                                            @endforeach
                                         </select>
                                     </div>
                                     <input class="autosearch-input form-control" type="text" value="" size="50"
@@ -106,7 +135,7 @@
                                     <button type="submit" class="button-search btn btn-primary"
                                             name="submit_search"><i class="fa fa-search"></i></button>
                                 </div>
-                                <input type="hidden" name="route" value="product/search" />
+                                <input type="hidden" name="route" value="product/search"/>
                             </form>
                         </div>
                     </div>
@@ -149,8 +178,8 @@
                                                          title="Yutculpa ullamco" class="preview">
                                                 </a>
                                             </td>
-                                            <td class="text-left"> <a class="cart_product_name"
-                                                                      href="product.html">Yutculpa ullamco</a>
+                                            <td class="text-left"><a class="cart_product_name"
+                                                                     href="product.html">Yutculpa ullamco</a>
                                             </td>
                                             <td class="text-center">x1</td>
                                             <td class="text-center">$80.00</td>
@@ -170,8 +199,8 @@
                                                          title="Xancetta bresao" class="preview">
                                                 </a>
                                             </td>
-                                            <td class="text-left"> <a class="cart_product_name"
-                                                                      href="product.html">Xancetta bresao</a>
+                                            <td class="text-left"><a class="cart_product_name"
+                                                                     href="product.html">Xancetta bresao</a>
                                             </td>
                                             <td class="text-center">x1</td>
                                             <td class="text-center">$60.00</td>
@@ -212,10 +241,11 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <p class="text-right"> <a class="btn view-cart" href="cart.html"><i
+                                        <p class="text-right"><a class="btn view-cart" href="cart.html"><i
                                                     class="fa fa-shopping-cart"></i>View
                                                 Cart</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart"
-                                                                              href="checkout.html"><i class="fa fa-share"></i>Checkout</a>
+                                                                              href="checkout.html"><i
+                                                    class="fa fa-share"></i>Checkout</a>
                                         </p>
                                     </div>
                                 </li>
@@ -235,7 +265,6 @@
                     </ul>
 
 
-
                 </div>
 
             </div>
@@ -248,7 +277,6 @@
     <div class="header-bottom hidden-compact">
         <div class="container">
             <div class="row">
-
 
 
                 <!-- Main menu -->
@@ -461,7 +489,8 @@
                     <div class="signin-w hidden-md hidden-sm hidden-xs">
                         <ul class="signin-link blank">
                             <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg"
-                                                                                href="login.html">Login </a> or <a href="register.html">Register</a></li>
+                                                                                href="login.html">Login </a> or <a
+                                    href="register.html">Register</a></li>
                         </ul>
                     </div>
                 </div>
