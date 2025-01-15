@@ -31,8 +31,8 @@ use Illuminate\Support\Facades\Route;
 */
 require __DIR__ . '/auth.php';
 
-
-Route::middleware(['auth', 'admin_try'])->group(function () {
+//admin_try
+Route::middleware(['auth'])->group(function () {
     Route::get('/', [AdminController::class, 'index']);
     Route::resource('users', UsersController::class);
     Route::resource('addresses', AddressController::class);
@@ -64,5 +64,5 @@ Route::middleware(['auth', 'admin_try'])->group(function () {
     Route::post('/update-rewards-status', [RewardController::class, 'updateRewardsStatus'])->name('updateRewardsStatus');
     Route::post('/update-installments-status', [InstallmentsController::class, 'updateInstallmentStatus'])->name('updateInstallmentStatus');
     Route::post('/update-advertisement_banners-status', [AdvertisementBannersController::class, 'updateAdvertisementBannersStatus'])->name('updateAdvertisementBannersStatus');
-
+    Route::get('orders/details/{id}',[OrdersController::class,'show'])->name('orders/details');
 });

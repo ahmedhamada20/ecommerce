@@ -73,25 +73,37 @@
                                 </div>
                             </td>
 
+{{--                            <td>--}}
+{{--                                --}}{{--                                <a href="javascript:void(0)"--}}
+{{--                                --}}{{--                                   class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">--}}
+{{--                                --}}{{--                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>--}}
+{{--                                --}}{{--                                </a>--}}
+{{--                                <a href="javascript:void(0)"--}}
+{{--                                   data-bs-toggle="modal" data-bs-target="#disputeModalEdit{{$row->id}}"--}}
+{{--                                   class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">--}}
+{{--                                    <iconify-icon icon="lucide:edit"></iconify-icon>--}}
+{{--                                </a>--}}
+{{--                                <a href="javascript:void(0)"--}}
+{{--                                   data-bs-toggle="modal" data-bs-target="#deleted{{$row->id}}"--}}
+{{--                                   class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">--}}
+{{--                                    <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>--}}
+{{--                                </a>--}}
+{{--                            </td>--}}
                             <td>
-                                {{--                                <a href="javascript:void(0)"--}}
-                                {{--                                   class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">--}}
-                                {{--                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>--}}
-                                {{--                                </a>--}}
-                                <a href="javascript:void(0)"
-                                   data-bs-toggle="modal" data-bs-target="#disputeModalEdit{{$row->id}}"
-                                   class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                    <iconify-icon icon="lucide:edit"></iconify-icon>
-                                </a>
-                                <a href="javascript:void(0)"
-                                   data-bs-toggle="modal" data-bs-target="#deleted{{$row->id}}"
-                                   class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                    <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                                </a>
+                                <div class="dropdown">
+                                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Action
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="{{route('admin_users.show',$row->id)}}">View Profile</a></li>
+                                        <li><a class="dropdown-item" href="#">Orders</a></li>
+                                        <li><a class="dropdown-item" href="#">Change Password</a></li>
+                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleted{{$row->id}}">Deleted</a></li>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
-                        @include('admin.users.edit')
-{{--                        @include('admin.users.deleted')--}}
+                        @include('admin.users.deleted')
                     @endforeach
                     </tbody>
                 </table>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -83,10 +84,13 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::findOrFail($id);
+        $checkOrders = Order::where('customer_id',\request()->id)->first();
+        if ($checkOrders){
+            return redirect()->route('admin_users.index')->with('error', 'This user cannot be deleted because he has requests.');
+        }
+        $user = User::findOrFail(\request()->id);
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
-
+        return redirect()->route('admin_users.index')->with('success', 'User deleted successfully.');
     }
 
     public function updateUsersStatus(Request $request)

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('order_number')->nullable();
+            $table->string('order_number')->unique()->nullable();
             $table->string('ref_id')->nullable();
             $table->enum('order_type', allowed: array('orders', 'gifit'));
             $table->enum('payment_type', array('cash', 'online', 'installment','wallet'));

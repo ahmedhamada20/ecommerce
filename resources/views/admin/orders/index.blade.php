@@ -10,9 +10,45 @@
 
     <div class="card basic-data-table">
         <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
-            <a href="{{route('admin_orders.create')}}" class="btn btn-primary">
-                Add new
-            </a>
+            <form action="{{ route('admin_orders.index') }}" method="get">
+                @csrf
+                <div class="row">
+                    <div class="col">
+                        <label>Order Numbers</label>
+                        <input type="text" class="form-control" name="order_numbers" value="{{ request('order_numbers') }}">
+                    </div>
+
+                    <div class="col">
+                        <label>Status Order</label>
+                        <select class="form-control" name="status_orders">
+                            <option value="">-- Choose Status Orders --</option>
+                            <option value="pending" {{ request('status_orders') == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="processing" {{ request('status_orders') == 'processing' ? 'selected' : '' }}>Processing</option>
+                            <option value="completed" {{ request('status_orders') == 'completed' ? 'selected' : '' }}>Completed</option>
+                            <option value="cancelled" {{ request('status_orders') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                            <option value="refunded" {{ request('status_orders') == 'refunded' ? 'selected' : '' }}>Refunded</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <label>Type Order</label>
+                        <select class="form-control" name="type_orders">
+                            <option value="">-- Choose Type Orders --</option>
+                            <option value="orders" {{ request('type_orders') == 'orders' ? 'selected' : '' }}>Orders</option>
+                            <option value="gift" {{ request('type_orders') == 'gift' ? 'selected' : '' }}>Gift</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <label>Phone Number</label>
+                        <input type="text" class="form-control" name="phone_number" value="{{ request('phone_number') }}">
+                    </div>
+
+                    <div class="col">
+                        <button class="btn btn-success">Search</button>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -36,72 +72,59 @@
                 <table class="table bordered-table mb-0" id="dataTable" data-page-length="10">
                     <thead>
                     <tr>
-                        <th scope="col">code</th>
-                        <th scope="col">type code</th>
+                        <th scope="col">order number</th>
+                        <th scope="col">order type</th>
                         <th scope="col">customer</th>
                         <th scope="col">Status</th>
-                        <th scope="col">discount value</th>
-                        <th scope="col">discount type</th>
-                        <th scope="col">max used</th>
-                        <th scope="col">times used</th>
+                        <th scope="col">Create Order</th>
+                        <th scope="col">total</th>
                         <th scope="col">Action</th>
+
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($data as $row)
                         <tr>
                             <td>
-                                {{ $row->order_number }}
+                                <a style="color: #0A51CE" href="{{route('admin_orders/details',$row->order_number)}}" target="_blank">{{ $row->order_number }}</a>
                             </td>
+
                             <td>
-                                {!!  $row->getStatusColor() !!}
+                                {!!  $row->getOrderTypeColor() !!}
                             </td>
+
+
                             <td>
                                 {{ $row->customer_id ? $row->customer->name() : 'no customer' }}
                             </td>
-                            <td>
-                                <div class="form-switch switch-success d-flex align-items-center gap-3">
-                                    <input class="form-check-input"
-                                           type="checkbox"
-                                           role="switch"
-                                           id="flexSwitchCheckDefault{{$row->id}}"
-                                           {{$row->status == '1' ? 'checked' : ''}}
-                                           onchange="toggleStatus({{$row->id}}, this.checked ? '1' : '0')">
 
-                                    <label class="form-check-label line-height-1 fw-medium text-secondary-light"
-                                           for="flexSwitchCheckDefault{{$row->id}}">
-                                        <span
-                                            id="statusText{{$row->id}}">{{$row->status == '1' ? 'active' : 'inActive'}}</span>
-                                    </label>
+
+
+                            <td>
+                                {!!  $row->getStatusColor() !!}
+                            </td>
+
+                            <td>
+                                {{$row->created_at->format('Y-m-d')}}
+                            </td>
+                            <td>
+                                {{$row->total}}
+                            </td>
+
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Action
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="{{route('admin_orders/details',$row->order_number)}}">Orders Details</a></li>
+                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal{{$row->id}}">Orders Status</a></li>
+                                    </ul>
                                 </div>
-                            </td>
-                            <td>
-                                {{ $row->discount_value }}
-                            </td>
-                            <td>
-                                {{ $row->discount_type }}
-                            </td>
-                            <td>
-                                {{ $row->max_used }}
-                            </td>
-                            <td>
-                                {{ $row->times_used }}
-                            </td>
-
-                            <td>
-                                <a href="{{route('admin_coupons.edit',$row->id)}}"
-                                   class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                    <iconify-icon icon="lucide:edit"></iconify-icon>
-                                </a>
-                                <a href="javascript:void(0)"
-                                   data-bs-toggle="modal" data-bs-target="#deleted{{$row->id}}"
-                                   class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                    <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                                </a>
                             </td>
                         </tr>
 
-
+@include('admin.orders.changeStatus')
                     @endforeach
                     </tbody>
                 </table>

@@ -37,6 +37,13 @@ class Order extends Model
     }
 
 
+    public function order_items()
+    {
+        return $this->hasMany(OrderItem::class,'order_id')->sum('quantity');
+    }
+
+
+
     public function coupon()
     {
         return $this->belongsTo(Coupon::class,'coupon_id');
@@ -66,5 +73,19 @@ class Order extends Model
 
         return "<span class='badge rounded-pill bg-$color'>" . ucfirst($this->status) . "</span>";
     }
+    public function getOrderTypeColor()
+    {
+        switch ($this->order_type) {
+            case 'orders':
+                $color = 'warning';
+                break;
+            case 'gifit':
+                $color = 'info';
+                break;
+            default:
+                $color = 'dark';
+        }
 
+        return "<span class='badge rounded-pill bg-$color'>" . ucfirst($this->order_type) . "</span>";
+    }
 }
