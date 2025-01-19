@@ -5,7 +5,7 @@
 </head>
 <body>
 @include('admin.layouts.sidebar')
-<main class="dashboard-main">
+<main class="dashboard-main" id="{{app()->getLocale() == "ar" ? 'rtlMain' : 'ltrMain'}}" style="{{app()->getLocale() == "ar" ? 'direction: rtl; display: block;' : null}}">
     @include('admin.layouts.navbar')
     <div class="dashboard-main-body">
         @include('admin.layouts.breadcrumb')

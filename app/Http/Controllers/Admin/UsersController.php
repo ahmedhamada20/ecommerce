@@ -13,6 +13,7 @@ class UsersController extends Controller
 
     public function index()
     {
+
         $data = queryModels('User', [
             'type' => 'customer'
         ], [

@@ -25,6 +25,8 @@
 
 <!-- main js -->
 <script src="{{asset('dash/assets/js/app.js')}}"></script>
+
+<script src="{{asset('dash/assets/js/lib/direction.js')}}"></script>
 <script>
     $(document).ready(function () {
         const $tableBody = $('#dataTable tbody'); // Table body

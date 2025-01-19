@@ -1,4 +1,6 @@
-<aside class="sidebar">
+
+
+<aside class="sidebar" id="{{app()->getLocale() == "ar" ? 'rtlSidebar' : 'ltrSidebar'}}"  style="{{app()->getLocale() == "ar" ? 'direction: rtl;' : null}}">
     <button type="button" class="sidebar-close-btn">
         <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
     </button>
@@ -314,3 +316,5 @@
         </ul>
     </div>
 </aside>
+
+

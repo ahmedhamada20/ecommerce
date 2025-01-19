@@ -39,122 +39,25 @@
                         <div class="max-h-400-px overflow-y-auto scroll-sm pe-8">
                             <div
                                 class="form-check style-check d-flex align-items-center justify-content-between mb-16">
-                                <label class="form-check-label line-height-1 fw-medium text-secondary-light"
-                                       for="english">
-                                            <span
-                                                class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag1.png"
-                                                     alt=""
-                                                     class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
-                                                <span class="text-md fw-semibold mb-0">English</span>
-                                            </span>
-                                </label>
-                                <input class="form-check-input" type="radio" name="crypto" id="english">
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <label class="form-check-label line-height-1 fw-medium text-secondary-light"
+                                           for="{{ $localeCode }}">
+        <span class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
+            <img src="{{ asset('assets/images/flags/flag' . $loop->index + 1 . '.png') }}"
+                 alt="{{ $properties['native'] }}"
+                 class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
+            <a rel="alternate" hreflang="{{ $localeCode }}"
+               href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                {{ $properties['native'] }}
+            </a>
+        </span>
+                                    </label>
+                                @endforeach
+
+
                             </div>
 
-                            <div
-                                class="form-check style-check d-flex align-items-center justify-content-between mb-16">
-                                <label class="form-check-label line-height-1 fw-medium text-secondary-light"
-                                       for="japan">
-                                            <span
-                                                class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag2.png"
-                                                     alt=""
-                                                     class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
-                                                <span class="text-md fw-semibold mb-0">Japan</span>
-                                            </span>
-                                </label>
-                                <input class="form-check-input" type="radio" name="crypto" id="japan">
-                            </div>
 
-                            <div
-                                class="form-check style-check d-flex align-items-center justify-content-between mb-16">
-                                <label class="form-check-label line-height-1 fw-medium text-secondary-light"
-                                       for="france">
-                                            <span
-                                                class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag3.png"
-                                                     alt=""
-                                                     class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
-                                                <span class="text-md fw-semibold mb-0">France</span>
-                                            </span>
-                                </label>
-                                <input class="form-check-input" type="radio" name="crypto" id="france">
-                            </div>
-
-                            <div
-                                class="form-check style-check d-flex align-items-center justify-content-between mb-16">
-                                <label class="form-check-label line-height-1 fw-medium text-secondary-light"
-                                       for="germany">
-                                            <span
-                                                class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag4.png"
-                                                     alt=""
-                                                     class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
-                                                <span class="text-md fw-semibold mb-0">Germany</span>
-                                            </span>
-                                </label>
-                                <input class="form-check-input" type="radio" name="crypto" id="germany">
-                            </div>
-
-                            <div
-                                class="form-check style-check d-flex align-items-center justify-content-between mb-16">
-                                <label class="form-check-label line-height-1 fw-medium text-secondary-light"
-                                       for="korea">
-                                            <span
-                                                class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag5.png"
-                                                     alt=""
-                                                     class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
-                                                <span class="text-md fw-semibold mb-0">South Korea</span>
-                                            </span>
-                                </label>
-                                <input class="form-check-input" type="radio" name="crypto" id="korea">
-                            </div>
-
-                            <div
-                                class="form-check style-check d-flex align-items-center justify-content-between mb-16">
-                                <label class="form-check-label line-height-1 fw-medium text-secondary-light"
-                                       for="bangladesh">
-                                            <span
-                                                class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag6.png"
-                                                     alt=""
-                                                     class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
-                                                <span class="text-md fw-semibold mb-0">Bangladesh</span>
-                                            </span>
-                                </label>
-                                <input class="form-check-input" type="radio" name="crypto" id="bangladesh">
-                            </div>
-
-                            <div
-                                class="form-check style-check d-flex align-items-center justify-content-between mb-16">
-                                <label class="form-check-label line-height-1 fw-medium text-secondary-light"
-                                       for="india">
-                                            <span
-                                                class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag7.png"
-                                                     alt=""
-                                                     class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
-                                                <span class="text-md fw-semibold mb-0">India</span>
-                                            </span>
-                                </label>
-                                <input class="form-check-input" type="radio" name="crypto" id="india">
-                            </div>
-                            <div
-                                class="form-check style-check d-flex align-items-center justify-content-between">
-                                <label class="form-check-label line-height-1 fw-medium text-secondary-light"
-                                       for="canada">
-                                            <span
-                                                class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag8.png"
-                                                     alt=""
-                                                     class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
-                                                <span class="text-md fw-semibold mb-0">Canada</span>
-                                            </span>
-                                </label>
-                                <input class="form-check-input" type="radio" name="crypto" id="canada">
-                            </div>
                         </div>
                     </div>
                 </div><!-- Language dropdown end -->
@@ -183,8 +86,9 @@
                                     class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
                                             <span
                                                 class="w-40-px h-40-px rounded-circle flex-shrink-0 position-relative">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-3.png"
-                                                     alt="">
+                                                <img
+                                                    src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-3.png"
+                                                    alt="">
                                                 <span
                                                     class="w-8-px h-8-px bg-success-main rounded-circle position-absolute end-0 bottom-0"></span>
                                             </span>
@@ -207,8 +111,9 @@
                                     class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
                                             <span
                                                 class="w-40-px h-40-px rounded-circle flex-shrink-0 position-relative">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-4.png"
-                                                     alt="">
+                                                <img
+                                                    src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-4.png"
+                                                    alt="">
                                                 <span
                                                     class="w-8-px h-8-px  bg-neutral-300 rounded-circle position-absolute end-0 bottom-0"></span>
                                             </span>
@@ -231,8 +136,9 @@
                                     class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
                                             <span
                                                 class="w-40-px h-40-px rounded-circle flex-shrink-0 position-relative">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-5.png"
-                                                     alt="">
+                                                <img
+                                                    src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-5.png"
+                                                    alt="">
                                                 <span
                                                     class="w-8-px h-8-px bg-success-main rounded-circle position-absolute end-0 bottom-0"></span>
                                             </span>
@@ -255,8 +161,9 @@
                                     class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
                                             <span
                                                 class="w-40-px h-40-px rounded-circle flex-shrink-0 position-relative">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-6.png"
-                                                     alt="">
+                                                <img
+                                                    src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-6.png"
+                                                    alt="">
                                                 <span
                                                     class="w-8-px h-8-px bg-neutral-300 rounded-circle position-absolute end-0 bottom-0"></span>
                                             </span>
@@ -279,8 +186,9 @@
                                     class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
                                             <span
                                                 class="w-40-px h-40-px rounded-circle flex-shrink-0 position-relative">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-7.png"
-                                                     alt="">
+                                                <img
+                                                    src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-7.png"
+                                                    alt="">
                                                 <span
                                                     class="w-8-px h-8-px bg-success-main rounded-circle position-absolute end-0 bottom-0"></span>
                                             </span>
@@ -346,8 +254,9 @@
                                     class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
                                             <span
                                                 class="w-44-px h-44-px bg-success-subtle text-success-main rounded-circle d-flex justify-content-center align-items-center flex-shrink-0">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-1.png"
-                                                     alt="">
+                                                <img
+                                                    src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-1.png"
+                                                    alt="">
                                             </span>
                                     <div>
                                         <h6 class="text-md fw-semibold mb-4">Ronald Richards</h6>
@@ -381,8 +290,9 @@
                                     class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
                                             <span
                                                 class="w-44-px h-44-px bg-success-subtle text-success-main rounded-circle d-flex justify-content-center align-items-center flex-shrink-0">
-                                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-2.png"
-                                                     alt="">
+                                                <img
+                                                    src="https://laravel.wowdash.wowtheme7.com/assets/images/notification/profile-2.png"
+                                                    alt="">
                                             </span>
                                     <div>
                                         <h6 class="text-md fw-semibold mb-4">Annette Black</h6>
@@ -446,7 +356,8 @@
                                        :href="route('logout')"
                                        onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                        <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon> Log
+                                        <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon>
+                                        Log
                                         Out
                                     </a>
                                 </form>
@@ -458,4 +369,5 @@
             </div>
         </div>
     </div>
-</div> <!-- ..::  navbar end ::.. -->
+</div>
+<!-- ..::  navbar end ::.. -->
