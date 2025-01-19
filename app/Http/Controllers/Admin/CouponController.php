@@ -12,6 +12,10 @@ class CouponController extends Controller
     /**
      * Display a listing of the resource.
      */
+//    function __construct()
+//    {
+//        $this->middleware('permission:coupons', ['only' => ['index','create','store','edit','update','destroy']]);
+//    }
     public function index()
     {
         $data = queryModels('Coupon', [], ['perPage' => 10, 'page' => 1], ['user', 'customer']);

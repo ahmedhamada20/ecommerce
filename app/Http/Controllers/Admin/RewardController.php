@@ -6,12 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\RewardRequest;
 use App\Models\Reward;
 use Illuminate\Http\Request;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class RewardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+//    function __construct()
+//    {
+//        $this->middleware('permission:Reward', ['only' => ['index','create','store','edit','update','destroy']]);
+//    }
     public function index()
     {
         $data = queryModels('Reward', [], ['perPage' => 10, 'page' => request('page', 1)], []);

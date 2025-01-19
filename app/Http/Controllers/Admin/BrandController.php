@@ -9,12 +9,19 @@ use App\Models\Photo;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
 
 class BrandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+//    public function __construct()
+//    {
+//
+//        if (!auth()->user()->can('Brand')) {
+//            abort(403);
+//        }
+//    }
     public function index()
     {
         $brands = queryModels('Brand', [], ['perPage' => 50, 'page' => request('page', 1)], ['user']);

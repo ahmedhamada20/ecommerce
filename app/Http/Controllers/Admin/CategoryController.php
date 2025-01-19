@@ -16,6 +16,11 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+//    function __construct()
+//    {
+//        $this->middleware('permission:categories', ['only' => ['index','create','store','edit','update','destroy']]);
+//    }
     public function index()
     {
         $data = queryModels('Category', [], ['perPage' => 10, 'page' => 1], ['user', 'parent']);

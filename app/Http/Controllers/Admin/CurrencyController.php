@@ -12,6 +12,10 @@ class CurrencyController extends Controller
     /**
      * Display a listing of the resource.
      */
+//    function __construct()
+//    {
+//        $this->middleware('permission:currencies', ['only' => ['index','create','store','edit','update','destroy']]);
+//    }
     public function index()
     {
         $data = queryModels('Currency', [], ['perPage' => 10, 'page' => 1], []);

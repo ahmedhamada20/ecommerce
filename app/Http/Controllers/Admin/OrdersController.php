@@ -12,6 +12,10 @@ class OrdersController extends Controller
     /**
      * Display a listing of the resource.
      */
+//    function __construct()
+//    {
+//        $this->middleware('permission:orders', ['only' => ['index','create','store','edit','update','destroy']]);
+//    }
     public function index(Request $request)
     {
         $filters = [];

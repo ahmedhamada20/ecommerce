@@ -12,6 +12,10 @@ class InstallmentsController extends Controller
     /**
      * Display a listing of the resource.
      */
+//    function __construct()
+//    {
+//        $this->middleware('permission:installments', ['only' => ['index','create','store','edit','update','destroy']]);
+//    }
     public function index()
     {
         $data = queryModels('Installment', [], ['perPage' => 20]);

@@ -12,6 +12,11 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+//    function __construct()
+//    {
+//        $this->middleware('permission:Product', ['only' => ['index','create','store','edit','update','destroy']]);
+//    }
     public function index()
     {
         $data = queryModels('Product', [], ['perPage' => 50, 'page' => 1], ['user', 'brand', 'currency', 'coupons','categories']);

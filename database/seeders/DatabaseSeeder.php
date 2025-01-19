@@ -28,7 +28,9 @@ class DatabaseSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         $permissions = [
             'permission_index', 'permission_create', 'permission_edit', 'permission_deleted',
-            'role_index', 'role_create', 'role_edit', 'role_deleted'
+            'role_index', 'role_create', 'role_edit', 'role_deleted', 'Users', 'Brand', 'Product', 'sliders', 'currencies',
+            'Blog', 'coupons', 'categories', 'Reward', 'tags', 'installments', 'advertisement_banners', 'special_products',
+            'orders'
         ];
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission, 'guard_name' => 'web']);
@@ -50,13 +52,27 @@ class DatabaseSeeder extends Seeder
 
         $admin->assignRole($role_admin);
 
+        $role_employee = Role::create(['name' => 'employee', 'guard_name' => 'web']);
+        $role_employee->syncPermissions(Permission::whereNotIn('id',  [1, 2, 3, 4, 5, 6, 7, 11])->where('guard_name', 'web')->get());
+        $employee = User::create([
+            'first_name' => 'Test',
+            'last_name' => 'Dash',
+            'email' => 'test@test.com',
+            'phone' => '201111289181',
+            'type' => 'admin',
+            'gender' => 'man',
+            'role' => $role_employee->name,
+            'password' => bcrypt(123456789),
+        ]);
+        $employee->assignRole($role_employee);
+
 
         DB::table('users')->insert([
             [
                 'first_name' => 'John',
                 'last_name' => 'Doe',
                 'email' => 'john.doe@example.com',
-                'phone' => '1234567890',
+                'phone' => '1234567891',
                 'code_country' => '+1',
                 'whatsapp_phone' => '1234567890',
                 'profile_picture' => null,
