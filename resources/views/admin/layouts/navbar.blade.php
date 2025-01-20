@@ -42,15 +42,15 @@
                                 @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                     <label class="form-check-label line-height-1 fw-medium text-secondary-light"
                                            for="{{ $localeCode }}">
-        <span class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
-            <img src="{{ asset('assets/images/flags/flag' . $loop->index + 1 . '.png') }}"
-                 alt="{{ $properties['native'] }}"
-                 class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
-            <a rel="alternate" hreflang="{{ $localeCode }}"
-               href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                {{ $properties['native'] }}
-            </a>
-        </span>
+                                            <span class="text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
+                                                <img src="{{ asset('assets/images/flags/flag' . $loop->index + 1 . '.png') }}"
+                                                     alt="{{ $properties['native'] }}"
+                                                     class="w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0">
+                                                <a rel="alternate" hreflang="{{ $localeCode }}"
+                                                   href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                    {{ $properties['native'] }}
+                                                </a>
+                                            </span>
                                     </label>
                                 @endforeach
 
@@ -340,7 +340,7 @@
                             class="py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2">
                             <div>
                                 <h6 class="text-lg text-primary-light fw-semibold mb-2">{{auth('web')->user()->name()}}</h6>
-                                <span class="text-secondary-light fw-medium text-sm">Admin</span>
+                                <span class="text-secondary-light fw-medium text-sm">{{auth('web')->user()->type}}</span>
                             </div>
                             <button type="button" class="hover-text-danger">
                                 <iconify-icon icon="radix-icons:cross-1" class="icon text-xl"></iconify-icon>

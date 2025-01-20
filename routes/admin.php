@@ -45,7 +45,7 @@ Route::get('/users_index',function (){
     Route::group(
         [
             'prefix' => LaravelLocalization::setLocale() . '/admin',
-            'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth' ],
+            'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth' ,'admin'],
             'as'=>'admin_',
         ], function(){
 

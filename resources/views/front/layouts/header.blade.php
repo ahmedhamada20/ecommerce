@@ -105,7 +105,7 @@
             <div class="row">
                 <!-- Logo -->
                 <div class="navbar-logo col-lg-2 col-md-3 col-sm-4 col-xs-12">
-                    <div class="logo"><a href="index.html"><img src="{{asset('front/image/catalog/logo.png')}}"
+                    <div class="logo"><a href="{{route('home.index')}}"><img src="{{asset('front/image/catalog/logo.png')}}"
                                                                 title="Your Store"
                                                                 alt="Your Store"/></a></div>
                 </div>
@@ -301,7 +301,7 @@
                                             <ul class="megamenu" data-transition="slide"
                                                 data-animationtime="250">
                                                 <li class="home hover">
-                                                    <a href="index.html">Home</a>
+                                                    <a href="{{route('home.index')}}">Home</a>
 
                                                 </li>
                                                 <li><a class="subcategory_item" href="about-us-2.html">About Us
@@ -454,7 +454,7 @@
 
                                                 <li class="">
                                                     <p class="close-menu"></p>
-                                                    <a href="blog-page.html" class="clearfix">
+                                                    <a href="{{route('home.blog')}}" class="clearfix">
                                                         <strong>Blog</strong>
                                                         <span class="label"></span>
                                                     </a>

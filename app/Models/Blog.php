@@ -36,6 +36,15 @@ class Blog extends Model
     {
         return App::getLocale() == "ar" ? $this->name_ar : $this->name_en;
     }
+
+    public function description()
+    {
+        return App::getLocale() == "ar" ? $this->description_ar : $this->description_en;
+    }
+    public function short_description()
+    {
+        return App::getLocale() == "ar" ? $this->short_description_ar : $this->short_description_en;
+    }
     public function commentable()
     {
         return $this->morphMany(RateComment::class, 'commentable');
