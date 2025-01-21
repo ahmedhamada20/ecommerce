@@ -42,6 +42,33 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{route('user_coupon')}}">
+                    <iconify-icon icon="bi:chat-dots" class="menu-icon"></iconify-icon>
+                    <span>user coupon</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('user_wishlists')}}">
+                    <iconify-icon icon="bi:chat-dots" class="menu-icon"></iconify-icon>
+                    <span>user wishlists</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{route('user_comparisons')}}">
+                    <iconify-icon icon="bi:chat-dots" class="menu-icon"></iconify-icon>
+                    <span>user comparisons</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{route('user_carts')}}">
+                    <iconify-icon icon="bi:chat-dots" class="menu-icon"></iconify-icon>
+                    <span>user carts</span>
+                </a>
+            </li>
+
 {{--            <li>--}}
 {{--                <a href="./calendar.html">--}}
 {{--                    <iconify-icon icon="solar:calendar-outline" class="menu-icon"></iconify-icon>--}}

@@ -29,6 +29,10 @@ Route::group(
     Route::get('/orders', [HomeController::class, 'orders'])->name('orders');
     Route::get('orders/details/{id}',[HomeController::class,'show'])->name('orders/details');
     Route::get('user_profile',[HomeController::class,'user_profile'])->name('profile');
-
+    Route::get('coupon_user',[HomeController::class,'coupon_user'])->name('coupon');
+    Route::get('coupon_user_order/{id}',[HomeController::class,'coupon_user_order'])->name('coupon_order');
+    Route::get('wishlists',[HomeController::class,'wishlists'])->name('wishlists');
+    Route::get('comparisons',[HomeController::class,'comparisons'])->name('comparisons');
+    Route::get('carts',[HomeController::class,'carts'])->name('carts');
 });
 

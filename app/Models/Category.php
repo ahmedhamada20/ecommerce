@@ -28,6 +28,10 @@ class Category extends Model
     {
         return $this->hasOne(Category::class, 'parent_id');
     }
+    public function parents()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
 
     public function user()
     {

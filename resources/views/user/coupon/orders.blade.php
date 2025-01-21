@@ -1,6 +1,6 @@
 @extends('user.layouts.master')
 @section('title')
-    orders
+    orders coupon
 @endsection
 @section('css')
 @endsection

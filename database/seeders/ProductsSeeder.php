@@ -2,13 +2,15 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Coupon;
+use App\Models\Photo;
+use App\Models\Product;
 use App\Models\Tag;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use App\Models\Product;
 
 class ProductsSeeder extends Seeder
 {
@@ -16,12 +18,13 @@ class ProductsSeeder extends Seeder
     {
 
 
-
         Schema::disableForeignKeyConstraints();
         DB::table('products')->truncate();
+        DB::table('photos')->truncate();
         Schema::enableForeignKeyConstraints();
         $tags = Tag::all();
         $coupons = Coupon::all();
+        $categories = Category::all();
         $products = [];
 
         for ($i = 1; $i <= 150; $i++) {
@@ -60,8 +63,18 @@ class ProductsSeeder extends Seeder
 
         foreach ($products as $product) {
             $new = Product::create($product);
+
+            Photo::create([
+                'filename' => "products/" . rand(1, 7) . ".jpg",
+                'photoable_id' => $new->id,
+                'photoable_type' => Product::class,
+            ]);
             $new->tags()->attach(
                 $tags->random(rand(1, 3))->pluck('id')->toArray()
+            );
+
+            $new->categories()->attach(
+                $categories->random(rand(1, 3))->pluck('id')->toArray()
             );
 
             $new->coupons()->attach(

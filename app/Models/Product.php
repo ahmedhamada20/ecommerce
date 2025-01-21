@@ -81,4 +81,16 @@ class Product extends Model
     {
         return App::getLocale() == "ar" ? $this->name_ar : $this->name_en;
     }
+
+
+    public function short_description()
+    {
+        return App::getLocale() == "ar" ? $this->short_description_ar : $this->short_description_en;
+    }
+
+
+    public function photo()
+    {
+        return $this->morphOne(Photo::class, 'photoable');
+    }
 }

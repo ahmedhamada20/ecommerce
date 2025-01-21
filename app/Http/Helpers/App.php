@@ -131,3 +131,41 @@ if (!function_exists('generateRandomString')){
     }
 }
 
+
+if (!function_exists('send_in_firebase')) {
+    function send_in_firebase( $client_id, $messages)
+    {
+        $response = Http::put(env('Firebase') .'chat/send.json', [
+            'data' => [
+
+                "status" => "noRead",
+                "client_id" => $client_id,
+                "messages" => $messages,
+                "create_dates" => [
+                    'created_at_human' => \Carbon\Carbon::now()->diffForHumans(),
+                    'created_at' => \Carbon\Carbon::now(),
+                ],
+            ]
+        ]);
+
+
+
+        $response2 = Http::delete(env('Firebase') .'chat/send.json', [
+            'data' => [
+
+                "status" => "noRead",
+                "client_id" => $client_id,
+                "messages" => $messages,
+                "create_dates" => [
+                    'created_at_human' => \Carbon\Carbon::now()->diffForHumans(),
+                    'created_at' => \Carbon\Carbon::now(),
+                ],
+            ]
+        ]);
+
+        if ($response->ok()) {
+            return response()->json(['success' => true], 201);
+        }
+        return false;
+    }
+}

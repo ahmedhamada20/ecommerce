@@ -1,11 +1,9 @@
 @extends('user.layouts.master')
 @section('title')
-    orders
+    Counps
 @endsection
 @section('css')
 @endsection
-
-
 @section('content')
 
     <div class="card basic-data-table">
@@ -32,13 +30,14 @@
                 <table class="table bordered-table mb-0" id="dataTable" data-page-length="10">
                     <thead>
                     <tr>
-                        <th scope="col">order number</th>
-                        <th scope="col">order type</th>
-                        <th scope="col">customer</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Create Order</th>
-                        <th scope="col">total</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">code</th>
+                        <th scope="col">type code</th>
+                        <th scope="col">start date </th>
+                        <th scope="col">end date </th>
+                        <th scope="col">discount value</th>
+                        <th scope="col">discount type</th>
+                        <th scope="col">Orders</th>
+
 
                     </tr>
                     </thead>
@@ -46,55 +45,44 @@
                     @foreach($data as $row)
                         <tr>
                             <td>
-                                <a style="color: #0A51CE" href="{{route('user_orders/details',$row->order_number)}}" target="_blank">{{ $row->order_number }}</a>
+                               {{$row->code}}
                             </td>
 
                             <td>
-                                {!!  $row->getOrderTypeColor() !!}
+                               {{$row->type_code()}}
                             </td>
 
 
                             <td>
-                                {{ $row->customer_id ? $row->customer->name() : 'no customer' }}
-                            </td>
-
-
-
-                            <td>
-                                {!!  $row->getStatusColor() !!}
-                            </td>
-
-                            <td>
-                                {{$row->created_at->format('Y-m-d')}}
+                                {{$row->start_date}}
                             </td>
                             <td>
-                                {{$row->total}}
+                                {{$row->end_date}}
+                            </td>
+                            <td>
+                                {{$row->discount_value}}
                             </td>
 
                             <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Action
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="{{route('user_orders/details',$row->order_number)}}">Orders Details</a></li>
-                                    </ul>
-                                </div>
+                                {{$row->discount_type}}
                             </td>
+
+                            <td>
+                                <a style="color: #0A51CE" href="{{route('user_coupon_order',$row->code)}}" target="_blank">Orders</a>
+
+                            </td>
+
                         </tr>
 
 
                     @endforeach
                     </tbody>
                 </table>
-                {{$data->links()}}
+
             </div>
         </div>
     </div>
-
 @endsection
 
-
 @section('js')
-
 @endsection

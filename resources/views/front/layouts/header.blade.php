@@ -324,129 +324,36 @@
                                                             <div class="row">
                                                                 <div class="col-sm-12">
                                                                     <div class="row">
+                                                                        @foreach(\App\Models\Category::where('active', 1)->where('parent_id',null)->orderBy('created_at', 'desc')->take(4)->get() as $row)
+
                                                                         <div class="col-md-3 img img1">
-                                                                            <a href="category-v2.html"><img
-                                                                                    src="{{asset('front/image/catalog/menu/megabanner/image-1.jpg')}}"
-                                                                                    alt="banner1"></a>
-                                                                        </div>
-                                                                        <div class="col-md-3 img img2">
-                                                                            <a href="category-v2.html"><img
-                                                                                    src="{asset{(front/'')}}{{asset('front/image/catalog/menu/megabanner/image-2.jpg')}}"
-                                                                                    alt="banner2"></a>
-                                                                        </div>
-                                                                        <div class="col-md-3 img img3">
-                                                                            <a href="category-v2.html"><img
-                                                                                    src="{{asset('front/image/catalog/menu/megabanner/image-3.jpg')}}"
-                                                                                    alt="banner3"></a>
-                                                                        </div>
-                                                                        <div class="col-md-3 img img4">
-                                                                            <a href="category-v2.html"><img
-                                                                                    src="{{asset('front/image/catalog/menu/megabanner/image-4.jpg')}}"
-                                                                                    alt="banner4"></a>
-                                                                        </div>
+                                                                                <a href="{{route('category',$row->slug)}}"><img
+                                                                                        src="{{asset('front/image/catalog/menu/megabanner/image-1.jpg')}}"
+                                                                                        alt="banner1"></a>
+                                                                                <a href="{{route('category',$row->slug)}}"
+                                                                                   class="title-submenu">{{$row->name()}}</a>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12 hover-menu">
+                                                                                        <div class="menu">
+                                                                                            <ul>
+                                                                                                @foreach($row->parents as $app)
+                                                                                                    <li><a href="{{route('category',$app->slug)}}"
+                                                                                                           class="main-menu">{{$app->name()}}</a></li>
+                                                                                                @endforeach
+
+
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+
+
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <a href="category-v2.html"
-                                                                       class="title-submenu">Automotive</a>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12 hover-menu">
-                                                                            <div class="menu">
-                                                                                <ul>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Car
-                                                                                            Alarms and
-                                                                                            Security</a></li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Car
-                                                                                            Audio &amp;
-                                                                                            Speakers</a></li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Gadgets
-                                                                                            &amp; Auto Parts</a>
-                                                                                    </li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">More
-                                                                                            Car Accessories</a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <a href="category-v2.html"
-                                                                       class="title-submenu">Funitures</a>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12 hover-menu">
-                                                                            <div class="menu">
-                                                                                <ul>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Bathroom</a>
-                                                                                    </li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Bedroom</a>
-                                                                                    </li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Decor</a>
-                                                                                    </li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Living
-                                                                                            room</a></li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <a href="category-v2.html"
-                                                                       class="title-submenu">Jewelry &amp;
-                                                                        Watches</a>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12 hover-menu">
-                                                                            <div class="menu">
-                                                                                <ul>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Earings</a>
-                                                                                    </li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Wedding
-                                                                                            Rings</a></li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Men
-                                                                                            Watches</a></li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <a href="category-v2.html"
-                                                                       class="title-submenu">Electronics</a>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12 hover-menu">
-                                                                            <div class="menu">
-                                                                                <ul>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Computer</a>
-                                                                                    </li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Smartphone</a>
-                                                                                    </li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Tablets</a>
-                                                                                    </li>
-                                                                                    <li><a href="category-v2.html"
-                                                                                           class="main-menu">Monitors</a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </li>

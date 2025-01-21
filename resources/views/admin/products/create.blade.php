@@ -367,7 +367,8 @@
                     <ul id="error-list"></ul>
                 </div>
 
-                <form id="product-form" method="post" enctype="multipart/form-data">
+                <form id="product-form" method="post" enctype="multipart/form-data" action="{{route('admin_products.store')}}">
+                    @csrf
                     <!-- Product Basic Info -->
                     <div class="form-section">
                         <h5>Basic Information</h5>
