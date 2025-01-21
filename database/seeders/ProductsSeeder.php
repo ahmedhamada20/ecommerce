@@ -28,7 +28,8 @@ class ProductsSeeder extends Seeder
             $products[] = [
                 'name_en' => "Product $i",
                 'name_ar' => "المنتج $i",
-                'slug' => Str::slug("Product $i"),
+                'slug_ar' => Str::slug("Product $i"),
+                'slug_en' => Str::slug("Product $i"),
                 'SKU' => 'SKU' . str_pad($i, 3, '0', STR_PAD_LEFT),
                 'product_points' => rand(10, 100) + rand(0, 99) / 100,
                 'coupon_id' => $coupons->random()->id,

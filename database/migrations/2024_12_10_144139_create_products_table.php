@@ -14,7 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name_en');
             $table->string('name_ar');
-            $table->string('slug');
+            $table->string('slug_ar');
+            $table->string('slug_en');
             $table->string('SKU');
             $table->decimal('product_points', 10, 2)->nullable();
             $table->foreignId('coupon_id')->nullable()->constrained('coupons')->cascadeOnDelete()->cascadeOnUpdate();

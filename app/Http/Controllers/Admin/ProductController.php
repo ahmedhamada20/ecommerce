@@ -37,6 +37,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        dd($request->all());
         Product::create(array_merge($request->validated(), [
             'user_id' => auth()->id(),
         ]));

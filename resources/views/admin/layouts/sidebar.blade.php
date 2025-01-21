@@ -267,7 +267,7 @@
             </li>
             @endcan
 
-            @can('role')
+            @can('role_index')
                 <li class="dropdown">
                     <a href="javascript:void(0)">
                         <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
@@ -283,7 +283,7 @@
                 </li>
             @endcan
 
-            @can('permissions')
+            @can('permission_index')
                 <li class="dropdown">
                     <a href="javascript:void(0)">
                         <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
