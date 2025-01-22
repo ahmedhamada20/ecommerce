@@ -138,18 +138,17 @@
                             <h3 class="modtitle">Categories</h3>
                             <div class="modcontent">
                                 <ul class="menu">
-                                    <li><a href="#">Event & Party Supplies</a></li>
-                                    <li><a href="#">Home Improvement</a></li>
-                                    <li><a href="#">Lamps & Light Fixtures</a></li>
-                                    <li><a href="#">Kitchen & Bath Fixtures</a></li>
-                                    <li><a href="#">Customer Service</a></li>
-                                    <li><a href="#">Kitchen & Dining</a></li>
+                                    @foreach (\App\Models\Category::where('active', 1)->where('parent_id', null)->orderBy('created_at', 'desc')->take(4)->get() as $row)
+                                    <li><a href="{{ route('category', $row->slug) }}">{{$row->name()}}</a></li>
+                                    @endforeach
+                                   
+                        
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12 col-style">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-style">
                     <div class="box-service box-footer">
                         <div class="module clearfix">
                             <h3 class="modtitle">Services</h3>
@@ -167,23 +166,7 @@
                     </div>
 
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12 col-style">
-                    <div class="box-service box-footer">
-                        <div class="module clearfix">
-                            <h3 class="modtitle">Categories</h3>
-                            <div class="modcontent">
-                                <ul class="menu">
-                                    <li><a href="#">Event & Party Supplies</a></li>
-                                    <li><a href="#">Home Improvement</a></li>
-                                    <li><a href="#">Lamps & Light Fixtures</a></li>
-                                    <li><a href="#">Kitchen & Bath Fixtures</a></li>
-                                    <li><a href="#">Customer Service</a></li>
-                                    <li><a href="#">Kitchen & Dining</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        
 
 
 

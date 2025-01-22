@@ -11,13 +11,15 @@
                     </div>
                     <ul class="top-link list-inline hidden-lg ">
                         <li class="account" id="my_account">
-                            <a href="#" title="My Account " class="btn-xs dropdown-toggle"
-                               data-toggle="dropdown"> <span class="hidden-xs">My Account </span> <span
-                                    class="fa fa-caret-down"></span>
+                            @if (auth_user())
+                            <a href="{{route('user_')}}" title="My Account " class="btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <span class="hidden-xs">My Account </span> <span class="fa fa-caret-down"></span>
                             </a>
+                            @endif
+                           
                             <ul class="dropdown-menu ">
-                                <li><a href="register.html"><i class="fa fa-user"></i> Register</a></li>
-                                <li><a href="login.html"><i class="fa fa-pencil-square-o"></i> Login</a></li>
+                                <li><a href="{{route('register')}}"><i class="fa fa-user"></i> Register</a></li>
+                                <li><a href="{{route('login')}}"><i class="fa fa-pencil-square-o"></i> Login</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -26,8 +28,7 @@
                     <ul class="top-link list-inline lang-curr">
                         <li class="currency">
                             <div class="btn-group currencies-block">
-                                <form action="index.html" method="post" enctype="multipart/form-data"
-                                      id="currency">
+                                <form action="index.html" method="post" enctype="multipart/form-data" id="currency">
                                     <a class="btn btn-link dropdown-toggle" data-toggle="dropdown">
                                         <span class="icon icon-credit "></span> $ US Dollar <span
                                             class="fa fa-angle-down"></span>
@@ -44,16 +45,13 @@
                             <div class="btn-group languages-block ">
 
                                 <a class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-{{--                                    {{asset('front/image/catalog/flags/gb.png')}}--}}
-                                    @if(app()->getLocale() === 'ar')
-
-                                        <img src="{{asset('front/image/catalog/flags/ar.png')}} " alt="{{ app()->getLocale() }}"
-                                             title="{{ app()->getLocale() }}">
-
-
+                                    {{--                                    {{asset('front/image/catalog/flags/gb.png')}} --}}
+                                    @if (app()->getLocale() === 'ar')
+                                        <img src="{{ asset('front/image/catalog/flags/ar.png') }} "
+                                            alt="{{ app()->getLocale() }}" title="{{ app()->getLocale() }}">
                                     @else
-                                        <img src="{{asset('front/image/catalog/flags/gb.png')}} " alt="{{ app()->getLocale() }}"
-                                             title="{{ app()->getLocale() }}">
+                                        <img src="{{ asset('front/image/catalog/flags/gb.png') }} "
+                                            alt="{{ app()->getLocale() }}" title="{{ app()->getLocale() }}">
                                     @endif
 
                                     <span class="">{{ LaravelLocalization::getCurrentLocaleNative() }}</span>
@@ -61,22 +59,19 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-
                                         <li>
-                                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                                @if($localeCode == "ar")
+                                            <a rel="alternate" hreflang="{{ $localeCode }}"
+                                                href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                @if ($localeCode == 'ar')
                                                     <img class="image_flag"
-
-                                                         src="{{asset('front/image/catalog/flags/ar.png')}}"
-                                                         alt="{{ $properties['native'] }}"
-                                                         title="{{ $properties['native'] }}" />
-
+                                                        src="{{ asset('front/image/catalog/flags/ar.png') }}"
+                                                        alt="{{ $properties['native'] }}"
+                                                        title="{{ $properties['native'] }}" />
                                                 @else
                                                     <img class="image_flag"
-
-                                                         src="{{asset('front/image/catalog/flags/gb.png')}}"
-                                                         alt="{{ $properties['native'] }}"
-                                                         title="{{ $properties['native'] }}" />
+                                                        src="{{ asset('front/image/catalog/flags/gb.png') }}"
+                                                        alt="{{ $properties['native'] }}"
+                                                        title="{{ $properties['native'] }}" />
                                                 @endif
 
 
@@ -105,9 +100,9 @@
             <div class="row">
                 <!-- Logo -->
                 <div class="navbar-logo col-lg-2 col-md-3 col-sm-4 col-xs-12">
-                    <div class="logo"><a href="{{route('home.index')}}"><img src="{{asset('front/image/catalog/logo.png')}}"
-                                                                title="Your Store"
-                                                                alt="Your Store"/></a></div>
+                    <div class="logo"><a href="{{ route('home.index') }}"><img
+                                src="{{ asset('front/image/catalog/logo.png') }}" title="Your Store"
+                                alt="Your Store" /></a></div>
                 </div>
                 <!-- //end Logo -->
 
@@ -125,17 +120,17 @@
                                         <select class="no-border" name="category_id">
                                             <option value="0">All Categories</option>
 
-                                            @foreach(get_models('Category',['active'=>'1']) as $row)
-                                                <option value="{{$row->slug}}">{{$row->name()}}</option>
+                                            @foreach (get_models('Category', ['active' => '1']) as $row)
+                                                <option value="{{ $row->slug }}">{{ $row->name() }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <input class="autosearch-input form-control" type="text" value="" size="50"
-                                           autocomplete="off" placeholder="Keyword here..." name="search">
-                                    <button type="submit" class="button-search btn btn-primary"
-                                            name="submit_search"><i class="fa fa-search"></i></button>
+                                    <input class="autosearch-input form-control" type="text" value=""
+                                        size="50" autocomplete="off" placeholder="Keyword here..." name="search">
+                                    <button type="submit" class="button-search btn btn-primary" name="submit_search"><i
+                                            class="fa fa-search"></i></button>
                                 </div>
-                                <input type="hidden" name="route" value="product/search"/>
+                                <input type="hidden" name="route" value="product/search" />
                             </form>
                         </div>
                     </div>
@@ -147,21 +142,26 @@
                         <div id="cart" class="btn-shopping-cart">
 
                             <a data-loading-text="Loading... " class="btn-group top_cart dropdown-toggle"
-                               data-toggle="dropdown" aria-expanded="true">
+                                data-toggle="dropdown" aria-expanded="true">
                                 <div class="shopcart">
-                                            <span class="icon-c">
-                                                <i class="fa fa-shopping-bag"></i>
-                                            </span>
+                                    <span class="icon-c">
+                                        <i class="fa fa-shopping-bag"></i>
+                                    </span>
                                     <div class="shopcart-inner">
                                         <p class="text-shopping-cart">
 
                                             My cart
                                         </p>
 
+                                        @if (auth_user())
                                         <span class="total-shopping-cart cart-total-full">
-                                                    <span class="items_cart">02</span><span class="items_cart2">
-                                                        item(s)</span><span class="items_carts">( $162.00 )</span>
-                                                </span>
+                                            <span class="items_cart">{{ get_products()->count() ?? 0 }}</span><span
+                                                class="items_cart2">
+                                                item(s)</span><span class="items_carts">(
+                                                {{ get_products()->sum('price') }})</span>
+                                        </span>
+                                        @endif
+                                        
                                     </div>
                                 </div>
                             </a>
@@ -170,48 +170,36 @@
                                 <li>
                                     <table class="table table-striped">
                                         <tbody>
-                                        <tr>
-                                            <td class="text-center" style="width:70px">
-                                                <a href="product.html">
-                                                    <img src="{{asset('front/image/catalog/demo/product/80/1.jpg')}}"
-                                                         style="width:70px" alt="Yutculpa ullamcon"
-                                                         title="Yutculpa ullamco" class="preview">
-                                                </a>
-                                            </td>
-                                            <td class="text-left"><a class="cart_product_name"
-                                                                     href="product.html">Yutculpa ullamco</a>
-                                            </td>
-                                            <td class="text-center">x1</td>
-                                            <td class="text-center">$80.00</td>
-                                            <td class="text-right">
-                                                <a href="product.html" class="fa fa-edit"></a>
-                                            </td>
-                                            <td class="text-right">
-                                                <a onclick="cart.remove('2');"
-                                                   class="fa fa-times fa-delete"></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center" style="width:70px">
-                                                <a href="product.html">
-                                                    <img src="{{asset('front/image/catalog/demo/product/80/2.jpg')}}"
-                                                         style="width:70px" alt="Xancetta bresao"
-                                                         title="Xancetta bresao" class="preview">
-                                                </a>
-                                            </td>
-                                            <td class="text-left"><a class="cart_product_name"
-                                                                     href="product.html">Xancetta bresao</a>
-                                            </td>
-                                            <td class="text-center">x1</td>
-                                            <td class="text-center">$60.00</td>
-                                            <td class="text-right">
-                                                <a href="product.html" class="fa fa-edit"></a>
-                                            </td>
-                                            <td class="text-right">
-                                                <a onclick="cart.remove('1');"
-                                                   class="fa fa-times fa-delete"></a>
-                                            </td>
-                                        </tr>
+                                            @if (auth_user())
+                                                     @foreach (get_products() as $row)
+                                                <tr>
+                                                    <td class="text-center" style="width:70px">
+                                                        <a
+                                                            href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->product->slug_ar : $row->product->slug_en) }}">
+                                                            <img src="{{ asset('storage/' . $row->product?->photo?->filename) }}"
+                                                                style="width:70px" alt="Yutculpa ullamcon"
+                                                                title="Yutculpa ullamco" class="preview">
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-left"><a class="cart_product_name"
+                                                            href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->product->slug_ar : $row->product->slug_en) }}">{{ $row->product->name() }}</a>
+                                                    </td>
+                                                    <td class="text-center">x1</td>
+                                                    <td class="text-center">${{ $row->product->price }}</td>
+                                                    <td class="text-right">
+                                                        <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->product->slug_ar : $row->product->slug_en) }}"
+                                                            class="fa fa-edit"></a>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <a onclick="cart.remove('2');"
+                                                            class="fa fa-times fa-delete"></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach 
+                                            @endif
+                                      
+
+
                                         </tbody>
                                     </table>
                                 </li>
@@ -219,33 +207,26 @@
                                     <div>
                                         <table class="table table-bordered">
                                             <tbody>
-                                            <tr>
-                                                <td class="text-left"><strong>Sub-Total</strong>
-                                                </td>
-                                                <td class="text-right">$140.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-left"><strong>Eco Tax (-2.00)</strong>
-                                                </td>
-                                                <td class="text-right">$2.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-left"><strong>VAT (20%)</strong>
-                                                </td>
-                                                <td class="text-right">$20.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-left"><strong>Total</strong>
-                                                </td>
-                                                <td class="text-right">$162.00</td>
-                                            </tr>
+
+                                                @if (auth_user())
+                                                <tr>
+                                                    <td class="text-left"><strong>Total</strong>
+                                                    </td>
+                                                    <td class="text-right">${{ get_products()->sum('price') }}</td>
+                                                </tr>
+                                                @endif
+                                              
                                             </tbody>
                                         </table>
-                                        <p class="text-right"><a class="btn view-cart" href="cart.html"><i
-                                                    class="fa fa-shopping-cart"></i>View
-                                                Cart</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart"
-                                                                              href="checkout.html"><i
-                                                    class="fa fa-share"></i>Checkout</a>
+                                        @if (auth_user())
+                                            <p class="text-right"><a class="btn view-cart"
+                                                    href="{{ route('user_carts') }}"><i
+                                                        class="fa fa-shopping-cart"></i>View
+                                                    Cart</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart"
+                                                    href="checkout.html"><i class="fa fa-share"></i>Checkout</a>
+                                        @endif
+
+
                                         </p>
                                     </div>
                                 </li>
@@ -259,8 +240,8 @@
                         <li class="compare hidden-xs"><a href="#" class="top-link-compare" title="Compare "><i
                                     class="fa fa-refresh"></i></a>
                         </li>
-                        <li class="wishlist hidden-xs"><a href="#" id="wishlist-total" class="top-link-wishlist"
-                                                          title="Wish List (0) "><i class="fa fa-heart"></i></a>
+                        <li class="wishlist hidden-xs"><a href="#" id="wishlist-total"
+                                class="top-link-wishlist" title="Wish List (0) "><i class="fa fa-heart"></i></a>
                         </li>
                     </ul>
 
@@ -287,7 +268,7 @@
                             <div class=" container-megamenu  horizontal open ">
                                 <div class="navbar-header">
                                     <button type="button" id="show-megamenu" data-toggle="collapse"
-                                            class="navbar-toggle">
+                                        class="navbar-toggle">
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
@@ -298,23 +279,23 @@
                                     <span id="remove-megamenu" class="fa fa-times"></span>
                                     <div class="megamenu-pattern">
                                         <div class="container-mega">
-                                            <ul class="megamenu" data-transition="slide"
-                                                data-animationtime="250">
+                                            <ul class="megamenu" data-transition="slide" data-animationtime="250">
                                                 <li class="home hover">
-                                                    <a href="{{route('home.index')}}">Home</a>
+                                                    <a href="{{ route('home.index') }}">Home</a>
 
                                                 </li>
                                                 <li><a class="subcategory_item" href="about-us-2.html">About Us
                                                     </a></li>
-                                                <li><a class="subcategory_item" href="shop.html">Shop</a></li>
+                                                <li><a class="subcategory_item" href="{{ route('shop') }}">Shop</a>
+                                                </li>
 
                                                 <li class="with-sub-menu hover">
                                                     <p class="close-menu"></p>
                                                     <a href="#" class="clearfix">
                                                         <strong>Categories</strong>
                                                         <img class="label-hot"
-                                                             src="{{asset('front/image/catalog/menu/hot-icon.png')}}"
-                                                             alt="icon items">
+                                                            src="{{ asset('front/image/catalog/menu/hot-icon.png') }}"
+                                                            alt="icon items">
 
                                                         <b class="caret"></b>
                                                     </a>
@@ -324,21 +305,22 @@
                                                             <div class="row">
                                                                 <div class="col-sm-12">
                                                                     <div class="row">
-                                                                        @foreach(\App\Models\Category::where('active', 1)->where('parent_id',null)->orderBy('created_at', 'desc')->take(4)->get() as $row)
-
-                                                                        <div class="col-md-3 img img1">
-                                                                                <a href="{{route('category',$row->slug)}}"><img
-                                                                                        src="{{asset('front/image/catalog/menu/megabanner/image-1.jpg')}}"
+                                                                        @foreach (\App\Models\Category::where('active', 1)->where('parent_id', null)->orderBy('created_at', 'desc')->take(4)->get() as $row)
+                                                                            <div class="col-md-3 img img1">
+                                                                                <a
+                                                                                    href="{{ route('category', $row->slug) }}"><img
+                                                                                        src="{{ asset('front/image/catalog/menu/megabanner/image-1.jpg') }}"
                                                                                         alt="banner1"></a>
-                                                                                <a href="{{route('category',$row->slug)}}"
-                                                                                   class="title-submenu">{{$row->name()}}</a>
+                                                                                <a href="{{ route('category', $row->slug) }}"
+                                                                                    class="title-submenu">{{ $row->name() }}</a>
                                                                                 <div class="row">
                                                                                     <div class="col-md-12 hover-menu">
                                                                                         <div class="menu">
                                                                                             <ul>
-                                                                                                @foreach($row->parents as $app)
-                                                                                                    <li><a href="{{route('category',$app->slug)}}"
-                                                                                                           class="main-menu">{{$app->name()}}</a></li>
+                                                                                                @foreach ($row->parents as $app)
+                                                                                                    <li><a href="{{ route('category', $app->slug) }}"
+                                                                                                            class="main-menu">{{ $app->name() }}</a>
+                                                                                                    </li>
                                                                                                 @endforeach
 
 
@@ -361,14 +343,14 @@
 
                                                 <li class="">
                                                     <p class="close-menu"></p>
-                                                    <a href="{{route('home.blog')}}" class="clearfix">
+                                                    <a href="{{ route('home.blog') }}" class="clearfix">
                                                         <strong>Blog</strong>
                                                         <span class="label"></span>
                                                     </a>
                                                 </li>
                                                 <li class="">
                                                     <p class="close-menu"></p>
-                                                    <a href="contact.html" class="clearfix">
+                                                    <a href="{{route('contactUs')}}" class="clearfix">
                                                         <strong>Contact Us</strong>
                                                         <span class="label"></span>
                                                     </a>
@@ -396,8 +378,7 @@
                     <div class="signin-w hidden-md hidden-sm hidden-xs">
                         <ul class="signin-link blank">
                             <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg"
-                                                                                href="login.html">Login </a> or <a
-                                    href="register.html">Register</a></li>
+                                    href="{{route('login')}}">Login </a> or <a href="{{route('register')}}">Register</a></li>
                         </ul>
                     </div>
                 </div>

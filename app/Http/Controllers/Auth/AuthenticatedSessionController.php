@@ -37,6 +37,9 @@ class AuthenticatedSessionController extends Controller
             if ($checkUser->type === "admin") {
                 return redirect()->intended(RouteServiceProvider::HOME);
             } else {
+                $checkUser->update([
+                    'last_login'=> now()
+                ]);
                 return redirect()->intended(RouteServiceProvider::USER);
             }
         }

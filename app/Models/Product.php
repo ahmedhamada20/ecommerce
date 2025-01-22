@@ -14,7 +14,8 @@ class Product extends Model
     protected $fillable = [
         'name_en',
         'name_ar',
-        'slug',
+        'slug_ar',
+        'slug_en',
         'SKU',
         'product_points',
         'coupon_id',
@@ -92,5 +93,10 @@ class Product extends Model
     public function photo()
     {
         return $this->morphOne(Photo::class, 'photoable');
+    }
+
+    public function commentable()
+    {
+        return $this->morphMany(RateComment::class, 'commentable');
     }
 }

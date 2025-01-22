@@ -58,7 +58,7 @@
                                 </td>
 
                                 <td>
-                                    <a style="color: #0A51CE" href="" target="_blank">product</a>
+                                    <a style="color: #0A51CE" href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->product->slug_ar : $row->product->slug_en) }}" target="_blank">product</a>
 
                                 </td>
 

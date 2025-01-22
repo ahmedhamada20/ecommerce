@@ -26,6 +26,9 @@ Route::group(
     Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');
     Route::get('/blog/detail/{id}', [HomeController::class, 'blog_detail'])->name('home.blog_detail');
     Route::get('category/{id}',[HomeController::class,'category'])->name('category');
+    Route::get('/shop',[HomeController::class,'products'])->name('shop');
+    Route::get('/shop/{slug}',[HomeController::class,'products_details'])->name('shop_details');
+    Route::get('/contactUs',[HomeController::class,'contactUs'])->name('contactUs');
 
 });
 

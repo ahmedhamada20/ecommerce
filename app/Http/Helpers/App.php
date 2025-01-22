@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\AddToCart;
+use App\Models\Wishlist;
+
 if (!function_exists('queryModels')) {
     function queryModels($modelName, $conditions = [], $pagination = null, $withRelations = [])
     {
@@ -169,3 +172,57 @@ if (!function_exists('send_in_firebase')) {
         return false;
     }
 }
+
+if (!function_exists('auth_user')) {
+    function auth_user(){
+        
+        if(auth()->check()){
+           if(auth()->user()->type == "customer"){
+
+            return true;
+           }
+           return false;
+        }
+        return 0;
+
+    }
+}
+
+if (!function_exists('get_products')) {
+    function get_products(){
+        
+        if(auth()->check()){
+           
+            if (auth()->check() && auth_user()) {
+               
+                return AddToCart::where('exp_date', '>', date('Y-m-d'))
+                    ->where('customer_id', auth()->user()->id)
+                    ->get();
+                 
+            }
+            return collect();
+        }
+
+    }
+}
+
+if (!function_exists('get_wishlists')) {
+    function get_wishlists(){
+        
+        if(auth()->check()){
+            if(auth_user()){
+                $get_products = Wishlist::where('customer_id',auth()->user()->id)->get();
+                return $get_products;
+            }
+          
+        }
+        return false;
+
+    }
+}
+
+
+
+
+
+

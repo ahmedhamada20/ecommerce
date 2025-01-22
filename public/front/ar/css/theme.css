@@ -4243,7 +4243,7 @@ ul.breadcrumb li:hover a {
 .checkboxes_list input[type="radio"],
 .simple_vertical_list input[type="checkbox"],
 .checkboxes_list input[type="checkbox"] {
-    display: none;
+    visibility: hidden;
 }
 
 .simple_vertical_list input[type="radio"]+label,
