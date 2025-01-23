@@ -36,7 +36,10 @@
                         <textarea id="editor2" class="form-control" name="description_en" rows="4" placeholder="description En"></textarea>
                     </div>
 
-
+                    <div class="mb-3">
+                        <label for="evidence" class="form-label">Imges</label>
+                        <input type="file" class="form-control" id="evidence" name="image" accept="image/*">
+                    </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\AddToCart;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Setting;
 use App\Models\Wishlist;
 
 if (!function_exists('queryModels')) {
@@ -24,7 +27,7 @@ if (!function_exists('queryModels')) {
             $queryBuilder->with($withRelations);
         }
 
-        if(!is_null($conditions)){
+        if (!is_null($conditions)) {
             foreach ($conditions as $field => $value) {
                 if (is_array($value)) {
                     $queryBuilder->where($field, $value[0], $value[1]);
@@ -41,7 +44,7 @@ if (!function_exists('queryModels')) {
             $page = $pagination['page'] ?? 1;
             return $queryBuilder->paginate($perPage, ['*'], 'page', $page);
         }
-        return $queryBuilder->orderBy('id','DESC')->get();
+        return $queryBuilder->orderBy('id', 'DESC')->get();
     }
 }
 
@@ -98,16 +101,16 @@ if (!function_exists('queryModelsOrders')) {
 
 
 
-if (!function_exists('get_models')){
-    function get_models($models,$conditions = [])
+if (!function_exists('get_models')) {
+    function get_models($models, $conditions = [])
     {
         $modelClass = "App\\Models\\" . $models;
-        if (!$modelClass){
+        if (!$modelClass) {
             throw new Exception("Error: Model class '{$models}' not found.");
         }
         $model = new $modelClass;
         $queryBuilder = $model->newQuery();
-        if(!is_null($conditions)){
+        if (!is_null($conditions)) {
             foreach ($conditions as $field => $value) {
                 if (is_array($value)) {
                     $queryBuilder->where($field, $value[0], $value[1]);
@@ -121,7 +124,7 @@ if (!function_exists('get_models')){
     }
 }
 
-if (!function_exists('generateRandomString')){
+if (!function_exists('generateRandomString')) {
     function generateRandomString($length = 10)
     {
         $characters = 'ABCDEFHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -136,9 +139,9 @@ if (!function_exists('generateRandomString')){
 
 
 if (!function_exists('send_in_firebase')) {
-    function send_in_firebase( $client_id, $messages)
+    function send_in_firebase($client_id, $messages)
     {
-        $response = Http::put(env('Firebase') .'chat/send.json', [
+        $response = Http::put(env('Firebase') . 'chat/send.json', [
             'data' => [
 
                 "status" => "noRead",
@@ -153,7 +156,7 @@ if (!function_exists('send_in_firebase')) {
 
 
 
-        $response2 = Http::delete(env('Firebase') .'chat/send.json', [
+        $response2 = Http::delete(env('Firebase') . 'chat/send.json', [
             'data' => [
 
                 "status" => "noRead",
@@ -174,14 +177,15 @@ if (!function_exists('send_in_firebase')) {
 }
 
 if (!function_exists('auth_user')) {
-    function auth_user(){
-        
-        if(auth()->check()){
-           if(auth()->user()->type == "customer"){
+    function auth_user()
+    {
 
-            return true;
-           }
-           return false;
+        if (auth()->check()) {
+            if (auth()->user()->type == "customer") {
+
+                return true;
+            }
+            return false;
         }
         return 0;
 
@@ -189,16 +193,17 @@ if (!function_exists('auth_user')) {
 }
 
 if (!function_exists('get_products')) {
-    function get_products(){
-        
-        if(auth()->check()){
-           
+    function get_products()
+    {
+
+        if (auth()->check()) {
+
             if (auth()->check() && auth_user()) {
-               
+
                 return AddToCart::where('exp_date', '>', date('Y-m-d'))
                     ->where('customer_id', auth()->user()->id)
                     ->get();
-                 
+
             }
             return collect();
         }
@@ -207,18 +212,51 @@ if (!function_exists('get_products')) {
 }
 
 if (!function_exists('get_wishlists')) {
-    function get_wishlists(){
-        
-        if(auth()->check()){
-            if(auth_user()){
-                $get_products = Wishlist::where('customer_id',auth()->user()->id)->get();
+    function get_wishlists()
+    {
+
+        if (auth()->check()) {
+            if (auth_user()) {
+                $get_products = Wishlist::where('customer_id', auth()->user()->id)->get();
                 return $get_products;
             }
-          
+
         }
         return false;
 
     }
+}
+
+
+if (!function_exists('get_settings')) {
+    function get_settings()
+    {
+        return Setting::pluck('value', 'key')->toArray();
+    }
+
+}
+
+if (!function_exists('get_category')) {
+    function get_category()
+    {
+
+        return Category::where('active', 1)->whereNull('parent_id')->get();
+
+    }
+
+}
+
+
+if (!function_exists('get_category_products')) {
+    function get_category_products($id)
+    {
+   
+        $category_products = \DB::table('products_categories')
+            ->where('category_id', $id)
+            ->pluck('product_id');
+        return Product::where('publish', true)->whereIn('id', $category_products)->get();
+    }
+
 }
 
 

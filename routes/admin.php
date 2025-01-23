@@ -50,6 +50,8 @@ Route::get('/users_index',function (){
         ], function(){
 
         Route::get('/', [AdminController::class, 'index']);
+        Route::get('/settings', [AdminController::class, 'settings'])->name('setting');
+        Route::post('/settings_update', [AdminController::class, 'settings_update'])->name('settings_update');
         Route::resource('users', UsersController::class);
         Route::resource('addresses', AddressController::class);
         Route::resource('brands', BrandController::class);

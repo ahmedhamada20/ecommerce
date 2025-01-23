@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdvertisementBannersRequest;
 use App\Models\AdvertisementBanners;
+use App\Models\Photo;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class AdvertisementBannersController extends Controller
 {
     /**
@@ -31,7 +32,19 @@ class AdvertisementBannersController extends Controller
      */
     public function store(AdvertisementBannersRequest $request)
     {
-        AdvertisementBanners::create($request->validated());
+        $AdvertisementBanners = AdvertisementBanners::create($request->validated());
+
+        if($AdvertisementBanners){
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imagePath = $image->store('advertisementBanners', 'public');
+                Photo::create([
+                    'filename' => $imagePath,
+                    'photoable_type' => AdvertisementBanners::class,
+                    'photoable_id' => $AdvertisementBanners->id,
+                ]);
+            }
+        }
         return redirect()->route('admin_advertisement_banners.index')->with('success', "AdvertisementBanners  created successfully.");
 
     }
@@ -59,6 +72,22 @@ class AdvertisementBannersController extends Controller
     {
         $advertisementBanners = AdvertisementBanners::findOrFail($request->id);
         $advertisementBanners->update($request->validated());
+        if ($request->hasFile('image')) {
+            $oldPhoto = $advertisementBanners->photo()->first();
+            if ($oldPhoto) {
+                if (Storage::exists('public/' . $oldPhoto->filename)) {
+                    Storage::delete('public/' . $oldPhoto->filename);
+                }
+                $oldPhoto->delete();
+            }
+            $image = $request->file('image');
+            $imagePath = $image->store('blogs', 'public');
+            Photo::create([
+                'filename' => $imagePath,
+                'photoable_type' => AdvertisementBanners::class,
+                'photoable_id' => $advertisementBanners->id,
+            ]);
+        }
         return redirect()->route('admin_advertisement_banners.index')->with('success', "AdvertisementBanners  updated successfully.");
 
     }

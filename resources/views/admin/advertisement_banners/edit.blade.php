@@ -38,7 +38,13 @@
                         <textarea id="editor2" class="form-control" name="description_en" rows="4" placeholder="description En">{{$row->description_en}}</textarea>
                     </div>
 
-
+                    <div class="mb-3">
+                        <label for="evidence" class="form-label">Imges</label>
+                        <input type="file" class="form-control" id="evidence" name="image" accept="image/*">
+                        @if($row->photo)
+                            <img src="{{asset('storage/'.$row->photo->filename)}}" width="50px" height="50px" alt="">
+                        @endif
+                    </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

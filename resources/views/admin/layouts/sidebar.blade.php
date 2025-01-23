@@ -29,6 +29,21 @@
                 </ul>
             </li>
 
+
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
+                    <span>Settings</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{route('admin_setting')}}"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Settings</a>
+                    </li>
+
+                </ul>
+            </li>
+
             @can('Users')
                 <li class="dropdown">
                     <a href="javascript:void(0)">

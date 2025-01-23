@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,13 +14,21 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('front.index');
+        $best_selling = OrderItem::latest()
+        ->take(4)
+        ->pluck('product_id');
+        $products = Product::where('publish',true)->whereIn('id',$best_selling)->get();
+        return view('front.index',compact('products'));
     }
 
     public function blog()
     {
         $blogs = Blog::orderBy('id', 'DESC')->get();
-        return view('front.blog.index', compact('blogs'));
+        $latestProducts = Product::where('publish', true)
+        ->latest()
+        ->take(4)
+        ->get();
+        return view('front.blog.index', compact('blogs','latestProducts'));
     }
 
     public function blog_detail($id)

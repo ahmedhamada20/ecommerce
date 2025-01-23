@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Hyperlink;
 use App\Models\Photo;
+use App\Models\Setting;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -100,12 +101,60 @@ class AdminController extends Controller
                 $oldPhoto->delete();
             }
             Hyperlink::destroy($request->id);
-            Photo::where('photoable_type',Slider::class)->where('photoable_id',$request->hypertoable_id)->delete();
+            Photo::where('photoable_type', Slider::class)->where('photoable_id', $request->hypertoable_id)->delete();
             return redirect()->back()->with('success', 'hyper link edit successfully.');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', $exception->getMessage());
         }
 
+    }
+
+
+    public function settings()
+    {
+        $setting = Setting::pluck('value', 'key')->toArray();
+        return view('admin.settings.index', compact('setting'));
+    }
+
+    public function settings_update(Request $request)
+    {
+        $data = $request->except('_token');
+
+        foreach ($data as $key => $value) {
+            if (is_array($value) && isset($value['en'], $value['ar'])) {
+                $data[$key] = [
+                    'en' => $value['en'] ?? '',
+                    'ar' => $value['ar'] ?? '',
+                ];
+            }
+        }
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $key => $file) {
+                $path = $file->store('public/settings');
+                if ($path) {
+                    $data[$key] = Storage::url($path);
+
+                    Photo::updateOrCreate([
+                        'photoable_id' => 1
+                    ], [
+                        'filename' => $path,
+                        'photoable_type' => Setting::class,
+                        'photoable_id' => 1
+                    ]);
+                }
+            }
+        }
+
+        $setting = new Setting();
+        foreach ($data as $key => $value) {
+            $setting->updateOrCreate(
+                ['key' => $key],
+                ['value' => is_array($value) ? json_encode($value) : $value]
+            );
+        }
+        return redirect()->back()->with('success', 'Setting  successfully.');
 
     }
+
 }
