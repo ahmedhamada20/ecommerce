@@ -425,21 +425,32 @@
 </div>
 
 <div class="form-section">
-    <h5>Colors</h5>
-    <div id="color-container">
-        <div class="row align-items-center mb-3">
-            <div class="col-md-6">
-                <label for="color1" class="form-label">Color 1</label>
-                <input type="color" class="form-control form-control-color" id="color1" name="colors[]" value="#ffffff">
-            </div>
-            <div class="col-md-6">
-                <input type="text" class="form-control" placeholder="Color Name (e.g., White)" name="color_names[]">
-            </div>
-            
-        </div>
-    </div>
-    <button type="button" class="btn btn-secondary btn-sm" id="add-color">+ Add Color</button>
-</div>
+                    <h5>Colors</h5>
+                    <div id="color-container">
+                        <div class="row align-items-center mb-3">
+                            <div class="col-md-2">
+                                <label for="color1" class="form-label">Color 1</label>
+                                <input type="color" class="form-control form-control-color" id="color1" name="colors[]"
+                                    value="#ffffff">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" placeholder="Color Name (e.g., White)"
+                                    name="color_names[]">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" placeholder="Enter size (e.g., Small, Medium)" name="size[]">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
+                            </div>
+                            <div class="col-md-2 text-end">
+                    <button type="button" class="btn btn-danger remove-row">Delete</button>
+                </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-sm" id="add-color">+ Add Color</button>
+                </div>
+
 
                 <!-- Product Specifications -->
                 <div class="form-section">
@@ -804,28 +815,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Function to add colors dynamically
-    document.getElementById('add-color').addEventListener('click', function () {
-        const container = document.getElementById('color-container');
-        const colorCount = container.querySelectorAll('.row').length + 1;
-        const newColorRow = document.createElement('div');
-        newColorRow.classList.add('row', 'align-items-center', 'mb-3');
-        newColorRow.innerHTML = `
-            <div class="col-md-5">
-                <label for="color${colorCount}" class="form-label">Color ${colorCount}</label>
-                <input type="color" class="form-control form-control-color" id="color${colorCount}" name="colors[]" value="#000000">
+    const addColorRow = () => {
+            const container = document.getElementById('color-container');
+            const colorCount = container.querySelectorAll('.row').length + 1;
+            const sizesList = document.getElementById('sizes-list');
+            const sizeRow = document.createElement('div');
+            sizeRow.className = 'size-row';
+            
+            container.insertAdjacentHTML('beforeend', `
+            <div class="row align-items-center mb-12">
+                <div class="col-md-3">
+                    <label for="color${colorCount}" class="form-label">Color ${colorCount}</label>
+                    <input type="color" class="form-control form-control-color" id="color${colorCount}" name="colors[]" value="#000000">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Color Name" name="color_names[]">
+                </div>
+                 <div class="col-md-2">
+                    <input type="text" class="form-control" placeholder="Enter size (e.g., Small, Medium)" name="size[]">
+                </div>
+                 <div class="col-md-2">
+                    <input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
+                </div>
+                <div class="col-md-2 text-end">
+                    <button type="button" class="btn btn-danger remove-row">Delete</button>
+                </div>
             </div>
-            <div class="col-md-5">
-                <input type="text" class="form-control" placeholder="Color Name (e.g., Black)" name="color_names[]">
-            </div>
-            <div class="col-md-2 text-end">
-                <button type="button" class="btn btn-danger remove-row">Delete</button>
-            </div>
-        `;
-        container.appendChild(newColorRow);
-    });
+        `);
+        };
 
-    // Add similar functions for specifications, related products, and taxes
-});
+        document.getElementById('add-color')?.addEventListener('click', addColorRow);
+    });
 
 document.getElementById('add-related-product').addEventListener('click', function () {
     const relatedProductsList = document.getElementById('related-products-list');
