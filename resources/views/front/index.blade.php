@@ -252,7 +252,7 @@
                         @if (latest_banners()->photo)
                         <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>
                     @endif
-                        
+
                     </div>
                 </div>
 
@@ -491,7 +491,7 @@
                                                                                         @if(latest_blogs())
                                                                                             <a href="{{route('home.blog_detail', latest_blogs()->slug)}}"
                                                                                                 target="_self">
-                                                                                                <img src="{{asset('storage/' . latest_blogs()->photo->filename)}}"
+                                                                                                <img src="{{asset('storage/' . latest_blogs()->photo?->filename)}}"
                                                                                                     alt="Biten demons lector in henderit in vulp"
                                                                                                     class="media-object">
                                                                                             </a>
@@ -574,7 +574,7 @@
                     <div class="banners banners5">
                         <div class="banner">
                             @if (latest_banners()->photo)
-                            <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>                        
+                            <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>
                         @endif
                         </div>
                     </div>
@@ -1206,14 +1206,14 @@
                             <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>
                         </div>
                     @endif
-                    
+
                     @if (latest_banners()->photo)
                         <div class="item2">
                             <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>
                         </div>
                     @endif
 
-                
+
                 </div>
                 <!-- end Banners -->
 
@@ -1282,7 +1282,7 @@
                                                                                             <button type="button" data-toggle="modal" data-target="#addToCart{{$product->id}}" class="addToCart" title="Add to cart">
                                                                                                 <span>Add to cart </span>
                                                                                             </button>
-                                                                                       
+
 
 
                                                                                             <button type="button" data-toggle="modal" data-target="#addTowishlist{{$product->id}}" class="addToCart" title="Add to cart">
@@ -1966,7 +1966,7 @@
                         <h4 class="modal-title" id="myModalLabel">product view</h4>
                     </div>
                     <div class="modal-body">
-                       
+
                     </div>
                     {{-- <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1986,9 +1986,9 @@
                         <h4 class="modal-title" id="myModalLabel">Add To Cart</h4>
                     </div>
                     <div class="modal-body">
-                        
 
-                        @if (auth_user())
+
+                        @auth
                             <form action="{{route('addTocart')}}" method="post">
                                 @csrf
 
@@ -2010,16 +2010,17 @@
 
                             @else
 
+
                             <label>You must log in first.</label>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <a href="{{route('login')}}" class="btn btn-primary">Login</button>
+                                <a href="{{route('login')}}" class="btn btn-primary">Login</a>
                             </div>
+                        @endauth
 
-                        @endif
 
                     </div>
-                 
+
                 </div>
             </div>
         </div>
@@ -2035,9 +2036,9 @@
                         <h4 class="modal-title" id="myModalLabel">Add To wishlists</h4>
                     </div>
                     <div class="modal-body">
-                        
 
-                        @if (auth_user())
+
+                        @auth
                             <form action="{{route('addTowishlists')}}" method="post">
                                 @csrf
 
@@ -2062,13 +2063,13 @@
                             <label>You must log in first.</label>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <a href="{{route('login')}}" class="btn btn-primary">Login</button>
+                                <a href="{{route('login')}}" class="btn btn-primary">Login</a>
                             </div>
 
                         @endif
 
                     </div>
-                 
+
                 </div>
             </div>
         </div>
@@ -2083,9 +2084,9 @@
                         <h4 class="modal-title" id="myModalLabel">Add To comparisons</h4>
                     </div>
                     <div class="modal-body">
-                        
 
-                        @if (auth_user())
+
+                        @auth
                             <form action="{{route('addToComparisons')}}" method="post">
                                 @csrf
 
@@ -2110,13 +2111,13 @@
                             <label>You must log in first.</label>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <a href="{{route('login')}}" class="btn btn-primary">Login</button>
+                                <a href="{{route('login')}}" class="btn btn-primary">Login</a>
                             </div>
 
                         @endif
 
                     </div>
-                 
+
                 </div>
             </div>
         </div>
