@@ -58,8 +58,9 @@
                                 </td>
 
                                 <td>
-                                    <a style="color: #0A51CE" href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->product->slug_ar : $row->product->slug_en) }}" target="_blank">product</a>
-
+                                    <a class="btn btn-success btn-sm ml-2"  href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->product->slug_ar : $row->product->slug_en) }}" target="_blank">product</a>
+                                    
+                                    <a href="{{route('delete_addTocart',$row->product->id)}}" class="btn btn-danger btn-sm mr-3">Deleted</a>
                                 </td>
 
                             </tr>

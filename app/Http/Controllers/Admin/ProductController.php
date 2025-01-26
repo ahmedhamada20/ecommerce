@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
+use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -28,19 +29,26 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $products = Product::get();
+        $brand = Brand::get();
+        return view('admin.products.create',compact('products','brand'));
 
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
-        dd($request->all());
-        Product::create(array_merge($request->validated(), [
-            'user_id' => auth()->id(),
-        ]));
+        Product::create([
+            
+        ]);
+
+
+        // dd($request->all());
+        // Product::create(array_merge($request->validated(), [
+        //     'user_id' => auth()->id(),
+        // ]));
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
 
     }

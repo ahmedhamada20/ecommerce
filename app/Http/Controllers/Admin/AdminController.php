@@ -136,7 +136,8 @@ class AdminController extends Controller
                     $data[$key] = Storage::url($path);
 
                     Photo::updateOrCreate([
-                        'photoable_id' => 1
+                        'photoable_id' => 1,
+                        'photoable_type' => Setting::class,
                     ], [
                         'filename' => $path,
                         'photoable_type' => Setting::class,

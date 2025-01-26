@@ -31,18 +31,27 @@ Settings
     <br>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
                 <label class="control-label">phone</label>
                 <input type="number" name="phone" value="{{ $setting['phone'] ?? '' }}" class="form-control"
                     placeholder="phone" />
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
                 <label class="control-label">Whatsapp</label>
                 <input type="number" name="Whatsapp" value="{{ $setting['Whatsapp'] ?? '' }}" class="form-control"
                     placeholder="Whatsapp" />
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">open time</label>
+                <input type="text" name="open_time" value="{{ $setting['open_time'] ?? '' }}" class="form-control"
+                    placeholder="open time" />
             </div>
         </div>
     </div>
@@ -181,6 +190,56 @@ Settings
 
     <hr>
 
+
+    
+    <br>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">About us (EN)</label>
+                <textarea class="form-control" rows="10"
+                    name="about_us[en]">{{ isset($setting['about_us']) ? json_decode($setting['about_us'], true)['en'] : '' }}</textarea>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">About us (AR)</label>
+
+
+                <textarea class="form-control" rows="10"
+                    name="about_us[ar]">{{ isset($setting['about_us']) ? json_decode($setting['about_us'], true)['ar'] : '' }}</textarea>
+
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">privacy policy us (EN)</label>
+
+                <textarea class="form-control" rows="10"
+                    name="privacy_policy[en]">{{ isset($setting['privacy_policy']) ? json_decode($setting['privacy_policy'], true)['en'] : '' }}</textarea>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">privacy policy us (AR)</label>
+
+                <textarea class="form-control" rows="10"
+                    name="privacy_policy[ar]">{{ isset($setting['privacy_policy']) ? json_decode($setting['privacy_policy'], true)['ar'] : '' }}</textarea>
+
+            </div>
+        </div>
+    </div>
+    <hr>
+    <br>
+
     <div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -212,6 +271,27 @@ Settings
                         class="dropify" />
 
                     @error('icon_image')
+                        <small class="form-control-feedback"> {{ $message }} </small>
+                    @enderror
+                </div>
+            </div>
+        </div>
+
+
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body @error('aboutus_image') has-danger @enderror">
+                    <h4 class="card-title">About us Image</h4>
+                    <img src="{{ isset($setting['aboutus_image']) ? asset($setting['aboutus_image']) : '' }}" width="50px"
+                        height="50px" alt="">
+
+
+                    <input type="file" name="images[aboutus_image]" id="input-file-now-custom-1"
+                        data-default-file="{{ isset($setting['aboutus_image']) ? asset($setting['aboutus_image']) : '' }}"
+                        class="dropify" />
+
+                    @error('aboutus_image')
                         <small class="form-control-feedback"> {{ $message }} </small>
                     @enderror
                 </div>

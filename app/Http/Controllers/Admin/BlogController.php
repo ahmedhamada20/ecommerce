@@ -9,6 +9,7 @@ use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Photo;
 use App\Models\RateComment;
+use App\Models\SEOMetadata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -45,6 +46,15 @@ class BlogController extends Controller
         $blog =Blog::create(array_merge($request->validated(), [
             'user_id' => auth()->check() ?  auth()->id() : 1    ,
         ]));
+
+        SEOMetadata::create([
+            'entitytypeable_type'=> Blog::class,
+            'entitytypeable_id'=> $blog->id,
+            'meta_title_ar' => $blog->name_ar,
+            'meta_title_en' => $blog->name_en,
+            'meta_description_ar' => $blog->description_ar,
+            'meta_description_en' => $blog->description_en,
+        ]);
 
         if($blog){
             if ($request->hasFile('image')) {
@@ -86,6 +96,18 @@ class BlogController extends Controller
     {
         $blog = Blog::findOrFail($request->id);
         $blog->update($request->validated());
+
+        SEOMetadata::updateOrCreate([
+            'entitytypeable_type'=> Blog::class,
+            'entitytypeable_id'=> $blog->id,
+        ],[
+            'entitytypeable_type'=> Blog::class,
+            'entitytypeable_id'=> $blog->id,
+            'meta_title_ar' => $blog->name_ar,
+            'meta_title_en' => $blog->name_en,
+            'meta_description_ar' => $blog->description_ar,
+            'meta_description_en' => $blog->description_en,
+        ]);
         if ($request->hasFile('image')) {
             $oldPhoto = $blog->photo()->first();
             if ($oldPhoto) {

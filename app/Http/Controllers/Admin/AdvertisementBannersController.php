@@ -81,7 +81,7 @@ class AdvertisementBannersController extends Controller
                 $oldPhoto->delete();
             }
             $image = $request->file('image');
-            $imagePath = $image->store('blogs', 'public');
+            $imagePath = $image->store('advertisementBanners', 'public');
             Photo::create([
                 'filename' => $imagePath,
                 'photoable_type' => AdvertisementBanners::class,

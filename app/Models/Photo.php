@@ -15,5 +15,7 @@ class Photo extends Model
         'attribute_value_id',
         'photoable_id',
         'photoable_type',
+        'name_ar',
+        'name_en',
     ];
 }

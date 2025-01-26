@@ -157,8 +157,14 @@
                                         <span class="total-shopping-cart cart-total-full">
                                             <span class="items_cart">{{ get_products()->count() ?? 0 }}</span><span
                                                 class="items_cart2">
-                                                item(s)</span><span class="items_carts">(
-                                                {{ get_products()->sum('price') }})</span>
+                                                item(s)</span><span class="items_carts">
+
+                                                    {{ get_products()->sum(function ($cartItem) {
+                                                        return $cartItem->product->price ?? 0;
+                                                    }) }}
+                                                    
+                                            
+                                            </span>
                                         </span>
                                         @endif
                                         
@@ -191,7 +197,7 @@
                                                             class="fa fa-edit"></a>
                                                     </td>
                                                     <td class="text-right">
-                                                        <a onclick="cart.remove('2');"
+                                                        <a href="{{route('delete_addTocart',$row->product->id)}}"
                                                             class="fa fa-times fa-delete"></a>
                                                     </td>
                                                 </tr>
@@ -212,7 +218,10 @@
                                                 <tr>
                                                     <td class="text-left"><strong>Total</strong>
                                                     </td>
-                                                    <td class="text-right">${{ get_products()->sum('price') }}</td>
+                                                    <td class="text-right">${{ get_products()->sum(function ($cartItem) {
+                                                        return $cartItem->product->price ?? 0;
+                                                    }) }}
+                                                    </td>
                                                 </tr>
                                                 @endif
                                               
@@ -220,10 +229,10 @@
                                         </table>
                                         @if (auth_user())
                                             <p class="text-right"><a class="btn view-cart"
-                                                    href="{{ route('user_carts') }}"><i
+                                                    href="{{ route('viewCart') }}"><i
                                                         class="fa fa-shopping-cart"></i>View
                                                     Cart</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart"
-                                                    href="checkout.html"><i class="fa fa-share"></i>Checkout</a>
+                                                    href="{{route('checkout')}}"><i class="fa fa-share"></i>Checkout</a>
                                         @endif
 
 
@@ -237,12 +246,14 @@
                     <!--//cart-->
 
                     <ul class="wishlist-comp hidden-md hidden-sm hidden-xs">
-                        <li class="compare hidden-xs"><a href="#" class="top-link-compare" title="Compare "><i
+                        @if (auth_user())
+                        <li class="compare hidden-xs"><a href="{{route('user_comparisons')}}" class="top-link-compare" title="Compare "><i
                                     class="fa fa-refresh"></i></a>
                         </li>
-                        <li class="wishlist hidden-xs"><a href="#" id="wishlist-total"
+                        <li class="wishlist hidden-xs"><a href="{{ route('user_wishlists') }}" id="wishlist-total"
                                 class="top-link-wishlist" title="Wish List (0) "><i class="fa fa-heart"></i></a>
                         </li>
+                        @endif
                     </ul>
 
 
@@ -284,7 +295,7 @@
                                                     <a href="{{ route('home.index') }}">Home</a>
 
                                                 </li>
-                                                <li><a class="subcategory_item" href="about-us-2.html">About Us
+                                                <li><a class="subcategory_item" href="{{route('aboutsUs')}}">About Us
                                                     </a></li>
                                                 <li><a class="subcategory_item" href="{{ route('shop') }}">Shop</a>
                                                 </li>
@@ -371,8 +382,12 @@
                 <div class="bottom3">
                     <div class="telephone hidden-xs hidden-sm hidden-md">
                         <ul class="blank">
-                            <li><a href="#"><i class="fa fa-truck"></i>track your order</a></li>
-                            <li><a href="#"><i class="fa fa-phone-square"></i>Hotline (+123)4 567 890</a></li>
+
+                            <li>
+                                <a href="#"><i class="fa fa-phone-square"></i> {{ isset(get_settings()['phone'] )  ? get_settings()['phone'] : ''}}
+                            
+                            </a>
+                        </li>
                         </ul>
                     </div>
                     <div class="signin-w hidden-md hidden-sm hidden-xs">

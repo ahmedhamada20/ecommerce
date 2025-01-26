@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->nullable();
-            $table->string('value')->nullable();
+            $table->text('key')->nullable();
+            $table->text('value')->nullable();
             $table->foreignId('currency_id')->nullable()->constrained('currencies')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });

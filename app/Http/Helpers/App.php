@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\AddToCart;
+use App\Models\AdvertisementBanners;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Setting;
@@ -200,8 +202,8 @@ if (!function_exists('get_products')) {
 
             if (auth()->check() && auth_user()) {
 
-                return AddToCart::where('exp_date', '>', date('Y-m-d'))
-                    ->where('customer_id', auth()->user()->id)
+                return AddToCart::where('customer_id', auth()->user()->id)
+                ->with('product')
                     ->get();
 
             }
@@ -257,6 +259,30 @@ if (!function_exists('get_category_products')) {
         return Product::where('publish', true)->whereIn('id', $category_products)->get();
     }
 
+}
+
+if (!function_exists('latest_blogs')) {
+
+    function latest_blogs()
+    {
+        return Blog::latest()->first();
+    }
+}
+if (!function_exists('get_blogs')) {
+
+    function get_blogs()
+    {
+        return Blog::latest()->take(3)->get();
+    }
+}
+
+
+if (!function_exists('latest_banners')) {
+
+    function latest_banners()
+    {
+        return AdvertisementBanners::latest()->inRandomOrder()->first();
+    }
 }
 
 

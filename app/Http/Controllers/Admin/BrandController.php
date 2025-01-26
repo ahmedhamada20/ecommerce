@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\BrandRequest;
 use App\Models\Brand;
 use App\Models\Photo;
 use App\Models\Product;
+use App\Models\SEOMetadata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
@@ -47,6 +48,15 @@ class BrandController extends Controller
             'user_id' => auth()->check() ?  auth()->id() : 1,
             'active' => true,
         ]));
+
+        SEOMetadata::create([
+            'entitytypeable_type'=> Brand::class,
+            'entitytypeable_id'=> $data->id,
+            'meta_title_ar' => $data->name_ar,
+            'meta_title_en' => $data->name_en,
+            'meta_description_ar' => $data->description_ar,
+            'meta_description_en' => $data->description_en,
+        ]);
 
         if($data){
             if ($request->hasFile('image')) {
@@ -91,6 +101,20 @@ class BrandController extends Controller
         $brand->update(array_merge($request->validated(), [
             'user_id' => auth()->check() ? auth()->id() : 1,
         ]));
+
+
+        SEOMetadata::updateOrCreate([
+            'entitytypeable_type'=> Brand::class,
+            'entitytypeable_id'=> $brand->id,
+        ],[
+            'entitytypeable_type'=> Brand::class,
+            'entitytypeable_id'=> $brand->id,
+            'meta_title_ar' => $brand->name_ar,
+            'meta_title_en' => $brand->name_en,
+            'meta_description_ar' => $brand->description_ar,
+            'meta_description_en' => $brand->description_en,
+        ]);
+
         if ($request->hasFile('image')) {
             $oldPhoto = $brand->photo()->first();
             if ($oldPhoto) {

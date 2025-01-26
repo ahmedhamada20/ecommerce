@@ -62,6 +62,10 @@
                                 <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                             </div>
                         </form>
+
+                        <a href="{{ route('auth.google.redirect') }}" class="btn bg-blue-100 p-3 shadow-sm border rounded-md text-blue-900">
+                            Login with Google 
+                        </a>
                     </div>
                     <div class="signup-image">
                         <figure><img src="https://colorlib.com/etc/regform/colorlib-regform-7/images/signup-image.jpg" alt="sing up image"></figure>

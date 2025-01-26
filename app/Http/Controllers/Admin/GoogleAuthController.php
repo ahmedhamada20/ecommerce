@@ -7,6 +7,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Throwable;
+use App\Http\Controllers\Controller;
 
 class GoogleAuthController extends Controller
 {
@@ -40,6 +41,7 @@ class GoogleAuthController extends Controller
                 'email_verified_at' => now(),
                 'google_id' => $existingUser->id,
                 'role' => 'customer',
+                'type' => 'customer',
             ]);
             Auth::login($newUser);
         }

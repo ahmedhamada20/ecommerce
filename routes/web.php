@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\GoogleAuthController;
 use App\Http\Controllers\Front\HomeController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -20,17 +21,31 @@ Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
-    ], function () {
+    ],
+    function () {
 
-    Route::get('/', [HomeController::class, 'index'])->name('home.index');
-    Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');
-    Route::get('/blog/detail/{id}', [HomeController::class, 'blog_detail'])->name('home.blog_detail');
-    Route::get('category/{id}',[HomeController::class,'category'])->name('category');
-    Route::get('/shop',[HomeController::class,'products'])->name('shop');
-    Route::get('/shop/{slug}',[HomeController::class,'products_details'])->name('shop_details');
-    Route::get('/contactUs',[HomeController::class,'contactUs'])->name('contactUs');
+        Route::get('/', [HomeController::class, 'index'])->name('home.index');
+        Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');
+        Route::get('/blog/detail/{id}', [HomeController::class, 'blog_detail'])->name('home.blog_detail');
+        Route::get('category/{id}', [HomeController::class, 'category'])->name('category');
+        Route::get('/shop', [HomeController::class, 'products'])->name('shop');
+        Route::get('/shop/{slug}', [HomeController::class, 'products_details'])->name('shop_details');
+        Route::get('/contactUs', [HomeController::class, 'contactUs'])->name('contactUs');
+        Route::get('/aboutsUs', [HomeController::class, 'aboutsUs'])->name('aboutsUs');
+        Route::get('/viewCart', [HomeController::class, 'viewCart'])->name('viewCart');
+        Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
+        Route::post('/addTocart', [HomeController::class, 'addTocart'])->name('addTocart');
+        Route::post('/addTowishlists', [HomeController::class, 'addTowishlists'])->name('addTowishlists');
+        Route::post('/addToComparisons', [HomeController::class, 'addToComparisons'])->name('addToComparisons');
+        Route::get('/delete/cart/{id}', [HomeController::class, 'delete_addTocart'])->name('delete_addTocart');
+        Route::get('/delete/wishlists/{id}', [HomeController::class, 'delete_wishlists'])->name('delete_wishlists');
+        Route::get('/delete/comparisons/{id}', [HomeController::class, 'delete_comparisons'])->name('delete_comparisons');
 
-});
+
+        Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+        Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
+    }
+);
 
 
 

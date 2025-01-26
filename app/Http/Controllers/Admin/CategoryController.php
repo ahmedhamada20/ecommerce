@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
 use App\Models\Photo;
 use App\Models\Product;
+use App\Models\SEOMetadata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -46,6 +47,16 @@ class CategoryController extends Controller
         $category =Category::create(array_merge($request->validated(), [
             'user_id' => auth()->check() ?  auth()->id() : 1    ,
         ]));
+
+
+        SEOMetadata::create([
+            'entitytypeable_type'=> Category::class,
+            'entitytypeable_id'=> $category->id,
+            'meta_title_ar' => $category->name_ar,
+            'meta_title_en' => $category->name_en,
+            'meta_description_ar' => $category->description_ar,
+            'meta_description_en' => $category->description_en,
+        ]);
 
         if($category){
             if ($request->hasFile('image')) {
@@ -87,6 +98,19 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($request->id);
         $category->update($request->validated());
+
+
+        SEOMetadata::updateOrCreate([
+            'entitytypeable_type'=> Category::class,
+            'entitytypeable_id'=> $category->id,
+        ],[
+            'entitytypeable_type'=> Category::class,
+            'entitytypeable_id'=> $category->id,
+            'meta_title_ar' => $category->name_ar,
+            'meta_title_en' => $category->name_en,
+            'meta_description_ar' => $category->description_ar,
+            'meta_description_en' => $category->description_en,
+        ]);
 
         if ($request->hasFile('image')) {
             $oldPhoto = $category->photo()->first();

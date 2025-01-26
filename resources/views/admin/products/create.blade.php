@@ -392,7 +392,7 @@ Create New Product
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="name_en" class="form-label">Alt image (EN)</label>
-                                    <input type="text" class="form-control" id="english_ar" name="name_ar"
+                                    <input type="text" class="form-control" id="english_ar" name="name_en"
                                         placeholder="English name" required>
                                 </div>
                             </div>
@@ -432,14 +432,14 @@ Create New Product
                     <div id="Description" class="Description">
                         <div class="row align-items-center mb-3 description-item">
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="Description_name[]"
+                                <input type="text" class="form-control" name="Description['name'][]"
                                     placeholder="Description Name">
                             </div>
                             <div class="col-md-6">
                                 <div class="description-values">
                                     <div class="row align-items-center mb-2">
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="Description_value[]"
+                                            <input type="text" class="form-control" name="Description['value'][]"
                                                 placeholder="Description Value">
                                         </div>
                                         <div class="col-md-3 text-end">
@@ -538,18 +538,18 @@ Create New Product
                         <div class="row align-items-center mb-3">
                             <div class="col-md-2">
                                 <label for="color1" class="form-label">Color 1</label>
-                                <input type="color" class="form-control form-control-color" id="color1" name="colors[]"
+                                <input type="color" class="form-control form-control-color" id="color1" name="colors['code'][]"
                                     value="#ffffff">
                             </div>
                             <div class="col-md-3">
                                 <input type="text" class="form-control" placeholder="Color Name (e.g., White)"
-                                    name="color_names[]">
+                                    name="colors['name'][]">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Enter size (e.g., Small, Medium)" name="size[]">
+                                <input type="text" class="form-control" placeholder="Enter size (e.g., Small, Medium)" name="colors['size'][]>
                             </div>
                             <div class="col-md-2">
-                                <input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
+                                <input type="number" class="form-control" placeholder="Quantity" name="colors['quantity'][]">
                             </div>
                             <div class="col-md-2 text-end">
                     <button type="button" class="btn btn-danger remove-row">Delete</button>
@@ -627,64 +627,39 @@ Create New Product
                                 Select Categories
                             </button>
                             <ul class="dropdown-menu" id="categoriesMenu">
+                                @foreach (get_category() as $row)
                                 <li>
                                     <label>
-                                        <input type="checkbox" name="categories[]" value="1"> 📱 Electronics
+                                        <input type="checkbox" name="categories[]" value="{{$row->id}}"> {{$row->name()}}
                                     </label>
                                 </li>
-                                <li>
-                                    <label>
-                                        <input type="checkbox" name="categories[]" value="2"> 👗 Apparel
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <input type="checkbox" name="categories[]" value="3"> 🏡 Home & Garden
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <input type="checkbox" name="categories[]" value="4"> 💄 Health & Beauty
-                                    </label>
-                                </li>
+                                @endforeach
+                               
+                              
                             </ul>
                         </div>
                         <small class="text-muted">Click to open the dropdown and select multiple categories.</small>
                     </div>
 
 
-                    <!-- Options Checkboxes -->
-                    <div class="checkbox-group" id="checkbox-group">
-                        <div data-checkbox-id="new_arrival">
-                            <span class="icon">📦</span>
-                            <span>New Arrival</span>
-                            <input type="checkbox" id="new_arrival" name="options[new_arrival]">
-                        </div>
-                        <div data-checkbox-id="featured">
-                            <span class="icon">⭐</span>
-                            <span>Featured</span>
-                            <input type="checkbox" id="featured" name="options[featured]">
-                        </div>
-                        <div data-checkbox-id="best_seller">
-                            <span class="icon">🔥</span>
-                            <span>Best Seller</span>
-                            <input type="checkbox" id="best_seller" name="options[best_seller]">
-                        </div>
-                    </div>
+              
                 </div>
                 <div class="form-section">
                     <h5>Related Products</h5>
                     <div id="related-products-list">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="related_products[]"
-                                placeholder="search using Product Name">
+                            <select class="form-control" name="related_products[]">
+                                <option value="" disabled selected>Select a product</option>
+                                @foreach ($products as $product)
+                                    <option value="{{ $product->id }}">{{ $product->name() }}</option>
+                                @endforeach
+                            </select>
                             <button class="btn btn-danger remove-related-product" type="button">Remove</button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-secondary btn-sm" id="add-related-product">+ Add Related
-                        Product
-                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" id="add-related-product">+ Add Related Product</button>
                 </div>
+                
 
                 <!-- Brand -->
                 <div class="form-section">
@@ -693,9 +668,11 @@ Create New Product
                         <label for="brand" class="form-label">Select a Brand</label>
                         <select id="brand" name="brand" class="form-control">
                             <option value="" disabled selected>Select a brand...</option>
-                            <option value="1">Brand A</option>
-                            <option value="2">Brand B</option>
-                            <option value="3">Brand C</option>
+                            @foreach ($brand as $row)
+                            <option value="{{$row->id}}">{{$row->name()}}</option>
+                            @endforeach
+                 
+                          
                         </select>
                     </div>
                 </div>
@@ -785,47 +762,46 @@ Create New Product
 
 @section('js')
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Image preview functionality
+    const imageInput = document.getElementById('images');
+    const imagePreview = document.getElementById('image-preview');
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // Image preview functionality
-        const imageInput = document.getElementById('images');
-        const imagePreview = document.getElementById('image-preview');
-
-        imageInput?.addEventListener('change', function (event) {
-            imagePreview.innerHTML = '';
-            Array.from(event.target.files).forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const imageContainer = document.createElement('div');
-                    imageContainer.classList.add('image-container');
-                    imageContainer.innerHTML = `
+    imageInput?.addEventListener('change', function (event) {
+        imagePreview.innerHTML = '';
+        Array.from(event.target.files).forEach((file, index) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imageContainer = document.createElement('div');
+                imageContainer.classList.add('image-container');
+                imageContainer.innerHTML = `
                     <img src="${e.target.result}" alt="Uploaded Image" class="preview-image">
                     <button type="button" class="btn btn-danger btn-sm remove-image" data-index="${index}">Delete</button>
                 `;
-                    imagePreview.appendChild(imageContainer);
-                };
-                reader.readAsDataURL(file);
-            });
+                imagePreview.appendChild(imageContainer);
+            };
+            reader.readAsDataURL(file);
         });
+    });
 
-        imagePreview?.addEventListener('click', function (event) {
-            if (event.target.classList.contains('remove-image')) {
-                event.target.closest('.image-container')?.remove();
-            }
+    imagePreview?.addEventListener('click', function (event) {
+        if (event.target.classList.contains('remove-image')) {
+            event.target.closest('.image-container')?.remove();
+        }
+    });
+
+    // Function to handle adding rows dynamically
+    const addRowHandler = (buttonId, containerId, template) => {
+        document.getElementById(buttonId)?.addEventListener('click', function () {
+            const container = document.getElementById(containerId);
+            const newRow = document.createElement('div');
+            newRow.classList.add('row', 'align-items-center', 'mb-3');
+            newRow.innerHTML = template;
+            container.appendChild(newRow);
         });
+    };
 
-        // Specification and description row management
-        const addRowHandler = (buttonId, containerId, template) => {
-            document.getElementById(buttonId)?.addEventListener('click', function () {
-                const container = document.getElementById(containerId);
-                const newRow = document.createElement('div');
-                newRow.classList.add('row', 'align-items-center', 'mb-3');
-                newRow.innerHTML = template;
-                container.appendChild(newRow);
-            });
-        };
-
-        addRowHandler('add-specification', 'specifications', `
+    addRowHandler('add-specification', 'specifications', `
         <div class="col-md-5">
             <input type="text" class="form-control" name="specification_name[]" placeholder="Specification Name">
         </div>
@@ -837,15 +813,15 @@ Create New Product
         </div>
     `);
 
-        addRowHandler('add-Description', 'Description', `
+    addRowHandler('add-Description', 'Description', `
         <div class="col-md-4">
-            <input type="text" class="form-control" name="Description_name[]" placeholder="Description Name">
+            <input type="text" class="form-control" name="Description['name'][]" placeholder="Description Name">
         </div>
         <div class="col-md-6">
             <div class="description-values">
                 <div class="row align-items-center mb-2">
                     <div class="col-md-9">
-                        <input type="text" class="form-control" name="Description_value[]" placeholder="Description Value">
+                        <input type="text" class="form-control" name="Description['value'][]" placeholder="Description Value">
                     </div>
                     <div class="col-md-3 text-end">
                         <button type="button" class="btn btn-danger remove-value">Remove</button>
@@ -859,92 +835,228 @@ Create New Product
         </div>
     `);
 
-        // General event delegation for removing rows
-        document.body.addEventListener('click', function (event) {
-            if (event.target.classList.contains('remove-row')) {
-                event.target.closest('.row')?.remove();
-            } else if (event.target.classList.contains('remove-value')) {
-                event.target.closest('.row')?.remove();
-            } else if (event.target.classList.contains('remove-description')) {
-                event.target.closest('.description-item')?.remove();
-            }
+    // Event delegation for dynamically added elements
+    document.body.addEventListener('click', function (event) {
+        // Handle "Add Description Value"
+        if (event.target.classList.contains('add-value')) {
+            const descriptionValuesContainer = event.target.closest('.col-md-6').querySelector('.description-values');
+            const newValueRow = document.createElement('div');
+            newValueRow.classList.add('row', 'align-items-center', 'mb-2');
+            newValueRow.innerHTML = `
+                <div class="col-md-9">
+                    <input type="text" class="form-control" name="Description['value'][]" placeholder="Description Value">
+                </div>
+                <div class="col-md-3 text-end">
+                    <button type="button" class="btn btn-danger remove-value">Remove</button>
+                </div>
+            `;
+            descriptionValuesContainer.appendChild(newValueRow);
+        }
+
+        // Handle "Remove Description Value"
+        if (event.target.classList.contains('remove-value')) {
+            event.target.closest('.row').remove();
+        }
+
+        // Handle "Delete Description"
+        if (event.target.classList.contains('remove-description')) {
+            event.target.closest('.description-item').remove();
+        }
+
+        // Handle "Remove Row" for specifications
+        if (event.target.classList.contains('remove-row')) {
+            event.target.closest('.row')?.remove();
+        }
+    });
+
+    // Dynamic dropdown logic for categories
+    const dropdownToggle = document.getElementById('categoriesDropdown');
+    const dropdownMenu = document.getElementById('categoriesMenu');
+
+    dropdownToggle?.addEventListener('click', () => {
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+
+    dropdownMenu?.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', () => {
+            const selected = Array.from(dropdownMenu.querySelectorAll('input[type="checkbox"]:checked'))
+                .map((cb) => cb.parentElement.textContent.trim());
+            dropdownToggle.textContent = selected.length ? selected.join(', ') : 'Select Categories';
         });
+    });
 
-        // Add dynamic dropdown selection logic
-        const dropdownToggle = document.getElementById('categoriesDropdown');
-        const dropdownMenu = document.getElementById('categoriesMenu');
+    // Form validation
+    const productForm = document.querySelector('.product-form');
+    productForm?.addEventListener('submit', function (event) {
 
-        dropdownToggle?.addEventListener('click', () => {
-            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-        });
+        const requiredFields = ['name_en', 'price', 'stock_status', 'quantity', 'weight'];
+        const errors = requiredFields
+            .map((id) => ({ id, value: document.getElementById(id)?.value }))
+            .filter((field) => !field.value)
+            .map((field) => `${field.id.replace('_', ' ').toUpperCase()} is required.`);
 
-        document.addEventListener('click', (event) => {
-            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.style.display = 'none';
-            }
-        });
+        const errorAlert = document.getElementById('error-alert');
+        const errorList = document.getElementById('error-list');
 
-        dropdownMenu?.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-            checkbox.addEventListener('change', () => {
-                const selected = Array.from(dropdownMenu.querySelectorAll('input[type="checkbox"]:checked'))
-                    .map((cb) => cb.parentElement.textContent.trim());
-                dropdownToggle.textContent = selected.length ? selected.join(', ') : 'Select Categories';
-            });
-        });
+        if (errors.length) {
+            errorList.innerHTML = errors.map((error) => `<li>${error}</li>`).join('');
+            errorAlert?.classList.remove('d-none');
+        } else {
+            alert('Form submitted successfully!');
+        }
+    });
 
-        // Form validation
-        const productForm = document.querySelector('.product-form');
-        productForm?.addEventListener('submit', function (event) {
-            event.preventDefault();
+    // Add a color row dynamically
+    const addColorRow = () => {
+        const container = document.getElementById('color-container');
+        const colorCount = container.querySelectorAll('.row').length + 1;
 
-            const requiredFields = ['name_en', 'price','stock_status', 'quantity', 'weight'];
-            const errors = requiredFields
-                .map((id) => ({ id, value: document.getElementById(id)?.value }))
-                .filter((field) => !field.value)
-                .map((field) => `${field.id.replace('_', ' ').toUpperCase()} is required.`);
-
-            const errorAlert = document.getElementById('error-alert');
-            const errorList = document.getElementById('error-list');
-            if (errors.length) {
-                errorList.innerHTML = errors.map((error) => `<li>${error}</li>`).join('');
-                errorAlert?.classList.remove('d-none');
-            } else {
-                alert('Form submitted successfully!');
-            }
-        });
-
-        // Add rows for colors, related products, taxes, and coupons
-        const addColorRow = () => {
-            const container = document.getElementById('color-container');
-            const colorCount = container.querySelectorAll('.row').length + 1;
-            const sizesList = document.getElementById('sizes-list');
-            const sizeRow = document.createElement('div');
-            sizeRow.className = 'size-row';
-            
-            container.insertAdjacentHTML('beforeend', `
-            <div class="row align-items-center mb-12">
+        container.insertAdjacentHTML('beforeend', `
+            <div class="row align-items-center mb-3">
                 <div class="col-md-3">
                     <label for="color${colorCount}" class="form-label">Color ${colorCount}</label>
-                    <input type="color" class="form-control form-control-color" id="color${colorCount}" name="colors[]" value="#000000">
+                    <input type="color" class="form-control form-control-color" id="color${colorCount}" name="colors['name'][]" value="#000000">
                 </div>
                 <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Color Name" name="color_names[]">
+                    <input type="text" class="form-control" placeholder="Color Name" name="colors['name'][]">
                 </div>
-                 <div class="col-md-2">
-                    <input type="text" class="form-control" placeholder="Enter size (e.g., Small, Medium)" name="size[]">
+                <div class="col-md-2">
+                    <input type="text" class="form-control" placeholder="Enter size (e.g., Small, Medium)" name="colors['size'][]">
                 </div>
-                 <div class="col-md-2">
-                    <input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
+                <div class="col-md-2">
+                    <input type="number" class="form-control" placeholder="Quantity" name="colors['quantity'][]">
                 </div>
                 <div class="col-md-2 text-end">
                     <button type="button" class="btn btn-danger remove-row">Delete</button>
                 </div>
             </div>
         `);
-        };
+    };
 
-        document.getElementById('add-color')?.addEventListener('click', addColorRow);
+    document.getElementById('add-color')?.addEventListener('click', addColorRow);
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const addRelatedProductRow = () => {
+        const relatedProductsList = document.getElementById('related-products-list');
+
+        const newRelatedProductRow = document.createElement('div');
+        newRelatedProductRow.classList.add('input-group', 'mb-3');
+        const productsDropdown = `
+            <select class="form-control" name="related_products[]">
+                <option value="" disabled selected>Select a product</option>
+                ${productsOptions}
+            </select>
+            <button class="btn btn-danger remove-related-product" type="button">Remove</button>
+        `;
+
+        newRelatedProductRow.innerHTML = productsDropdown;
+        relatedProductsList.appendChild(newRelatedProductRow);
+    };
+
+    const productsOptions = Array.from(document.querySelectorAll('#related-products-list select:first-child option'))
+        .map(option => option.outerHTML)
+        .join('');
+
+    document.getElementById('add-related-product')?.addEventListener('click', addRelatedProductRow);
+
+    document.body.addEventListener('click', function (event) {
+        if (event.target.classList.contains('remove-related-product')) {
+            event.target.closest('.input-group')?.remove();
+        }
     });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Add Tax Row
+    const addTaxRow = () => {
+        const taxesContainer = document.getElementById('taxes-container');
+
+        const newTaxRow = document.createElement('div');
+        newTaxRow.classList.add('row', 'align-items-center', 'mb-3');
+        newTaxRow.innerHTML = `
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="tax_names[]" placeholder="Tax Name (e.g., VAT)">
+            </div>
+            <div class="col-md-5">
+                <input type="number" class="form-control" name="tax_rates[]" placeholder="Tax Rate (%)" min="0" step="0.01">
+            </div>
+            <div class="col-md-2 text-end">
+                <button type="button" class="btn btn-danger remove-tax">Remove</button>
+            </div>
+        `;
+
+        taxesContainer.appendChild(newTaxRow);
+    };
+
+    // Add Coupon Row
+    const addCouponRow = () => {
+        const couponContainer = document.getElementById('coupon-container');
+
+        const newCouponRow = document.createElement('div');
+        newCouponRow.classList.add('row', 'align-items-center', 'mb-3');
+        newCouponRow.innerHTML = `
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="coupon_names[]" placeholder="Coupon">
+            </div>
+            <div class="col-md-5">
+                <input type="number" class="form-control" name="coupon_number[]" placeholder="Coupon" min="0">
+            </div>
+            <div class="col-md-2 text-end">
+                <button type="button" class="btn btn-danger remove-coupon">Remove</button>
+            </div>
+        `;
+
+        couponContainer.appendChild(newCouponRow);
+    };
+
+    // Attach event listeners to "Add Tax" and "Add Coupon" buttons
+    document.getElementById('add-tax')?.addEventListener('click', addTaxRow);
+    document.getElementById('add-coupon')?.addEventListener('click', addCouponRow);
+
+    // General event delegation for removing rows
+    document.body.addEventListener('click', function (event) {
+        // Remove Tax Row
+        if (event.target.classList.contains('remove-tax')) {
+            event.target.closest('.row')?.remove();
+        }
+
+        // Remove Coupon Row
+        if (event.target.classList.contains('remove-coupon')) {
+            event.target.closest('.row')?.remove();
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the form and save button
+    const form = document.querySelector('.product-form');
+    const saveButton = document.getElementById('save-product');
+
+    // Listen for form submission
+    form.addEventListener('submit', function (event) {
+         // Prevent the form from submitting immediately
+
+        // Show a confirmation dialog before submitting
+        // const isConfirmed = confirm('Are you sure you want to save the product?');
+
+        // if (isConfirmed) {
+        //     // Show a loading spinner
+        //     saveButton.disabled = true; // Disable the button to prevent multiple clicks
+        //     saveButton.innerHTML = 'Saving... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+
+        //     // Simulate form submission with a timeout (you can replace this with actual form submission via AJAX)
+        //     setTimeout(() => {
+        //         form.submit(); // Submit the form after the "loading" state
+        //     }, 2000); // Simulate a delay of 2 seconds
+        // }
+    });
+});
 
 </script>
 
