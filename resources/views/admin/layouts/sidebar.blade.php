@@ -4,7 +4,12 @@
         <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
     </button>
     <div>
-        <a href="https://laravel.wowdash.wowtheme7.com/dashboard/index" class="sidebar-logo">
+        <a href="@if(auth()->check())
+    {{ auth()->user()->type == "admin" ? route('admin_') : route('user_') }}
+@else
+    {{ route('home.index') }}
+@endif
+" class="sidebar-logo">
             <img src="https://laravel.wowdash.wowtheme7.com/assets/images/logo.png" alt="site logo"
                  class="light-logo">
             <img src="https://laravel.wowdash.wowtheme7.com/assets/images/logo-light.png" alt="site logo"

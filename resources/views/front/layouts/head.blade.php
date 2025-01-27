@@ -54,5 +54,4 @@
         font-family: 'Poppins', sans-serif;
     }
 </style>
-<link rel="stylesheet" href="{{ asset('front/css/bootstrap/css/bootstrap.min.css') }}">
 @yield('css')

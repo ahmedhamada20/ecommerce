@@ -40,15 +40,26 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create([
-            
+        $validated = $request->validate([
+            'name_ar' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'colors' => 'nullable|array',
+            'colors.code' => 'nullable|array',
+            'colors.name' => 'nullable|array',
+            'colors.size' => 'nullable|array',
+            'colors.quantity' => 'nullable|array',
+            'specification_name' => 'nullable|array',
+            'specification_value' => 'nullable|array',
+            'labels' => 'nullable|array',
+            'categories' => 'nullable|array',
+            'related_products' => 'nullable|array',
         ]);
 
 
-        // dd($request->all());
-        // Product::create(array_merge($request->validated(), [
-        //     'user_id' => auth()->id(),
-        // ]));
+        
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
 
     }

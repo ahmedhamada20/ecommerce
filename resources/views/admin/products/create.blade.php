@@ -536,7 +536,7 @@ Create New Product
                     <h5>Colors</h5>
                     <div id="color-container">
                         <div class="row align-items-center mb-3">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="color1" class="form-label">Color 1</label>
                                 <input type="color" class="form-control form-control-color" id="color1" name="colors['code'][]"
                                     value="#ffffff">
@@ -546,7 +546,7 @@ Create New Product
                                     name="colors['name'][]">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Enter size (e.g., Small, Medium)" name="colors['size'][]>
+                                <input type="text" class="form-control" placeholder="Enter size (e.g., Small, Medium)" name="colors['size'][]">
                             </div>
                             <div class="col-md-2">
                                 <input type="number" class="form-control" placeholder="Quantity" name="colors['quantity'][]">

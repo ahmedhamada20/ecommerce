@@ -97,7 +97,12 @@
     <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
         <div class="max-w-464-px mx-auto w-100">
             <div>
-                <a href="https://laravel.wowdash.wowtheme7.com/dashboard/index" class="mb-40 max-w-290-px">
+                <a href="@if(auth()->check())
+    {{ auth()->user()->type == "admin" ? route('admin_') : route('user_') }}
+@else
+    {{ route('home.index') }}
+@endif
+" class="mb-40 max-w-290-px">
                     <img src="https://laravel.wowdash.wowtheme7.com/assets/images/logo.png" alt="">
                 </a>
                 <h4 class="mb-12">Sign In</h4>

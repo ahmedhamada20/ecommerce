@@ -261,6 +261,20 @@ if (!function_exists('get_category_products')) {
 
 }
 
+
+if (!function_exists('get_category_products_lastes')) {
+    function get_category_products_lastes()
+    {
+   
+        $category_products = \DB::table('products_categories')
+            ->orderByDesc('id')
+            ->take(5)
+            ->pluck('product_id');
+        return Product::where('publish', true)->whereIn('id', $category_products)->get();
+    }
+
+}
+
 if (!function_exists('latest_blogs')) {
 
     function latest_blogs()
@@ -282,6 +296,18 @@ if (!function_exists('latest_banners')) {
     function latest_banners()
     {
         return AdvertisementBanners::latest()->inRandomOrder()->first();
+    }
+}
+if (!function_exists('get_count')) {
+    function get_count($model)
+    {
+        $modelClass = "App\\Models\\" . $model;
+
+        if (class_exists($modelClass)) {
+            return $modelClass::query();
+        }
+
+        throw new Exception("Model {$model} does not exist.");
     }
 }
 

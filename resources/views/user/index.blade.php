@@ -10,7 +10,12 @@
         <h6 class="fw-semibold mb-0">Dashboard</h6>
         <ul class="d-flex align-items-center gap-2">
             <li class="fw-medium">
-                <a href="https://laravel.wowdash.wowtheme7.com/dashboard/index"
+                <a href="@if(auth()->check())
+    {{ auth()->user()->type == "admin" ? route('admin_') : route('user_') }}
+@else
+    {{ route('home.index') }}
+@endif
+"
                    class="d-flex align-items-center gap-1 hover-text-primary">
                     <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
                     Dashboard
@@ -21,951 +26,279 @@
         </ul>
     </div> <!-- ..::  header area end ::.. -->
 
+    <div class="row row-cols-xxxl-5 row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-4">
+      
 
-    <div class="row gy-4">
-        <div class="col-xxl-9">
-            <div class="card radius-8 border-0">
-                <div class="row">
-                    <div class="col-xxl-6 pe-xxl-0">
-                        <div class="card-body p-24">
-                            <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
-                                <h6 class="mb-2 fw-bold text-lg">Revenue Report</h6>
-                                <div class="">
-                                    <select
-                                        class="form-select form-select-sm w-auto bg-base border text-secondary-light">
-                                        <option>Yearly</option>
-                                        <option>Monthly</option>
-                                        <option>Weekly</option>
-                                        <option>Today</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <ul class="d-flex flex-wrap align-items-center mt-3 gap-3">
-                                <li class="d-flex align-items-center gap-2">
-                                    <span class="w-12-px h-12-px radius-2 bg-primary-600"></span>
-                                    <span class="text-secondary-light text-sm fw-semibold">Earning:
-                                                <span class="text-primary-light fw-bold">$500,00,000.00</span>
-                                            </span>
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <span class="w-12-px h-12-px radius-2 bg-yellow"></span>
-                                    <span class="text-secondary-light text-sm fw-semibold">Expense:
-                                                <span class="text-primary-light fw-bold">$20,000.00</span>
-                                            </span>
-                                </li>
-                            </ul>
-                            <div class="mt-40">
-                                <div id="paymentStatusChart" class="margin-16-minus"></div>
-                            </div>
+        <div class="col">
+            <div class="card shadow-none border bg-gradient-start-4 h-100">
+                <div class="card-body p-20">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <p class="fw-medium text-primary-light mb-1">Total Order Success</p>
+                            <h6 class="mb-0">${{get_count('Order')->where('status', 'completed')->where('customer_id',auth()->user()->id)->sum('total')}}</h6>
+                        </div>
+                        <div
+                            class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
+                            <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
                         </div>
                     </div>
-                    <div class="col-xxl-6">
-                        <div class="row h-100 g-0">
-                            <div class="col-6 p-0 m-0">
-                                <div
-                                    class="card-body p-24 h-100 d-flex flex-column justify-content-center border border-top-0">
-                                    <div
-                                        class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
-                                        <div>
-                                                    <span
-                                                        class="mb-12 w-44-px h-44-px text-primary-600 bg-primary-light border border-primary-light-white flex-shrink-0 d-flex justify-content-center align-items-center radius-8 h6 mb-12">
-                                                        <iconify-icon icon="fa-solid:box-open"
-                                                                      class="icon"></iconify-icon>
-                                                    </span>
-                                            <span class="mb-1 fw-medium text-secondary-light text-md">Rewards
-                                                        points</span>
-                                            <h6 class="fw-semibold text-primary-light mb-1">300</h6>
-                                        </div>
-                                    </div>
-                                    <p class="text-sm mb-0">Increase by <span
-                                            class="bg-success-focus px-1 rounded-2 fw-medium text-success-main text-sm">+200</span>
-                                        this week</p>
-                                </div>
-                            </div>
-                            <div class="col-6 p-0 m-0">
-                                <div
-                                    class="card-body p-24 h-100 d-flex flex-column justify-content-center border border-top-0 border-start-0 border-end-0">
-                                    <div
-                                        class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
-                                        <div>
-                                                    <span
-                                                        class="mb-12 w-44-px h-44-px text-yellow bg-yellow-light border border-yellow-light-white flex-shrink-0 d-flex justify-content-center align-items-center radius-8 h6 mb-12">
-                                                        <iconify-icon icon="flowbite:users-group-solid"
-                                                                      class="icon"></iconify-icon>
-                                                    </span>
-                                            <span class="mb-1 fw-medium text-secondary-light text-md">Affiliate
-                                                        earnings</span>
-                                            <h6 class="fw-semibold text-primary-light mb-1">50,000</h6>
-                                        </div>
-                                    </div>
-                                    <p class="text-sm mb-0">Increase by <span
-                                            class="bg-danger-focus px-1 rounded-2 fw-medium text-danger-main text-sm">-5k</span>
-                                        this week</p>
-                                </div>
-                            </div>
-                            <div class="col-6 p-0 m-0">
-                                <div
-                                    class="card-body p-24 h-100 d-flex flex-column justify-content-center border border-top-0 border-bottom-0">
-                                    <div
-                                        class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
-                                        <div>
-                                                    <span
-                                                        class="mb-12 w-44-px h-44-px text-lilac bg-lilac-light border border-lilac-light-white flex-shrink-0 d-flex justify-content-center align-items-center radius-8 h6 mb-12">
-                                                        <iconify-icon icon="majesticons:shopping-cart"
-                                                                      class="icon"></iconify-icon>
-                                                    </span>
-                                            <span class="mb-1 fw-medium text-secondary-light text-md">Recent
-                                                        orders</span>
-                                            <h6 class="fw-semibold text-primary-light mb-1">1500</h6>
-                                        </div>
-                                    </div>
-                                    <p class="text-sm mb-0">Increase by <span
-                                            class="bg-success-focus px-1 rounded-2 fw-medium text-success-main text-sm">+1k</span>
-                                        this week</p>
-                                </div>
-                            </div>
-                            <div class="col-6 p-0 m-0">
-                                <div
-                                    class="card-body p-24 h-100 d-flex flex-column justify-content-center border border-top-0 border-start-0 border-end-0 border-bottom-0">
-                                    <div
-                                        class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
-                                        <div>
-                                                    <span
-                                                        class="mb-12 w-44-px h-44-px text-pink bg-pink-light border border-pink-light-white flex-shrink-0 d-flex justify-content-center align-items-center radius-8 h6 mb-12">
-                                                        <iconify-icon icon="ri:discount-percent-fill"
-                                                                      class="icon"></iconify-icon>
-                                                    </span>
-                                            <span class="mb-1 fw-medium text-secondary-light text-md">Wallet
-                                                        balance</span>
-                                            <h6 class="fw-semibold text-primary-light mb-1">$25,00,000.00</h6>
-                                        </div>
-                                    </div>
-                                    <p class="text-sm mb-0">Increase by <span
-                                            class="bg-success-focus px-1 rounded-2 fw-medium text-success-main text-sm">+$10k</span>
-                                        this week</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    
                 </div>
-            </div>
+            </div><!-- card end -->
         </div>
-        <div class="col-xxl-3 col-lg-6">
-            <div class="card h-100 radius-8 border-0">
-                <div class="card-body p-24">
-                    <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
-                        <h6 class="mb-2 fw-bold text-lg">Customers Statistics</h6>
-                        <div class="">
-                            <select
-                                class="form-select form-select-sm w-auto bg-base border text-secondary-light">
-                                <option>Yearly</option>
-                                <option>Monthly</option>
-                                <option>Weekly</option>
-                                <option>Today</option>
-                            </select>
+
+        <div class="col">
+            <div class="card shadow-none border bg-gradient-start-4 h-100">
+                <div class="card-body p-20">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <p class="fw-medium text-primary-light mb-1">Total Order processing</p>
+                            <h6 class="mb-0">${{get_count('Order')->where('status', 'processing')->where('customer_id',auth()->user()->id)->sum('total')}}</h6>
+                        </div>
+                        <div
+                            class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
+                            <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
                         </div>
                     </div>
-
-                    <div class="position-relative">
-                                <span
-                                    class="w-80-px h-80-px bg-base shadow text-primary-light fw-semibold text-xl d-flex justify-content-center align-items-center rounded-circle position-absolute end-0 top-0 z-1">+30%</span>
-                        <div id="statisticsDonutChart"
-                             class="mt-36 flex-grow-1 apexcharts-tooltip-z-none title-style circle-none"></div>
-                        <span
-                            class="w-80-px h-80-px bg-base shadow text-primary-light fw-semibold text-xl d-flex justify-content-center align-items-center rounded-circle position-absolute start-0 bottom-0 z-1">+25%</span>
+    
+                </div>
+            </div><!-- card end -->
+        </div>
+        <div class="col">
+            <div class="card shadow-none border bg-gradient-start-4 h-100">
+                <div class="card-body p-20">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <p class="fw-medium text-primary-light mb-1">Total Order cancelled</p>
+                            <h6 class="mb-0">${{get_count('Order')->where('status', 'cancelled')->where('customer_id',auth()->user()->id)->sum('total')}}</h6>
+                        </div>
+                        <div
+                            class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
+                            <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
+                        </div>
                     </div>
+    
+                </div>
+            </div><!-- card end -->
+        </div>
+        <div class="col">
+            <div class="card shadow-none border bg-gradient-start-4 h-100">
+                <div class="card-body p-20">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <p class="fw-medium text-primary-light mb-1">Total Order refunded</p>
+                            <h6 class="mb-0">${{get_count('Order')->where('status', 'refunded')->where('customer_id',auth()->user()->id)->sum('total')}}</h6>
+                        </div>
+                        <div
+                            class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
+                            <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
+                        </div>
+                    </div>
+    
+                </div>
+            </div><!-- card end -->
+        </div>
 
-                    <ul class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3">
-                        <li class="d-flex align-items-center gap-2">
-                            <span class="w-12-px h-12-px radius-2 bg-primary-600"></span>
-                            <span class="text-secondary-light text-sm fw-normal">Male:
-                                        <span class="text-primary-light fw-bold">20,000</span>
-                                    </span>
-                        </li>
-                        <li class="d-flex align-items-center gap-2">
-                            <span class="w-12-px h-12-px radius-2 bg-yellow"></span>
-                            <span class="text-secondary-light text-sm fw-normal">Female:
-                                        <span class="text-primary-light fw-bold">25,000</span>
-                                    </span>
-                        </li>
+        <div class="col">
+            <div class="card shadow-none border bg-gradient-start-5 h-100">
+                <div class="card-body p-20">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <p class="fw-medium text-primary-light mb-1">Total Order pending</p>
+                            <h6 class="mb-0">${{get_count('Order')->where('status', 'pending')->where('customer_id',auth()->user()->id)->sum('total')}}</h6>
+                        </div>
+                        <div class="w-50-px h-50-px bg-red rounded-circle d-flex justify-content-center align-items-center">
+                            <iconify-icon icon="fa6-solid:file-invoice-dollar"
+                                class="text-white text-2xl mb-0"></iconify-icon>
+                        </div>
+                    </div>
+    
+                </div>
+            </div><!-- card end -->
+        </div>
+    </div>
+
+    <hr>
+    <br>
+    <div class="row row-cols-xxxl-5 row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-4">
+      
+
+        <div class="col">
+            <div class="card shadow-none border bg-gradient-start-4 h-100">
+                <div class="card-body p-20">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <p class="fw-medium text-primary-light mb-1">count Order Success</p>
+                            <h6 class="mb-0">${{get_count('Order')->where('status', 'completed')->where('customer_id',auth()->user()->id)->count()}}</h6>
+                        </div>
+                        <div
+                            class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
+                            <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
+                        </div>
+                    </div>
+    
+                </div>
+            </div><!-- card end -->
+        </div>
+
+        <div class="col">
+            <div class="card shadow-none border bg-gradient-start-4 h-100">
+                <div class="card-body p-20">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <p class="fw-medium text-primary-light mb-1">count Order processing</p>
+                            <h6 class="mb-0">${{get_count('Order')->where('status', 'processing')->where('customer_id',auth()->user()->id)->count()}}</h6>
+                        </div>
+                        <div
+                            class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
+                            <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
+                        </div>
+                    </div>
+    
+                </div>
+            </div><!-- card end -->
+        </div>
+        <div class="col">
+            <div class="card shadow-none border bg-gradient-start-4 h-100">
+                <div class="card-body p-20">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <p class="fw-medium text-primary-light mb-1">count Order cancelled</p>
+                            <h6 class="mb-0">${{get_count('Order')->where('status', 'cancelled')->where('customer_id',auth()->user()->id)->count()}}</h6>
+                        </div>
+                        <div
+                            class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
+                            <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
+                        </div>
+                    </div>
+    
+                </div>
+            </div><!-- card end -->
+        </div>
+        <div class="col">
+            <div class="card shadow-none border bg-gradient-start-4 h-100">
+                <div class="card-body p-20">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <p class="fw-medium text-primary-light mb-1">count Order refunded</p>
+                            <h6 class="mb-0">${{get_count('Order')->where('status', 'refunded')->where('customer_id',auth()->user()->id)->count()}}</h6>
+                        </div>
+                        <div
+                            class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
+                            <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
+                        </div>
+                    </div>
+    
+                </div>
+            </div><!-- card end -->
+        </div>
+
+        <div class="col">
+            <div class="card shadow-none border bg-gradient-start-5 h-100">
+                <div class="card-body p-20">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <p class="fw-medium text-primary-light mb-1">Total Order pending</p>
+                            <h6 class="mb-0">${{get_count('Order')->where('status', 'pending')->where('customer_id',auth()->user()->id)->count()}}</h6>
+                        </div>
+                        <div class="w-50-px h-50-px bg-red rounded-circle d-flex justify-content-center align-items-center">
+                            <iconify-icon icon="fa6-solid:file-invoice-dollar"
+                                class="text-white text-2xl mb-0"></iconify-icon>
+                        </div>
+                    </div>
+    
+                </div>
+            </div><!-- card end -->
+        </div>
+    </div>
+
+
+    <hr>
+    <br>
+
+    <div class="card basic-data-table">
+
+        <div class="card-body">
+            @if ($errors->any())
+                <div class="alert alert-danger" id="error-alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
                     </ul>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-9 col-lg-6">
-            <div class="card h-100">
-                <div class="card-body p-24">
-                    <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between mb-20">
-                        <h6 class="mb-2 fw-bold text-lg mb-0">Recent Orders</h6>
-                        <a href="javascript:void(0)"
-                           class="text-primary-600 hover-text-primary d-flex align-items-center gap-1">
-                            View All
-                            <iconify-icon icon="solar:alt-arrow-right-linear" class="icon"></iconify-icon>
-                        </a>
-                    </div>
-                    <div class="table-responsive scroll-sm">
-                        <table class="table bordered-table mb-0">
-                            <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Items</th>
-                                <th scope="col">Qty</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col" class="text-center">Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>#6352148</td>
-                                <td>iPhone 14 max</td>
-                                <td>2</td>
-                                <td>$5,000.00</td>
-                                <td class="text-center"> <span
-                                        class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Paid</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#6352148</td>
-                                <td>Laptop HPH </td>
-                                <td>3</td>
-                                <td>$1,000.00</td>
-                                <td class="text-center"> <span
-                                        class="bg-warning-focus text-warning-main px-24 py-4 rounded-pill fw-medium text-sm">Pending</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#6352148</td>
-                                <td>Smart Watch </td>
-                                <td>7</td>
-                                <td>$1,000.00</td>
-                                <td class="text-center"> <span
-                                        class="bg-info-focus text-info-main px-24 py-4 rounded-pill fw-medium text-sm">Shipped</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#6352148</td>
-                                <td>Nike Air Shoe</td>
-                                <td>1</td>
-                                <td>$3,000.00</td>
-                                <td class="text-center"> <span
-                                        class="bg-danger-focus text-danger-main px-24 py-4 rounded-pill fw-medium text-sm">Canceled</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#6352148</td>
-                                <td>New Headphone </td>
-                                <td>5</td>
-                                <td>$4,000.00</td>
-                                <td class="text-center"> <span
-                                        class="bg-danger-focus text-danger-main px-24 py-4 rounded-pill fw-medium text-sm">Canceled</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-3">
-            <div class="card h-100">
-
-                <div class="card-body">
-                    <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
-                        <h6 class="mb-2 fw-bold text-lg">Transactions</h6>
-                        <div class="">
-                            <select
-                                class="form-select form-select-sm w-auto bg-base border text-secondary-light">
-                                <option>This Month</option>
-                                <option>Last Month</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="mt-32">
-                        <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/payment/payment1.png"
-                                     alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
-                                <div class="flex-grow-1">
-                                    <h6 class="text-md mb-0 fw-normal">Paytm</h6>
-                                    <span class="text-sm text-secondary-light fw-normal">Starbucks</span>
-                                </div>
-                            </div>
-                            <span class="text-danger text-md fw-medium">-$20</span>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/payment/payment2.png"
-                                     alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
-                                <div class="flex-grow-1">
-                                    <h6 class="text-md mb-0 fw-normal">PayPal</h6>
-                                    <span class="text-sm text-secondary-light fw-normal">Client Payment</span>
-                                </div>
-                            </div>
-                            <span class="text-success-main text-md fw-medium">+$800</span>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/payment/payment3.png"
-                                     alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
-                                <div class="flex-grow-1">
-                                    <h6 class="text-md mb-0 fw-normal">Stripe</h6>
-                                    <span class="text-sm text-secondary-light fw-normal">Ordered iPhone
-                                                14</span>
-                                </div>
-                            </div>
-                            <span class="text-danger-main text-md fw-medium">-$300</span>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/payment/payment4.png"
-                                     alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
-                                <div class="flex-grow-1">
-                                    <h6 class="text-md mb-0 fw-normal">Razorpay</h6>
-                                    <span class="text-sm text-secondary-light fw-normal">Refund</span>
-                                </div>
-                            </div>
-                            <span class="text-success-main text-md fw-medium">+$500</span>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/payment/payment1.png"
-                                     alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
-                                <div class="flex-grow-1">
-                                    <h6 class="text-md mb-0 fw-normal">Paytm</h6>
-                                    <span class="text-sm text-secondary-light fw-normal">Starbucks</span>
-                                </div>
-                            </div>
-                            <span class="text-danger-main text-md fw-medium">-$1500</span>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between gap-3">
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/payment/payment3.png"
-                                     alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
-                                <div class="flex-grow-1">
-                                    <h6 class="text-md mb-0 fw-normal">Stripe</h6>
-                                    <span class="text-sm text-secondary-light fw-normal">Ordered iPhone
-                                                14</span>
-                                </div>
-                            </div>
-                            <span class="text-success-main text-md fw-medium">+$800</span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-4">
-            <div class="card h-100 radius-8 border">
-                <div class="card-body p-24">
-                    <h6 class="mb-12 fw-bold text-lg mb-0">Recent Orders</h6>
-                    <div class="d-flex align-items-center gap-2">
-                        <h6 class="fw-semibold mb-0">$27,200</h6>
-                        <p class="text-sm mb-0">
-                                    <span
-                                        class="bg-success-focus border border-success px-8 py-2 rounded-pill fw-semibold text-success-main text-sm d-inline-flex align-items-center gap-1">
-                                        10%
-                                        <iconify-icon icon="iconamoon:arrow-up-2-fill" class="icon"></iconify-icon>
-                                    </span>
-                            Increases
-                        </p>
-                    </div>
-                    <div id="recent-orders" class="mt-28"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-4 col-lg-6">
-            <div class="card radius-8 border-0">
-
-                <div class="card-body">
-                    <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
-                        <h6 class="mb-2 fw-bold text-lg">Distribution Maps</h6>
-                        <div class="">
-                            <select
-                                class="form-select form-select-sm w-auto bg-base border text-secondary-light">
-                                <option>Yearly</option>
-                                <option>Monthly</option>
-                                <option>Weekly</option>
-                                <option>Today</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
 
-                <div id="world-map"></div>
+                <script>
+                    setTimeout(function () {
+                        document.getElementById('error-alert').style.display = 'none';
+                    }, 20000);
 
-                <div class="card-body p-24 max-h-266-px scroll-sm overflow-y-auto">
-                    <div class="">
+                </script>
+            @endif
 
-                        <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
-                            <div class="d-flex align-items-center w-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag1.png"
-                                     alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
-                                <div class="flex-grow-1">
-                                    <h6 class="text-sm mb-0">USA</h6>
-                                    <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 w-100">
-                                <div class="w-100 max-w-66 ms-auto">
-                                    <div class="progress progress-sm rounded-pill" role="progressbar"
-                                         aria-label="Success example" aria-valuenow="25" aria-valuemin="0"
-                                         aria-valuemax="100">
-                                        <div class="progress-bar bg-primary-600 rounded-pill"
-                                             style="width: 80%;"></div>
-                                    </div>
-                                </div>
-                                <span class="text-secondary-light font-xs fw-semibold">80%</span>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
-                            <div class="d-flex align-items-center w-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag2.png"
-                                     alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
-                                <div class="flex-grow-1">
-                                    <h6 class="text-sm mb-0">Japan</h6>
-                                    <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 w-100">
-                                <div class="w-100 max-w-66 ms-auto">
-                                    <div class="progress progress-sm rounded-pill" role="progressbar"
-                                         aria-label="Success example" aria-valuenow="25" aria-valuemin="0"
-                                         aria-valuemax="100">
-                                        <div class="progress-bar bg-orange rounded-pill" style="width: 60%;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="text-secondary-light font-xs fw-semibold">60%</span>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
-                            <div class="d-flex align-items-center w-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag3.png"
-                                     alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
-                                <div class="flex-grow-1">
-                                    <h6 class="text-sm mb-0">France</h6>
-                                    <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 w-100">
-                                <div class="w-100 max-w-66 ms-auto">
-                                    <div class="progress progress-sm rounded-pill" role="progressbar"
-                                         aria-label="Success example" aria-valuenow="25" aria-valuemin="0"
-                                         aria-valuemax="100">
-                                        <div class="progress-bar bg-yellow rounded-pill" style="width: 49%;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="text-secondary-light font-xs fw-semibold">49%</span>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between gap-3">
-                            <div class="d-flex align-items-center w-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/flags/flag4.png"
-                                     alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
-                                <div class="flex-grow-1">
-                                    <h6 class="text-sm mb-0">Germany</h6>
-                                    <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 w-100">
-                                <div class="w-100 max-w-66 ms-auto">
-                                    <div class="progress progress-sm rounded-pill" role="progressbar"
-                                         aria-label="Success example" aria-valuenow="25" aria-valuemin="0"
-                                         aria-valuemax="100">
-                                        <div class="progress-bar bg-success-main rounded-pill"
-                                             style="width: 100%;"></div>
-                                    </div>
-                                </div>
-                                <span class="text-secondary-light font-xs fw-semibold">100%</span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-4 col-lg-6">
-            <div class="card h-100">
-
-                <div class="card-body">
-                    <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between mb-20">
-                        <h6 class="mb-2 fw-bold text-lg mb-0">Real-Time Order Tracking</h6>
-                    </div>
-                    <div class="timeline" id="order-timeline">
-                        <!-- Steps dynamically updated via jQuery -->
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-12">
-            <div class="card h-100">
-                <div class="card-body p-24">
-                    <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between mb-20">
-                        <h6 class="mb-2 fw-bold text-lg mb-0">Top Selling Product</h6>
-                        <a href="javascript:void(0)"
-                           class="text-primary-600 hover-text-primary d-flex align-items-center gap-1">
-                            View All
-                            <iconify-icon icon="solar:alt-arrow-right-linear" class="icon"></iconify-icon>
-                        </a>
-                    </div>
-                    <div class="table-responsive scroll-sm">
-                        <table class="table bordered-table mb-0">
-                            <thead>
-                            <tr>
-                                <th scope="col">Items</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Discount </th>
-                                <!-- <th scope="col">Sold</th> -->
-                                <th scope="col" class="text-center">Total Orders</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://laravel.wowdash.wowtheme7.com/assets/images/product/product-img1.png"
-                                             alt="" class="flex-shrink-0 me-12 radius-8 me-12">
-                                        <div class="flex-grow-1">
-                                            <h6 class="text-md mb-0 fw-normal">Blue t-shirt</h6>
-                                            <span
-                                                class="text-sm text-secondary-light fw-normal">Fashion</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$500.00</td>
-                                <td>15%</td>
-                                <td class="text-center">
-                                                <span
-                                                    class="bg-success-focus text-success-main px-32 py-4 rounded-pill fw-medium text-sm">70</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://laravel.wowdash.wowtheme7.com/assets/images/product/product-img2.png"
-                                             alt="" class="flex-shrink-0 me-12 radius-8 me-12">
-                                        <div class="flex-grow-1">
-                                            <h6 class="text-md mb-0 fw-normal">Nike Air Shoe</h6>
-                                            <span
-                                                class="text-sm text-secondary-light fw-normal">Fashion</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$150.00</td>
-                                <td>N/A</td>
-                                <td class="text-center">
-                                                <span
-                                                    class="bg-success-focus text-success-main px-32 py-4 rounded-pill fw-medium text-sm">70</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://laravel.wowdash.wowtheme7.com/assets/images/product/product-img3.png"
-                                             alt="" class="flex-shrink-0 me-12 radius-8 me-12">
-                                        <div class="flex-grow-1">
-                                            <h6 class="text-md mb-0 fw-normal">Woman Dresses</h6>
-                                            <span
-                                                class="text-sm text-secondary-light fw-normal">Fashion</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$300.00</td>
-                                <td>$50.00</td>
-                                <td class="text-center">
-                                                <span
-                                                    class="bg-success-focus text-success-main px-32 py-4 rounded-pill fw-medium text-sm">70</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://laravel.wowdash.wowtheme7.com/assets/images/product/product-img4.png"
-                                             alt="" class="flex-shrink-0 me-12 radius-8 me-12">
-                                        <div class="flex-grow-1">
-                                            <h6 class="text-md mb-0 fw-normal">Smart Watch</h6>
-                                            <span
-                                                class="text-sm text-secondary-light fw-normal">Fashion</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$400.00</td>
-                                <td>$50.00</td>
-                                <td class="text-center">
-                                                <span
-                                                    class="bg-success-focus text-success-main px-32 py-4 rounded-pill fw-medium text-sm">70</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://laravel.wowdash.wowtheme7.com/assets/images/product/product-img5.png"
-                                             alt="" class="flex-shrink-0 me-12 radius-8 me-12">
-                                        <div class="flex-grow-1">
-                                            <h6 class="text-md mb-0 fw-normal">Hoodie Rose</h6>
-                                            <span
-                                                class="text-sm text-secondary-light fw-normal">Fashion</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$300.00</td>
-                                <td>25%</td>
-                                <td class="text-center">
-                                                <span
-                                                    class="bg-success-focus text-success-main px-32 py-4 rounded-pill fw-medium text-sm">70</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="col-xxl-6">
-<div class="card h-100">
-    <div class="card-body p-24">
-        <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between mb-20">
-            <h6 class="mb-2 fw-bold text-lg mb-0">Stock Report</h6>
-            <a href="javascript:void(0)" class="text-primary-600 hover-text-primary d-flex align-items-center gap-1">
-                View All
-                <iconify-icon icon="solar:alt-arrow-right-linear" class="icon"></iconify-icon>
-            </a>
-        </div>
-        <div class="table-responsive scroll-sm">
-            <table class="table bordered-table mb-0">
-                <thead>
+            <div class="table-responsive">
+                <table class="table bordered-table mb-0" id="dataTable" data-page-length="10">
+                    <thead>
                     <tr>
-                        <th scope="col">Items</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">
-                            <div class="max-w-112 mx-auto">
-                                <span>Stock</span>
-                            </div>
-                        </th>
+                        <th scope="col">order number</th>
+                        <th scope="col">order type</th>
+                        <th scope="col">customer</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Create Order</th>
+                        <th scope="col">total</th>
+                        <th scope="col">Action</th>
+
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Nike Air Shoes</td>
-                        <td>$500.00</td>
-                        <td>
-                            <div class="max-w-112 mx-auto">
-                                <div class="w-100">
-                                    <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar bg-primary-600 rounded-pill" style="width: 0%;"></div>
-                                    </div>
-                                </div>
-                                <span class="mt-12 text-secondary-light text-sm fw-medium">Out of Stock</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nike Air Shoes</td>
-                        <td>$300.00</td>
-                        <td>
-                            <div class="max-w-112 mx-auto">
-                                <div class="w-100">
-                                    <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar bg-danger-main rounded-pill" style="width: 40%;"></div>
-                                    </div>
-                                </div>
-                                <span class="mt-12 text-secondary-light text-sm fw-medium">18 Low Stock</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nike Air Shoes</td>
-                        <td>$500.00</td>
-                        <td>
-                            <div class="max-w-112 mx-auto">
-                                <div class="w-100">
-                                    <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar bg-success-main rounded-pill" style="width: 80%;"></div>
-                                    </div>
-                                </div>
-                                <span class="mt-12 text-secondary-light text-sm fw-medium">80 High Stock</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nike Air Shoes</td>
-                        <td>$300.00</td>
-                        <td>
-                            <div class="max-w-112 mx-auto">
-                                <div class="w-100">
-                                    <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar bg-success-main rounded-pill" style="width: 50%;"></div>
-                                    </div>
-                                </div>
-                                <span class="mt-12 text-secondary-light text-sm fw-medium">50 High Stock</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nike Air Shoes</td>
-                        <td>$150.00</td>
-                        <td>
-                            <div class="max-w-112 mx-auto">
-                                <div class="w-100">
-                                    <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar bg-success-main rounded-pill" style="width: 70%;"></div>
-                                    </div>
-                                </div>
-                                <span class="mt-12 text-secondary-light text-sm fw-medium">70 High Stock</span>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-</div>  -->
-        <div class="col-xxl-12">
-            <div class="card h-100">
-                <div class="card-body p-24">
-                    <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between mb-20">
-                        <h6 class="mb-2 fw-bold text-lg mb-0">Favorite Products</h6>
-                    </div>
-                    <div class="row">
-                        <div class="col-xxl-3 col-md-4 col-sm-6" id="product1">
-                            <div class="card h-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/kanban/kanban-1.png"
-                                     class="card-img-top" alt="Product 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product 1</h5>
-                                    <p class="card-text">Description of Product 1.</p>
-                                    <button class="btn btn-danger btn-sm remove-favorite"
-                                            data-product-id="product1">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-3 col-md-4 col-sm-6" id="product1">
-                            <div class="card h-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/kanban/kanban-1.png"
-                                     class="card-img-top" alt="Product 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product 1</h5>
-                                    <p class="card-text">Description of Product 1.</p>
-                                    <button class="btn btn-danger btn-sm remove-favorite"
-                                            data-product-id="product1">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-3 col-md-4 col-sm-6" id="product1">
-                            <div class="card h-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/kanban/kanban-1.png"
-                                     class="card-img-top" alt="Product 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product 1</h5>
-                                    <p class="card-text">Description of Product 1.</p>
-                                    <button class="btn btn-danger btn-sm remove-favorite"
-                                            data-product-id="product1">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-3 col-md-4 col-sm-6" id="product1">
-                            <div class="card h-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/kanban/kanban-1.png"
-                                     class="card-img-top" alt="Product 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product 1</h5>
-                                    <p class="card-text">Description of Product 1.</p>
-                                    <button class="btn btn-danger btn-sm remove-favorite"
-                                            data-product-id="product1">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-12" id="product-list" style="display: none;">
-            <div class="card h-100">
-                <div class="card-body p-24">
-                    <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between mb-20">
-                        <h6 class="mb-2 fw-bold text-lg mb-0">Favorite Products</h6>
-                    </div>
-                    <div class="row">
-                        <div class="col-xxl-3 col-md-4 col-sm-6" id="product1">
-                            <div class="card h-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/kanban/kanban-1.png"
-                                     class="card-img-top" alt="Product 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product 1</h5>
-                                    <p class="card-text">Description of Product 1.</p>
-                                    <button class="btn btn-danger btn-sm remove-favorite"
-                                            data-product-id="product1">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-3 col-md-4 col-sm-6" id="product1">
-                            <div class="card h-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/kanban/kanban-1.png"
-                                     class="card-img-top" alt="Product 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product 1</h5>
-                                    <p class="card-text">Description of Product 1.</p>
-                                    <button class="btn btn-danger btn-sm remove-favorite"
-                                            data-product-id="product1">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-3 col-md-4 col-sm-6" id="product1">
-                            <div class="card h-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/kanban/kanban-1.png"
-                                     class="card-img-top" alt="Product 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product 1</h5>
-                                    <p class="card-text">Description of Product 1.</p>
-                                    <button class="btn btn-danger btn-sm remove-favorite"
-                                            data-product-id="product1">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-3 col-md-4 col-sm-6" id="product1">
-                            <div class="card h-100">
-                                <img src="https://laravel.wowdash.wowtheme7.com/assets/images/kanban/kanban-1.png"
-                                     class="card-img-top" alt="Product 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product 1</h5>
-                                    <p class="card-text">Description of Product 1.</p>
-                                    <button class="btn btn-danger btn-sm remove-favorite"
-                                            data-product-id="product1">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-12">
-            <div class="card h-100">
-                <div class="card-body p-24">
-                    <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between mb-20">
-                        <h6 class="mb-2 fw-bold text-lg mb-0">Stock Report</h6>
-                    </div>
-                    <div class="table-responsive scroll-sm">
-                        <table class="table bordered-table mb-0">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th>Specification</th>
-                                <th>Product 1</th>
-                                <th>Product 2</th>
-                                <th>Product 3</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Price</td>
-                                <td>$100 <button class="btn btn-danger btn-sm remove-comparison"
-                                                 data-column="2">Remove</button></td>
-                                <td>$150 <button class="btn btn-danger btn-sm remove-comparison"
-                                                 data-column="3">Remove</button></td>
-                                <td>$200 <button class="btn btn-danger btn-sm remove-comparison"
-                                                 data-column="4">Remove</button></td>
-                            </tr>
-                            <tr>
-                                <td>Brand</td>
-                                <td>Brand A</td>
-                                <td>Brand B</td>
-                                <td>Brand C</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="disputeModal" tabindex="-1" aria-labelledby="disputeModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="disputeModalLabel">Dispute Resolution</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
+                    </thead>
+                    <tbody>
+                        @foreach(get_count('Order')->where('customer_id',auth()->user()->id)->orderByDesc('id')->take(50)->get() as $row)
+                        <tr>
+                            <td>
+                                <a style="color: #0A51CE" href="{{route('user_orders/details',$row->order_number)}}" target="_blank">{{ $row->order_number }}</a>
+                            </td>
 
-                        <form id="disputeForm">
-                            <div class="mb-3">
-                                <label for="orderNumber" class="form-label">Order Number</label>
-                                <input type="text" class="form-control" id="orderNumber" name="orderNumber"
-                                       placeholder="Enter your order number" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                       placeholder="Enter your email address" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="reason" class="form-label">Reason for Dispute</label>
-                                <select class="form-select" id="reason" name="reason" required>
-                                    <option value="" selected disabled>Select a reason</option>
-                                    <option value="damaged">Damaged or defective item</option>
-                                    <option value="late_delivery">Late delivery</option>
-                                    <option value="wrong_item">Wrong item received</option>
-                                    <option value="refund_request">Requesting a refund</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="details" class="form-label">Additional Details</label>
-                                <textarea class="form-control" id="details" name="details" rows="4"
-                                          placeholder="Provide additional details..." required></textarea>
-                            </div>
+                            <td>
+                                {!!  $row->getOrderTypeColor() !!}
+                            </td>
 
 
-                            <div class="mb-3">
-                                <label for="evidence" class="form-label">Upload Evidence (optional)</label>
-                                <input type="file" class="form-control" id="evidence" name="evidence"
-                                       accept="image/*,application/pdf" multiple onchange="previewImages()">
-                            </div>
-                        </form>
+                            <td>
+                                {{ $row->customer_id ? $row->customer->name() : 'no customer' }}
+                            </td>
 
 
-                        <div id="imageCarousel" class="carousel slide mb-4 carousel-container"
-                             data-bs-ride="false">
-                            <div class="carousel-inner" id="carouselImages">
 
-                            </div>
+                            <td>
+                                {!!  $row->getStatusColor() !!}
+                            </td>
 
-                            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel"
-                                    data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel"
-                                    data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                            <td>
+                                {{$row->created_at->format('Y-m-d')}}
+                            </td>
+                            <td>
+                                {{$row->total}}
+                            </td>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" form="disputeForm">Submit Request</button>
-                    </div>
-                </div>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Action
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="{{route('user_orders/details',$row->order_number)}}">Orders Details</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+
+
+                    @endforeach
+                    </tbody>
+                </table>
+      
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('js')

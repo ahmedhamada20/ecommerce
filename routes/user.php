@@ -34,5 +34,6 @@ Route::group(
     Route::get('wishlists',[HomeController::class,'wishlists'])->name('wishlists');
     Route::get('comparisons',[HomeController::class,'comparisons'])->name('comparisons');
     Route::get('carts',[HomeController::class,'carts'])->name('carts');
+    Route::post('updated_information',[HomeController::class,'updated_information'])->name('updated_information');
 });
 
