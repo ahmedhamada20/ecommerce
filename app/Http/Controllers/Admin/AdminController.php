@@ -8,8 +8,11 @@ use App\Models\Hyperlink;
 use App\Models\Photo;
 use App\Models\Setting;
 use App\Models\Slider;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class AdminController extends Controller
 {
@@ -156,6 +159,27 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('success', 'Setting  successfully.');
 
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'phone' => ['required', 'string', 'numeric', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'type' => 'customer',
+            'password' => Hash::make($request->password),
+        ]);
+        return redirect()->back()->with('success', 'Add new user  successfully.');
     }
 
 }

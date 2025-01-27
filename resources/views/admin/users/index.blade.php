@@ -10,7 +10,15 @@
 
     <div class="card basic-data-table">
 
+        <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+               Add new
+              </button>
+              @include('admin.users.create')
+        </div>
+
         <div class="card-body">
+    
             @if ($errors->any())
                 <div class="alert alert-danger" id="error-alert">
                     <ul>
