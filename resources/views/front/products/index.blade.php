@@ -2,9 +2,22 @@
 @section('title')
 Products
 @endsection
-@section('css')
-
-@endsection
+<style>
+    .addToCart {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: capitalize;
+    background-color: #ff5e00;
+    border-radius: 18px;
+    border: none;
+    padding: 0 10px;
+    height: 34px;
+    line-height: 34px;
+    line-height: 100%;
+    border: none;
+}
+</style>
 
 @section('content')
 <!-- Main Container  -->
@@ -32,32 +45,31 @@ Products
                                     <!-- Category filter -->
                                     <div class="table_cell" style="z-index: 103;">
                                         <legend>Search</legend>
-                                        <input class="form-control" type="text" name="search"
-                                            value="{{ request()->search }}" size="30" autocomplete="off"
+                                        <input class="form-control" type="text" name="search" value="{{ request()->search }}" size="30" autocomplete="off"
                                             placeholder="Search" oninput="this.form.submit()">
                                     </div><!--/ .table_cell -->
-
+                                    
                                     <!-- Sub Category filter -->
                                     <div class="table_cell">
                                         <fieldset>
                                             <legend>Sub Category</legend>
                                             <ul class="">
                                                 @foreach ($categories as $category)
-
-                                                <li>
-                                                    <input type="checkbox" name="category[]" value="{{ $category->id }}"
-                                                        @if (in_array($category->id, request()->get('category', [])))
-                                                        checked @endif onchange="this.form.submit()"
-                                                        id="{{$category->id}}">
-                                                    <label
-                                                        for="category_{{ $category->id }}">{{ $category->name() }}</label>
-                                                </li>
+                                            
+                                                    <li>
+                                                        <input type="checkbox" name="category[]"
+                                                            value="{{ $category->id }}"
+                                                            @if (in_array($category->id, request()->get('category', []))) checked @endif
+                                                            onchange="this.form.submit()" id="{{$category->id}}">
+                                                        <label
+                                                            for="category_{{ $category->id }}">{{ $category->name() }}</label>
+                                                    </li>
                                                 @endforeach
 
                                             </ul>
                                         </fieldset>
                                     </div><!--/ .table_cell -->
-
+                                    
                                     <!-- Price filter -->
                                     <div class="table_cell">
                                         <fieldset>
@@ -67,9 +79,9 @@ Products
                                                 <span class="min_val">${{ request()->min_price ?? '10.00' }}</span> -
                                                 <span class="max_val">${{ request()->max_price ?? '5000.00' }}</span>
                                                 <input type="hidden" name="min_price" id="price_min"
-                                                    value="{{ request()->min_price ?? '10.00' }}">
+                                                       value="{{ request()->min_price ?? '10.00' }}">
                                                 <input type="hidden" name="max_price" id="price_max"
-                                                    value="{{ request()->max_price ?? '5000.00' }}">
+                                                       value="{{ request()->max_price ?? '5000.00' }}">
                                             </div>
                                             <div id="price_slider"></div>
                                         </fieldset>
@@ -146,106 +158,104 @@ Products
                 <div class="products-list row nopadding-xs so-filter-gird">
 
                     @foreach ($products as $product)
-                                        <div class="product-layout col-lg-15 col-md-4 col-sm-6 col-xs-12">
-                                            <div class="product-item-container">
-                                                <div class="left-block left-b">
+                    <div class="product-layout col-lg-15 col-md-4 col-sm-6 col-xs-12">
+                        <div class="product-item-container">
+                            <div class="left-block left-b">
 
-                                                    <div class="product-image-container second_img">
-                                                        <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $product->slug_ar : $product->slug_en) }}"
-                                                            target="_self" title="Lastrami bacon">
-                                                            <img src="{{ asset('storage/' . $product?->photo?->filename) }}"
-                                                                class="img-1 img-responsive" alt="image1">
-                                                            <img src="{{ asset('storage/' . $product?->photo?->filename) }}"
-                                                                class="img-2 img-responsive" alt="image2">
-                                                        </a>
-                                                    </div>
-                                                    <!--quickview-->
-                                                    <div class="so-quickview">
+                                <div class="product-image-container second_img">
+                                    <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $product->slug_ar : $product->slug_en) }}" target="_self" title="Lastrami bacon">
+                                        <img src="{{ asset('storage/' . $product?->photo?->filename) }}" class="img-1 img-responsive" alt="image1">
+                                        <img src="{{ asset('storage/' . $product?->photo?->filename) }}" class="img-2 img-responsive" alt="image2">
+                                    </a>                                    
+                                </div>
+                                <!--quickview-->
+                               
+                   
 
 
-                                                        <button type="button" data-toggle="modal" data-target="#addToCart{{$product->id}}"
-                                                            class="addToCart" title="Add to cart">
-                                                            <span>Add to cart </span>
-                                                        </button>
+                            </div>
+                            <div class="right-block">
+                               
+                                <div class="caption hide-cont">
+                                    <div class="ratings">
+                                        <div class="rating-box">
+                                            @php
+                                                $rating = $product->commentable->count();
+                                                $totalStars = 5;
+                                            @endphp
 
-
-
-                                                        <button type="button" data-toggle="modal"
-                                                            data-target="#addTowishlist{{$product->id}}" class="addToCart"
-                                                            title="Add to cart">
-                                                            <span>Add to Wishlist </span>
-                                                        </button>
-
-
-
-                                                        <button type="button" data-toggle="modal"
-                                                            data-target="#addTocomparisons{{$product->id}}" class="addToCart"
-                                                            title="Add to cart">
-                                                            <span>Compare this Product </span>
-                                                        </button>
-
-
-                                                    </div>
-
-
-
-                                                </div>
-                                                <div class="right-block">
-
-                                                    <div class="caption hide-cont">
-                                                        <div class="ratings">
-                                                            <div class="rating-box">
-                                                                @php
-                                                                    $rating = $product->commentable->count();
-                                                                    $totalStars = 5;
-                                                                @endphp
-
-                                                                @for ($i = 1; $i <= $totalStars; $i++)
-                                                                    <span class="fa fa-stack">
-                                                                        <i
-                                                                            class="fa fa-star fa-stack-2x {{ $i <= $rating ? '' : 'fa-star-o' }}"></i>
-                                                                    </span>
-                                                                @endfor
-                                                            </div>
-                                                            <span class="rating-num">( {{ $product->commentable->count() }} )</span>
-                                                        </div>
-                                                        <h4><a href="{{ route('shop_details', app()->getlocale() === 'ar' ? $product->slug_ar : $product->slug_en) }}"
-                                                                title="Pastrami bacon" target="_self">{{ $product->name() }}</a></h4>
-
-                                                    </div>
-                                                    <p class="price">
-                                                        <span class="price-new">${{ $product->price }}</span>
-
-                                                    </p>
-                                                    <div class="description item-desc hidden">
-                                                        <p>
-                                                            {{ $product->short_description() }}
-                                                        </p>
-                                                    </div>
-                                                    <div class="list-block hidden">
-                                                        <button class="addToCart btn-button" type="button" title="Add to Cart"
-                                                            onclick="cart.add('101', '1');"><i class="fa fa-shopping-basket"></i>
-                                                        </button>
-                                                        <button class="wishlist btn-button" type="button" title="Add to Wish List"
-                                                            onclick="wishlist.add('101');"><i class="fa fa-heart"></i>
-                                                        </button>
-                                                        <button class="compare btn-button" type="button" title="Compare this Product"
-                                                            onclick="compare.add('101');"><i class="fa fa-refresh"></i>
-                                                        </button>
-                                                        <!--quickview-->
-                                                        <a class="iframe-link btn-button quickview quickview_handler visible-lg"
-                                                            href="quickview.html" title="Quick view" data-fancybox-type="iframe"><i
-                                                                class="fa fa-eye"></i></a>
-                                                        <!--end quickview-->
-                                                    </div>
-                                                </div>
-
-                                            </div>
+                                            @for ($i = 1; $i <= $totalStars; $i++)
+                                                <span class="fa fa-stack">
+                                                    <i
+                                                        class="fa fa-star fa-stack-2x {{ $i <= $rating ? '' : 'fa-star-o' }}"></i>
+                                                </span>
+                                            @endfor
                                         </div>
+                                        <span class="rating-num">( {{ $product->commentable->count() }} )</span>
+                                    </div>
+                                    <h4><a href="{{ route('shop_details', app()->getlocale() === 'ar' ? $product->slug_ar : $product->slug_en) }}" title="Pastrami bacon"
+                                            target="_self">{{ $product->name() }}</a></h4>
+
+                                </div>
+                                <p class="price">
+                                    <span class="price-new">${{ $product->price }}</span>
+
+                                </p>
+                                <div class="description item-desc ">
+                                    <p>
+                                        {{ $product->short_description() }}
+                                    </p>
+                                </div>
+                                 <div class="so-quickview">
+
+
+                                    <button type="button" data-toggle="modal" data-target="#addToCart{{$product->id}}" class="addToCart" title="Add to cart">
+                                        <span>Add to cart </span>
+                                    </button>
+                               
+
+
+                                    <button type="button" data-toggle="modal" data-target="#addTowishlist{{$product->id}}" class="addToCart" title="Add to cart">
+                                        <!--<span>Add to Wishlist </span>-->
+                                        <i class="fa-regular fa-heart"></i>
+                                    </button>
+
+
+
+                                    <button type="button" data-toggle="modal" data-target="#addTocomparisons{{$product->id}}" class="addToCart" title="Add to cart">
+                                        <!--<span>Compare this  Product </span>-->
+                                        <i class="fa fa-refresh"></i>
+                                    </button>
+
+                             
+                                </div>
+                                <!--<div class="list-block ">-->
+                                <!--    <button class="addToCart btn-button" type="button" title="Add to Cart"-->
+                                <!--        onclick="cart.add('101', '1');"><i class="fa fa-shopping-basket"></i>-->
+                                <!--    </button>-->
+                                <!--    <button class="wishlist btn-button" type="button" title="Add to Wish List"-->
+                                <!--        onclick="wishlist.add('101');"><i class="fa fa-heart"></i>-->
+                                <!--    </button>-->
+                                <!--    <button class="compare btn-button" type="button"-->
+                                <!--        title="Compare this Product" onclick="compare.add('101');"><i-->
+                                <!--            class="fa fa-refresh"></i>-->
+                                <!--    </button>-->
+                                <!--    quickview-->
+                                <!--    <a class="iframe-link btn-button quickview quickview_handler visible-lg"-->
+                                <!--        href="quickview.html" title="Quick view" data-fancybox-type="iframe"><i-->
+                                <!--            class="fa fa-eye"></i></a>-->
+                                <!--    end quickview-->
+                                <!--</div>-->
+                            </div>
+
+                        </div>
+                                             
+
+                    </div>
 
                     @endforeach
-
-
+                 
+                   
 
                 </div>
                 <!--// End Changed listings-->
@@ -273,18 +283,18 @@ Products
 @foreach ($products as $product)
 
 
-    <div class="modal fade" id="addToCart{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add To Cart</h4>
-                </div>
-                <div class="modal-body">
+<div class="modal fade" id="addToCart{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add To Cart</h4>
+            </div>
+            <div class="modal-body">
+                
 
-
-
+      
                     <form action="{{route('addTocart')}}" method="post">
                         @csrf
 
@@ -304,120 +314,118 @@ Products
                         </div>
                     </form>
 
+                
 
-
-                </div>
 
             </div>
+         
         </div>
     </div>
+</div>
 
 
 
-    <div class="modal fade" id="addTowishlist{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add To wishlists</h4>
-                </div>
-                <div class="modal-body">
+<div class="modal fade" id="addTowishlist{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add To wishlists</h4>
+            </div>
+            <div class="modal-body">
+                
 
+                @if (auth_user())
+                    <form action="{{route('addTowishlists')}}" method="post">
+                        @csrf
 
-                    @if (auth_user())
-                        <form action="{{route('addTowishlists')}}" method="post">
-                            @csrf
+                        <input type="hidden" name="product_id" value="{{$product->id}}">
 
-                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                        <div class="row">
+                            <div class="col">
+                                <label>Are you sure you want to add this product to your Wishlist? {{$product->name()}}</label>
 
-                            <div class="row">
-                                <div class="col">
-                                    <label>Are you sure you want to add this product to your Wishlist?
-                                        {{$product->name()}}</label>
-
-                                </div>
                             </div>
+                        </div>
 
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
 
                     @else
 
-                        <label>You must log in first.</label>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <a href="{{route('login')}}" class="btn btn-primary">Login</a>
-                        </div>
+                    <label>You must log in first.</label>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <a href="{{route('login')}}" class="btn btn-primary">Login</a>
+                    </div>
 
-                    @endif
-
-                </div>
+                @endif
 
             </div>
+         
         </div>
     </div>
+</div>
 
 
-    <div class="modal fade" id="addTocomparisons{{$product->id}}" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add To comparisons</h4>
-                </div>
-                <div class="modal-body">
+<div class="modal fade" id="addTocomparisons{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add To comparisons</h4>
+            </div>
+            <div class="modal-body">
+                
 
+                @if (auth_user())
+                    <form action="{{route('addToComparisons')}}" method="post">
+                        @csrf
 
-                    @if (auth_user())
-                        <form action="{{route('addToComparisons')}}" method="post">
-                            @csrf
+                        <input type="hidden" name="product_id" value="{{$product->id}}">
 
-                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                        <div class="row">
+                            <div class="col">
+                                <label>Are you sure you want to add this product to your comparisons? {{$product->name()}}</label>
 
-                            <div class="row">
-                                <div class="col">
-                                    <label>Are you sure you want to add this product to your comparisons?
-                                        {{$product->name()}}</label>
-
-                                </div>
                             </div>
+                        </div>
 
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
 
                     @else
 
-                        <label>You must log in first.</label>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <a href="{{route('login')}}" class="btn btn-primary">Login</a>
-                        </div>
+                    <label>You must log in first.</label>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <a href="{{route('login')}}" class="btn btn-primary">Login</a>
+                    </div>
 
-                    @endif
-
-                </div>
+                @endif
 
             </div>
+         
         </div>
     </div>
+</div>
 @endforeach
 
 @endsection
 
 @section('js')
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         let minPrice = parseFloat("{{ request()->min_price ?? '10.00' }}");
         let maxPrice = parseFloat("{{ request()->max_price ?? '5000.00' }}");
 
@@ -426,14 +434,14 @@ Products
             min: 10,
             max: 5000,
             values: [minPrice, maxPrice],
-            slide: function (event, ui) {
+            slide: function(event, ui) {
                 $(".min_val").text("$" + ui.values[0].toFixed(2));
                 $(".max_val").text("$" + ui.values[1].toFixed(2));
 
                 $("#price_min").val(ui.values[0].toFixed(2));
                 $("#price_max").val(ui.values[1].toFixed(2));
             },
-            stop: function () {
+            stop: function() {
                 $("#filtersForm").submit();
             }
         });

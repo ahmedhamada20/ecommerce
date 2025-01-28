@@ -240,14 +240,14 @@
                     <!--//cart-->
 
                     <ul class="wishlist-comp hidden-md hidden-sm hidden-xs">
-                        @if (auth_user())
+  
                             <li class="compare hidden-xs"><a href="{{route('user_comparisons')}}" class="top-link-compare"
                                     title="Compare "><i class="fa fa-refresh"></i></a>
                             </li>
                             <li class="wishlist hidden-xs"><a href="{{ route('user_wishlists') }}" id="wishlist-total"
                                     class="top-link-wishlist" title="Wish List (0) "><i class="fa fa-heart"></i></a>
                             </li>
-                        @endif
+       
                     </ul>
 
 

@@ -22,7 +22,7 @@
                             <div class="col-sm-12">
                                 <div class="banners">
                                     <div>
-                                        <a href="#"><img src="{{ asset('storage/' . $category?->photo?->filename) }}"
+                                        <a href="{{route('shop')}}"><img src="{{ asset('storage/' . $category?->photo?->filename) }}"
                                                 alt="img cate"><br></a>
                                     </div>
                                 </div>
@@ -101,13 +101,9 @@
                                         </div>
                                         <!--quickview-->
                                         <div class="so-quickview">
-
-
-
-
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="##exampleModal{{$product->id }}">
-                                                <i class="fa fa-eye"></i><span>Quick view</span>
+                                            <button type="button" class=" iframe-link btn-button quickview quickview_handler visible-lg" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal{{$product->id }}">
+                                                <i class="fa fa-eye"></i>
                                             </button>
                                             @include('front.products.show_model')
                                         </div>
@@ -124,13 +120,15 @@
 
 
                                             <button type="button" data-toggle="modal" data-target="#addTowishlist{{$product->id}}" class="addToCart" title="Add to cart">
-                                                <span>Add to Wishlist </span>
+                                                <i class="fa-regular fa-heart"></i>
+                                                <!--<span>Add to Wishlist </span>-->
                                             </button>
 
 
 
                                             <button type="button" data-toggle="modal" data-target="#addTocomparisons{{$product->id}}" class="addToCart" title="Add to cart">
-                                                <span>Compare this  Product </span>
+                                                <!--<span>Compare this  Product </span>-->
+                                                <i class="fa fa-retweet"></i>
                                             </button>
 
                                         </div>
@@ -269,7 +267,7 @@
                                         <div class="product-layout item-inner style1 ">
                                             <div class="item-image">
                                                 <div class="item-img-info">
-                                                    <a href="#" target="_self" title="Mandouille short ">
+                                                    <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->slug_ar : $row->slug_en) }}" target="_self" title="Mandouille short ">
                                                         <img src="{{ asset('storage/' . $row?->photo?->filename) }}"
                                                             alt="Mandouille short">
                                                     </a>
@@ -278,7 +276,7 @@
                                             </div>
                                             <div class="item-info">
                                                 <div class="item-title">
-                                                    <a href="#" target="_self"
+                                                    <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->slug_ar : $row->slug_en) }}" target="_self"
                                                         title="Mandouille short">{{ $row->name() }} </a>
                                                 </div>
                                                 <div class="rating">
@@ -328,18 +326,18 @@
     @foreach ($products as $product)
 
 
-    <div class="modal fade" id="addToCart{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add To Cart</h4>
-                </div>
-                <div class="modal-body">
+<div class="modal fade" id="addToCart{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add To Cart</h4>
+            </div>
+            <div class="modal-body">
+                
 
-
-
+         
                     <form action="{{route('addTocart')}}" method="post">
                         @csrf
 
@@ -359,13 +357,14 @@
                         </div>
                     </form>
 
+                    
 
-
-                </div>
 
             </div>
+         
         </div>
     </div>
+</div>
 
 
 
@@ -463,6 +462,7 @@
         </div>
     </div>
 </div>
+
 @endforeach
 @endsection
 

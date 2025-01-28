@@ -51,10 +51,11 @@
                                             <li class="item-vertical  with-sub-menu hover">
                                                 <p class="close-menu"></p>
                                                 <a href="#" class="clearfix">
-                                                    @if($row->photo)
-                                                        <img src="{{asset('storage/' . $row->photo->filename)}}" width="50px"
-                                                            height="50px" alt="icon">
-                                                    @endif
+                                                    <!--@if($row->photo)-->
+                                                    <!--    <img src="{{asset('storage/' . $row->photo->filename)}}" width="50px"-->
+                                                    <!--        height="50px" alt="icon">-->
+                                                    <!--@endif-->
+                                                    <img src="https://demo.smartaddons.com/templates/html/supermarket/image/catalog/menu/icons/ico10.png" alt="icon">
 
                                                     <span>{{$row->name()}}</span>
 
@@ -75,7 +76,7 @@
                     </div>
                 </nav>
             </div>
-            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 main-right">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 main-right">
                 <div class="slider-container row">
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 col2 carosoul-3">
                         <div class="module sohomepage-slider ">
@@ -258,7 +259,7 @@
                     </div>
                 </div>
 
-                <div class="module extra">
+                <div class="module extra" style="margin-top:20px;">
                     <h3 class="modtitle">
                         <span>Recommended</span>
                     </h3>
@@ -2004,35 +2005,38 @@
                         <h4 class="modal-title" id="myModalLabel">Add To Cart</h4>
                     </div>
                     <div class="modal-body">
-    
-    
-    
-                        <form action="{{route('addTocart')}}" method="post">
-                            @csrf
-    
-                            <input type="hidden" name="product_id" value="{{$product->id}}">
-    
-                            <div class="row">
-                                <div class="col">
-                                    <label>Are you sure you want to add this product to your cart? {{$product->name()}}</label>
-    
+
+
+                  
+                            <form action="{{route('addTocart')}}" method="post">
+                                @csrf
+
+                                <input type="hidden" name="product_id" value="{{$product->id}}">
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Are you sure you want to add this product to your cart? {{$product->name()}}</label>
+
+                                    </div>
                                 </div>
-                            </div>
-    
-    
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
-    
-    
-    
+
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+
+         
+
+
+
                     </div>
-    
+
                 </div>
             </div>
         </div>
+
 
 
         <div class="modal fade" id="addTowishlist{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

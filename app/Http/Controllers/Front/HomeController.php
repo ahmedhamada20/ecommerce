@@ -206,13 +206,12 @@ class HomeController extends Controller
     }
     public function viewCart()
     {
-        $data = AddToCart::where('customer_id', auth()->user()->id)->get();
-        return view('front.orders.cart', compact('data'));
+  
+        return view('front.orders.cart');
     }
     public function checkout()
     {
-        $data = AddToCart::where('customer_id', auth()->user()->id)->get();
-        return view('front.orders.checkout', compact('data'));
+        return view('front.orders.checkout' );
     }
 
 
