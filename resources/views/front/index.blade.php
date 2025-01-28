@@ -178,7 +178,8 @@
                 <div class="module">
                     <div class="banners banners2">
                         <div class="banner">
-                            <a href="#"><img src="{{asset('banner')}}" alt="image"></a>
+                            <!--<a href="#"><img src="{{asset('banner')}}" alt="image"></a>-->
+                            <a href="#"><img src="https://demo.smartaddons.com/templates/html/supermarket/image/catalog/banners/banner1.jpg" alt="image"></a>
                         </div>
                     </div>
                 </div>
@@ -250,7 +251,8 @@
                 <div class="module">
                     <div class="policy-w">
                         @if (latest_banners()->photo)
-                        <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>
+                        <!--<a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>-->
+                        <a href="#"><img src="https://demo.smartaddons.com/templates/html/supermarket/image/catalog/banners/call-us.jpg" alt="image"></a>
                     @endif
 
                     </div>
@@ -486,40 +488,40 @@
                                     <div class="media">
 
                                         @if (latest_blogs())
-                                                                                <div class="item item-1">
-                                                                                    <div class="media-left">
-                                                                                        @if(latest_blogs())
-                                                                                            <a href="{{route('home.blog_detail', latest_blogs()->slug)}}"
-                                                                                                target="_self">
-                                                                                                <img src="{{asset('storage/' . latest_blogs()->photo?->filename)}}"
-                                                                                                    alt="Biten demons lector in henderit in vulp"
-                                                                                                    class="media-object">
-                                                                                            </a>
-                                                                                        @endif
-                                                                                    </div>
-                                                                                    <div class="media-body">
-                                                                                        <h4 class="media-heading">
-                                                                                            <a href="{{route('home.blog_detail', latest_blogs()->slug)}}"
-                                                                                                title="{{latest_blogs()->name()}}"
-                                                                                                target="_self">{{latest_blogs()->name()}}
-                                                                                            </a>
-                                                                                        </h4>
-                                                                                        <div class="media-content">
-
-                                                                                            <div class="media-date-added"><i class="fa fa-calendar"></i>
-                                                                                                @php
-                                                                                                    $date = \Carbon\Carbon::parse(latest_blogs()->updated_at);
-                                                                                                @endphp
-                                                                                                <b>{{ $date->format('d') }}</b> {{ $date->format('M') }}
-                                                                                            </div>
-                                                                                            <div class="media-subcontent">
-                                                                                                <span class="media-comment"><i
-                                                                                                        class="fa fa-comments"></i>{{latest_blogs()->count_comments}}
-                                                                                                    Comment</span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
+	                                <div class="item item-1">
+	                                    <div class="media-left">
+	                                        @if(latest_blogs())
+	                                            <a href="{{route('home.blog_detail', latest_blogs()->slug)}}"
+	                                                target="_self">
+	                                                <img src="{{asset('storage/' . latest_blogs()->photo?->filename)}}"
+	                                                    alt="Biten demons lector in henderit in vulp"
+	                                                    class="media-object">
+	                                            </a>
+	                                        @endif
+	                                    </div>
+	                                    <div class="media-body">
+	                                        <h4 class="media-heading">
+	                                            <a href="{{route('home.blog_detail', latest_blogs()->slug)}}"
+	                                                title="{{latest_blogs()->name()}}"
+	                                                target="_self">{{latest_blogs()->name()}}
+	                                            </a>
+	                                        </h4>
+	                                        <div class="media-content">
+	
+	                                            <div class="media-date-added"><i class="fa fa-calendar"></i>
+	                                                @php
+	                                                    $date = \Carbon\Carbon::parse(latest_blogs()->updated_at);
+	                                                @endphp
+	                                                <b>{{ $date->format('d') }}</b> {{ $date->format('M') }}
+	                                            </div>
+	                                            <div class="media-subcontent">
+	                                                <span class="media-comment"><i
+	                                                        class="fa fa-comments"></i>{{latest_blogs()->count_comments}}
+	                                                    Comment</span>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
                                         @endif
 
 
@@ -570,33 +572,33 @@
                 </div> --}}
 
 
-                <div class="module">
-                    <div class="banners banners5">
-                        <div class="banner">
-                            @if (latest_banners()->photo)
-                            <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>
-                        @endif
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="module">-->
+                <!--    <div class="banners banners5">-->
+                <!--        <div class="banner">-->
+                <!--            @if (latest_banners()->photo)-->
+                <!--            <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>-->
+                <!--        @endif-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
             </div>
             <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12 main-right">
 
 
-                <div class="static-cates">
-                    <ul>
-                        @foreach (get_models('Category', ['active' => '1']) as $row)
-                            @if($row->photo)
-                                <li>
-                                    <a href="{{ route('category', $row->slug) }}"><img
-                                            src="{{asset('storage/' . $row->photo->filename)}}" alt="image"></a>
-                                </li>
-                            @endif
-                        @endforeach
+                <!--<div class="static-cates">-->
+                <!--    <ul>-->
+                <!--        @foreach (get_models('Category', ['active' => '1']) as $row)-->
+                <!--            @if($row->photo)-->
+                <!--                <li>-->
+                <!--                    <a href="{{ route('category', $row->slug) }}"><img-->
+                <!--                            src="{{asset('storage/' . $row->photo->filename)}}" alt="image"></a>-->
+                <!--                </li>-->
+                <!--            @endif-->
+                <!--        @endforeach-->
 
 
-                    </ul>
-                </div>
+                <!--    </ul>-->
+                <!--</div>-->
 
                 {{-- <!-- Deals -->
                 <div class="module deals-layout1">
@@ -1191,35 +1193,46 @@
                     </div>
                 </div>
                 <!-- End Deals --> --}}
+                 <div class="banners3 banners" style="margin-top:25px;">
+                            <div class="item1">
+                                <a href="#"><img src="https://demo.smartaddons.com/templates/html/supermarket/image/catalog/banners/banner3.jpg" alt="image"></a>
+                            </div>
+                            <div class="item2">
+                                <a href="#"><img src="https://demo.smartaddons.com/templates/html/supermarket/image/catalog/banners/banner4.jpg" alt="image"></a>
+                            </div>
+                            <div class="item3">
+                                <a href="#"><img src="https://demo.smartaddons.com/templates/html/supermarket/image/catalog/banners/banner5.jpg" alt="image"></a>
+                            </div>
+                        </div>
 
                 <!-- Banners -->
-                <div class="banners3 banners">
+                <!--<div class="banners3 banners">-->
 
-                    @if (latest_banners()->photo)
-                        <div class="item1">
-                            <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>
-                        </div>
-                    @endif
+                <!--    @if (latest_banners()->photo)-->
+                <!--        <div class="item1">-->
+                <!--            <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>-->
+                <!--        </div>-->
+                <!--    @endif-->
 
-                    @if (latest_banners()->photo)
-                        <div class="item2">
-                            <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>
-                        </div>
-                    @endif
+                <!--    @if (latest_banners()->photo)-->
+                <!--        <div class="item2">-->
+                <!--            <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>-->
+                <!--        </div>-->
+                <!--    @endif-->
 
-                    @if (latest_banners()->photo)
-                        <div class="item2">
-                            <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>
-                        </div>
-                    @endif
+                <!--    @if (latest_banners()->photo)-->
+                <!--        <div class="item2">-->
+                <!--            <a href="#"><img src="{{asset('storage/' . latest_banners()->photo?->filename)}}" alt="image"></a>-->
+                <!--        </div>-->
+                <!--    @endif-->
 
 
-                </div>
+                <!--</div>-->
                 <!-- end Banners -->
 
                 @foreach (get_category() as $row)
 
-                            <div id="so_category_slider_1" class="so-category-slider container-slider module cateslider1">
+                            <div id="so_category_slider_1" class="so-category-slider container-slider module cateslider1 mt-3">
                                 <div class="modcontent">
                                     <div class="page-top">
                                         <div class="page-title-categoryslider">{{$row->name()}}</div>
@@ -1236,6 +1249,11 @@
                                     </div>
 
                                     <div class="categoryslider-content">
+                                        <div class="item-cat-image" style="min-height: 351px;">
+                                        <a href="#" title="Technology" target="_self">
+                                  <img class="categories-loadimage" alt="Technology" src="https://demo.smartaddons.com/templates/html/supermarket/image/catalog/demo/category/tab2.jpg">
+                                </a>
+                                    </div>
 
                                         <div class="slider category-slider-inner products-list yt-content-slider" data-rtl="yes"
                                             data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="30"
@@ -1264,9 +1282,9 @@
                                                                                         <!--quickview-->
                                                                                         <div class="">
 
-                                                                                            <button type="button" class="btn btn-primary btn-lg"
+                                                                                            <button type="button" class="btn btn-primary btn-lg iframe-link btn-button quickview quickview_handler visible-lg"
                                                                                                 data-toggle="modal" data-target="#myModal{{$product->id}}">
-                                                                                                oulick view
+                                                                          <i class="fa fa-eye"></i>                      <!--oulick view-->
                                                                                             </button>
 
 
@@ -1286,13 +1304,13 @@
 
 
                                                                                             <button type="button" data-toggle="modal" data-target="#addTowishlist{{$product->id}}" class="addToCart" title="Add to cart">
-                                                                                                <span>Add to Wishlist </span>
+                                                         <i class="fa-regular fa-heart"></i>                                       
                                                                                             </button>
 
 
 
                                                                                             <button type="button" data-toggle="modal" data-target="#addTocomparisons{{$product->id}}" class="addToCart" title="Add to cart">
-                                                                                                <span>Compare this  Product </span>
+                                                                                                <i class="fa fa-retweet"></i>
                                                                                             </button>
 
 
@@ -1986,45 +2004,35 @@
                         <h4 class="modal-title" id="myModalLabel">Add To Cart</h4>
                     </div>
                     <div class="modal-body">
-
-
-                        @auth
-                            <form action="{{route('addTocart')}}" method="post">
-                                @csrf
-
-                                <input type="hidden" name="product_id" value="{{$product->id}}">
-
-                                <div class="row">
-                                    <div class="col">
-                                        <label>Are you sure you want to add this product to your cart? {{$product->name()}}</label>
-
-                                    </div>
+    
+    
+    
+                        <form action="{{route('addTocart')}}" method="post">
+                            @csrf
+    
+                            <input type="hidden" name="product_id" value="{{$product->id}}">
+    
+                            <div class="row">
+                                <div class="col">
+                                    <label>Are you sure you want to add this product to your cart? {{$product->name()}}</label>
+    
                                 </div>
-
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </form>
-
-                            @else
-
-
-                            <label>You must log in first.</label>
+                            </div>
+    
+    
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <a href="{{route('login')}}" class="btn btn-primary">Login</a>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
-                        @endauth
-
-
+                        </form>
+    
+    
+    
                     </div>
-
+    
                 </div>
             </div>
         </div>
-
 
 
         <div class="modal fade" id="addTowishlist{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

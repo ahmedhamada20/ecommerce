@@ -6,7 +6,7 @@
 <meta name="description" content="SuperMarket is a powerful Multi-purpose HTML5 Template with clean and user friendly design. It is definite a great starter for any eCommerce web project." />
 <meta name="author" content="Magentech">
 <meta name="robots" content="index, follow" />
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Mobile specific metas
 ============================================ -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Hyperlink;
 use App\Models\Photo;
+use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\User;
@@ -180,6 +181,26 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
         ]);
         return redirect()->back()->with('success', 'Add new user  successfully.');
+    }
+
+
+    public function updatePrice(Request $request, $productId){
+        $product = Product::find($productId);
+        if (!$product) {
+            return response()->json(['success' => false]);
+        }
+    
+        $quantity = $request->input('quantity');
+        $discountPrice = $product->discount_price * $quantity;
+        $originalPrice = $product->price * $quantity;
+    
+        return response()->json([
+            'success' => true,
+            'newPrice' => [
+                'discount' => number_format($discountPrice, 2),
+                'original' => number_format($originalPrice, 2)
+            ]
+        ]);
     }
 
 }

@@ -7,9 +7,11 @@ use App\Models\AddToCart;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Comparison;
+use App\Models\Crm;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Wishlist;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -186,6 +188,17 @@ class HomeController extends Controller
     {
         return view('front.contactUs.index');
     }
+    public function post_contactUs(Request $request)
+    {
+        Crm::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'enquiry' => $request->enquiry,
+        ]);
+        return redirect()->back()
+            ->with('success', "Add  successfully");
+    }
 
     public function aboutsUs()
     {
@@ -193,31 +206,24 @@ class HomeController extends Controller
     }
     public function viewCart()
     {
-        $data = AddToCart::where('customer_id',auth()->user()->id)->get();
-        return view('front.orders.cart',compact('data'));
+        $data = AddToCart::where('customer_id', auth()->user()->id)->get();
+        return view('front.orders.cart', compact('data'));
     }
     public function checkout()
     {
-        $data = AddToCart::where('customer_id',auth()->user()->id)->get();
-        return view('front.orders.checkout',compact('data'));
+        $data = AddToCart::where('customer_id', auth()->user()->id)->get();
+        return view('front.orders.checkout', compact('data'));
     }
 
 
     public function addTocart(Request $request)
     {
-        $checkProducts = AddToCart::where('customer_id', auth()->user()->id)->where('product_id', $request->product_id)->first();
-        if (!$checkProducts) {
-            AddToCart::create([
-                'customer_id' => auth()->user()->id,
-                'product_id' => $request->product_id,
-            ]);
+        $product = Product::findOrFail($request->product_id);
 
-            return redirect()->back()
-                ->with('success', "Add To Cart successfully");
-        }
+
+        Cart::add($product->id, $product->name(), 1, $product->price)->associate(Product::class);
         return redirect()->back()
-            ->with('success', "The product is already Add");
-
+            ->with('success', "Add To Cart successfully");
     }
     public function addTowishlists(Request $request)
     {
@@ -253,11 +259,29 @@ class HomeController extends Controller
     }
     public function delete_addTocart($id)
     {
-        AddToCart::where('customer_id', auth()->user()->id)->where('product_id', $id)->delete();
 
+
+
+
+
+        Cart::remove($id);
         return redirect()->back()
-            ->with('success', "Deleted  successfully");
+            ->with('success', "Add To Cart successfully");
 
+
+    }
+
+
+    public function updateQuantity(Request $request, $id)
+    {
+        dd($id);
+        $quantity = $request->input('quantity');
+
+        $cartItem = Cart::get($id);
+        Cart::update($id, $quantity);
+
+        $totalPrice = Cart::get($id)->price * $quantity;
+        return response()->json(['totalPrice' => $totalPrice]);
     }
     public function delete_wishlists($id)
     {

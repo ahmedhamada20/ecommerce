@@ -4,7 +4,8 @@ use App\Http\Controllers\Admin\GoogleAuthController;
 use App\Http\Controllers\Front\HomeController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,10 +32,23 @@ Route::group(
         Route::get('/shop', [HomeController::class, 'products'])->name('shop');
         Route::get('/shop/{slug}', [HomeController::class, 'products_details'])->name('shop_details');
         Route::get('/contactUs', [HomeController::class, 'contactUs'])->name('contactUs');
+        Route::post('/post_contactUs', [HomeController::class, 'post_contactUs'])->name('post_contactUs');
         Route::get('/aboutsUs', [HomeController::class, 'aboutsUs'])->name('aboutsUs');
         Route::get('/viewCart', [HomeController::class, 'viewCart'])->name('viewCart');
         Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
         Route::post('/addTocart', [HomeController::class, 'addTocart'])->name('addTocart');
+
+
+        Route::post('/cart/update/{rowId}', function (Request $request, $rowId) {
+            $quantity = $request->quantity;  
+            Cart::update($rowId, $quantity);
+            $item = Cart::get($rowId);
+            $totalPrice = $item->price * $item->qty;
+                    return response()->json([
+                'totalPrice' => number_format($totalPrice, 2)
+            ]);
+        })->name('updateCartQuantity');
+        
         Route::post('/addTowishlists', [HomeController::class, 'addTowishlists'])->name('addTowishlists');
         Route::post('/addToComparisons', [HomeController::class, 'addToComparisons'])->name('addToComparisons');
         Route::get('/delete/cart/{id}', [HomeController::class, 'delete_addTocart'])->name('delete_addTocart');

@@ -12,11 +12,12 @@
                     <ul class="top-link list-inline hidden-lg ">
                         <li class="account" id="my_account">
                             @if (auth_user())
-                            <a href="{{route('user_')}}" title="My Account " class="btn-xs dropdown-toggle" data-toggle="dropdown">
-                                <span class="hidden-xs">My Account </span> <span class="fa fa-caret-down"></span>
-                            </a>
+                                <a href="{{route('user_')}}" title="My Account " class="btn-xs dropdown-toggle"
+                                    data-toggle="dropdown">
+                                    <span class="hidden-xs">My Account </span> <span class="fa fa-caret-down"></span>
+                                </a>
                             @endif
-                           
+
                             <ul class="dropdown-menu ">
                                 <li><a href="{{route('register')}}"><i class="fa fa-user"></i> Register</a></li>
                                 <li><a href="{{route('login')}}"><i class="fa fa-pencil-square-o"></i> Login</a></li>
@@ -45,7 +46,7 @@
                             <div class="btn-group languages-block ">
 
                                 <a class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                    {{--                                    {{asset('front/image/catalog/flags/gb.png')}} --}}
+                                    {{-- {{asset('front/image/catalog/flags/gb.png')}} --}}
                                     @if (app()->getLocale() === 'ar')
                                         <img src="{{ asset('front/image/catalog/flags/ar.png') }} "
                                             alt="{{ app()->getLocale() }}" title="{{ app()->getLocale() }}">
@@ -65,13 +66,11 @@
                                                 @if ($localeCode == 'ar')
                                                     <img class="image_flag"
                                                         src="{{ asset('front/image/catalog/flags/ar.png') }}"
-                                                        alt="{{ $properties['native'] }}"
-                                                        title="{{ $properties['native'] }}" />
+                                                        alt="{{ $properties['native'] }}" title="{{ $properties['native'] }}" />
                                                 @else
                                                     <img class="image_flag"
                                                         src="{{ asset('front/image/catalog/flags/gb.png') }}"
-                                                        alt="{{ $properties['native'] }}"
-                                                        title="{{ $properties['native'] }}" />
+                                                        alt="{{ $properties['native'] }}" title="{{ $properties['native'] }}" />
                                                 @endif
 
 
@@ -125,8 +124,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <input class="autosearch-input form-control" type="text" value=""
-                                        size="50" autocomplete="off" placeholder="Keyword here..." name="search">
+                                    <input class="autosearch-input form-control" type="text" value="" size="50"
+                                        autocomplete="off" placeholder="Keyword here..." name="search">
                                     <button type="submit" class="button-search btn btn-primary" name="submit_search"><i
                                             class="fa fa-search"></i></button>
                                 </div>
@@ -153,21 +152,17 @@
                                             My cart
                                         </p>
 
-                                        @if (auth_user())
                                         <span class="total-shopping-cart cart-total-full">
-                                            <span class="items_cart">{{ get_products()->count() ?? 0 }}</span><span
+                                            <span class="items_cart">{{ Cart::count() ?? 0 }}</span><span
                                                 class="items_cart2">
                                                 item(s)</span><span class="items_carts">
 
-                                                    {{ get_products()->sum(function ($cartItem) {
-                                                        return $cartItem->product->price ?? 0;
-                                                    }) }}
-                                                    
-                                            
+                                               
+
                                             </span>
                                         </span>
-                                        @endif
-                                        
+
+
                                     </div>
                                 </div>
                             </a>
@@ -176,34 +171,35 @@
                                 <li>
                                     <table class="table table-striped">
                                         <tbody>
-                                            @if (auth_user())
-                                                     @foreach (get_products() as $row)
+
+                                            @foreach (Cart::content() as $row)
+                                          
                                                 <tr>
                                                     <td class="text-center" style="width:70px">
                                                         <a
-                                                            href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->product->slug_ar : $row->product->slug_en) }}">
-                                                            <img src="{{ asset('storage/' . $row->product?->photo?->filename) }}"
+                                                            href="{{ route('shop_details', app()->getlocale() === 'ar' ? $row->model->slug_ar : $row->model->slug_en) }}">
+                                                            <img src="{{ asset('storage/' . $row->model?->photo?->filename) }}"
                                                                 style="width:70px" alt="Yutculpa ullamcon"
                                                                 title="Yutculpa ullamco" class="preview">
                                                         </a>
                                                     </td>
-                                                    <td class="text-left"><a class="cart_product_name"
-                                                            href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->product->slug_ar : $row->product->slug_en) }}">{{ $row->product->name() }}</a>
+                                                    <td class="text-left"><a class="cart_Product_name"
+                                                            href="{{ route('shop_details', app()->getlocale() === 'ar' ? $row->model->slug_ar : $row->model->slug_en) }}">{{ $row->model->name() }}</a>
                                                     </td>
-                                                    <td class="text-center">x1</td>
-                                                    <td class="text-center">${{ $row->product->price }}</td>
+                                                    <td class="text-center">x{{$row->qty}}</td>
+                                                    <td class="text-center">${{ $row->model->price }}</td>
                                                     <td class="text-right">
-                                                        <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->product->slug_ar : $row->product->slug_en) }}"
+                                                        <a href="{{ route('shop_details', app()->getlocale() === 'ar' ? $row->model->slug_ar : $row->model->slug_en) }}"
                                                             class="fa fa-edit"></a>
                                                     </td>
                                                     <td class="text-right">
-                                                        <a href="{{route('delete_addTocart',$row->product->id)}}"
+                                                        <a href="{{route('delete_addTocart', $row->rowId)}}"
                                                             class="fa fa-times fa-delete"></a>
                                                     </td>
                                                 </tr>
-                                            @endforeach 
-                                            @endif
-                                      
+                                            @endforeach
+
+
 
 
                                         </tbody>
@@ -214,26 +210,24 @@
                                         <table class="table table-bordered">
                                             <tbody>
 
-                                                @if (auth_user())
-                                                <tr>
-                                                    <td class="text-left"><strong>Total</strong>
-                                                    </td>
-                                                    <td class="text-right">${{ get_products()->sum(function ($cartItem) {
-                                                        return $cartItem->product->price ?? 0;
-                                                    }) }}
-                                                    </td>
-                                                </tr>
-                                                @endif
-                                              
+                                           
+                                                                                                <tr>
+                                                                                                    <td class="text-left"><strong>Total</strong>
+                                                                                                    </td>
+                                                                                                    <td class="text-right">$
+                                                                                                        {{Cart::subtotal()}}
+                                                                                                    </td>
+                                                                                                </tr>
+                                         
+
                                             </tbody>
                                         </table>
-                                        @if (auth_user())
-                                            <p class="text-right"><a class="btn view-cart"
-                                                    href="{{ route('viewCart') }}"><i
+                                   
+                                            <p class="text-right"><a class="btn view-cart" href="{{ route('viewCart') }}"><i
                                                         class="fa fa-shopping-cart"></i>View
                                                     Cart</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart"
                                                     href="{{route('checkout')}}"><i class="fa fa-share"></i>Checkout</a>
-                                        @endif
+                                      
 
 
                                         </p>
@@ -247,12 +241,12 @@
 
                     <ul class="wishlist-comp hidden-md hidden-sm hidden-xs">
                         @if (auth_user())
-                        <li class="compare hidden-xs"><a href="{{route('user_comparisons')}}" class="top-link-compare" title="Compare "><i
-                                    class="fa fa-refresh"></i></a>
-                        </li>
-                        <li class="wishlist hidden-xs"><a href="{{ route('user_wishlists') }}" id="wishlist-total"
-                                class="top-link-wishlist" title="Wish List (0) "><i class="fa fa-heart"></i></a>
-                        </li>
+                            <li class="compare hidden-xs"><a href="{{route('user_comparisons')}}" class="top-link-compare"
+                                    title="Compare "><i class="fa fa-refresh"></i></a>
+                            </li>
+                            <li class="wishlist hidden-xs"><a href="{{ route('user_wishlists') }}" id="wishlist-total"
+                                    class="top-link-wishlist" title="Wish List (0) "><i class="fa fa-heart"></i></a>
+                            </li>
                         @endif
                     </ul>
 
@@ -384,16 +378,18 @@
                         <ul class="blank">
 
                             <li>
-                                <a href="#"><i class="fa fa-phone-square"></i> {{ isset(get_settings()['phone'] )  ? get_settings()['phone'] : ''}}
-                            
-                            </a>
-                        </li>
+                                <a href="#"><i class="fa fa-phone-square"></i>
+                                    {{ isset(get_settings()['phone']) ? get_settings()['phone'] : ''}}
+
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="signin-w hidden-md hidden-sm hidden-xs">
                         <ul class="signin-link blank">
                             <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg"
-                                    href="{{route('login')}}">Login </a> or <a href="{{route('register')}}">Register</a></li>
+                                    href="{{route('login')}}">Login </a> or <a href="{{route('register')}}">Register</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

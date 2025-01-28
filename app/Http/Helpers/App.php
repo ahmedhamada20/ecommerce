@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Wishlist;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 if (!function_exists('queryModels')) {
     function queryModels($modelName, $conditions = [], $pagination = null, $withRelations = [])
@@ -308,6 +309,13 @@ if (!function_exists('get_count')) {
         }
 
         throw new Exception("Model {$model} does not exist.");
+    }
+}
+if (!function_exists('get_card')) {
+    function get_card()
+    {
+        // Cart::destroy();
+        return  Cart::content();
     }
 }
 

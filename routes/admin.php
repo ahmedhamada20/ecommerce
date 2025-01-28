@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CouponsController;
+use App\Http\Controllers\Admin\CrmController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\InstallmentsController;
 use App\Http\Controllers\Admin\OrdersController;
@@ -56,6 +57,7 @@ Route::get('/users_index',function (){
         Route::resource('users', UsersController::class);
         Route::resource('addresses', AddressController::class);
         Route::resource('brands', BrandController::class);
+        Route::resource('crm', CrmController::class);
         Route::resource('currencies', CurrencyController::class);
         Route::resource('coupons', CouponController::class);
         Route::resource('categories', CategoryController::class);
@@ -70,6 +72,7 @@ Route::get('/users_index',function (){
         Route::resource('orders', OrdersController::class);
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
+        Route::post('/update-cart/{productId}', [AdminController::class, 'updatePrice'])->name('update-cart');
         Route::post('/update-brand-status', [BrandController::class, 'updateBrandStatus'])->name('updateBrandStatus');
         Route::post('/update-users-status', [UsersController::class, 'updateUsersStatus'])->name('updateUsersStatus');
         Route::post('/update-sliders-status', [SliderController::class, 'updateSlidersStatus'])->name('updateSlidersStatus');

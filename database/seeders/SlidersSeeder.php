@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Photo;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Slider;
@@ -27,6 +28,11 @@ class SlidersSeeder extends Seeder
                 'description_en' => "Long description in English for Slider $i.",
                 'user_id' => $users->random()->id,
             ]);
+
+
+    
         }
+
+
     }
 }

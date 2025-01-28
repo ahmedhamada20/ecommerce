@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Crm;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,9 +39,17 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
-        User::create(array_merge($request->validated(), [
+        $data = User::create(array_merge($request->validated(), [
             'user_id' => auth()->id(),
         ]));
+
+        if($data){
+            Crm::create([
+                'name'=> $request->first_name .''. $request->last_name,
+                'email'=> $request->email,
+                'phone'=> $request->phone,
+            ]);
+        }
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
@@ -92,6 +101,7 @@ class UsersController extends Controller
         $user = User::findOrFail(\request()->id);
         $user->delete();
         return redirect()->route('admin_users.index')->with('success', 'User deleted successfully.');
+   
     }
 
     public function updateUsersStatus(Request $request)

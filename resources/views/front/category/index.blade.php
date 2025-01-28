@@ -328,18 +328,18 @@
     @foreach ($products as $product)
 
 
-<div class="modal fade" id="addToCart{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Add To Cart</h4>
-            </div>
-            <div class="modal-body">
-                
+    <div class="modal fade" id="addToCart{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add To Cart</h4>
+                </div>
+                <div class="modal-body">
 
-                @if (auth_user())
+
+
                     <form action="{{route('addTocart')}}" method="post">
                         @csrf
 
@@ -359,21 +359,13 @@
                         </div>
                     </form>
 
-                    @else
 
-                    <label>You must log in first.</label>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <a href="{{route('login')}}" class="btn btn-primary">Login</button>
-                    </div>
 
-                @endif
+                </div>
 
             </div>
-         
         </div>
     </div>
-</div>
 
 
 
@@ -413,7 +405,7 @@
                     <label>You must log in first.</label>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <a href="{{route('login')}}" class="btn btn-primary">Login</button>
+                        <a href="{{route('login')}}" class="btn btn-primary">Login</a>
                     </div>
 
                 @endif
@@ -461,7 +453,7 @@
                     <label>You must log in first.</label>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <a href="{{route('login')}}" class="btn btn-primary">Login</button>
+                        <a href="{{route('login')}}" class="btn btn-primary">Login</a>
                     </div>
 
                 @endif
