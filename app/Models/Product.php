@@ -44,6 +44,11 @@ class Product extends Model
     ];
 
 
+    public function attribute()
+    {
+        return $this->belongsTo(ProductAttributes::class,'product_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class,'user_id');
@@ -97,6 +102,10 @@ class Product extends Model
     public function photo()
     {
         return $this->morphOne(Photo::class, 'photoable');
+    }
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, 'photoable');
     }
 
     public function commentable()
