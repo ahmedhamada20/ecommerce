@@ -88,6 +88,10 @@ class Product extends Model
     {
         return App::getLocale() == "ar" ? $this->short_description_ar : $this->short_description_en;
     }
+    public function description()
+    {
+        return App::getLocale() == "ar" ? $this->description_ar : $this->description_en;
+    }
 
 
     public function photo()
