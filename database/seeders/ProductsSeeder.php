@@ -16,12 +16,11 @@ class ProductsSeeder extends Seeder
 {
     public function run(): void
     {
-
-
         Schema::disableForeignKeyConstraints();
         DB::table('products')->truncate();
         DB::table('photos')->truncate();
         Schema::enableForeignKeyConstraints();
+
         $tags = Tag::all();
         $coupons = Coupon::all();
         $categories = Category::all();
@@ -60,26 +59,28 @@ class ProductsSeeder extends Seeder
             ];
         }
 
+        foreach ($products as $productData) {
+            // إنشاء المنتج في قاعدة البيانات
+            $newProduct = Product::create($productData);
 
-        foreach ($products as $product) {
-            $new = Product::create($product);
-
+            // إضافة صورة افتراضية للمنتج
             Photo::create([
                 'filename' => "products/" . rand(1, 7) . ".jpg",
-                'photoable_id' => $new->id,
+                'photoable_id' => $newProduct->id,
                 'photoable_type' => Product::class,
             ]);
-            $new->tags()->attach(
-                $tags->random(rand(1, 3))->pluck('id')->toArray()
-            );
 
-            $new->categories()->attach(
-                $categories->random(rand(1, 3))->pluck('id')->toArray()
-            );
+            // إرفاق الوسوم بعد إنشاء المنتج
+            $randomTags = $tags->random(rand(1, 3))->pluck('id')->toArray();
+            $newProduct->tags()->attach($randomTags);
 
-            $new->coupons()->attach(
-                $coupons->random(rand(1, 3))->pluck('id')->toArray()
-            );
+            // إرفاق الفئات
+            $randomCategories = $categories->random(rand(1, 3))->pluck('id')->toArray();
+            $newProduct->categories()->attach($randomCategories);
+
+            // إرفاق القسائم
+            $randomCoupons = $coupons->random(rand(1, 3))->pluck('id')->toArray();
+            $newProduct->coupons()->attach($coupons->random(rand(1, 3))->pluck('id')->toArray());
         }
     }
 }

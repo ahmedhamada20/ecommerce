@@ -367,8 +367,7 @@ Create New Product
                 <ul id="error-list"></ul>
             </div>
 
-            <form class="product-form" method="post" enctype="multipart/form-data"
-                action="{{route('admin_products.store')}}">
+            <form method="post" enctype="multipart/form-data" action="{{ route('admin_products.store') }}">
                 @csrf
                 <!-- Product Basic Info -->
                 <div class="form-section">
@@ -379,9 +378,8 @@ Create New Product
                         <div class="form-section">
                             <h5>Images</h5>
                             <div class="mb-3">
-                                <label for="images" class="form-label">Upload Images</label>
-                                <input type="file" class="form-control" id="images" name="images[]" multiple
-                                    accept="image/*">
+                        <label class="form-label">Upload Images</label>
+                        <input type="file" class="form-control" name="images[]" multiple>
                                 <div class="image-preview" id="image-preview"></div>
                             </div>
                             <div class="row">
@@ -398,14 +396,12 @@ Create New Product
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="name_ar" class="form-label">Name (AR)</label>
-                            <input type="text" class="form-control" id="name_ar" name="name_ar"
-                                placeholder="Arabic name" required>
+                            <label class="form-label">Name (AR)</label>
+                            <input type="text" class="form-control" name="name_ar" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="name_en" class="form-label">Name (EN)</label>
-                            <input type="text" class="form-control" id="name_en" name="name_en"
-                                placeholder="English name" required>
+                            <label class="form-label">Name (EN)</label>
+                            <input type="text" class="form-control" name="name_en" required>
                         </div>
                     </div>
                     <div class="row">
@@ -520,14 +516,12 @@ Create New Product
                                 placeholder="Height in cm" step="0.01">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="height" class="form-label">price</label>
-                            <input type="number" class="form-control" id="height" name="height" placeholder="price"
-                                step="0.01">
+                            <label class="form-label">Price</label>
+                            <input type="number" class="form-control" name="price" required>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="height" class="form-label">Discount (%)</label>
-                            <input type="number" class="form-control" id="height" name="height"
-                                placeholder="Discount (%)" step="0.01">
+                            <label class="form-label">Discount (%)</label>
+                            <input type="number" class="form-control" name="discount" step="0.01">
                         </div>
                     </div>
                 </div>
@@ -627,14 +621,13 @@ Create New Product
                                 Select Categories
                             </button>
                             <ul class="dropdown-menu" id="categoriesMenu">
-                                @foreach (get_category() as $row)
+                              
                                 <li>
                                     <label>
-                                        <input type="checkbox" name="categories[]" value="{{$row->id}}"> {{$row->name()}}
+                                        <input type="checkbox" name="categories[]" value="">
                                     </label>
                                 </li>
-                                @endforeach
-                               
+                              
                               
                             </ul>
                         </div>
@@ -650,9 +643,9 @@ Create New Product
                         <div class="input-group mb-3">
                             <select class="form-control" name="related_products[]">
                                 <option value="" disabled selected>Select a product</option>
-                                @foreach ($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->name() }}</option>
-                                @endforeach
+                              
+                                    <option value=""></option>
+                                
                             </select>
                             <button class="btn btn-danger remove-related-product" type="button">Remove</button>
                         </div>
@@ -668,9 +661,7 @@ Create New Product
                         <label for="brand" class="form-label">Select a Brand</label>
                         <select id="brand" name="brand" class="form-control">
                             <option value="" disabled selected>Select a brand...</option>
-                            @foreach ($brand as $row)
-                            <option value="{{$row->id}}">{{$row->name()}}</option>
-                            @endforeach
+                            <option value=""></option>
                  
                           
                         </select>
@@ -1059,5 +1050,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.form-control').select2();
+    });
+</script>
 @endsection

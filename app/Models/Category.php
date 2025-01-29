@@ -52,4 +52,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Product::class, 'products_categories');
     }
+
+    public function getNameAttribute()
+{
+    return app()->getLocale() == 'ar' ? $this->name_ar : $this->name_en;
+}
 }
