@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Comment; 
 
 class Product extends Model
 {
@@ -68,5 +69,9 @@ public function coupons()
 public function tags()
 {
     return $this->belongsToMany(Tag::class, 'products_tags');
+}
+public function commentable()
+{
+    return $this->morphMany(Comment::class, 'commentable');
 }
 }

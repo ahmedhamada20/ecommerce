@@ -273,7 +273,7 @@ checkout
 																	title="Aspire Ultrabook Laptop"
 																	class="img-thumbnail" /></a></td>
 														<td class="text-left"><a
-																href="{{ route('shop_details', app()->getlocale() === 'ar' ? $row->model->slug_ar : $row->model->slug_en) }}">{{$row->model->name()}}</a><br />
+																href="{{ route('shop_details', app()->getlocale() === 'ar' ? $row->model->slug_ar : $row->model->slug_en) }}">{{ app()->getLocale() === 'ar' ? $row->model->name_ar : $row->model->name_en }}</a><br />
 														</td>
 														<td class="text-left">{{$row->model->SKU}}</td>
 

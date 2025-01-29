@@ -13,8 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('brand', 'user')->paginate(10);
-        // التحقق من البيانات قبل إرسالها إلى الواجهة
+        $products = Product::with('brand', 'user', 'commentable')->paginate(10);
         // dd($products->toArray());
         return view('admin.products.index', compact('products'));
     }
@@ -57,19 +56,16 @@ class ProductController extends Controller
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
-        // إنشاء المنتج
         $validated['slug_ar'] = $validated['slug_ar'] ?? Str::slug($validated['name_ar']);
         $validated['slug_en'] = $validated['slug_en'] ?? Str::slug($validated['name_en']);
         $validated['user_id'] = auth()->id();
     
         $product = Product::create($validated);
     
-        // ربط الفئات
         if ($request->has('categories')) {
             $product->categories()->sync($request->categories);
         }
     
-        // تخزين الصور
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $filename = time() . '_' . $image->getClientOriginalName();
@@ -78,7 +74,6 @@ class ProductController extends Controller
             }
         }
     
-        // حفظ الألوان
         if ($request->has('colors')) {
             foreach ($request->colors as $color) {
                 $product->colors()->create([
@@ -90,7 +85,6 @@ class ProductController extends Controller
             }
         }
     
-        // حفظ المواصفات
         if ($request->has('specification_name')) {
             foreach ($request->specification_name as $key => $specName) {
                 $product->specifications()->create([
@@ -100,7 +94,6 @@ class ProductController extends Controller
             }
         }
     
-        // حفظ الضرائب
         if ($request->has('tax_names')) {
             foreach ($request->tax_names as $key => $taxName) {
                 $product->taxes()->create([
@@ -110,7 +103,6 @@ class ProductController extends Controller
             }
         }
     
-        // حفظ الكوبونات
         if ($request->has('coupon_names')) {
             foreach ($request->coupon_names as $key => $couponName) {
                 $product->coupons()->create([
@@ -133,7 +125,6 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        // Validate the incoming request data
         $validated = $request->validate([
             'name_ar' => 'required|string|max:255',
             'name_en' => 'required|string|max:255',
@@ -172,28 +163,22 @@ class ProductController extends Controller
             'remove_images.*' => 'exists:images,id', // Assuming images have unique IDs
         ]);
     
-        // Update main product fields
         $validated['slug_ar'] = $validated['slug_ar'] ?? Str::slug($validated['name_ar']);
         $validated['slug_en'] = $validated['slug_en'] ?? Str::slug($validated['name_en']);
         $validated['user_id'] = auth()->id();
     
         $product->update($validated);
     
-        // Sync categories
         $product->categories()->sync($request->categories ?? []);
     
-        // Handle image removals if any
         if ($request->filled('remove_images')) {
             $imagesToRemove = $product->images()->whereIn('id', $request->remove_images)->get();
             foreach ($imagesToRemove as $image) {
-                // Delete the image file from storage
                 \Storage::delete('public/products/' . $image->filename);
-                // Delete the image record from the database
                 $image->delete();
             }
         }
     
-        // Handle new image uploads
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $imageFile) {
                 $filename = time() . '_' . Str::random(10) . '.' . $imageFile->getClientOriginalExtension();
@@ -202,11 +187,9 @@ class ProductController extends Controller
             }
         }
     
-        // Update Colors
         if ($request->has('colors')) {
             foreach ($request->colors as $colorData) {
                 if (isset($colorData['id'])) {
-                    // Update existing color
                     $color = $product->colors()->find($colorData['id']);
                     if ($color) {
                         $color->update([
@@ -217,7 +200,6 @@ class ProductController extends Controller
                         ]);
                     }
                 } else {
-                    // Create new color
                     $product->colors()->create([
                         'code' => $colorData['code'] ?? null,
                         'name' => $colorData['name'] ?? null,
@@ -233,11 +215,9 @@ class ProductController extends Controller
     
         // Update Specifications
         if ($request->has('specification_name')) {
-            // Remove existing specifications
             $product->specifications()->delete();
-            // Create new specifications
             foreach ($request->specification_name as $key => $specName) {
-                if ($specName) { // Ensure specification name is not null
+                if ($specName) { 
                     $product->specifications()->create([
                         'name' => $specName,
                         'value' => $request->specification_value[$key] ?? null,

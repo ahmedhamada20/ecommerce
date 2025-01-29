@@ -184,7 +184,7 @@
                                                         </a>
                                                     </td>
                                                     <td class="text-left"><a class="cart_Product_name"
-                                                            href="{{ route('shop_details', app()->getlocale() === 'ar' ? $row->model->slug_ar : $row->model->slug_en) }}">{{ $row->model->name() }}</a>
+                                                            href="{{ route('shop_details', app()->getlocale() === 'ar' ? $row->model->slug_ar : $row->model->slug_en) }}">{{ app()->getLocale() === 'ar' ? $row->model->name_ar : $row->model->name_en }}</a>
                                                     </td>
                                                     <td class="text-center">x{{$row->qty}}</td>
                                                     <td class="text-center">${{ $row->model->price }}</td>

@@ -150,7 +150,7 @@
                                                 <span class="rating-num">( {{ $product->commentable->count() }} )</span>
                                             </div>
                                             <h4><a href="{{ route('shop_details', app()->getlocale() === 'ar' ? $product->slug_ar : $product->slug_en) }}" title="Pastrami bacon"
-                                                    target="_self">{{ $product->name() }}</a></h4>
+                                                    target="_self">{{app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en;}}</a></h4>
 
                                         </div>
                                         <p class="price">
@@ -159,7 +159,6 @@
                                         </p>
                                         <div class="description item-desc hidden">
                                             <p>
-                                                {{ $product->short_description() }}
                                             </p>
                                         </div>
                                         <div class="list-block hidden">
@@ -277,7 +276,7 @@
                                             <div class="item-info">
                                                 <div class="item-title">
                                                     <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->slug_ar : $row->slug_en) }}" target="_self"
-                                                        title="Mandouille short">{{ $row->name() }} </a>
+                                                        title="Mandouille short">{{app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en;}} </a>
                                                 </div>
                                                 <div class="rating">
                                                     @php
@@ -345,7 +344,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <label>Are you sure you want to add this product to your cart? {{$product->name()}}</label>
+                                <label>Are you sure you want to add this product to your cart? {{app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en;}}</label>
 
                             </div>
                         </div>

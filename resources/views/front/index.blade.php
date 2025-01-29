@@ -57,7 +57,7 @@
                                                     <!--@endif-->
                                                     <img src="https://demo.smartaddons.com/templates/html/supermarket/image/catalog/menu/icons/ico10.png" alt="icon">
 
-                                                    <span>{{$row->name()}}</span>
+                                                    <span>{{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }}</span>
 
                                                 </a>
 
@@ -122,9 +122,9 @@
                                                                                             <div class="item-image">
                                                                                                 <div class="item-img-info">
                                                                                                     <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->slug_ar : $row->slug_en) }}"
-                                                                                                        target="_self" title="{{$row->name()}} ">
+                                                                                                        target="_self" title="{{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }}">
                                                                                                         <img src="{{ asset('storage/' . $row?->photo?->filename) }}"
-                                                                                                            alt="{{$row->name()}}">
+                                                                                                            alt="{{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }}">
                                                                                                     </a>
                                                                                                 </div>
 
@@ -132,7 +132,7 @@
                                                                                             <div class="item-info">
                                                                                                 <div class="item-title">
                                                                                                     <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->slug_ar : $row->slug_en) }}"
-                                                                                                        target="_self" title="{{$row->name()}}">{{$row->name()}}
+                                                                                                        target="_self" title="{{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }}">{{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }}
                                                                                                     </a>
                                                                                                 </div>
                                                                                                 <div class="rating">
@@ -203,9 +203,9 @@
                                                                             <div class="item-image">
                                                                                 <div class="item-img-info">
                                                                                     <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->slug_ar : $row->slug_en) }}"
-                                                                                        target="_self" title="{{$row->name()}} ">
+                                                                                        target="_self" title="{{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }} ">
                                                                                         <img src="{{ asset('storage/' . $row?->photo?->filename) }}"
-                                                                                            alt="{{$row->name()}}">
+                                                                                            alt="{{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }}">
                                                                                     </a>
                                                                                 </div>
 
@@ -213,7 +213,7 @@
                                                                             <div class="item-info">
                                                                                 <div class="item-title">
                                                                                     <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $row->slug_ar : $row->slug_en) }}"
-                                                                                        target="_self" title="{{$row->name()}}">{{$row->name()}}
+                                                                                        target="_self" title="{{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }}">{{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }}
                                                                                     </a>
                                                                                 </div>
                                                                                 <div class="rating">
@@ -1236,7 +1236,7 @@
                             <div id="so_category_slider_1" class="so-category-slider container-slider module cateslider1 mt-3">
                                 <div class="modcontent">
                                     <div class="page-top">
-                                        <div class="page-title-categoryslider">{{$row->name()}}</div>
+                                        <div class="page-title-categoryslider">{{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }}</div>
                                         <div class="item-sub-cat">
                                             <ul>
                                                 @foreach ($row->parents as $category)
@@ -1335,7 +1335,7 @@
                                                                                                     )</span>
                                                                                             </div>
                                                                                             <h4><a href="product.html" title="Pastrami bacon"
-                                                                                                    target="_self">{{$product->name()}}</a></h4>
+                                                                                                    target="_self">{{app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en;}}</a></h4>
 
                                                                                         </div>
                                                                                         <p class="price">
@@ -1947,7 +1947,7 @@
                                             <div class="card-content">
                                                 <h4 class="card-title">
                                                     <a href="{{route('home.blog_detail', $row->slug)}}">
-                                                        {{$row->name()}}
+                                                        {{ app()->getLocale() === 'ar' ? $row->name_ar : $row->name_en }}
                                                     </a>
                                                 </h4>
                                                 <p class="">
@@ -2015,7 +2015,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <label>Are you sure you want to add this product to your cart? {{$product->name()}}</label>
+                                        <label>Are you sure you want to add this product to your cart? {{app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en;}}</label>
 
                                     </div>
                                 </div>
@@ -2058,7 +2058,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <label>Are you sure you want to add this product to your Wishlist? {{$product->name()}}</label>
+                                        <label>Are you sure you want to add this product to your Wishlist? {{app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en;}}</label>
 
                                     </div>
                                 </div>
@@ -2106,7 +2106,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <label>Are you sure you want to add this product to your comparisons? {{$product->name()}}</label>
+                                        <label>Are you sure you want to add this product to your comparisons? {{app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en;}}</label>
 
                                     </div>
                                 </div>
