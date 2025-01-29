@@ -172,7 +172,6 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Jorenvh\Share\Providers\ShareServiceProvider::class,
-        Kreait\Laravel\Firebase\ServiceProvider::class,
     ])->toArray(),
 
     /*

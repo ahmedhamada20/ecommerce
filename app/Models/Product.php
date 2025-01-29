@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Models\Comment; 
+use App\Models\Comment;
+use Google\Service\ShoppingContent\ProductTax;
 
 class Product extends Model
 {
@@ -62,6 +63,10 @@ class Product extends Model
     public function description()
     {
         return App::getLocale() == "ar" ? $this->description_ar : $this->description_en;
+    }
+    public function name()
+    {
+        return App::getLocale() == "ar" ? $this->name_ar : $this->name_en;
     }
 
 
