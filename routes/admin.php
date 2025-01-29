@@ -51,6 +51,7 @@ Route::get('/users_index',function (){
         ], function(){
 
         Route::get('/', [AdminController::class, 'index']);
+        Route::post('/sendNotification', [AdminController::class, 'sendNotification']);
         Route::get('/settings', [AdminController::class, 'settings'])->name('setting');
         Route::post('/settings_update', [AdminController::class, 'settings_update'])->name('settings_update');
         Route::post('/register', [AdminController::class, 'register'])->name('register');

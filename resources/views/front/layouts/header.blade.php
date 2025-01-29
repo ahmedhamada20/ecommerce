@@ -157,7 +157,7 @@
                                                 class="items_cart2">
                                                 item(s)</span><span class="items_carts">
 
-                                               
+
 
                                             </span>
                                         </span>
@@ -173,7 +173,7 @@
                                         <tbody>
 
                                             @foreach (Cart::content() as $row)
-                                          
+
                                                 <tr>
                                                     <td class="text-center" style="width:70px">
                                                         <a
@@ -210,24 +210,24 @@
                                         <table class="table table-bordered">
                                             <tbody>
 
-                                           
-                                                                                                <tr>
-                                                                                                    <td class="text-left"><strong>Total</strong>
-                                                                                                    </td>
-                                                                                                    <td class="text-right">$
-                                                                                                        {{Cart::subtotal()}}
-                                                                                                    </td>
-                                                                                                </tr>
-                                         
+
+                                                <tr>
+                                                    <td class="text-left"><strong>Total</strong>
+                                                    </td>
+                                                    <td class="text-right">$
+                                                        {{Cart::subtotal()}}
+                                                    </td>
+                                                </tr>
+
 
                                             </tbody>
                                         </table>
-                                   
-                                            <p class="text-right"><a class="btn view-cart" href="{{ route('viewCart') }}"><i
-                                                        class="fa fa-shopping-cart"></i>View
-                                                    Cart</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart"
-                                                    href="{{route('checkout')}}"><i class="fa fa-share"></i>Checkout</a>
-                                      
+
+                                        <p class="text-right"><a class="btn view-cart" href="{{ route('viewCart') }}"><i
+                                                    class="fa fa-shopping-cart"></i>View
+                                                Cart</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart"
+                                                href="{{route('checkout')}}"><i class="fa fa-share"></i>Checkout</a>
+
 
 
                                         </p>
@@ -240,14 +240,14 @@
                     <!--//cart-->
 
                     <ul class="wishlist-comp hidden-md hidden-sm hidden-xs">
-  
-                            <li class="compare hidden-xs"><a href="{{route('user_comparisons')}}" class="top-link-compare"
-                                    title="Compare "><i class="fa fa-refresh"></i></a>
-                            </li>
-                            <li class="wishlist hidden-xs"><a href="{{ route('user_wishlists') }}" id="wishlist-total"
-                                    class="top-link-wishlist" title="Wish List (0) "><i class="fa fa-heart"></i></a>
-                            </li>
-       
+
+                        <li class="compare hidden-xs"><a href="{{route('user_comparisons')}}" class="top-link-compare"
+                                title="Compare "><i class="fa fa-refresh"></i></a>
+                        </li>
+                        <li class="wishlist hidden-xs"><a href="{{ route('user_wishlists') }}" id="wishlist-total"
+                                class="top-link-wishlist" title="Wish List (0) "><i class="fa fa-heart"></i></a>
+                        </li>
+
                     </ul>
 
 
@@ -387,9 +387,26 @@
                     </div>
                     <div class="signin-w hidden-md hidden-sm hidden-xs">
                         <ul class="signin-link blank">
+                            @auth
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+    
+                                <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+
                             <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg"
-                                    href="{{route('login')}}">Login </a> or <a href="{{route('register')}}">Register</a>
-                            </li>
+                                href="{{auth()->user()->type == "customer" ? route('user_') : route('admin_')}}">Dashboard </a>
+                        </li>
+                            @else
+                                <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg"
+                                        href="{{route('login')}}">Login </a> or <a href="{{route('register')}}">Register</a>
+                                </li>
+                            @endauth
+
                         </ul>
                     </div>
                 </div>

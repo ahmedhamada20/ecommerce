@@ -2,6 +2,7 @@
 @section('title')
 Products show
 @endsection
+
 <style>
     .addToCart {
         font-size: 12px;
@@ -122,7 +123,10 @@ Products show
                             <div id="product">
                                 <h4>Available Options</h4>
                                 <div style="display: flex;justify-content: space-between;align-items: center;    width: 50%;">
-                                    
+                                    <div class="container mt-4">
+                                        <h2 class="mb-5 text-center">Share </h2>
+                                        {!! $shareComponent !!}
+                                    </div>
                                     
                                     @foreach ($row->attribute() as $attribute)
                                     <div class="image_option_type form-group required">

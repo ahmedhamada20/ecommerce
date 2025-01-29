@@ -84,77 +84,31 @@
 
 
                         </div>
-
                         <table class="table table-bordered table-striped">
                             <thead class="table-light">
-                            <tr>
-                                <th>Image</th>
-                                <th>Details</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                            </tr>
+                                <tr>
+                                    <th>Image</th>
+               
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td style="width: 80px;">
-                                    <img src="https://martfury.botble.com/storage/products/12-3-150x150.jpg"
-                                         alt="EPSION Plaster Printer" class="img-fluid">
-                                </td>
-                                <td style="width: 45%;">
-                                    <div>
-                                        <a href="#" title="EPSION Plaster Printer" target="_blank"
-                                           class="text-decoration-none fw-bold">EPSION Plaster Printer</a>
-                                        <p class="mb-0">(SKU: <strong>SW-188-A0-A3</strong>)</p>
-                                    </div>
-                                    <div>
-                                        <small>(Color: Green, Size: XL)</small>
-                                    </div>
-                                    <ul class="list-unstyled mt-2">
-                                        <li>
-                                            <span class="text-muted">↳</span> Shipping:
-                                            <a href="#" target="_blank" class="text-decoration-underline">Free
-                                                delivery</a>
-                                        </li>
-                                        <li>
-                                            <span class="text-muted">↳</span> Store:
-                                            <a href="#" target="_blank" class="text-decoration-underline">GoPro</a>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>$554.00</td>
-                                <td>3</td>
-                                <td>$1,662.00</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 80px;">
-                                    <img src="#" alt="EPSION Plaster Printer" class="img-fluid">
-                                </td>
-                                <td style="width: 45%;">
-                                    <div>
-                                        <a href="#" title="EPSION Plaster Printer" target="_blank"
-                                           class="text-decoration-none fw-bold">EPSION Plaster Printer</a>
-                                        <p class="mb-0">(SKU: <strong>SW-188-A0-A3</strong>)</p>
-                                    </div>
-                                    <div>
-                                        <small>(Color: Green, Size: XL)</small>
-                                    </div>
-                                    <ul class="list-unstyled mt-2">
-                                        <li>
-                                            <span class="text-muted">↳</span> Shipping:
-                                            <a href="#" target="_blank" class="text-decoration-underline">Free
-                                                delivery</a>
-                                        </li>
-                                        <li>
-                                            <span class="text-muted">↳</span> Store:
-                                            <a href="#" target="_blank" class="text-decoration-underline">GoPro</a>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>$554.00</td>
-                                <td>3</td>
-                                <td>$1,662.00</td>
-                            </tr>
+                                @foreach ($row->order_item as $items)
+                                    <tr>
+                                        <td style="width: 80px;">
+                                            <img src="{{ asset('storage/' . $items->product?->photo?->filename) }}"
+                                                alt="EPSION Plaster Printer" class="img-fluid">
+                                        </td>
+                          
+                                        <td>${{$items->price_per_unit}}</td>
+                                        <td>{{$items->quantity}}</td>
+                                        <td>${{$row->total}}</td>
+                                    </tr>
+    
+                                @endforeach
+    
                             </tbody>
                         </table>
 
@@ -299,7 +253,7 @@
                                             coupon
                                         </td>
                                         <td>
-                                            {{$row?->coupon->code}}
+                                            {{$row?->coupon?->code}}
                                         </td>
                                     </tr>
                                     <tr>

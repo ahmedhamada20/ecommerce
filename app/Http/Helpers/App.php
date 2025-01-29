@@ -4,6 +4,7 @@ use App\Models\AddToCart;
 use App\Models\AdvertisementBanners;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Notification;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Wishlist;
@@ -316,6 +317,14 @@ if (!function_exists('get_card')) {
     {
         // Cart::destroy();
         return  Cart::content();
+    }
+}
+if (!function_exists('get_notification_admin')) {
+    function get_notification_admin()
+    {
+        return Notification::where('is_read',false)->when(auth()->user()->type == "customer",function($queryBuilder){
+            $queryBuilder->where('customer_id',auth()->user()->id);
+        })->get();
     }
 }
 

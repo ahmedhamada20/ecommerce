@@ -31,6 +31,11 @@ class Order extends Model
     ];
 
 
+    public function statuses()
+    {
+        return $this->hasMany(OrderStatus::class,'order_id');
+    }
+
     public function customer()
     {
         return $this->belongsTo(User::class,'customer_id');
@@ -40,6 +45,10 @@ class Order extends Model
     public function order_items()
     {
         return $this->hasMany(OrderItem::class,'order_id')->sum('quantity');
+    }
+    public function order_item()
+    {
+        return $this->hasMany(OrderItem::class,'order_id');
     }
 
 

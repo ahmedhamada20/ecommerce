@@ -14,9 +14,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Services\FirebaseNotificationService;
 
 class AdminController extends Controller
 {
+
+
+    public function sendNotification(Request $request)
+    {
+        $user = User::find($request->input('user_id')); 
+        $title = $request->input('title'); 
+        $body = $request->input('body');
+        $firebaseService = new FirebaseNotificationService();
+        $firebaseService->sendPushNotificationSync($user, $title, $body);     
+           return response()->json(['message' => 'Notification sent successfully.']);
+    }
+
     public function index()
     {
         return view('admin.index');

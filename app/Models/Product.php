@@ -87,6 +87,10 @@ class Product extends Model
     {
         return App::getLocale() == "ar" ? $this->name_ar : $this->name_en;
     }
+    public function slug()
+    {
+        return App::getLocale() == "ar" ? $this->slug_ar : $this->slug_en;
+    }
 
 
     public function short_description()

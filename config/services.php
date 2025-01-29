@@ -37,4 +37,6 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URL'),      // Your Google Redirect URL
     ]
 
+    
+
 ];

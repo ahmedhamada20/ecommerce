@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Admin\GoogleAuthController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\SocialShareButtonsController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ChatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +20,7 @@ use Illuminate\Http\Request;
 */
 
 require __DIR__ . '/auth.php';
+Route::get('/social-media-share', [SocialShareButtonsController::class,'ShareWidget']);
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -37,6 +40,7 @@ Route::group(
         Route::get('/viewCart', [HomeController::class, 'viewCart'])->name('viewCart');
         Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
         Route::post('/addTocart', [HomeController::class, 'addTocart'])->name('addTocart');
+        Route::post('/storeorder', [HomeController::class, 'storeorder'])->name('storeorder');
 
 
         Route::post('/cart/update/{rowId}', function (Request $request, $rowId) {
@@ -55,6 +59,10 @@ Route::group(
         Route::get('/delete/wishlists/{id}', [HomeController::class, 'delete_wishlists'])->name('delete_wishlists');
         Route::get('/delete/comparisons/{id}', [HomeController::class, 'delete_comparisons'])->name('delete_comparisons');
 
+
+        Route::get('chat/{chatId}', [HomeController::class, 'showChat']);
+        Route::post('chat/{chatId}/message', [HomeController::class, 'sendMessage']);
+        
 
         Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
         Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
