@@ -198,7 +198,7 @@ Products
                                                             <span class="rating-num">( {{ $product->commentable->count() }} )</span>
                                                         </div>
                                                         <h4><a href="{{ route('shop_details', app()->getlocale() === 'ar' ? $product->slug_ar : $product->slug_en) }}"
-                                                                title="Pastrami bacon" target="_self">{{ $product->name() }}</a></h4>
+                                                                title="Pastrami bacon" target="_self">{{app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en;}}</a></h4>
 
                                                     </div>
                                                     <p class="price">
@@ -207,7 +207,6 @@ Products
                                                     </p>
                                                     <div class="description item-desc ">
                                                         <p>
-                                                            {{ $product->short_description() }}
                                                         </p>
                                                     </div>
                                                     <div class="so-quickview">
@@ -311,7 +310,7 @@ Products
 
                         <div class="row">
                             <div class="col">
-                                <label>Are you sure you want to add this product to your cart? {{$product->name()}}</label>
+                                <label>Are you sure you want to add this product to your cart? {{app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en;}}</label>
 
                             </div>
                         </div>

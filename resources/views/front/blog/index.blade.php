@@ -37,7 +37,7 @@
                                         <div class="item-info">
                                             <div class="item-title">
                                                 <a href="#" target="_self"
-                                                    title="Mandouille short">{{ $row->name() }} </a>
+                                                    title="Mandouille short"> </a>
                                             </div>
                                             <div class="rating">
                                                 @php

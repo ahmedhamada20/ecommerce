@@ -51,4 +51,5 @@ class Coupon extends Model
                 return "not type";
         }
     }
+    
 }

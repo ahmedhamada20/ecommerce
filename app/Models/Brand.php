@@ -38,4 +38,9 @@ class Brand extends Model
     {
         return $this->morphOne(Photo::class, 'photoable');
     }
+    public function getNameAttribute()
+{
+    return app()->getLocale() == 'ar' ? $this->name_ar : $this->name_en;
+}
+
 }

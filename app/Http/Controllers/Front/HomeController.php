@@ -276,7 +276,7 @@ class HomeController extends Controller
         $product = Product::findOrFail($request->product_id);
 
 
-        Cart::add($product->id, $product->name(), 1, $product->price)->associate(Product::class);
+        Cart::add($product->id, app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en, 1, $product->price)->associate(Product::class);
         return redirect()->back()
             ->with('success', "Add To Cart successfully");
     }
