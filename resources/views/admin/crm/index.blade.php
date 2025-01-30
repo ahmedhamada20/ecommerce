@@ -10,6 +10,12 @@
 
     <div class="card basic-data-table">
         <div class="card-body">
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add new
+            </button>
+            @include('admin.crm.create')
+
             <a href="{{route('admin_exportcrm')}}" class="btn btn-info">
                 export
             </a>
@@ -64,6 +70,14 @@
 
                        
                             <td>
+
+
+                                <a href="javascript:void(0)"
+                                   data-bs-toggle="modal" data-bs-target="#disputeModalEdit{{$row->id}}"
+                                   class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                    <iconify-icon icon="lucide:edit"></iconify-icon>
+                                </a>
+
                                 <a href="javascript:void(0)"
                                    data-bs-toggle="modal" data-bs-target="#deleted{{$row->id}}"
                                    class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
@@ -72,6 +86,7 @@
                             </td>
                         </tr>
                        
+                        @include('admin.crm.edit')
                         @include('admin.crm.deleted')
                     @endforeach
                     </tbody>

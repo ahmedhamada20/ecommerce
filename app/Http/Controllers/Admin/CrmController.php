@@ -13,7 +13,7 @@ class CrmController extends Controller
      */
     public function index()
     {
-        $data = queryModels('Crm', [],[
+        $data = queryModels('Crm', [], [
             'perPage' => 20,
             'page' => 1
         ]);
@@ -34,7 +34,18 @@ class CrmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            Crm::create([
+                'name'=> $request->name,
+                'email'=> $request->email,
+                'phone'=> $request->phone ,
+                'enquiry'=> $request->enquiry ?? null ,
+            ]);
+            return redirect()->route('admin_crm.index')->with('success', 'crm created successfully.');
+
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -58,7 +69,18 @@ class CrmController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            Crm::findOrFail($request->id)->update([
+                'name'=> $request->name,
+                'email'=> $request->email,
+                'phone'=> $request->phone ,
+                'enquiry'=> $request->enquiry ,
+            ]);
+            return redirect()->route('admin_crm.index')->with('success', 'crm updadted successfully.');
+
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -69,6 +91,6 @@ class CrmController extends Controller
         $user = Crm::findOrFail(\request()->id);
         $user->delete();
         return redirect()->route('admin_crm.index')->with('success', 'Crm deleted successfully.');
-   
+
     }
 }

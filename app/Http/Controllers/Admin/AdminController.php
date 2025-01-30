@@ -241,6 +241,6 @@ class AdminController extends Controller
 
     public function exportcrm()
     {
-        return Excel::download(new CrmExport, 'brand.xlsx');
+        return Excel::download(new CrmExport, 'crm.xlsx');
     }
 }

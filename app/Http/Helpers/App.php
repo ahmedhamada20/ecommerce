@@ -92,14 +92,14 @@ if (!function_exists('queryModelsOrders')) {
                 }
             }
         }
-
         if ($pagination && is_array($pagination)) {
             $perPage = $pagination['perPage'] ?? 15;
             $page = $pagination['page'] ?? 1;
-            return $queryBuilder->paginate($perPage, ['*'], 'page', $page);
+            return $queryBuilder->orderBy('id', 'desc')->paginate($perPage, ['*'], 'page', $page);
         }
-
-        return $queryBuilder->orderBy('id', 'DESC')->get();
+        
+        return $queryBuilder->orderBy('id', 'desc')->get();
+        
     }
 }
 

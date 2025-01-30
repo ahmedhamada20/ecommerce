@@ -40,7 +40,7 @@ class OrdersController extends Controller
         }
 
 
-        $data = queryModelsOrders('Order', $filters, ['perPage' => 500, 'page' => $request->get('page', 1)], ['customer', 'coupon'], $relationships);
+        $data = queryModelsOrders('Order', $filters, ['perPage' => 10, 'page' => $request->get('page', 1)], ['customer', 'coupon'], $relationships);
         return view('admin.orders.index', compact('data'));
     }
 

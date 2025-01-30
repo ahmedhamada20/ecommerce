@@ -442,20 +442,28 @@ class HomeController extends Controller
 
     private function handleUserRegistration(Request $request)
     {
+
         if ($request->account === 'register') {
-            $user = User::create([
-                'first_name' => $request->firstname,
-                'last_name' => $request->lastname,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'password' => Hash::make($request->phone),
-                'is_verified' => true,
-                'type' => 'customer',
-            ]);
+            $checkUser = User::where('email',$request->email)->orWhere('phone',$request->phone)->first();
+            
+            if(!$checkUser){
+                $user = User::create([
+                    'first_name' => $request->firstname,
+                    'last_name' => $request->lastname,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'password' => Hash::make($request->phone),
+                    'is_verified' => true,
+                    'type' => 'customer',
+                ]);
+    
+                Auth::login($user);
+    
+                return $user;
+            }
 
-            Auth::login($user);
-
-            return $user;
+            return $checkUser;
+           
         }
 
         return auth()->check() ? auth()->user() : null;
