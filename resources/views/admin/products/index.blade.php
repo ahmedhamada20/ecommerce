@@ -116,7 +116,7 @@
                                 <img src="{{ asset('storage/products/' . ($product->images->first()->filename ?? 'default.png')) }}" width="50">
                             </td>
                             <td>{{ $product->localized_name }}</td>
-                            <td>{{ $product->slug }}</td>
+                            <td>{{ $product->slug() }}</td>
                             <td>{{ Str::limit($product->short_description_en, 30) }}</td>
                             <td>{{ $product->SKU }}</td>
                             <td>{{ $product->categories->pluck('name')->join(', ') }}</td>
