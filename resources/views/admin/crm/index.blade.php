@@ -10,6 +10,9 @@
 
     <div class="card basic-data-table">
         <div class="card-body">
+            <a href="{{route('admin_exportcrm')}}" class="btn btn-info">
+                export
+            </a>
             @if ($errors->any())
                 <div class="alert alert-danger" id="error-alert">
                     <ul>

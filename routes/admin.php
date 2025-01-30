@@ -49,7 +49,9 @@ Route::get('/users_index',function (){
             'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth' ,'admin'],
             'as'=>'admin_',
         ], function(){
-
+            Route::get('users/export/', [AdminController::class, 'exportuser'])->name('exportuser');
+            Route::get('brand/export/', [AdminController::class, 'exportbrand'])->name('exportbrand');
+            Route::get('crm/export/', [AdminController::class, 'exportcrm'])->name('exportcrm');
         Route::get('/', [AdminController::class, 'index']);
         Route::post('/sendNotification', [AdminController::class, 'sendNotification']);
         Route::get('/settings', [AdminController::class, 'settings'])->name('setting');
@@ -90,6 +92,8 @@ Route::get('/users_index',function (){
         Route::post('/update-installments-status', [InstallmentsController::class, 'updateInstallmentStatus'])->name('updateInstallmentStatus');
         Route::post('/update-advertisement_banners-status', [AdvertisementBannersController::class, 'updateAdvertisementBannersStatus'])->name('updateAdvertisementBannersStatus');
         Route::get('orders/details/{id}',[OrdersController::class,'show'])->name('orders/details');
+
+
 
 
 });

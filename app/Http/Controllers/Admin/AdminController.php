@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\BrandExport;
+use App\Exports\CrmExport;
+use App\Exports\UsersExport;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Hyperlink;
@@ -15,20 +18,21 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Services\FirebaseNotificationService;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
 
 
-    public function sendNotification(Request $request)
-    {
-        $user = User::find($request->input('user_id')); 
-        $title = $request->input('title'); 
-        $body = $request->input('body');
-        $firebaseService = new FirebaseNotificationService();
-        $firebaseService->sendPushNotificationSync($user, $title, $body);     
-           return response()->json(['message' => 'Notification sent successfully.']);
-    }
+    // public function sendNotification(Request $request)
+    // {
+    //     $user = User::find($request->input('user_id'));
+    //     $title = $request->input('title');
+    //     $body = $request->input('body');
+    //     $firebaseService = new FirebaseNotificationService();
+    //     $firebaseService->sendPushNotificationSync($user, $title, $body);
+    //     return response()->json(['message' => 'Notification sent successfully.']);
+    // }
 
     public function index()
     {
@@ -180,8 +184,8 @@ class AdminController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'phone' => ['required', 'string', 'numeric', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'phone' => ['required', 'string', 'numeric', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -197,16 +201,17 @@ class AdminController extends Controller
     }
 
 
-    public function updatePrice(Request $request, $productId){
+    public function updatePrice(Request $request, $productId)
+    {
         $product = Product::find($productId);
         if (!$product) {
             return response()->json(['success' => false]);
         }
-    
+
         $quantity = $request->input('quantity');
         $discountPrice = $product->discount_price * $quantity;
         $originalPrice = $product->price * $quantity;
-    
+
         return response()->json([
             'success' => true,
             'newPrice' => [
@@ -216,4 +221,26 @@ class AdminController extends Controller
         ]);
     }
 
+    public function exportuser()
+    {
+
+        return Excel::download(new UsersExport, 'users.xlsx');
+ 
+    }
+
+
+
+
+
+    public function exportbrand()
+    {
+        return Excel::download(new BrandExport, 'brand.xlsx');
+    }
+
+
+
+    public function exportcrm()
+    {
+        return Excel::download(new CrmExport, 'brand.xlsx');
+    }
 }

@@ -13,6 +13,10 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#disputeModal">
                Add new
             </button>
+
+            <a href="{{route('admin_exportbrand')}}" class="btn btn-info">
+                export
+            </a>
         </div>
         <div class="card-body">
             @if ($errors->any())
