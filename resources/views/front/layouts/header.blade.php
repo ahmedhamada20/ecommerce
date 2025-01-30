@@ -1,4 +1,50 @@
-<!-- Header Container  -->
+<style>
+    #products-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-around;
+    }
+
+    .product-card {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 250px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-card h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .product-card p {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .product-card .btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .product-card .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
 <header id="header" class=" typeheader-1">
 
     <!-- Header Top -->
@@ -113,24 +159,25 @@
                         </div>
 
                         <div id="sosearchpro" class="sosearchpro-wrapper so-search ">
-                            <form method="GET" action="index.html">
+                            <form method="GET" action="{{route('search')}}" id="search-form">
+                                @csrf
                                 <div id="search0" class="search input-group form-group">
                                     <div class="select_category filter_type  icon-select hidden-sm hidden-xs">
-                                        <select class="no-border" name="category_id">
+                                        <select class="no-border" name="category_id" id="category_id">
                                             <option value="0">All Categories</option>
-
                                             @foreach (get_models('Category', ['active' => '1']) as $row)
                                                 <option value="{{ $row->slug }}">{{ $row->name() }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <input class="autosearch-input form-control" type="text" value="" size="50"
-                                        autocomplete="off" placeholder="Keyword here..." name="search">
+                                        autocomplete="off" placeholder="Keyword here..." name="search"
+                                        id="search-input">
                                     <button type="submit" class="button-search btn btn-primary" name="submit_search"><i
                                             class="fa fa-search"></i></button>
                                 </div>
-                                <input type="hidden" name="route" value="product/search" />
                             </form>
+                            <div id="products-list"></div>
                         </div>
                     </div>
                 </div>
@@ -388,19 +435,19 @@
                     <div class="signin-w hidden-md hidden-sm hidden-xs">
                         <ul class="signin-link blank">
                             @auth
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-    
-                                <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
-                                    {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
 
-                            <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg"
-                                href="{{auth()->user()->type == "customer" ? route('user_') : route('admin_')}}">Dashboard </a>
-                        </li>
+                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+
+                                <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg"
+                                        href="{{auth()->user()->type == "customer" ? route('user_') : route('admin_')}}">Dashboard
+                                    </a>
+                                </li>
                             @else
                                 <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg"
                                         href="{{route('login')}}">Login </a> or <a href="{{route('register')}}">Register</a>
@@ -417,3 +464,41 @@
     </div>
 </header>
 <!-- //Header Container  -->
+
+<script>
+    var appLocale = "{{ app()->getLocale() }}";
+    document.getElementById('search-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        let category_id = document.getElementById('category_id').value;
+        let search_term = document.getElementById('search-input').value;
+
+        $.get("{{ route('search') }}", {
+            category_id: category_id,
+            search: search_term
+        }, function (data) {
+            let productsList = document.getElementById('products-list');
+            productsList.innerHTML = '';
+
+            if (data.length > 0) {
+                data.forEach(function (product) {
+                    let productSlug = appLocale === 'ar' ? product.slug_ar : product.slug_en;
+
+                    let productHTML = `
+                        <div class="product-card">
+                            <h3>${product.name_en}</h3>
+                            <p>${product.description_en}</p>
+                            <a href="/${appLocale === 'ar' ? 'ar' : 'en'}/shop/${productSlug}" class="btn btn-primary">View Details</a>
+                        </div>
+                    `;
+                    productsList.innerHTML += productHTML;
+                });
+            } else {
+                productsList.innerHTML = '<p>No products found.</p>';
+            }
+        })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log('Error:', textStatus, errorThrown);
+            });
+    });
+</script>

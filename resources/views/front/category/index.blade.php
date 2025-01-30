@@ -99,15 +99,7 @@
                                                     class="img-2 img-responsive" alt="image2">
                                             </a>
                                         </div>
-                                        <!--quickview-->
-                                        <div class="so-quickview">
-                                            <button type="button" class=" iframe-link btn-button quickview quickview_handler visible-lg" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal{{$product->id }}">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                            @include('front.products.show_model')
-                                        </div>
-                                        <!--end quickview-->
+                                       
 
 
                                     </div>

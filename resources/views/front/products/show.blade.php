@@ -128,17 +128,63 @@ Products show
                                         {!! $shareComponent !!}
                                     </div>
                                     
-                                    @foreach ($row->attribute() as $attribute)
+                                    @foreach ($row->specifications() as $attribute)
                                     <div class="image_option_type form-group required">
-                                        <label class="control-label">{{$attribute->attribute->name()}}</label>
+                                        <label class="control-label">{{$attribute->name}}</label>
                                         <ul class="product-options clearfix" id="input-option231">
                                             <li class="radio active">
                                                 <label>
-                                                    <input class="image_radio" type="radio" name="{{$attribute->attribute_value->qty}}"
-                                                        value="{{$attribute->attribute_value->qty}}">
-                                                    <img src="https://demo.smartaddons.com/templates/html/supermarket/image/demo/colors/blue.jpg"
-                                                        data-original-title="blue +$12.00"
-                                                        class="img-thumbnail icon icon-color"> <i
+                                                    <input class="image_radio" type="radio" name="{{$attribute->value}}"
+                                                        value="{{$attribute->value}}">
+                                                    
+                                                         <i
+                                                        class="fa fa-check"></i>
+                                                    <label> </label>
+                                                </label>
+                                            </li>
+                                         
+                                            <li class="selected-option">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    @endforeach
+                                    @foreach ($row->colors() as $attribute)
+                                    <div class="image_option_type form-group required">
+                                        <label class="control-label">{{$attribute->code}}</label>
+                                        <ul class="product-options clearfix" id="input-option231">
+                                            <li class="radio active">
+                                                <label>
+                                                    <input class="image_radio" type="radio" name="{{$attribute->name}}"
+                                                        value="{{$attribute->name}}">
+                                                    <input class="image_radio" type="radio" name="{{$attribute->size}}"
+                                                        value="{{$attribute->size}}">
+                                                    <input class="image_radio" type="radio" name="{{$attribute->quantity}}"
+                                                        value="{{$attribute->quantity}}">
+                                                    
+                                                         <i
+                                                        class="fa fa-check"></i>
+                                                    <label> </label>
+                                                </label>
+                                            </li>
+                                         
+                                            <li class="selected-option">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    @endforeach
+                                 
+                                    @foreach ($row->taxes() as $attribute)
+                                    <div class="image_option_type form-group required">
+                                        <label class="control-label">{{$attribute->name}}</label>
+                                        <ul class="product-options clearfix" id="input-option231">
+                                            <li class="radio active">
+                                                <label>
+                                                    <input class="image_radio" type="radio" name="{{$attribute->name}}"
+                                                        value="{{$attribute->name}}">
+                                                    <input class="image_radio" type="radio" name="{{$attribute->rate}}"
+                                                        value="{{$attribute->rate}}">
+                                                    
+                                                         <i
                                                         class="fa fa-check"></i>
                                                     <label> </label>
                                                 </label>
@@ -352,69 +398,81 @@ Products show
 
                         </div>
                         <div id="tab-review" class="tab-pane fade">
-                            <form>
+                           
                                 <div id="review">
                                     <table class="table table-striped table-bordered">
+                                        @foreach ($row->commentable as $comment)
                                         <tbody>
                                             <tr>
-                                                <td style="width: 50%;"><strong>Super Administrator</strong></td>
-                                                <td class="text-right">29/07/2015</td>
+                                                <td style="width: 50%;"><strong>{{ $comment->customer->name() }}</strong></td>
+                                                <td class="text-right">{{ $comment->created_at->format('Y-m-d') }}</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    <p>Best this product opencart</p>
+                                                    <p>{{ $comment->comments }}</p>
                                                     <div class="ratings">
                                                         <div class="rating-box">
-                                                            <span class="fa fa-stack"><i
-                                                                    class="fa fa-star fa-stack-1x"></i><i
-                                                                    class="fa fa-star-o fa-stack-1x"></i></span>
-                                                            <span class="fa fa-stack"><i
-                                                                    class="fa fa-star fa-stack-1x"></i><i
-                                                                    class="fa fa-star-o fa-stack-1x"></i></span>
-                                                            <span class="fa fa-stack"><i
-                                                                    class="fa fa-star fa-stack-1x"></i><i
-                                                                    class="fa fa-star-o fa-stack-1x"></i></span>
-                                                            <span class="fa fa-stack"><i
-                                                                    class="fa fa-star fa-stack-1x"></i><i
-                                                                    class="fa fa-star-o fa-stack-1x"></i></span>
-                                                            <span class="fa fa-stack"><i
-                                                                    class="fa fa-star-o fa-stack-1x"></i></span>
+                                                       
+                                                            @for ($i = 1; $i <= 5; $i++)
+                                                                <span class="fa fa-stack">
+                                                                    <i class="fa fa-star{{ $comment->value >= $i ? '' : '-o' }} fa-stack-1x"></i>
+                                                                </span>
+                                                            @endfor
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                         </tbody>
+                                    @endforeach
+                                    
+                                     
                                     </table>
                                     <div class="text-right"></div>
                                 </div>
-                                <h2 id="review-title">Write a review</h2>
-                                <div class="contacts-form">
-                                    <div class="form-group"> <span class="icon icon-user"></span>
-                                        <input type="text" name="name" class="form-control" value="Your Name"
-                                            onblur="if (this.value == '') {this.value = 'Your Name';}"
-                                            onfocus="if(this.value == 'Your Name') {this.value = '';}">
+                                @auth
+                                <form method="POST" action="{{ route('storeRateComments') }}">
+                                    @csrf
+                                    <h2 id="review-title">Write a review</h2>
+                                    <div class="contacts-form">
+                                        <div class="form-group">
+                                            <span class="icon icon-bubbles-2"></span>
+                                            <textarea class="form-control" name="comments"
+                                                onblur="if (this.value == '') {this.value = 'Your Review';}"
+                                                onfocus="if(this.value == 'Your Review') {this.value = '';}">Your Review</textarea>
+                                        </div>
+                                     
+                                
+                                        <div class="form-group">
+                                            <b>Rating</b> <span>Bad</span>&nbsp;
+                                            <input type="radio" id="rating1" name="value" value="1">
+                                            <label for="rating1">1</label>&nbsp;
+                                            
+                                            <input type="radio" id="rating2" name="value" value="2">
+                                            <label for="rating2">2</label>&nbsp;
+                                            
+                                            <input type="radio" id="rating3" name="value" value="3">
+                                            <label for="rating3">3</label>&nbsp;
+                                            
+                                            <input type="radio" id="rating4" name="value" value="4">
+                                            <label for="rating4">4</label>&nbsp;
+                                            
+                                            <input type="radio" id="rating5" name="value" value="5">
+                                            <label for="rating5">5</label>&nbsp;
+                                            
+                                            <span>Good</span>
+                                        </div>
+                                        
+                                        <input type="hidden" name="type" value="product"> 
+                                        <input type="hidden" name="id_type" value="{{$row->id}}">
+                                
+                                        <div class="buttons clearfix">
+                                            <button type="submit" class="btn buttonGray">Continue</button>
+                                        </div>
                                     </div>
-                                    <div class="form-group"> <span class="icon icon-bubbles-2"></span>
-                                        <textarea class="form-control" name="text"
-                                            onblur="if (this.value == '') {this.value = 'Your Review';}"
-                                            onfocus="if(this.value == 'Your Review') {this.value = '';}">Your Review</textarea>
-                                    </div>
-                                    <span style="font-size: 11px;"><span class="text-danger">Note:</span> HTML is not
-                                        translated!</span>
-
-                                    <div class="form-group">
-                                        <b>Rating</b> <span>Bad</span>&nbsp;
-                                        <input type="radio" name="rating" value="1"> &nbsp;
-                                        <input type="radio" name="rating" value="2"> &nbsp;
-                                        <input type="radio" name="rating" value="3"> &nbsp;
-                                        <input type="radio" name="rating" value="4"> &nbsp;
-                                        <input type="radio" name="rating" value="5"> &nbsp;<span>Good</span>
-
-                                    </div>
-                                    <div class="buttons clearfix"><a id="button-review"
-                                            class="btn buttonGray">Continue</a></div>
-                                </div>
-                            </form>
+                                </form>
+                                @endauth
+                               
+                                
                         </div>
 
                         <div id="tab-5" class="tab-pane fade">

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Comment;
-use Google\Service\ShoppingContent\ProductTax;
+
 
 class Product extends Model
 {
@@ -39,6 +39,11 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'products_categories');
+    }
+
+    public function commentable()
+    {
+        return $this->morphMany(RateComment::class, 'commentable')->where('status','active');
     }
 
     public function images()
@@ -103,8 +108,5 @@ class Product extends Model
     {
         return $this->belongsToMany(Tag::class, 'products_tags');
     }
-    public function commentable()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }
+   
 }

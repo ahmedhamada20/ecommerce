@@ -27,8 +27,9 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
-
+        Route::get('/search', [HomeController::class, 'search'])->name('search');
         Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
         Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');
         Route::get('/blog/detail/{id}', [HomeController::class, 'blog_detail'])->name('home.blog_detail');
         Route::get('category/{id}', [HomeController::class, 'category'])->name('category');
@@ -53,6 +54,7 @@ Route::group(
             ]);
         })->name('updateCartQuantity');
         
+        Route::post('/storeRateComments', [HomeController::class, 'storeRateComments'])->name('storeRateComments');
         Route::post('/addTowishlists', [HomeController::class, 'addTowishlists'])->name('addTowishlists');
         Route::post('/addToComparisons', [HomeController::class, 'addToComparisons'])->name('addToComparisons');
         Route::get('/delete/cart/{id}', [HomeController::class, 'delete_addTocart'])->name('delete_addTocart');

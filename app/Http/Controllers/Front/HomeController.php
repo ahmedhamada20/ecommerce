@@ -13,6 +13,7 @@ use App\Models\Crm;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\RateComment;
 use App\Models\User;
 use App\Models\Wishlist;
 use Carbon\Carbon;
@@ -26,26 +27,56 @@ use Jorenvh\Share\ShareFacade;
 class HomeController extends Controller
 {
 
-    protected $firebase;
-    public function __construct(FirebaseService $firebase)
-    {
-        $this->firebase = $firebase;
-    }
 
-    // Show messages from Firebase for a specific chat
-    public function showChat($chatId)
-    {
-        $messages = $this->firebase->getMessages($chatId);
-        return view('chat.show', compact('messages'));
-    }
 
-    // Send a message to Firebase
-    public function sendMessage(Request $request, $chatId)
+    // // Show messages from Firebase for a specific chat
+    // public function showChat($chatId)
+    // {
+    //     $messages = $this->firebase->getMessages($chatId);
+    //     return view('chat.show', compact('messages'));
+    // }
+
+    // // Send a message to Firebase
+    // public function sendMessage(Request $request, $chatId)
+    // {
+    //     $message = $request->input('message');
+    //     $this->firebase->storeMessage($chatId, $message);
+    //     return redirect()->route('chat.show', ['chatId' => $chatId]);
+    // }
+
+
+    public function search(Request $request)
     {
-        $message = $request->input('message');
-        $this->firebase->storeMessage($chatId, $message);
-        return redirect()->route('chat.show', ['chatId' => $chatId]);
+        if ($request->ajax()) {
+            $locale = app()->getLocale(); 
+            $query = Product::where('publish', true);
+    
+            if ($request->category_id != 0) {
+                $query->whereHas('categories', function ($q) use ($request) {
+                    $q->where('slug', $request->category_id);
+                });
+            }
+
+            if ($request->has('search') && !empty($request->search)) {
+                $searchTerm = $request->search;
+                if ($locale == 'en') {
+                    $query->where('name_en', 'like', '%' . $searchTerm . '%')
+                          ->orWhere('description_en', 'like', '%' . $searchTerm . '%');
+                } else {
+                    $query->where('name_ar', 'like', '%' . $searchTerm . '%')
+                          ->orWhere('description_ar', 'like', '%' . $searchTerm . '%');
+                }
+            }
+
+            $data = $query->with('categories')->get();
+
+            return response()->json($data); 
+        }
+    
+        return redirect()->route('home.index');
     }
+    
+
 
     public function index()
     {
@@ -53,7 +84,11 @@ class HomeController extends Controller
             ->take(4)
             ->pluck('product_id');
         $products = Product::where('publish', true)->whereIn('id', $best_selling)->get();
-        return view('front.index', compact('products'));
+        $latestProducts = Product::where('publish', true)
+            ->latest()
+            ->take(4)
+            ->get();
+        return view('front.index', compact('products', 'latestProducts'));
     }
 
     public function blog()
@@ -372,39 +407,39 @@ class HomeController extends Controller
             'landmark' => 'required',
             'type' => 'required|in:essential,sub',
         ]);
-    
+
         DB::beginTransaction();
-    
+
         try {
             $orderNumber = strtoupper(uniqid('ORD'));
-    
+
             $user = $this->handleUserRegistration($request);
-    
+
             $shippingAddress = $this->createShippingAddress($request, $user);
-    
+
             $order = $this->createOrder($orderNumber, $user, $shippingAddress);
-    
+
             $this->addOrderItems($order);
-    
+
             if ($request->coupon) {
                 $this->applyCoupon($order, $request->coupon);
             }
-    
+
             $this->createOrderStatus($order, $user);
-    
+
             DB::commit();
-    
+
             Cart::destroy();
-    
+
             return redirect()->route('home.index')
                 ->with('success', "Order placed successfully");
-    
+
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-    
+
     private function handleUserRegistration(Request $request)
     {
         if ($request->account === 'register') {
@@ -417,15 +452,15 @@ class HomeController extends Controller
                 'is_verified' => true,
                 'type' => 'customer',
             ]);
-    
+
             Auth::login($user);
-    
+
             return $user;
         }
-    
+
         return auth()->check() ? auth()->user() : null;
     }
-    
+
     private function createShippingAddress(Request $request, $user)
     {
         return Address::create([
@@ -440,7 +475,7 @@ class HomeController extends Controller
             'type' => 'essential',
         ]);
     }
-    
+
     private function createOrder($orderNumber, $user, $shippingAddress)
     {
         return Order::create([
@@ -455,7 +490,7 @@ class HomeController extends Controller
             'placed_at' => Carbon::now(),
         ]);
     }
-    
+
     private function addOrderItems($order)
     {
         foreach (Cart::content() as $item) {
@@ -467,32 +502,32 @@ class HomeController extends Controller
             ]);
         }
     }
-    
+
     private function applyCoupon($order, $couponCode)
     {
         $coupon = Coupon::where('code', $couponCode)
-                        ->where('status', true)
-                        ->first();
-    
+            ->where('status', true)
+            ->first();
+
         if ($coupon) {
             $newPrice = $order->total;
-    
+
             if ($coupon->discount_type == "cash") {
                 $newPrice -= $coupon->discount_value;
-                $newPrice = max($newPrice, 0); 
+                $newPrice = max($newPrice, 0);
             } elseif ($coupon->discount_type == "relative") {
                 $discountAmount = ($order->total * $coupon->discount_value) / 100;
                 $newPrice -= $discountAmount;
                 $newPrice = max($newPrice, 0);
             }
-    
+
             $order->coupon_id = $coupon->id;
             $order->discount = $order->total - $newPrice;
             $order->total = $newPrice;
             $order->save();
         }
     }
-    
+
     private function createOrderStatus($order, $user)
     {
         $order->statuses()->create([
@@ -500,7 +535,57 @@ class HomeController extends Controller
             'user_id' => $user ? $user->id : null,
         ]);
     }
-    
+
+
+
+    public function storeRateComments(Request $request)
+    {
+        $commentsUsers = RateComment::where('customer_id', auth()->id())
+            ->where('commentable_type', "App\Models\\" . ucfirst($request->type))
+            ->where('commentable_id', $request->id_type)
+            ->first();
+
+        $input = [
+            'comments' => $request->comments,
+            'commentable_type' => "App\Models\\" . ucfirst($request->type),
+            'commentable_id' => $request->id_type,
+            'customer_id' => auth()->id(),
+            'status' => "noActive",
+            'value' => $request->value,
+        ];
+
+        if ($commentsUsers) {
+            $commentsUsers->update($input);
+            $data = $commentsUsers;
+        } else {
+            $data = RateComment::create($input);
+        }
+
+        $product = $input['commentable_type']::findorFail($data->commentable_id);
+        if ($product) {
+            $all_product_rates = 0;
+            $comment_count = count($product->commentable);
+
+            if ($comment_count > 0) {
+                foreach ($product->commentable as $rate) {
+                    $all_product_rates += $rate->value;
+                }
+
+                $product->count_comments = $all_product_rates / $comment_count;
+            } else {
+                $product->count_comments = 0;
+            }
+
+            $product->save();
+        }
+
+        if ($data) {
+            return redirect()->back()->with('success', "Comments Create success");
+        } else {
+            return redirect()->back()->with('error', "Error");
+        }
+    }
+
 
 
 }
