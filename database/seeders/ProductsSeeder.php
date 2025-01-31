@@ -65,7 +65,7 @@ class ProductsSeeder extends Seeder
 
             // إضافة صورة افتراضية للمنتج
             Photo::create([
-                'filename' => "products/" . rand(1, 7) . ".jpg",
+                'filename' => "products/" . 1 . ".jpg",
                 'photoable_id' => $newProduct->id,
                 'photoable_type' => Product::class,
             ]);

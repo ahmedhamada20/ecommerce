@@ -166,9 +166,9 @@ Products
                                                     <div class="product-image-container second_img">
                                                         <a href="{{ route('shop_details', app()->getLocale() === 'ar' ? $product->slug_ar : $product->slug_en) }}"
                                                             target="_self" title="Lastrami bacon">
-                                                            <img src="{{ asset('storage/' . $product?->photo?->filename) }}"
+                                                            <img src="{{ asset('storage/products' . $product?->photo?->filename) }}"
                                                                 class="img-1 img-responsive" alt="image1">
-                                                            <img src="{{ asset('storage/' . $product?->photo?->filename) }}"
+                                                            <img src="{{ asset('storage/products' . $product?->photo?->filename) }}"
                                                                 class="img-2 img-responsive" alt="image2">
                                                         </a>
                                                     </div>

@@ -342,25 +342,25 @@
                 </div>
                         <div class="col-md-6 mb-3">
                             <label for="name_ar" class="form-label">Name (AR)</label>
-                            <input type="text" class="form-control" id="name_ar" name="name_ar" placeholder="Arabic name" required>
+                            <input type="text" class="form-control" id="name_ar"  value="{{ old('name_ar', $product->name_ar) }}" name="name_ar" placeholder="Arabic name" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="name_en" class="form-label">Name (EN)</label>
-                            <input type="text" class="form-control" id="name_en" name="name_en" placeholder="English name" required>
+                            <input type="text" class="form-control" id="name_en"  value="{{ old('name_en', $product->name_en) }}"name="name_en" placeholder="English name" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="slug_en" class="form-label">Slug (EN)</label>
-                            <input type="text" class="form-control" id="slug_en" name="slug_en" placeholder="Unique identifier" required>
+                            <input type="text" class="form-control" id="slug_en" name="slug_en"  value="{{ old('slug_en', $product->slug_en) }}" placeholder="Unique identifier" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="slug_ar" class="form-label">Slug (AR)</label>
-                            <input type="text" class="form-control" id="slug_ar" name="slug_ar" placeholder="Unique identifier" required>
+                            <input type="text" class="form-control" id="slug_ar" name="slug_ar" value="{{ old('slug_ar', $product->slug_ar) }}" placeholder="Unique identifier" required>
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="SKU" class="form-label">SKU</label>
-                            <input type="text" class="form-control" id="SKU" name="SKU" placeholder="Stock Keeping Unit">
+                            <input type="text" class="form-control" id="SKU" value="{{ old('SKU', $product->SKU) }}" name="SKU" placeholder="Stock Keeping Unit">
                         </div>
                     </div>
                 </div>
@@ -373,11 +373,11 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="short_description_ar" class="form-label">Short Description (AR)</label>
-                            <textarea class="form-control" id="short_description_ar" name="short_description_ar" rows="3"></textarea>
+                            <textarea class="form-control" id="short_description_ar" value="{{ old('short_description_ar', $product->short_description_ar) }}" name="short_description_ar" rows="3"></textarea>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="short_description_en" class="form-label">Short Description (EN)</label>
-                            <textarea class="form-control" id="short_description_en" name="short_description_en" rows="3"></textarea>
+                            <textarea class="form-control" value="{{ old('short_description_en', $product->short_description_en) }}" id="short_description_en" name="short_description_en" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -428,21 +428,21 @@
                     <h5>Colors</h5>
                     <div id="color-container">
                         <div class="row align-items-center mb-3">
+                        @foreach($product->colors as $color)
                             <div class="col-md-2">
                                 <label for="color1" class="form-label">Color 1</label>
-                                <input type="color" class="form-control form-control-color" id="color1" name="colors[]"
+                                <input type="color" class="form-control form-control-color" id="color1" value="{{ $color->code }}" name="colors[code][]"
                                     value="#ffffff">
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" placeholder="Color Name (e.g., White)"
-                                    name="color_names[]">
+                                <input type="text" class="form-control"  value="{{ $color->name }}" placeholder="Color Name (e.g., White)"
+                                    name="colors[names][]">
                             </div>
+                          
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Enter size (e.g., Small, Medium)" name="size[]">
+                                <input type="number" class="form-control"  value="{{ $color->quantity }}"placeholder="Quantity" name="colors[quantity][]">
                             </div>
-                            <div class="col-md-2">
-                                <input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
-                            </div>
+                            @endforeach
                             <div class="col-md-2 text-end">
                     <button type="button" class="btn btn-danger remove-row">Delete</button>
                 </div>
@@ -639,7 +639,121 @@
     </div>
 </div>
 @endsection
-
+<!-- @section('content')
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="mb-4 text-primary">Edit Product</h3>
+            <form method="post" enctype="multipart/form-data" action="{{ route('admin_products.update', $product->id) }}">
+                @csrf
+                @method('PUT')
+                
+                <!-- الاسم بالعربية والإنجليزية -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Name (AR)</label>
+                        <input type="text" class="form-control" name="name_ar" value="{{ old('name_ar', $product->name_ar) }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Name (EN)</label>
+                        <input type="text" class="form-control" name="name_en" value="{{ old('name_en', $product->name_en) }}" required>
+                    </div>
+                </div>
+                
+                <!-- السعر، الكمية، SKU -->
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">SKU</label>
+                        <input type="text" class="form-control" name="SKU" value="{{ old('SKU', $product->SKU) }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Price</label>
+                        <input type="number" class="form-control" name="price" value="{{ old('price', $product->price) }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Discount (%)</label>
+                        <input type="number" class="form-control" name="discount" value="{{ old('discount', $product->discount) }}">
+                    </div>
+                </div>
+                
+                <!-- التصنيفات -->
+                <div class="form-section">
+                    <h5>Categories</h5>
+                    @foreach($categories as $category)
+                        <label>
+                            <input type="checkbox" name="categories[]" value="{{ $category->id }}" 
+                                {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
+                            {{ $category->name }}
+                        </label>
+                    @endforeach
+                </div>
+                
+                <!-- العلامة التجارية -->
+                <div class="form-section">
+                    <h5>Brand</h5>
+                    <select name="brand_id" class="form-control">
+                        <option value="">Select a brand...</option>
+                        @foreach($brands as $brand)
+                            <option value="{{ $brand->id }}" {{ $brand->id == $product->brand_id ? 'selected' : '' }}>
+                                {{ $brand->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                <!-- الألوان -->
+                <div class="form-section">
+                    <h5>Colors</h5>
+                    <div id="color-container">
+                        @foreach($product->colors as $color)
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <input type="color" class="form-control" name="colors[code][]" value="{{ $color->code }}">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="colors[name][]" value="{{ $color->name }}" placeholder="Color Name">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" class="form-control" name="colors[quantity][]" value="{{ $color->quantity }}" placeholder="Quantity">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                
+                <!-- القسائم -->
+                <div class="form-section">
+                    <h5>Coupons</h5>
+                    <select name="coupon_ids[]" class="form-control">
+                        <option value="">Select a Coupon</option>
+                        @foreach($coupons as $coupon)
+                            <option value="{{ $coupon->id }}" {{ $coupon->id == $product->coupon_id ? 'selected' : '' }}>
+                                {{ $coupon->code }} ({{ $coupon->value }}%)
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                <!-- الصور -->
+                <div class="form-section">
+                    <h5>Images</h5>
+                    <input type="file" class="form-control" name="images[]" multiple>
+                    <div class="image-preview mt-2">
+                        @foreach($product->images as $image)
+                            <img src="{{ asset('storage/products/' . $image->filename) }}" width="100">
+                        @endforeach
+                    </div>
+                </div>
+                
+                <!-- زر الحفظ -->
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection -->
 @section('js')
 <script>
  document.addEventListener('DOMContentLoaded', function () {

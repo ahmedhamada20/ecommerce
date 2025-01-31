@@ -113,7 +113,7 @@
                     @foreach($products as $product)
                         <tr>
                             <td>
-                                <img src="{{ asset('storage/products/' . ($product->images->first()->filename ?? 'default.png')) }}" width="50">
+                                <img src="{{ asset('storage/' . ($product->images->first()->filename ?? 'default.png')) }}" width="50">
                             </td>
                             <td>{{ $product->localized_name }}</td>
                             <td>{{ $product->slug() }}</td>

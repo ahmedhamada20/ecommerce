@@ -39,6 +39,8 @@ class Coupon extends Model
     {
         return $this->belongsToMany(Product::class, 'products_coupons');
     }
+    
+
 
     public function type_code()
     {

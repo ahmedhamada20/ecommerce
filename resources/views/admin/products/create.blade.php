@@ -424,40 +424,32 @@ Create New Product
                 </div>
                 <!-- Product Descriptions -->
                 <div class="form-section">
-                    <h5>Descriptions</h5>
-                    <div id="Description" class="Description">
-                        <div class="row align-items-center mb-3 description-item">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" name="Description['name'][]"
-                                    placeholder="Description Name">
-                            </div>
-                            <div class="col-md-6">
-                                <div class="description-values">
-                                    <div class="row align-items-center mb-2">
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="Description['value'][]"
-                                                placeholder="Description Value">
-                                        </div>
-                                        <div class="col-md-3 text-end">
-                                            <button type="button" class="btn btn-danger remove-value">Remove
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-secondary btn-sm mt-2 add-value">+ Add
-                                    Description Value
-                                </button>
-                            </div>
-                            <div class="col-md-2 text-end">
-                                <button type="button" class="btn btn-danger remove-description">Delete Description
-                                </button>
-                            </div>
+    <h5>Descriptions</h5>
+    <div id="DescriptionContainer">
+        <!-- أول وصف بشكل افتراضي -->
+        <div class="row align-items-center mb-3 description-item">
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="Description[name_ar][]" placeholder="اسم الوصف (عربي)">
+                <input type="text" class="form-control mt-2" name="Description[name_en][]" placeholder="اسم الوصف (إنجليزي)">
+            </div>
+            <div class="col-md-6">
+                <div class="description-values">
+                    <div class="row align-items-center mb-2">
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="Description[value_ar][]" placeholder="قيمة الوصف (عربي)">
+                            <input type="text" class="form-control mt-2" name="Description[value_en][]" placeholder="قيمة الوصف (إنجليزي)">
+                        </div>
+                        <div class="col-md-3 text-end">
+                            <button type="button" class="btn btn-danger remove-description">Remove</button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-secondary btn-sm mt-2" id="add-Description">+ Add
-                        Description
-                    </button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-secondary btn-sm mt-2" id="add-Description">+ Add Description</button>
+</div>
+
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="short_description_ar" class="form-label">Short Description (AR)</label>
@@ -521,37 +513,37 @@ Create New Product
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Discount (%)</label>
-                            <input type="number" class="form-control" name="discount" step="0.01">
+                            <input type="number" class="form-control" name="discount_price" step="0.01">
                         </div>
                     </div>
                 </div>
 
-                <div class="form-section">
-                    <h5>Colors</h5>
-                    <div id="color-container">
-                        <div class="row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="color1" class="form-label">Color 1</label>
-                                <input type="color" class="form-control form-control-color" id="color1" name="colors['code'][]"
-                                    value="#ffffff">
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" placeholder="Color Name (e.g., White)"
-                                    name="colors['name'][]">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Enter size (e.g., Small, Medium)" name="colors['size'][]">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="number" class="form-control" placeholder="Quantity" name="colors['quantity'][]">
-                            </div>
-                            <div class="col-md-2 text-end">
-                    <button type="button" class="btn btn-danger remove-row">Delete</button>
-                </div>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-secondary btn-sm" id="add-color">+ Add Color</button>
-                </div>
+                <!-- Colors Section -->
+<div class="form-section">
+    <h5>Colors</h5>
+    <div id="color-container">
+        <div class="row align-items-center mb-3 color-row">
+            <div class="col-md-3">
+                <label class="form-label">Color</label>
+                <input type="color" class="form-control form-control-color" name="colors[code][]" value="#ffffff">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Color Name (e.g., White)" name="colors[name][]">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Size (e.g., Small, Medium)" name="colors[size][]">
+            </div>
+            <div class="col-md-2">
+                <input type="number" class="form-control" placeholder="Quantity" name="colors[quantity][]">
+            </div>
+            <div class="col-md-2 text-end">
+                <button type="button" class="btn btn-danger remove-row">Delete</button>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-secondary btn-sm" id="add-color">+ Add Color</button>
+</div>
+
 
                 <!-- Product Specifications -->
                 <div class="form-section">
@@ -610,33 +602,29 @@ Create New Product
                     </div>
                 </div>
 
-                <!-- Categories and Options -->
-                <!-- Categories and Options -->
-                <div class="form-section">
-                    <h5>Categories & Options</h5>
-                    <div class="mb-3">
-                        <label for="categories" class="form-label">Assign to Categories</label>
-                        <div class="custom-multi-select">
-                            <button type="button" class="dropdown-toggle" id="categoriesDropdown">
-                                Select Categories
-                            </button>
-                            <ul class="dropdown-menu" id="categoriesMenu">
-                              
-                                <li>
-                                    <label>
-                                        <input type="checkbox" name="categories[]" value="">
-                                    </label>
-                                </li>
-                              
-                              
-                            </ul>
-                        </div>
-                        <small class="text-muted">Click to open the dropdown and select multiple categories.</small>
-                    </div>
-
-
-              
-                </div>
+             <!-- Categories and Options -->
+<div class="form-section">
+    <h5>Categories & Options</h5>
+    <div class="mb-3">
+        <label for="categories" class="form-label">Assign to Categories</label>
+        <div class="custom-multi-select">
+            <button type="button" class="dropdown-toggle" id="categoriesDropdown">
+                Select Categories
+            </button>
+            <ul class="dropdown-menu" id="categoriesMenu">
+                @foreach($categories as $category)
+                    <li>
+                        <label>
+                            <input type="checkbox" name="categories[]" value="{{ $category->id }}">
+                            {{ $category->name }}
+                        </label>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        <small class="text-muted">Click to open the dropdown and select multiple categories.</small>
+    </div>
+</div>
                 <div class="form-section">
                     <h5>Related Products</h5>
                     <div id="related-products-list">
@@ -654,19 +642,20 @@ Create New Product
                 </div>
                 
 
-                <!-- Brand -->
-                <div class="form-section">
-                    <h5>Brand</h5>
-                    <div class="mb-3">
-                        <label for="brand" class="form-label">Select a Brand</label>
-                        <select id="brand" name="brand" class="form-control">
-                            <option value="" disabled selected>Select a brand...</option>
-                            <option value=""></option>
-                 
-                          
-                        </select>
-                    </div>
-                </div>
+              <!-- Brand -->
+<div class="form-section">
+    <h5>Brand</h5>
+    <div class="mb-3">
+        <label for="brand" class="form-label">Select a Brand</label>
+        <select id="brand" name="brand_id" class="form-control">
+            <option value="" disabled selected>Select a brand...</option>
+            @foreach($brands as $brand)
+                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+
 
                 <!-- Labels -->
                 <div class="form-section">
@@ -708,26 +697,30 @@ Create New Product
                     </div>
                     <button type="button" class="btn btn-secondary btn-sm" id="add-tax">+ Add Tax</button>
                 </div>
-
                 <div class="form-section">
-                    <h5>Coupon</h5>
-                    <div id="coupon-container">
-                        <!-- Existing coupon -->
-                        <div class="row align-items-center mb-3">
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" name="coupon_names[]" placeholder="coupon">
-                            </div>
-                            <div class="col-md-5">
-                                <input type="number" class="form-control" name="coupon_number[]" placeholder="coupon"
-                                    min="0">
-                            </div>
-                            <div class="col-md-2 text-end">
-                                <button type="button" class="btn btn-danger remove-coupon">Remove</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-secondary btn-sm" id="add-coupon">+ Add Coupon</button>
-                </div>
+    <h5>Coupon</h5>
+    <div id="coupon-container">
+        <div class="row align-items-center mb-3">
+            <div class="col-md-4">
+                <select class="form-control" name="coupon_ids[]" >
+                    <option value="" disabled selected>Select a Coupon</option>
+                    @foreach($coupons as $coupon)
+                        <option value="{{ $coupon->id }}">
+                            {{ $coupon->code }} ({{ $coupon->value }}%)
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        
+            <div class="col-md-2 text-end">
+                <button type="button" class="btn btn-danger remove-coupon">Remove</button>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-secondary btn-sm" id="add-coupon">+ Add Coupon</button>
+</div>
+
+
 
                 <!-- Minimum Order Quantity -->
                 <div class="form-section">
@@ -1050,6 +1043,40 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
+<script>
+    document.getElementById('add-Description').addEventListener('click', function() {
+        let container = document.getElementById('DescriptionContainer');
+        let newDescription = `
+            <div class="row align-items-center mb-3 description-item">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="Description[name_ar][]" placeholder="اسم الوصف (عربي)">
+                    <input type="text" class="form-control mt-2" name="Description[name_en][]" placeholder="اسم الوصف (إنجليزي)">
+                </div>
+                <div class="col-md-6">
+                    <div class="description-values">
+                        <div class="row align-items-center mb-2">
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="Description[value_ar][]" placeholder="قيمة الوصف (عربي)">
+                                <input type="text" class="form-control mt-2" name="Description[value_en][]" placeholder="قيمة الوصف (إنجليزي)">
+                            </div>
+                            <div class="col-md-3 text-end">
+                                <button type="button" class="btn btn-danger remove-description">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', newDescription);
+    });
+
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-description')) {
+            event.target.closest('.description-item').remove();
+        }
+    });
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>

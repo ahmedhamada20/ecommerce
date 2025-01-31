@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\App;
 class Blog extends Model
 {
     use HasFactory,SoftDeletes;
+    
     protected $fillable = [
         'name_ar',
         'name_en',

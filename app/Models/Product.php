@@ -17,7 +17,7 @@ class Product extends Model
     protected $fillable = [
         'name_en', 'name_ar', 'slug_ar', 'slug_en', 'SKU', 'price', 'quantity', 
         'short_description_ar', 'short_description_en', 'description_ar', 'description_en',
-        'status', 'brand_id', 'user_id'
+        'status', 'brand_id', 'user_id','coupon_id','type_discount','product_points','discount_price'
     ];
 
 
@@ -73,7 +73,16 @@ class Product extends Model
     {
         return App::getLocale() == "ar" ? $this->name_ar : $this->name_en;
     }
+// دالة لإرجاع الوصف بشكل مفكك
+public function getDecodedDescriptionArAttribute()
+{
+    return json_decode($this->description_ar, true);
+}
 
+public function getDecodedDescriptionEnAttribute()
+{
+    return json_decode($this->description_en, true);
+}
 
     public function photo()
     {
@@ -85,10 +94,10 @@ class Product extends Model
     }
 
     public function colors()
-    {
-        return $this->hasMany(ProductColor::class);
-    }
-    
+{
+    return $this->hasMany(ProductColor::class);
+}
+
     public function specifications()
     {
         return $this->hasMany(ProductSpecification::class);
@@ -101,7 +110,7 @@ class Product extends Model
     
     public function coupons()
     {
-        return $this->belongsToMany(Coupon::class, 'product_coupons');
+        return $this->belongsToMany(Coupon::class, 'products_coupons');
     }
     
     public function tags()

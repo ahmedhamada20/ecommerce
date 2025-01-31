@@ -218,33 +218,37 @@
                                 <li>
                                     <table class="table table-striped">
                                         <tbody>
+                                        @foreach (Cart::content() as $row)
+    @php
+        $product = optional($row->model);
+        $slug = app()->getLocale() === 'ar' ? $product->slug_ar : $product->slug_en;
+    @endphp
 
-                                            @foreach (Cart::content() as $row)
+    @if ($product && $slug) 
+        <tr>
+            <td class="text-center" style="width:70px">
+                <a href="{{ route('shop_details', $slug) }}">
+                    <img src="{{ asset('storage/products' . optional($product->photo)->filename) }}"
+                        style="width:70px" alt="{{ $product->name_en }}" title="{{ $product->name_en }}" class="preview">
+                </a>
+            </td>
+            <td class="text-left">
+                <a class="cart_Product_name" href="{{ route('shop_details', $slug) }}">
+                    {{ app()->getLocale() === 'ar' ? $product->name_ar : $product->name_en }}
+                </a>
+            </td>
+            <td class="text-center">x{{$row->qty}}</td>
+            <td class="text-center">${{ $product->price }}</td>
+            <td class="text-right">
+                <a href="{{ route('shop_details', $slug) }}" class="fa fa-edit"></a>
+            </td>
+            <td class="text-right">
+                <a href="{{ route('delete_addTocart', $row->rowId) }}" class="fa fa-times fa-delete"></a>
+            </td>
+        </tr>
+    @endif
+@endforeach
 
-                                                <tr>
-                                                    <td class="text-center" style="width:70px">
-                                                        <a
-                                                            href="{{ route('shop_details', app()->getlocale() === 'ar' ? $row->model->slug_ar : $row->model->slug_en) }}">
-                                                            <img src="{{ asset('storage/' . $row->model?->photo?->filename) }}"
-                                                                style="width:70px" alt="Yutculpa ullamcon"
-                                                                title="Yutculpa ullamco" class="preview">
-                                                        </a>
-                                                    </td>
-                                                    <td class="text-left"><a class="cart_Product_name"
-                                                            href="{{ route('shop_details', app()->getlocale() === 'ar' ? $row->model->slug_ar : $row->model->slug_en) }}">{{ app()->getLocale() === 'ar' ? $row->model->name_ar : $row->model->name_en }}</a>
-                                                    </td>
-                                                    <td class="text-center">x{{$row->qty}}</td>
-                                                    <td class="text-center">${{ $row->model->price }}</td>
-                                                    <td class="text-right">
-                                                        <a href="{{ route('shop_details', app()->getlocale() === 'ar' ? $row->model->slug_ar : $row->model->slug_en) }}"
-                                                            class="fa fa-edit"></a>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <a href="{{route('delete_addTocart', $row->rowId)}}"
-                                                            class="fa fa-times fa-delete"></a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
 
 
 
