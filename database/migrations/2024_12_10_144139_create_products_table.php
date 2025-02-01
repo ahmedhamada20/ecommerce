@@ -23,6 +23,13 @@ return new class extends Migration {
             $table->decimal('discount_price', 10, 2)->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->integer('quantity')->default(0);
+    
+            // Add these lines:
+            $table->decimal('weight', 8, 2)->nullable();
+            $table->decimal('length', 8, 2)->nullable();
+            $table->decimal('width', 8, 2)->nullable();
+            $table->decimal('height', 8, 2)->nullable();
+    
             $table->longText('short_description_ar')->nullable();
             $table->longText('short_description_en')->nullable();
             $table->longText('description_ar')->nullable();
@@ -45,6 +52,7 @@ return new class extends Migration {
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

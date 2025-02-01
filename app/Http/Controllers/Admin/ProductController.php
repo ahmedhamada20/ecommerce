@@ -24,14 +24,13 @@ class ProductController extends Controller
     {
         $brands = Brand::all();
         $categories = Category::all();
-        $coupons = Coupon::all(); // ✅ جلب جميع القسائم من قاعدة البيانات
+        $coupons = Coupon::all(); 
 
         return view('admin.products.create', compact('brands', 'categories', 'coupons'));
     }
 
     public function store(Request $request)
     {
-        // ✅ 1. التحقق من صحة البيانات
         $validated = $request->validate([
             'name_ar' => 'required|string|max:255',
             'name_en' => 'required|string|max:255',
@@ -41,8 +40,9 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'quantity' =>'nullable|numeric',
             'discount_price' => 'nullable|numeric|min:0', 
-            'discount' => 'nullable|numeric|min:0|max:100', // ✅ إضافة التحقق من النسبة المئوية للخصم            'quantity' => 'required|integer',
-            'short_description_ar' => 'nullable|string',
+            'type_discount' => 'nullable|in:percentage,cash', 
+
+            'discount' => 'nullable|numeric|min:0|max:100', 
             'short_description_en' => 'nullable|string',
             'description_ar' => 'nullable|string',
             'description_en' => 'nullable|string',
@@ -61,28 +61,27 @@ class ProductController extends Controller
             'coupon_names' => 'nullable|array',
             'coupon_number' => 'nullable|array',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'weight' => 'nullable|numeric|min:0',
+            'length' => 'nullable|numeric|min:0',
+            'width'  => 'nullable|numeric|min:0',
+            'height' => 'nullable|numeric|min:0',
         ]);
-    // حساب مجموع كميات الألوان إذا تم إدخالها
 if ($request->has('colors') && is_array($request->colors['quantity'])) {
     $validated['quantity'] = array_sum($request->colors['quantity']);
 } else {
-    $validated['quantity'] = 0; // إذا لم يكن هناك ألوان، تكون الكمية 0
+    $validated['quantity'] = 0; 
 }
-        // ✅ 2. ضبط `slug_ar` و `slug_en` بحيث يكونان فريدين
         $validated['slug_ar'] = $validated['slug_ar'] ?? \Illuminate\Support\Str::slug($validated['name_ar']);
         $validated['slug_en'] = $validated['slug_en'] ?? \Illuminate\Support\Str::slug($validated['name_en']);
         $validated['product_points'] = $validated['price'] * 0.2; // ✅ 10% من السعر كنقاط مثال
-// التحقق مما إذا كان `coupon_ids` موجودًا في الطلب، وتخزين أول `coupon_id`
-// التحقق مما إذا كان `coupon_ids` موجودًا في الطلب، وتخزين أول `coupon_id`
-if ($request->filled('discount') && $validated['discount_price'] == null) {
-    $validated['discount_price'] = $validated['price'] - ($validated['price'] * ($request->discount / 100));
-}
-// معالجة وإعداد الوصف قبل التخزين
+        if ($request->filled('discount') && (!isset($validated['discount_price']) || $validated['discount_price'] == null)) {
+            $validated['discount_price'] = $validated['price'] - ($validated['price'] * ($request->discount / 100));
+        }
+        
 $descriptions_ar = [];
 $descriptions_en = [];
 
 if ($request->filled('Description') && is_array($request->Description)) {
-    // تخزين الوصف بالعربية
     if (isset($request->Description['name_ar']) && is_array($request->Description['name_ar'])) {
         foreach ($request->Description['name_ar'] as $index => $name_ar) {
             if (!empty($name_ar)) {
@@ -94,7 +93,6 @@ if ($request->filled('Description') && is_array($request->Description)) {
         }
     }
 
-    // تخزين الوصف بالإنجليزية
     if (isset($request->Description['name_en']) && is_array($request->Description['name_en'])) {
         foreach ($request->Description['name_en'] as $index => $name_en) {
             if (!empty($name_en)) {
@@ -107,25 +105,22 @@ if ($request->filled('Description') && is_array($request->Description)) {
     }
 }
 
-// حفظ البيانات في المنتج
 $validated['description_ar'] = json_encode($descriptions_ar, JSON_UNESCAPED_UNICODE);
 $validated['description_en'] = json_encode($descriptions_en, JSON_UNESCAPED_UNICODE);
 
-// إنشاء المنتج
-
-
 if ($request->filled('coupon_ids')) {
-    $validated['coupon_id'] = $request->coupon_ids[0]; // ✅ أول قسيمة فقط
+    $validated['coupon_id'] = $request->coupon_ids[0]; 
     $coupon = \App\Models\Coupon::find($validated['coupon_id']);
     $validated['type_discount'] = $coupon ? $coupon->discount_type : null;
 } else {
     $validated['coupon_id'] = null;
     $validated['type_discount'] = null;
 }
+if (!in_array($validated['type_discount'], ['percentage', 'cash'])) {
+    $validated['type_discount'] = null; 
+}
 
 
-
-        // إذا كان هناك `slug` مكرر، يتم إضافة رقم تسلسلي
         $counter = 1;
         while (Product::where('slug_ar', $validated['slug_ar'])->exists()) {
             $validated['slug_ar'] = Str::slug($validated['name_ar']) . '-' . $counter;
@@ -138,18 +133,14 @@ if ($request->filled('coupon_ids')) {
             $counter++;
         }
     
-        // ✅ 3. تعيين المستخدم الحالي كمنشئ المنتج
         $validated['user_id'] = auth()->id();
-    
-        // ✅ 4. إنشاء المنتج
+        // dd($validated);
         $product = Product::create($validated);
     
-        // ✅ 5. حفظ التصنيفات (Categories)
         if ($request->filled('categories')) {
             $product->categories()->sync($request->categories);
         }
     
-        // ✅ 6. حفظ الصور (Images)
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('public/products');
@@ -157,7 +148,7 @@ if ($request->filled('coupon_ids')) {
             }
         }
     
-        $totalQuantity = 0; // متغير لتخزين مجموع الكمية
+        $totalQuantity = 0;
         if ($request->has('colors')) {
             foreach ($request->colors['name'] as $index => $name) {
                 if (!empty($name)) {
@@ -167,16 +158,14 @@ if ($request->filled('coupon_ids')) {
                         'size' => $request->colors['size'][$index] ?? null,
                         'quantity' => $request->colors['quantity'][$index] ?? null,
                     ]);
-                    $totalQuantity += $request->colors['quantity'][$index] ?? 0; // جمع الكميات
+                    $totalQuantity += $request->colors['quantity'][$index] ?? 0; 
                 }
             }
         }
         
-        // تحديث `quantity` بعد حساب مجموع الألوان
         $product->update(['quantity' => $totalQuantity]);
         
     
-        // ✅ 8. حفظ المواصفات (Specifications)
         if ($request->filled('specification_name')) {
             foreach ($request->specification_name as $index => $specName) {
                 $product->specifications()->create([
@@ -186,7 +175,6 @@ if ($request->filled('coupon_ids')) {
             }
         }
     
-        // ✅ 9. حفظ الضرائب (Taxes)
         if ($request->filled('tax_names')) {
             foreach ($request->tax_names as $index => $taxName) {
                 $product->taxes()->create([
@@ -200,7 +188,6 @@ if ($request->filled('coupon_ids')) {
 
         
         
-        // ✅ 11. إعادة التوجيه بعد نجاح العملية
         return redirect()->route('admin_products.index')->with('success', 'Product created successfully.');
     }
     
@@ -229,6 +216,7 @@ if ($request->filled('coupon_ids')) {
             'short_description_ar' => 'nullable|string',
             'short_description_en' => 'nullable|string',
             'description_ar' => 'nullable|string',
+            'type_discount' => 'nullable|in:percentage,cash', 
             'description_en' => 'nullable|string',
             'brand_id' => 'nullable|exists:brands,id',
             'categories' => 'nullable|array',
@@ -253,7 +241,11 @@ if ($request->filled('coupon_ids')) {
             'coupon_number.*' => 'nullable|numeric',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'remove_images' => 'nullable|array',
-            'remove_images.*' => 'exists:images,id', // Assuming images have unique IDs
+            'remove_images.*' => 'exists:images,id', 
+            'weight' => 'nullable|numeric|min:0',
+            'length' => 'nullable|numeric|min:0',
+            'width'  => 'nullable|numeric|min:0',
+            'height' => 'nullable|numeric|min:0',
         ]);
     
         $validated['slug_ar'] = $validated['slug_ar'] ?? Str::slug($validated['name_ar']);

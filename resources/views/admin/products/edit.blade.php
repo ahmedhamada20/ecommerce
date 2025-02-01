@@ -325,19 +325,22 @@
                 <ul id="error-list"></ul>
             </div>
 
-            <form id="product-form" method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" action="{{ route('admin_products.update', $product->id) }}">
+                @csrf
+                @method('PUT')
                 <!-- Product Basic Info -->
                 <div class="form-section">
                     <h5>Basic Information</h5>
                     
                     <div class="row">
                            <!-- Product Images -->
-                <div class="form-section">
+                    <div class="form-section">
                     <h5>Images</h5>
-                    <div class="mb-3">
-                        <label for="images" class="form-label">Upload Images</label>
-                        <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
-                        <div class="image-preview" id="image-preview"></div>
+                    <input type="file" class="form-control" name="images[]" multiple>
+                    <div class="image-preview mt-2">
+                        @foreach($product->images as $image)
+                            <img src="{{ asset('storage/products/' . $image->filename) }}" width="100">
+                        @endforeach
                     </div>
                 </div>
                         <div class="col-md-6 mb-3">
@@ -397,30 +400,46 @@
         <!-- Quantity -->
         <div class="col-md-4 mb-3">
             <label for="quantity" class="form-label">Quantity</label>
-            <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantity in stock" min="0" required>
+            <input type="number" class="form-control" value="{{ old('quantity', $product->quantity) }}" id="quantity" name="quantity" placeholder="Quantity in stock" min="0" required>
         </div>
         <!-- Weight -->
         <div class="col-md-4 mb-3">
             <label for="weight" class="form-label">Weight (g)</label>
-            <input type="number" class="form-control" id="weight" name="weight" placeholder="Weight in grams" step="0.01" required>
+            <input type="number" class="form-control" id="weight" name="weight" value="{{ old('weight', $product->weight) }}"placeholder="Weight in grams" step="0.01" required>
         </div>
     </div>
     <div class="row">
         <!-- Length -->
         <div class="col-md-4 mb-3">
             <label for="length" class="form-label">Length (cm)</label>
-            <input type="number" class="form-control" id="length" name="length" placeholder="Length in cm" step="0.01">
+            <input type="number" class="form-control" id="length"  value="{{ old('length', $product->length) }}" name="length" placeholder="Length in cm" step="0.01">
         </div>
         <!-- Width -->
         <div class="col-md-4 mb-3">
             <label for="width" class="form-label">Width (cm)</label>
-            <input type="number" class="form-control" id="width" name="width" placeholder="Width in cm" step="0.01">
+            <input type="number" class="form-control" id="width" name="width" value="{{ old('width', $product->width) }}" placeholder="Width in cm" step="0.01">
         </div>
         <!-- Height -->
         <div class="col-md-4 mb-3">
             <label for="height" class="form-label">Height (cm)</label>
-            <input type="number" class="form-control" id="height" name="height" placeholder="Height in cm" step="0.01">
+            <input type="number" class="form-control" id="height" name="height"value="{{ old('height', $product->height) }}" placeholder="Height in cm" step="0.01">
         </div>
+        <div class="col-md-4 mb-3">
+                        <label class="form-label">Price</label>
+                        <input type="number" class="form-control" name="price" value="{{ old('price', $product->price) }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Discount (%)</label>
+                        <input type="number" class="form-control" name="discount" value="{{ old('discount', $product->discount) }}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+    <label for="type_discount" class="form-label">Discount Type</label>
+    <select class="form-control" id="type_discount" name="type_discount">
+        <option value="" selected>None</option>
+        <option value="percentage">Percentage</option>
+        <option value="cash">Cash</option>
+    </select>
+</div>
     </div>
 </div>
 
@@ -499,7 +518,6 @@
                     </div>
                 </div>
 
-                <!-- Categories and Options -->
                <!-- Categories and Options -->
 <div class="form-section">
 <h5>Categories & Options</h5>
@@ -566,20 +584,18 @@
     <button type="button" class="btn btn-secondary btn-sm" id="add-related-product">+ Add Related Product</button>
 </div>
 
-<!-- Brand -->
-<div class="form-section">
-    <h5>Brand</h5>
-    <div class="mb-3">
-        <label for="brand" class="form-label">Select a Brand</label>
-        <select id="brand" name="brand" class="form-control">
-            <option value="" disabled selected>Select a brand...</option>
-            <option value="1">Brand A</option>
-            <option value="2">Brand B</option>
-            <option value="3">Brand C</option>
-        </select>
-    </div>
-</div>
-
+  <!-- العلامة التجارية -->
+  <div class="form-section">
+                    <h5>Brand</h5>
+                    <select name="brand_id" class="form-control">
+                        <option value="">Select a brand...</option>
+                        @foreach($brands as $brand)
+                            <option value="{{ $brand->id }}" {{ $brand->id == $product->brand_id ? 'selected' : '' }}>
+                                {{ $brand->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 <!-- Labels -->
 <div class="form-section">
     <h5>Labels</h5>
@@ -618,7 +634,18 @@
     </div>
     <button type="button" class="btn btn-secondary btn-sm" id="add-tax">+ Add Tax</button>
 </div>
-
+  <!-- القسائم -->
+  <div class="form-section">
+                    <h5>Coupons</h5>
+                    <select name="coupon_ids[]" class="form-control">
+                        <option value="">Select a Coupon</option>
+                        @foreach($coupons as $coupon)
+                            <option value="{{ $coupon->id }}" {{ $coupon->id == $product->coupon_id ? 'selected' : '' }}>
+                                {{ $coupon->code }} ({{ $coupon->value }}%)
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
 <!-- Minimum Order Quantity -->
 <div class="form-section">
@@ -639,121 +666,7 @@
     </div>
 </div>
 @endsection
-<!-- @section('content')
-<div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <h3 class="mb-4 text-primary">Edit Product</h3>
-            <form method="post" enctype="multipart/form-data" action="{{ route('admin_products.update', $product->id) }}">
-                @csrf
-                @method('PUT')
-                
-                <!-- الاسم بالعربية والإنجليزية -->
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Name (AR)</label>
-                        <input type="text" class="form-control" name="name_ar" value="{{ old('name_ar', $product->name_ar) }}" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Name (EN)</label>
-                        <input type="text" class="form-control" name="name_en" value="{{ old('name_en', $product->name_en) }}" required>
-                    </div>
-                </div>
-                
-                <!-- السعر، الكمية، SKU -->
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">SKU</label>
-                        <input type="text" class="form-control" name="SKU" value="{{ old('SKU', $product->SKU) }}" required>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Price</label>
-                        <input type="number" class="form-control" name="price" value="{{ old('price', $product->price) }}" required>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Discount (%)</label>
-                        <input type="number" class="form-control" name="discount" value="{{ old('discount', $product->discount) }}">
-                    </div>
-                </div>
-                
-                <!-- التصنيفات -->
-                <div class="form-section">
-                    <h5>Categories</h5>
-                    @foreach($categories as $category)
-                        <label>
-                            <input type="checkbox" name="categories[]" value="{{ $category->id }}" 
-                                {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
-                            {{ $category->name }}
-                        </label>
-                    @endforeach
-                </div>
-                
-                <!-- العلامة التجارية -->
-                <div class="form-section">
-                    <h5>Brand</h5>
-                    <select name="brand_id" class="form-control">
-                        <option value="">Select a brand...</option>
-                        @foreach($brands as $brand)
-                            <option value="{{ $brand->id }}" {{ $brand->id == $product->brand_id ? 'selected' : '' }}>
-                                {{ $brand->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                
-                <!-- الألوان -->
-                <div class="form-section">
-                    <h5>Colors</h5>
-                    <div id="color-container">
-                        @foreach($product->colors as $color)
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <input type="color" class="form-control" name="colors[code][]" value="{{ $color->code }}">
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="text" class="form-control" name="colors[name][]" value="{{ $color->name }}" placeholder="Color Name">
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" class="form-control" name="colors[quantity][]" value="{{ $color->quantity }}" placeholder="Quantity">
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                
-                <!-- القسائم -->
-                <div class="form-section">
-                    <h5>Coupons</h5>
-                    <select name="coupon_ids[]" class="form-control">
-                        <option value="">Select a Coupon</option>
-                        @foreach($coupons as $coupon)
-                            <option value="{{ $coupon->id }}" {{ $coupon->id == $product->coupon_id ? 'selected' : '' }}>
-                                {{ $coupon->code }} ({{ $coupon->value }}%)
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                
-                <!-- الصور -->
-                <div class="form-section">
-                    <h5>Images</h5>
-                    <input type="file" class="form-control" name="images[]" multiple>
-                    <div class="image-preview mt-2">
-                        @foreach($product->images as $image)
-                            <img src="{{ asset('storage/products/' . $image->filename) }}" width="100">
-                        @endforeach
-                    </div>
-                </div>
-                
-                <!-- زر الحفظ -->
-                <div class="text-end">
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endsection -->
+
 @section('js')
 <script>
  document.addEventListener('DOMContentLoaded', function () {
